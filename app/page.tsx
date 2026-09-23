@@ -1,5 +1,10 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { ExpertiseCardType, ExpertiseData, statsData, StatsType } from "./lib/constants";
+import {
+  ExpertiseCardType,
+  ExpertiseData,
+  statsData,
+  StatsType,
+} from "./lib/constants";
 import { twMerge } from "tailwind-merge";
 
 const DotSeperator = () => <span className="text-xs "> • </span>;
@@ -14,7 +19,8 @@ export default function Home() {
     <>
       <HeroSection />
       <IntroSection />
-      <ExpertiseSection/>
+      <ExpertiseSection />
+      <RecentSection/>
     </>
   );
 }
@@ -45,29 +51,35 @@ const HeroSection = () => (
 
 const Stat = ({ metric, desc }: StatsType) => (
   <div>
-    <p className="font-playfair text-7xl text-brand-800">{metric}<span className="text-brand-600 text-4xl">+</span></p>
+    <p className="font-playfair text-7xl text-brand-800">
+      {metric}
+      <span className="text-brand-600 text-4xl">+</span>
+    </p>
     <p className="text-neutral-700">{desc}</p>
   </div>
 );
 type GlowBackgroundType = {
-  children: ReactNode,
-  className: ComponentPropsWithoutRef<'section'>['className'];
-}
-const GlowBackground = ({children, className} : GlowBackgroundType ) => (
+  children: ReactNode;
+  className: ComponentPropsWithoutRef<"section">["className"];
+};
+const GlowBackground = ({ children, className }: GlowBackgroundType) => (
   <section
-      className={twMerge('relative isolate min-h-screen overflow-hidden bg-white', className )}
+    className={twMerge(
+      "relative isolate min-h-screen overflow-hidden bg-white",
+      className,
+    )}
+  >
+    {/* Background layer: the glow */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 -z-10"
     >
-      {/* Background layer: the glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute -bottom-40 -right-40 h-164 w-166 rounded-full bg-brand-500 opacity-70 blur-[120px]" />
-      </div>
- 
-      {/* Foreground: anything you put here is unaffected by the glow */}
-      {children}
-    </section>
+      <div className="absolute -bottom-40 -right-40 h-164 w-166 rounded-full bg-brand-500 opacity-70 blur-[120px]" />
+    </div>
+
+    {/* Foreground: anything you put here is unaffected by the glow */}
+    {children}
+  </section>
 );
 
 const IntroSection = () => (
@@ -80,33 +92,53 @@ const IntroSection = () => (
       </p>
     </div>
     <div className="flex justify-between py-8">
-    {statsData.map((d, _) => (
-      <Stat key={_} metric={d.metric} desc={d.desc} />
-    ))}
+      {statsData.map((d, _) => (
+        <Stat key={_} metric={d.metric} desc={d.desc} />
+      ))}
     </div>
     <div className="bg-neutral-700 rounded-lg h-1/2 mt-16"></div>
   </GlowBackground>
 );
 
 const ExpertiseSection = () => (
-  <section className="h-screen bg-neutral-100 px-23 py-16">
+  <section className="h-full bg-neutral-100 px-23 py-16">
     <div className="space-y-4">
       <p className="caption-text text-brand-600 ">Expertise</p>
       <h2 className="text-neutral-800">What I Do</h2>
     </div>
     <div className="grid grid-cols-2 gap-4">
-    {ExpertiseData.map((e, index) => (
-      <ExpertiseCard key={index} props={e}/>
-    ))}
+      {ExpertiseData.map((e, index) => (
+        <ExpertiseCard key={index} props={e} />
+      ))}
     </div>
   </section>
-)
+);
 
-const ExpertiseCard = ({props}: {props: ExpertiseCardType}) => (
-  
-  <div className={twMerge("rounded-lg text-neutral-100 p-8 pt-20 grid grid-cols-2 ",props.color)}>
-    <div className=""><h3>{props.title}</h3>
-    <p>{props.desc}</p></div>
-    <span className="font-bold">↗</span>
+const ExpertiseCard = ({ props }: { props: ExpertiseCardType }) => (
+  <div
+    className={twMerge(
+      "rounded-lg text-neutral-100 p-8 pt-24 grid grid-cols-2 hover:scale-102 transition-transform duration-300 group cursor-pointer",
+      props.color,
+    )}
+  >
+    <div className="space-y-4">
+      <h2 className="">{props.title}</h2>
+      <p className="text-sm">{props.desc}</p>
+    </div>
+    <span className="font-normal text-2xl flex justify-end items-end">↗</span>
   </div>
-)
+);
+
+const RecentSection = () => (
+  <section className="h-screen bg-neutral-100 px-23 py-16">
+    <div className="space-y-4">
+      <p className="caption-text text-brand-600 ">Media</p>
+      <div>
+        <h2 className="text-neutral-800">Recent Work</h2>
+        <p className="">View More ↗</p>
+      </div>
+      
+    </div>
+    
+  </section>
+);
