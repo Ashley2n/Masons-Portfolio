@@ -1,6 +1,6 @@
 # Project Brief — Mason Farrington Portfolio
 
-_Last updated: 2026-10-09_
+_Last updated: 2026-10-10_
 
 ## Overview
 
@@ -50,8 +50,10 @@ A personal portfolio website for **Mason Farrington**, a multidisciplinary artis
 
 - All content shown in the mockups was provided by Mason.
 - Ashley has **free rein to edit copy** (typos, tone, clarity).
-- Mason also has an existing website that can be used as a content source (URL to be added in [open-questions.md](open-questions.md)).
-- Videos are **YouTube embeds**, shown in custom-styled cards.
+- **The homepage mockup is the copy source of truth.** Wording (e.g. Model / Designer / Singer / Actor and their subtitles) follows it on every page.
+- Mason's current site, which has little content: https://sites.google.com/view/masonmfarrington-com/home
+- **Photos:** free stock photos (Unsplash and similar) for the MVP. Portraits that represent Mason himself should be replaced with his real photos before launch (Q C10).
+- Videos are **YouTube embeds** (and possibly Instagram Reels), shown in custom-styled cards (D-12).
 - Everything still needed from Mason is tracked in [content-checklist.md](content-checklist.md).
 
 ## Timeline
@@ -59,10 +61,11 @@ A personal portfolio website for **Mason Farrington**, a multidisciplinary artis
 | Milestone | Date |
 |---|---|
 | Project docs and plan | Fri 2026-10-09 |
-| **Demo window** (client preview) | **Wed 2026-10-14 → Sun 2026-10-18** |
+| **Demo-ready** (Vercel preview link) | **Wed 2026-10-14** |
+| **Client demo meeting** | One meeting between Wed 10/14 and Sun 10/18, depending on Mason's availability |
 | **Launch deadline** | **Fri 2026-10-16** |
 
-Note that the demo window extends past the launch deadline. This needs to be confirmed; see [open-questions.md](open-questions.md).
+There's no domain yet, so launch can happen on a free `*.vercel.app` URL (Q C5).
 
 The detailed plan is in [roadmap.md](roadmap.md).
 
