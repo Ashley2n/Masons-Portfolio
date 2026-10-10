@@ -1,4 +1,4 @@
-import { navLinks } from "@/app/lib/constants";
+import { navLinks } from "@/content/site";
 import Link from "next/link";
 
 export default function Header() {
@@ -7,13 +7,13 @@ export default function Header() {
       <div className="flex flex-row justify-between items-center">
         <HeaderLogo />
         <div className="flex md:flex-row gap-12 caption-text tracking-wider">
-          {navLinks.map((x, index) => (
-            <Link 
-            key={index} 
-            href={x.link}
+          {navLinks.map((link) => (
+            <Link
+            key={link.href}
+            href={link.href}
             className="border-b border-b-transparent hover:border-b-neutral-300 hover:text-neutral-300 transition-all duration-300 hover:cursor-pointer"
             >
-              {x.name}
+              {link.label}
             </Link>
           ))}
         </div>

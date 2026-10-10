@@ -1,14 +1,7 @@
 "use client";
 import { ComponentPropsWithoutRef, ReactNode, useState } from "react";
-import {
-  ExpertiseCardType,
-  ExpertiseData,
-  ModelImageType,
-  ModelShotsData,
-  statsData,
-  StatsType,
-  VideoCardData,
-} from "./lib/constants";
+import { expertiseItems, modelShots, stats, videos } from "@/content/home";
+import type { ExpertiseItem, ModelShot, Stat } from "@/types/content";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import Image from "next/image";
@@ -57,13 +50,13 @@ const HeroSection = () => (
   </main>
 );
 
-const Stat = ({ metric, desc }: StatsType) => (
+const StatItem = ({ value, label }: Stat) => (
   <div>
     <p className="font-playfair text-7xl text-brand-800">
-      {metric}
+      {value}
       <span className="text-brand-600 text-4xl">+</span>
     </p>
-    <p className="text-neutral-700">{desc}</p>
+    <p className="text-neutral-700">{label}</p>
   </div>
 );
 type GlowBackgroundType = {
@@ -100,8 +93,8 @@ const IntroSection = () => (
       </p>
     </div>
     <div className="flex justify-between py-8">
-      {statsData.map((d, _) => (
-        <Stat key={_} metric={d.metric} desc={d.desc} />
+      {stats.map((stat) => (
+        <StatItem key={stat.id} {...stat} />
       ))}
     </div>
     <div className="bg-neutral-700 rounded-lg h-1/2 mt-16"></div>
@@ -115,23 +108,23 @@ const ExpertiseSection = () => (
       <h2 className="text-neutral-800">What I Do</h2>
     </div>
     <div className="grid grid-cols-2 gap-4">
-      {ExpertiseData.map((e, index) => (
-        <ExpertiseCard key={index} props={e} />
+      {expertiseItems.map((item) => (
+        <ExpertiseCard key={item.id} item={item} />
       ))}
     </div>
   </section>
 );
 
-const ExpertiseCard = ({ props }: { props: ExpertiseCardType }) => (
+const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
   <div
     className={twMerge(
       "rounded-lg text-neutral-100 p-8 pt-24 grid grid-cols-2 hover:scale-102 transition-transform duration-300 group cursor-pointer",
-      props.color,
+      item.colorClass,
     )}
   >
     <div className="space-y-4">
-      <h2 className="">{props.title}</h2>
-      <p className="text-sm">{props.desc}</p>
+      <h2 className="">{item.title}</h2>
+      <p className="text-sm">{item.description}</p>
     </div>
     <span className="font-normal text-2xl flex justify-end items-end">↗</span>
   </div>
@@ -156,8 +149,8 @@ const RecentSection = () => (
     <div>
       <h2 className="text-neutral-800">Other Work</h2>
       <div className="grid grid-cols-3 gap-6">
-        {VideoCardData.map((v, index) => (
-          <VideoCard key={index} />
+        {videos.map((video) => (
+          <VideoCard key={video.id} />
         ))}
       </div>
     </div>
@@ -175,15 +168,11 @@ const VideoCard = () => {
 };
 
 const ModelShotsSections = () => {
-  const [currentImage, setCurrentImage] = useState<ModelImageType>(
-    ModelShotsData[0],
-  );
+  const [currentImage, setCurrentImage] = useState<ModelShot>(modelShots[0]);
 
-  const nextImage = (shot: ModelImageType) => {
-    const currentIndex = ModelShotsData.indexOf(shot);
-    setCurrentImage(
-      ModelShotsData[getNextIndex(currentIndex, ModelShotsData.length)],
-    );
+  const nextImage = (shot: ModelShot) => {
+    const currentIndex = modelShots.indexOf(shot);
+    setCurrentImage(modelShots[getNextIndex(currentIndex, modelShots.length)]);
   };
 
   return (
@@ -195,7 +184,7 @@ const ModelShotsSections = () => {
           onClick={() => nextImage(currentImage)}
           >→</button>
           <Image
-            src={currentImage.imageLink}
+            src={currentImage.src}
             width={100}
             height={100}
             alt={currentImage.alt}
@@ -207,7 +196,7 @@ const ModelShotsSections = () => {
         </div>
 
         <div className="flex justify-center mt-2">
-          {ModelShotsData.map((s) => (
+          {modelShots.map((s) => (
             <ModelPreviewShot
               key={s.id}
               shot={s}
@@ -221,7 +210,7 @@ const ModelShotsSections = () => {
 };
 
 type ModelPreviewType = {
-  shot: ModelImageType;
+  shot: ModelShot;
   handleOnClick: () => void;
 };
 
@@ -229,7 +218,7 @@ const ModelPreviewShot = ({ shot, handleOnClick }: ModelPreviewType) => {
   return (
     <div className="w-16 h-16 rounded-lg" onClick={handleOnClick}>
       <Image
-        src={shot.imageLink}
+        src={shot.src}
         alt={shot.alt}
         className="bg-cover bg-center w-full h-14 rounded-lg border-2 hover:border-brand-600"
         width={0}
