@@ -4,7 +4,7 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 
 ## Read first
 
-- `docs/project-brief.md`: scope, pages, timeline (demo Wed 2026-10-14, launch Fri 2026-10-16)
+- `docs/project-brief.md`: scope, pages, timeline (demo-ready Wed 2026-10-14, launch Fri 2026-10-16)
 - `docs/roadmap.md`: current phase. Tick items off when you complete them.
 - `docs/architecture.md`: folder structure and conventions (follow them)
 - `docs/design-system.md`: tokens and type scale; the mockups are in `docs/Mockups/`
@@ -19,6 +19,7 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 - Use stable IDs or slugs for list keys (never `Math.random()` or array index).
 - Use `next/image` with real dimensions or `fill` + `sizes`.
 - Write semantic, accessible HTML: links for navigation, buttons for actions, no clickable `div`s.
+- The homepage mockup is the copy source of truth. Colors and fonts in code are the design source of truth (D-10).
 - Write mobile-first; there are no mobile mockups, so follow the responsive rules in `docs/design-system.md`.
 
 ## Workflow

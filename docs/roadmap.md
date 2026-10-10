@@ -2,13 +2,13 @@
 
 Phased plan to an MVP launch. Each phase is a branch with small commits. Tick items as they're done.
 
-_Last updated: 2026-10-09_
+_Last updated: 2026-10-10_
 
 | Milestone | Target date |
 |---|---|
 | Demo-ready (Vercel preview link to Mason) | **Wed 2026-10-14** |
+| Client demo meeting | One meeting Wed 10/14 – Sun 10/18 (Mason's availability) |
 | Launch | **Fri 2026-10-16** |
-| Client feedback window | Wed 10/14 → Sun 10/18 |
 
 ## Phase 0 · Secure current work (`fix/homepage-wip`), Sat 10/10
 
@@ -38,11 +38,12 @@ _Last updated: 2026-10-09_
 - [ ] Fix the self-referencing `--font-*` variables (`@theme inline`)
 - [ ] Dark-first base (fixes the invisible hero in light mode; see D-04)
 - [ ] Site metadata (title, description) to replace "Create Next App"
+- [ ] Font usage matches the design system on every page (D-10)
 
 ## Phase 4 · Shared layout (`feat/layout`), Sun 10/11
 
 - [ ] Semantic `Header` with `<nav>`, active link, Contact link, mobile menu
-- [ ] `Footer` (Navigation / Connect / Contact columns, auto year)
+- [ ] `Footer` (Navigation / Connect / Contact columns, year generated automatically)
 - [ ] `CtaBanner` → `/contact`
 - [ ] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
 - [ ] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
@@ -52,10 +53,11 @@ _Last updated: 2026-10-09_
 - [ ] Hero with portrait image, "View work" → `/media`
 - [ ] Journey stats + image with glow
 - [ ] Expertise cards with gradients and links
-- [ ] Recent Work + Other Work with `YouTubeEmbed` cards
+- [ ] Recent Work + Other Work with `VideoCard` (YouTube inline + Instagram Reel support, D-12)
 - [ ] Model Shots carousel: wraparound, prev/next, thumbnails, keyboard support
 - [ ] Responsive pass (mobile / tablet)
-- [ ] Copy edits (typos)
+- [ ] Copy matches the homepage mockup exactly (stats, expertise wording, tagline)
+- [ ] Source and optimize free stock photos (D-11)
 
 ## Phase 6 · About & Media (`feat/about`, `feat/media`), Tue 10/13
 
@@ -69,9 +71,10 @@ _Last updated: 2026-10-09_
 - [ ] `/resume`: inline PDF preview + download button (D-06)
 - [ ] `/contact`: form UI with validation, contact card, socials. `mailto:` fallback until D-07 is decided.
 
-## 🎬 Demo, Wed 10/14
+## 🎬 Demo-ready Wed 10/14, meeting Wed–Sun
 
 - [ ] Deploy to Vercel and share the preview URL with Mason
+- [ ] Schedule the demo meeting (Wed 10/14 – Sun 10/18)
 - [ ] Walk through [open-questions.md](open-questions.md) with Mason
 
 ## Phase 8 · Polish & launch (`chore/launch`), Thu 10/15 → Fri 10/16
@@ -83,10 +86,13 @@ _Last updated: 2026-10-09_
 - [ ] Accessibility pass (keyboard, focus, alt text, contrast)
 - [ ] Lighthouse audit (target ≥ 90 on every category)
 - [ ] Custom 404 page
-- [ ] Connect domain, launch 🚀
+- [ ] Enable Vercel Web Analytics
+- [ ] Launch on `*.vercel.app` (connect a domain when Mason buys one) 🚀
 
 ## Post-launch (backlog)
 
 - [ ] CMS for client self-editing (if requested; see Q C1 / D-03)
-- [ ] Analytics (Q C14)
+- [ ] Replace stock portraits with Mason's own photos (Q C10)
+- [ ] Automatic video ordering via YouTube / Instagram APIs (D-12)
+- [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
