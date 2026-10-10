@@ -1,7 +1,7 @@
 "use client";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import VideoCard from "@/components/ui/VideoCard";
 import { galleryCategories, galleryItems, mediaContent } from "@/content/media";
 import { countByCategory, filterGallery, type GalleryFilter } from "@/lib/gallery";
@@ -12,9 +12,24 @@ const counts = countByCategory(galleryItems);
 export default function Gallery() {
   const [filter, setFilter] = useState<GalleryFilter>("all");
   const [visibleCount, setVisibleCount] = useState(mediaContent.pageSize);
+  const listRef = useRef<HTMLUListElement>(null);
+  // Index of the first item added by "Load more", focused once it renders so focus
+  // is never lost when the button disappears.
+  const focusIndex = useRef<number | null>(null);
 
   const matching = filterGallery(galleryItems, filter);
   const shown = matching.slice(0, visibleCount);
+
+  useEffect(() => {
+    if (focusIndex.current === null) return;
+    (listRef.current?.children[focusIndex.current] as HTMLElement | undefined)?.focus();
+    focusIndex.current = null;
+  }, [visibleCount]);
+
+  const loadMore = () => {
+    focusIndex.current = shown.length;
+    setVisibleCount((count) => count + mediaContent.pageSize);
+  };
 
   const choose = (next: GalleryFilter) => {
     setFilter(next);
@@ -53,9 +68,21 @@ export default function Gallery() {
       </p>
 
       {/* Masonry via CSS columns: every item keeps its own aspect ratio */}
-      <ul aria-label="Gallery" className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+      {/* Gives the hidden video titles (h3) a parent heading */}
+      <h2 id="gallery-heading" className="sr-only">
+        Gallery
+      </h2>
+      <ul
+        ref={listRef}
+        aria-labelledby="gallery-heading"
+        className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4"
+      >
         {shown.map((item) => (
-          <li key={item.id} className="mb-4 break-inside-avoid">
+          <li
+            key={item.id}
+            tabIndex={-1}
+            className="mb-4 break-inside-avoid rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          >
             {item.kind === "photo" ? (
               <Image
                 src={item.photo.src}
@@ -80,7 +107,7 @@ export default function Gallery() {
         <div className="flex justify-center">
           <button
             type="button"
-            onClick={() => setVisibleCount((count) => count + mediaContent.pageSize)}
+            onClick={loadMore}
             className="caption-text inline-flex items-center gap-2 text-neutral-100 transition-colors hover:text-brand-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
           >
             {mediaContent.loadMore}

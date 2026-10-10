@@ -67,4 +67,26 @@ describe("Gallery", () => {
       }
     });
   });
+
+  it("has an h2 so the hidden video titles (h3) don't skip a heading level", () => {
+    render(<Gallery />);
+
+    const heading = screen.getByRole("heading", { level: 2, name: "Gallery" });
+    expect(screen.getByRole("list", { name: "Gallery" })).toHaveAttribute(
+      "aria-labelledby",
+      heading.id,
+    );
+  });
+
+  it("moves focus to the first new item after 'Load more', so it's never lost", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+
+    while (screen.queryByRole("button", { name: "Load more" })) {
+      const before = shownItems().length;
+      await user.click(screen.getByRole("button", { name: "Load more" }));
+      expect(shownItems()[before]).toHaveFocus();
+    }
+    expect(document.activeElement).not.toBe(document.body);
+  });
 });
