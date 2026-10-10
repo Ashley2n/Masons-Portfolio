@@ -28,4 +28,29 @@ describe("Button", () => {
     expect(link.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
     expect(link).not.toHaveTextContent("↗");
   });
+
+  it("downloads a file with a download icon", () => {
+    render(
+      <Button href="/resume/cv.pdf" download="Mason-Farrington-Resume.pdf" icon="download">
+        Download PDF
+      </Button>,
+    );
+
+    const link = screen.getByRole("link", { name: "Download PDF" });
+    expect(link).toHaveAttribute("href", "/resume/cv.pdf");
+    expect(link).toHaveAttribute("download", "Mason-Farrington-Resume.pdf");
+    expect(link.querySelector("svg")).toHaveClass("lucide-download");
+  });
+
+  it("can open a link in a new tab, safely", () => {
+    render(
+      <Button href="/resume/cv.pdf" newTab>
+        Open in new tab
+      </Button>,
+    );
+
+    const link = screen.getByRole("link", { name: "Open in new tab" });
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
 });
