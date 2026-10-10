@@ -15,9 +15,9 @@ describe("Header", () => {
     render(<Header />);
 
     const banner = screen.getByRole("banner");
-    const logo = within(banner).getByRole("link", { name: /mason farrington, home/i });
+    // The accessible name starts with the visible text (WCAG 2.5.3 Label in Name)
+    const logo = within(banner).getByRole("link", { name: "MF, Mason Farrington, home" });
     expect(logo).toHaveAttribute("href", "/");
-    expect(logo).toHaveTextContent("MF");
   });
 
   it("has a main navigation with the four page links", () => {

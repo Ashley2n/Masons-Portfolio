@@ -79,4 +79,10 @@ describe("Home page", () => {
 
     expect(screen.queryByRole("main")).not.toBeInTheDocument();
   });
+
+  it("links 'View More' in Recent Work to the media page", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: /view more/i })).toHaveAttribute("href", "/media");
+  });
 });

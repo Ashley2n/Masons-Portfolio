@@ -35,7 +35,7 @@ test.describe("navigation", () => {
 
   test("the logo returns to the homepage", async ({ page }) => {
     await page.goto("/about");
-    await page.getByRole("link", { name: /mason farrington, home/i }).click();
+    await page.getByRole("link", { name: "MF, Mason Farrington, home" }).click();
 
     await expect(page).toHaveURL("/");
   });

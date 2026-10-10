@@ -10,7 +10,7 @@ export default function Header() {
       <Container className="flex items-center justify-between py-6">
         <Link
           href="/"
-          aria-label={`${siteConfig.name}, home`}
+          aria-label={`MF, ${siteConfig.name}, home`}
           className="font-playfair text-3xl italic text-neutral-100"
         >
           MF

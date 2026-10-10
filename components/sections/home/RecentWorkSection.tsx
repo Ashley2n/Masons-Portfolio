@@ -19,7 +19,7 @@ export default function RecentWorkSection() {
           <h2 className="text-neutral-800">Recent Work</h2>
           <Link
             className="uppercase text-neutral-700 border-b-2 border-b-transparent hover:border-b-neutral-700 transition-all duration-500"
-            href={"/"}
+            href="/media"
           >
             View More
             <span className="font-bold ml-3">↗</span>
