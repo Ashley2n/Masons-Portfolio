@@ -1,0 +1,92 @@
+# Roadmap
+
+Phased plan to an MVP launch. Each phase is a branch with small commits. Tick items as they're done.
+
+_Last updated: 2026-10-09_
+
+| Milestone | Target date |
+|---|---|
+| Demo-ready (Vercel preview link to Mason) | **Wed 2026-10-14** |
+| Launch | **Fri 2026-10-16** |
+| Client feedback window | Wed 10/14 → Sun 10/18 |
+
+## Phase 0 · Secure current work (`fix/homepage-wip`), Sat 10/10
+
+- [ ] Fix the carousel crash on the last image ([`app/page.tsx` `nextImage`](../app/page.tsx))
+- [ ] Commit the in-progress homepage work and placeholder images
+- [ ] Add `.gitattributes` to normalize line endings (LF)
+
+## Phase 1 · Documentation (`docs/project-foundation`), Fri 10/9 ✅
+
+- [x] Project brief, roadmap, architecture, design system, decision log
+- [x] Content checklist and open questions for the client
+- [x] README and `CLAUDE.md`
+
+## Phase 2 · Restructure, no visual changes (`refactor/project-structure`), Sat 10/10
+
+- [ ] Move `Header` to `components/layout/`
+- [ ] Split `app/page.tsx` into `components/sections/home/*`. The page becomes a Server Component, and only the carousel is a client component.
+- [ ] Move fonts to `lib/fonts.ts`, add `cn()` to `lib/utils.ts`
+- [ ] Move data to `content/`, types to `types/content.ts`, with static IDs
+- [ ] Remove `app/lib/` and the leftover Next.js boilerplate SVGs in `public/`
+- [ ] Verify: `npm run build`, lint and type check pass; homepage looks unchanged
+
+## Phase 3 · Design tokens (`feat/design-tokens`), Sun 10/11
+
+- [ ] Brand and neutral palettes match [design-system.md](design-system.md)
+- [ ] Type scale (Display 64, H1 48, H2 28, H3 20, Body 16, Small 14, Caption 12) with line heights
+- [ ] Fix the self-referencing `--font-*` variables (`@theme inline`)
+- [ ] Dark-first base (fixes the invisible hero in light mode; see D-04)
+- [ ] Site metadata (title, description) to replace "Create Next App"
+
+## Phase 4 · Shared layout (`feat/layout`), Sun 10/11
+
+- [ ] Semantic `Header` with `<nav>`, active link, Contact link, mobile menu
+- [ ] `Footer` (Navigation / Connect / Contact columns, auto year)
+- [ ] `CtaBanner` → `/contact`
+- [ ] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
+- [ ] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
+
+## Phase 5 · Homepage complete (`feat/home`), Mon 10/12
+
+- [ ] Hero with portrait image, "View work" → `/media`
+- [ ] Journey stats + image with glow
+- [ ] Expertise cards with gradients and links
+- [ ] Recent Work + Other Work with `YouTubeEmbed` cards
+- [ ] Model Shots carousel: wraparound, prev/next, thumbnails, keyboard support
+- [ ] Responsive pass (mobile / tablet)
+- [ ] Copy edits (typos)
+
+## Phase 6 · About & Media (`feat/about`, `feat/media`), Tue 10/13
+
+- [ ] About hero with signature
+- [ ] Journey timeline (6 milestones, alternating layout desktop / single column mobile)
+- [ ] Media hero, category tabs, gallery grid (photos + video items), "Load more"
+- [ ] Responsive pass
+
+## Phase 7 · Resume & Contact (`feat/resume`, `feat/contact`), Wed 10/14 AM
+
+- [ ] `/resume`: inline PDF preview + download button (D-06)
+- [ ] `/contact`: form UI with validation, contact card, socials. `mailto:` fallback until D-07 is decided.
+
+## 🎬 Demo, Wed 10/14
+
+- [ ] Deploy to Vercel and share the preview URL with Mason
+- [ ] Walk through [open-questions.md](open-questions.md) with Mason
+
+## Phase 8 · Polish & launch (`chore/launch`), Thu 10/15 → Fri 10/16
+
+- [ ] Apply demo feedback
+- [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
+- [ ] Contact form backend (per D-07)
+- [ ] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon
+- [ ] Accessibility pass (keyboard, focus, alt text, contrast)
+- [ ] Lighthouse audit (target ≥ 90 on every category)
+- [ ] Custom 404 page
+- [ ] Connect domain, launch 🚀
+
+## Post-launch (backlog)
+
+- [ ] CMS for client self-editing (if requested; see Q C1 / D-03)
+- [ ] Analytics (Q C14)
+- [ ] Page transitions and scroll animations
