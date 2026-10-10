@@ -16,6 +16,7 @@ export const navLinks: NavLink[] = [
 
 export const contactInfo: ContactInfo = {
   email: "masonfarrington@gmail.com",
+  // phone: "+1 (___) ___-____", // Ashley adds Mason's real number here (Q C3)
   location: "Los Angeles, CA",
 };
 

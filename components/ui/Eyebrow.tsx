@@ -5,9 +5,15 @@ import { cn } from "@/lib/utils";
 export default function Eyebrow({
   children,
   className,
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
-  return <p className={cn("caption-text text-brand-600", className)}>{children}</p>;
+  return (
+    <p id={id} className={cn("caption-text text-brand-600", className)}>
+      {children}
+    </p>
+  );
 }

@@ -11,6 +11,8 @@ export type SocialLink = {
 
 export type ContactInfo = {
   email: string;
+  /** Optional: shown on the contact page only when set, e.g. "+1 (310) 555-0100" */
+  phone?: string;
   location: string;
 };
 
@@ -72,12 +74,6 @@ export type Milestone = {
   image?: Photo;
   /** Achieved milestones get a check mark; ongoing ones a plain dot */
   status: "complete" | "ongoing";
-};
-
-export type PageIntro = {
-  eyebrow: string;
-  title: string;
-  description: string;
 };
 
 export const galleryCategoryIds = [
