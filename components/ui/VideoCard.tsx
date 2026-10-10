@@ -28,7 +28,7 @@ const PlayBadge = () => (
 export default function VideoCard({
   video,
   tone = "light",
-  sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw",
+  sizes = "(min-width: 768px) 33vw, 100vw",
   frameClassName,
   className,
 }: VideoCardProps) {
