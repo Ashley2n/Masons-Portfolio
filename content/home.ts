@@ -1,16 +1,25 @@
 import type { ExpertiseItem, ModelShot, Photo, Stat, Video } from "@/types/content";
 
+export const heroContent = {
+  roles: ["Actor", "Musician", "Singer", "Designer"],
+  firstName: "Mason",
+  lastName: "Farrington",
+  tagline:
+    "A multidisciplinary artist creating meaningful experiences through performance and design.",
+  cta: { label: "View work", href: "/media" },
+};
+
 export const stats: Stat[] = [
-  { id: "theatrical-shows", value: "10", label: "theatrical shows" },
-  { id: "live-events", value: "12", label: "concerts, competitions, and live events" },
-  { id: "musical-shows", value: "4", label: "theatrical/musical show" },
+  { id: "theatrical-shows", value: "10", label: "theatrical/musical shows" },
+  { id: "live-events", value: "12", label: "concerts, competitions & live events" },
+  { id: "musical-shows", value: "4", label: "theatrical/musical shows" },
 ];
 
 export const expertiseItems: ExpertiseItem[] = [
-  { id: "model", title: "Model", description: "Stage & Screen Work", href: "/", colorClass: "bg-brand-400" },
-  { id: "designer", title: "Designer", description: "Branding & Digital Design", href: "/", colorClass: "bg-brand-600" },
-  { id: "singer", title: "Singer", description: "Live Vocals & Studio", href: "/", colorClass: "bg-brand-500" },
-  { id: "actor", title: "Actor", description: "Theate & On Camera", href: "/", colorClass: "bg-brand-700" },
+  { id: "model", title: "Model", description: "Stage & Screen Work", href: "/media", colorClass: "bg-brand-400" },
+  { id: "designer", title: "Designer", description: "Branding & Digital Design", href: "/media", colorClass: "bg-brand-600" },
+  { id: "singer", title: "Singer", description: "Live Vocals & Studio", href: "/media", colorClass: "bg-brand-500" },
+  { id: "actor", title: "Actor", description: "Theatre & On Camera", href: "/media", colorClass: "bg-brand-700" },
 ];
 
 // Mock videos for the demo: Blender open movies and Blender Studio Shorts (Creative Commons),

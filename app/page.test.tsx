@@ -1,16 +1,45 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { homeImages } from "@/content/home";
 import Home from "./page";
 
 describe("Home page", () => {
-  it("renders the hero with name, roles and call to action", () => {
-    render(<Home />);
+  describe("hero (copy from the homepage mockup)", () => {
+    it("uses Mason's name as the page's only h1", () => {
+      render(<Home />);
 
-    expect(screen.getByText(/Mason/)).toHaveTextContent("Mason Farrington");
-    for (const role of ["Actor", "Musician", "Singer", "Designer"]) {
-      expect(screen.getAllByText(role).length).toBeGreaterThan(0);
-    }
-    expect(screen.getByRole("link", { name: "View work" })).toHaveAttribute("href", "/media");
+      expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+      expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/^Mason\s*Farrington$/);
+    });
+
+    it("lists the four roles", () => {
+      render(<Home />);
+
+      const roles = screen.getByRole("list", { name: "Roles" });
+      expect(within(roles).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
+        "Actor",
+        "Musician",
+        "Singer",
+        "Designer",
+      ]);
+    });
+
+    it("shows the tagline, spelled correctly", () => {
+      render(<Home />);
+
+      expect(
+        screen.getByText(
+          "A multidisciplinary artist creating meaningful experiences through performance and design.",
+        ),
+      ).toBeInTheDocument();
+    });
+
+    it("shows the hero portrait and links View work to the media page", () => {
+      render(<Home />);
+
+      expect(screen.getByAltText(homeImages.hero.alt)).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "View work" })).toHaveAttribute("href", "/media");
+    });
   });
 
   it("renders every section heading", () => {
@@ -21,26 +50,41 @@ describe("Home page", () => {
       "What I Do",
       "Recent Work",
       "Other Work",
+      "Model Shots",
     ]) {
-      expect(screen.getByRole("heading", { name: heading })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
     }
   });
 
-  it("renders the journey stats", () => {
+  it("shows the journey stats with the mockup labels and image", () => {
     render(<Home />);
 
-    for (const metric of ["10", "12", "4"]) {
+    for (const [metric, label] of [
+      ["10", "theatrical/musical shows"],
+      ["12", "concerts, competitions & live events"],
+      ["4", "theatrical/musical shows"],
+    ]) {
       expect(
         screen.getByText((_, el) => el?.tagName === "P" && el.textContent === `${metric}+`),
       ).toBeInTheDocument();
+      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
+    expect(screen.getByAltText(homeImages.journey.alt)).toBeInTheDocument();
   });
 
-  it("renders the four expertise cards", () => {
+  it("makes each expertise card a link with an h3 title", () => {
     render(<Home />);
 
-    for (const title of ["Model", "Designer", "Singer", "Actor"]) {
-      expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+    for (const [title, description] of [
+      ["Model", "Stage & Screen Work"],
+      ["Designer", "Branding & Digital Design"],
+      ["Singer", "Live Vocals & Studio"],
+      ["Actor", "Theatre & On Camera"],
+    ]) {
+      const card = screen.getByRole("link", { name: new RegExp(`^${title}`) });
+      expect(card).toHaveAttribute("href", "/media");
+      expect(within(card).getByRole("heading", { level: 3, name: title })).toBeInTheDocument();
+      expect(card).toHaveTextContent(description);
     }
   });
 

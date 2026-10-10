@@ -10,7 +10,7 @@ export default function GlowBackground({ children, className }: GlowBackgroundPr
   return (
     <section
       className={cn(
-        "relative isolate min-h-screen overflow-hidden bg-white",
+        "relative isolate overflow-hidden bg-white",
         className,
       )}
     >
