@@ -73,10 +73,10 @@ _Last updated: 2026-10-10_
 - [x] Responsive pass
 - [x] Fixed: `cn()` dropped custom text sizes next to text colors (tailwind-merge config)
 
-## Phase 7 · Resume & Contact (`feat/resume`, `feat/contact`), Wed 10/14 AM
+## Phase 7 · Resume & Contact (`feat/resume`, `feat/contact`), Sun 10/11 ✅
 
-- [ ] `/resume`: inline PDF preview + download button (D-06)
-- [ ] `/contact`: form UI with validation, contact card, socials. `mailto:` fallback until D-07 is decided.
+- [x] `/resume`: inline PDF preview + download button (D-06), placeholder PDF until Q C4
+- [x] `/contact`: form UI with validation, contact card, socials. `mailto:` fallback until D-07 is decided.
 
 ## 🎬 Demo-ready Wed 10/14, meeting Wed–Sun
 

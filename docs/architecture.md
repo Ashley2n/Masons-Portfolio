@@ -43,8 +43,8 @@ components/
     media/              # GalleryHero, GalleryGrid, CategoryTabs
     contact/            # ContactForm, ContactCard
 content/                # all editable copy and data (typed); the only place to change text
-  site.ts               # name, nav links, socials, contact info
-  home.ts  about.ts  media.ts
+  site.ts               # name, nav links, socials, contact info, footer, CTA
+  home.ts  about.ts  media.ts  resume.ts  contact.ts
 lib/
   fonts.ts              # next/font definitions
   utils.ts              # cn() = twMerge(clsx(...)), small helpers

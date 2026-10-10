@@ -16,7 +16,7 @@ _Last updated: 2026-10-10_
 | Favicon and app icon | ❌ | Can be generated from the MF monogram. |
 | Social share image (Open Graph, 1200×630) | ❌ | Can be generated from the hero photo. |
 | Email address for the site | ✅ | `masonfarrington@gmail.com` (from mockup). Confirm it's the public one. |
-| Phone number | ✅ | Ashley has the real number and will add it (the mockup number is a placeholder). |
+| Phone number | ⏳ | Ashley adds it as `phone` in `contactInfo` (`content/site.ts`); the contact card shows it automatically once set. |
 | Location | ✅ | Los Angeles, CA |
 | Social links (Instagram, YouTube, others) | ⏳ | See Q C7. Instagram/YouTube are **hidden** until real URLs arrive; add them to `socialLinks` in `content/site.ts`. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
@@ -57,17 +57,17 @@ _Last updated: 2026-10-10_
 
 | Item | Status | Notes |
 |---|---|---|
-| Resume PDF | ⏳ | See Q C4. Will live at `public/resume/mason-farrington-resume.pdf`. |
+| Resume PDF | 🔁 | Placeholder (watermarked SAMPLE) at `public/resume/mason-farrington-resume.pdf`. Replace the file with Mason's PDF, same name (Q C4). |
 
 ## Contact (`/contact`)
 
 | Item | Status | Notes |
 |---|---|---|
 | Heading and intro copy | ✅ | From mockup. |
-| Side card image (coastline at dusk) | 📷 | |
+| Side card image (coastline at dusk) | 📷 | `contact/coast-dusk.jpg` (JIWON KANG / Unsplash) |
 | Quote ("Good art starts with a conversation.") | ✅ | |
 | Footer tagline ("Creating a more expressive tomorrow.") | ✅ | |
-| Form delivery method and recipient | ⏳ | See Q C2. |
+| Form delivery method and recipient | 🔁 | Demo uses a prefilled `mailto:` to `contactInfo.email`. See Q C2. |
 
 ## Image guidelines (share with Mason when requesting his own photos)
 

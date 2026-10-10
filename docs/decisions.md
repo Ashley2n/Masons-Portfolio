@@ -53,6 +53,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Date:** 2026-10-09 · **Status:** Proposed
 - **Context:** The contact form needs a backend. Options: Resend (via a Next.js server action, needs an API key and verified domain), Formspree (hosted, free tier), or `mailto:`.
 - **Decision:** Build the form UI with validation now. For the demo, fall back to `mailto:`. Choose the delivery method after Q C2 is answered.
+- **Implemented (2026-10-11):** `lib/contact.ts` validates and builds a prefilled `mailto:` link; `ContactForm` takes an injectable `send` function, so swapping in Resend/Formspree later means replacing that one function (e.g. with a server action) without touching validation or UI.
 - **Consequences:** The demo isn't blocked by a client decision.
 
 ### D-08 · Hosting on Vercel
