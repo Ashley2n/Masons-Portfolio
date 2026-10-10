@@ -3,7 +3,8 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutContent, milestones } from "./about";
 import { expertiseItems, homeImages, modelShots, stats, videos } from "./home";
-import type { Photo } from "@/types/content";
+import { galleryCategoryIds, type Photo } from "@/types/content";
+import { galleryCategories, galleryItems } from "./media";
 import { contactInfo, navLinks, socialLinks } from "./site";
 
 const expectUniqueIds = (items: { id: string }[]) => {
@@ -72,5 +73,29 @@ describe("site content", () => {
   it("contact info has a valid email and a location", () => {
     expect(contactInfo.email).toMatch(/^[^@\s]+@[^@\s]+\.[a-z]+$/);
     expect(contactInfo.location.trim()).not.toBe("");
+  });
+});
+
+describe("media gallery content", () => {
+  it("has unique item ids", () => {
+    expectUniqueIds(galleryItems);
+  });
+
+  it("every photo exists, is credited and has its real size", () => {
+    galleryItems.forEach((item) => {
+      if (item.kind !== "photo") return;
+      expect(existsSync(join(process.cwd(), "public", item.photo.src))).toBe(true);
+      expect(item.photo.alt.trim()).not.toBe("");
+      expect(item.photo.credit).toMatch(/ \/ Unsplash$/);
+      expect(item.photo.width).toBeGreaterThan(0);
+      expect(item.photo.height).toBeGreaterThan(0);
+    });
+  });
+
+  it("offers a filter for every category, and every category has items", () => {
+    expect(galleryCategories.map((c) => c.id)).toEqual(["all", ...galleryCategoryIds]);
+    for (const id of galleryCategoryIds) {
+      expect(galleryItems.some((item) => item.category === id)).toBe(true);
+    }
   });
 });
