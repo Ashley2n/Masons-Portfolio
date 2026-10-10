@@ -43,3 +43,9 @@ export type ModelShot = {
   /** Photographer and source, for stock photos (D-11) */
   credit?: string;
 };
+
+export type PageIntro = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
