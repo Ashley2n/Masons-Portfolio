@@ -17,6 +17,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Lets Next.js turn smooth scrolling off during page navigations (keeps it for #links)
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} ${signature.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-neutral-950">

@@ -52,3 +52,13 @@ test.describe("page structure", () => {
     });
   }
 });
+
+test("a new page opens at the top without an animated scroll", async ({ page }) => {
+  await page.goto("/about");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.getByRole("contentinfo").getByRole("link", { name: "Media" }).click();
+
+  await expect(page).toHaveURL("/media");
+  // A smooth scroll would still be part-way up the page right after navigating
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+});
