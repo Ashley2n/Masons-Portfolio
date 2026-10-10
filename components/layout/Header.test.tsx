@@ -58,6 +58,19 @@ describe("Header", () => {
       expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
     });
 
+    it("shows a menu icon that switches to a close icon when open", async () => {
+      const user = userEvent.setup();
+      render(<Header />);
+      const button = screen.getByRole("button", { name: "Menu" });
+      const icon = () => button.querySelector("svg");
+
+      expect(icon()).toHaveAttribute("aria-hidden", "true");
+      expect(icon()).toHaveClass("lucide-menu");
+
+      await user.click(button);
+      expect(icon()).toHaveClass("lucide-x");
+    });
+
     it("opens to show the page links", async () => {
       const user = userEvent.setup();
       render(<Header />);

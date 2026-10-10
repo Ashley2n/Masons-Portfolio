@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Eyebrow from "@/components/ui/Eyebrow";
 import { videos } from "@/content/home";
@@ -22,7 +23,7 @@ export default function RecentWorkSection() {
             href="/media"
           >
             View More
-            <span className="font-bold ml-3">↗</span>
+            <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />
           </Link>
         </div>
         <div className="bg-neutral-700 w-full h-70 rounded-lg"></div>

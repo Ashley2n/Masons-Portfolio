@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -34,9 +35,7 @@ export default function Button({
   const content = (
     <>
       {children}
-      <span aria-hidden="true" className="font-bold">
-        ↗
-      </span>
+      <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={1.75} />
     </>
   );
 

@@ -20,11 +20,12 @@ describe("Button", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
-  it("hides the decorative arrow from screen readers", () => {
+  it("shows a decorative arrow icon hidden from screen readers", () => {
     render(<Button href="/contact">Get in touch</Button>);
 
-    // The accessible name is only the label, not "Get in touch ↗"
-    expect(screen.getByRole("link", { name: "Get in touch" })).toBeInTheDocument();
-    expect(screen.getByText("↗")).toHaveAttribute("aria-hidden", "true");
+    // The accessible name is only the label; the icon is an SVG, not a text character
+    const link = screen.getByRole("link", { name: "Get in touch" });
+    expect(link.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    expect(link).not.toHaveTextContent("↗");
   });
 });

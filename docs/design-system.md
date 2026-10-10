@@ -105,4 +105,13 @@ There are no mobile mockups. Rules:
 
 ## Icons
 
-The mockups use simple line icons (mail, phone, pin, Instagram, YouTube, arrows). Proposed: [`lucide-react`](https://lucide.dev) for UI icons, plus inline SVGs for brand logos. See [decisions.md](decisions.md).
+The mockups use simple line icons (mail, phone, pin, Instagram, YouTube, arrows). We use [`lucide-react`](https://lucide.dev) for UI icons, plus inline SVGs for brand logos (D-09).
+
+| Use | Icon | Notes |
+|---|---|---|
+| "Link out" arrow on buttons, cards, "View more" | `ArrowUpRight` | `size-4` in buttons and links, `size-6` on cards |
+| Mobile menu | `Menu` / `X` | Button keeps the accessible name "Menu"; `aria-expanded` gives the state |
+| Carousel prev/next (Phase 5) | `ChevronLeft` / `ChevronRight` | |
+| Contact rows (Phase 7) | `Mail`, `Phone`, `MapPin` | |
+
+Icons are decorative: always pass `aria-hidden="true"` and make sure the link or button has its own text or `sr-only` label.

@@ -26,6 +26,7 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 - Use Server Components by default. Put `"use client"` only on the smallest interactive leaf.
 - Global CSS in `app/globals.css` must sit in `@layer base` or `@layer components`; unlayered rules override utility classes.
 - Use design tokens (`brand-*`, `neutral-*`, `font-playfair|inter|space`), not raw hex. The theme is dark-first and doesn't depend on OS color scheme.
+- Icons come from `lucide-react` with `aria-hidden="true"`; never use text characters (↗, →) as icons.
 - Use stable IDs or slugs for list keys (never `Math.random()` or array index).
 - Use `next/image` with real dimensions or `fill` + `sizes`.
 - Write semantic, accessible HTML: links for navigation, buttons for actions, no clickable `div`s.

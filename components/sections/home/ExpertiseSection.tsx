@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { expertiseItems, sectionHeadings } from "@/content/home";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,9 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
       <h2 className="">{item.title}</h2>
       <p className="text-sm">{item.description}</p>
     </div>
-    <span className="font-normal text-2xl flex justify-end items-end">↗</span>
+    <span className="flex items-end justify-end">
+      <ArrowUpRight aria-hidden="true" className="size-6" strokeWidth={1.5} />
+    </span>
   </div>
 );
 

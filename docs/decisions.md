@@ -64,7 +64,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-09 · Icons with `lucide-react`
 
-- **Date:** 2026-10-09 · **Status:** Proposed
+- **Date:** 2026-10-09 · **Status:** Accepted (2026-10-11)
 - **Context:** The mockups use line icons (arrows, mail, phone, pin, social).
 - **Decision:** Use `lucide-react` for UI icons, plus inline SVGs for brand logos (Instagram, YouTube), since Lucide doesn't ship brand marks.
 - **Consequences:** One small, tree-shaken dependency. Consistent stroke style.

@@ -1,4 +1,5 @@
 "use client";
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import NavLinks from "./NavLinks";
@@ -30,9 +31,14 @@ export default function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpenedOn(open ? null : pathname)}
-        className="caption-text text-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-400"
+        className="p-1 text-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-400"
       >
-        Menu
+        {open ? (
+          <X aria-hidden="true" className="size-6" />
+        ) : (
+          <Menu aria-hidden="true" className="size-6" />
+        )}
+        <span className="sr-only">Menu</span>
       </button>
 
       {open && (
