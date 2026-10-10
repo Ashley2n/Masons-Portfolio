@@ -1,5 +1,5 @@
 import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
-import { title } from "process";
+import { generateRandomId } from "./helper-func";
 
 export const inter = Inter({
     subsets: ["latin"],
@@ -37,10 +37,12 @@ export const navLinks: NavLinkType[] = [
         link: "/"
     }
 ]
+
 export type StatsType = {
     metric: string
     desc: string,
 }
+
 export const statsData : StatsType[] = [
     {
         metric: "10",
@@ -89,4 +91,62 @@ export const ExpertiseData: ExpertiseCardType [] = [
         color: "bg-brand-700"
     },
     
+]
+
+export const VideoCardData:VideoCardType[] = [
+    {
+        name: "My first Video",
+        date: "01/12/2024",
+        link: "/"
+    },
+    {
+        name: "My first Video",
+        date: "01/14/2024",
+        link: "/"
+    },
+    {
+        name: "My first Video",
+        date: "01/16/2024",
+        link: "/"
+    },   
+]
+
+export type VideoCardType = {
+    link: string | undefined;
+    name: string;
+    date: string;
+}
+
+export type ModelImageType = {
+    id: string;
+    alt: string;
+    imageLink: string;
+}
+
+export const ModelShotsData:ModelImageType[] = [
+    {
+        id: generateRandomId(),
+        imageLink: "/background/arindam-mondal-j1C4ZVwQ5UQ-unsplash.jpg",
+        alt: "Something"
+    },
+    {
+        id: generateRandomId(),
+        imageLink: "/background/joseph-malone-DtJ7BJyez9E-unsplash.jpg",
+        alt: "Something 2"
+    },
+    {
+        id: generateRandomId(),
+        imageLink: "/background/mike-hindle-fw93NEMCq6c-unsplash.jpg",
+        alt: "Something 3"
+    },
+    {
+        id: generateRandomId(),
+        imageLink: "/background/thorium-o_IcRyN_Bo0-unsplash.jpg",
+        alt: "Something 4"
+    },
+    {
+        id: generateRandomId(),
+        imageLink: "/background/joseph-malone-DtJ7BJyez9E-unsplash.jpg",
+        alt: "Something 5"
+    },
 ]
