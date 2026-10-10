@@ -138,4 +138,5 @@ export const sectionHeadings = {
   },
   expertise: { eyebrow: "Expertise", title: "What I Do" },
   recentWork: { eyebrow: "Media", title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
+  modelShots: { title: "Model Shots" },
 };

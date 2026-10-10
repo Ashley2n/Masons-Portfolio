@@ -1,7 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { modelShots } from "@/content/home";
 import Home from "./page";
 
 describe("Home page", () => {
@@ -61,18 +59,13 @@ describe("Home page", () => {
     ).toEqual(["Agent 327: Operation Barbershop", "Cosmos Laundromat", "Big Buck Bunny"]);
   });
 
-  it("advances the model shots carousel and wraps back to the first image", async () => {
-    const user = userEvent.setup();
+  it("includes the Model Shots carousel (behavior tested in ModelShotsCarousel.test.tsx)", () => {
     render(<Home />);
-    const [next] = screen.getAllByRole("button", { name: "→" });
-    const mainImage = () => screen.getAllByRole("img")[0];
 
-    expect(mainImage()).toHaveAttribute("alt", modelShots[0].alt);
-    await user.click(next);
-    expect(mainImage()).toHaveAttribute("alt", modelShots[1].alt);
-
-    for (let i = 1; i < modelShots.length; i++) await user.click(next);
-    expect(mainImage()).toHaveAttribute("alt", modelShots[0].alt);
+    expect(screen.getByRole("region", { name: "Model Shots" })).toHaveAttribute(
+      "aria-roledescription",
+      "carousel",
+    );
   });
 
   it("ends with the get-in-touch banner", () => {

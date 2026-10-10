@@ -1,62 +1,81 @@
 "use client";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import { modelShots } from "@/content/home";
-import { getNextIndex } from "@/lib/carousel";
-import type { ModelShot } from "@/types/content";
+import { useState, type KeyboardEvent } from "react";
+import Container from "@/components/ui/Container";
+import { modelShots, sectionHeadings } from "@/content/home";
+import { getNextIndex, getPrevIndex } from "@/lib/carousel";
+import { cn } from "@/lib/utils";
 
-type ModelPreviewShotProps = {
-  shot: ModelShot;
-  handleOnClick: () => void;
-};
-
-const ModelPreviewShot = ({ shot, handleOnClick }: ModelPreviewShotProps) => (
-  <div className="w-16 h-16 rounded-lg" onClick={handleOnClick}>
-    <Image
-      src={shot.src}
-      alt={shot.alt}
-      className="bg-cover bg-center w-full h-14 rounded-lg border-2 hover:border-brand-600"
-      width={0}
-      height={0}
-    />
-  </div>
-);
+const arrowClass =
+  "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-colors hover:bg-neutral-950/70 focus-visible:outline-2 focus-visible:outline-brand-400";
 
 export default function ModelShotsCarousel() {
-  const [currentImage, setCurrentImage] = useState<ModelShot>(modelShots[0]);
+  const [index, setIndex] = useState(0);
+  const total = modelShots.length;
+  const current = modelShots[index];
+  const next = () => setIndex((i) => getNextIndex(i, total));
+  const prev = () => setIndex((i) => getPrevIndex(i, total));
 
-  const nextImage = (shot: ModelShot) => {
-    const currentIndex = modelShots.indexOf(shot);
-    setCurrentImage(modelShots[getNextIndex(currentIndex, modelShots.length)]);
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "ArrowRight") next();
+    else if (event.key === "ArrowLeft") prev();
   };
 
+  if (!current) return null;
+
   return (
-    <section className="h-screen bg-neutral-100 px-23 py-16 ">
-      <div>
-        <div className="bg-linear-to-l from-purple-600 to-blue-500 ">
-          <button className="w-12" onClick={() => nextImage(currentImage)}>
-            →
-          </button>
+    <section
+      aria-roledescription="carousel"
+      aria-labelledby="model-shots-heading"
+      onKeyDown={onKeyDown}
+      className="bg-neutral-100 py-16"
+    >
+      <Container className="space-y-6">
+        <h2 id="model-shots-heading" className="text-neutral-800">
+          {sectionHeadings.modelShots.title}
+        </h2>
+
+        <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-neutral-800 sm:aspect-video lg:aspect-21/9">
           <Image
-            src={currentImage.src}
-            width={100}
-            height={100}
-            alt={currentImage.alt}
-            className="bg-neutral-700 rounded-lg bg-center bg-cover w-full h-100"
+            key={current.id}
+            src={current.src}
+            alt={current.alt}
+            fill
+            sizes="(min-width: 1280px) 1280px, 100vw"
+            className="object-cover object-[50%_30%]"
           />
-          <button>→</button>
+          <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
+            <ChevronLeft aria-hidden="true" className="size-6" />
+          </button>
+          <button type="button" onClick={next} aria-label="Next photo" className={cn(arrowClass, "right-4")}>
+            <ChevronRight aria-hidden="true" className="size-6" />
+          </button>
         </div>
 
-        <div className="flex justify-center mt-2">
-          {modelShots.map((s) => (
-            <ModelPreviewShot
-              key={s.id}
-              shot={s}
-              handleOnClick={() => setCurrentImage(s)}
-            />
+        <p aria-live="polite" className="sr-only">
+          Photo {index + 1} of {total}
+        </p>
+
+        <div className="flex justify-center gap-2">
+          {modelShots.map((shot, i) => (
+            <button
+              key={shot.id}
+              type="button"
+              onClick={() => setIndex(i)}
+              aria-label={`Show photo ${i + 1} of ${total}`}
+              aria-current={i === index ? "true" : undefined}
+              className={cn(
+                "relative size-12 overflow-hidden rounded-md border-2 transition-colors sm:size-16",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
+                i === index ? "border-brand-600" : "border-transparent opacity-60 hover:opacity-100",
+              )}
+            >
+              <Image src={shot.src} alt="" fill sizes="64px" className="object-cover" />
+            </button>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

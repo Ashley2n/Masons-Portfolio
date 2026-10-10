@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getNextIndex } from "./carousel";
+import { getNextIndex, getPrevIndex } from "./carousel";
 
 describe("getNextIndex", () => {
   it("moves to the next index", () => {
@@ -17,5 +17,19 @@ describe("getNextIndex", () => {
 
   it("returns 0 for an empty list", () => {
     expect(getNextIndex(0, 0)).toBe(0);
+  });
+});
+
+describe("getPrevIndex", () => {
+  it("moves to the previous index", () => {
+    expect(getPrevIndex(3, 5)).toBe(2);
+  });
+
+  it("wraps from the first index back to the last", () => {
+    expect(getPrevIndex(0, 5)).toBe(4);
+  });
+
+  it("returns 0 for an empty list", () => {
+    expect(getPrevIndex(0, 0)).toBe(0);
   });
 });
