@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
-import { contactInfo, navLinks, siteConfig, socialLinks } from "@/content/site";
+import { contactInfo, footerContent, navLinks, siteConfig, socialLinks } from "@/content/site";
 
 const linkClass = "transition-colors duration-300 hover:text-neutral-100";
 
@@ -23,11 +23,11 @@ export default function Footer() {
           <p>
             © {year} {siteConfig.name}.
             <br />
-            All rights reserved.
+            {footerContent.rightsReserved}
           </p>
         </div>
 
-        <FooterColumn title="Navigation">
+        <FooterColumn title={footerContent.columns.navigation}>
           <nav aria-label="Footer">
             <ul className="space-y-2">
               {navLinks.map((link) => (
@@ -41,7 +41,7 @@ export default function Footer() {
           </nav>
         </FooterColumn>
 
-        <FooterColumn title="Connect">
+        <FooterColumn title={footerContent.columns.connect}>
           <ul className="space-y-2">
             {socialLinks.map((link) => {
               const external = link.href.startsWith("http");
@@ -60,7 +60,7 @@ export default function Footer() {
           </ul>
         </FooterColumn>
 
-        <FooterColumn title="Contact">
+        <FooterColumn title={footerContent.columns.contact}>
           <ul className="space-y-2">
             <li>
               <a href={`mailto:${contactInfo.email}`} className={linkClass}>

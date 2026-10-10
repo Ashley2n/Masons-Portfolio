@@ -51,3 +51,12 @@ export const modelShots: ModelShot[] = [
     credit: "Joseph Malone / Unsplash",
   },
 ];
+
+export const sectionHeadings = {
+  journey: {
+    eyebrow: "About Me",
+    title: "The Journey So Far",
+    description: "Years of training, stages, and performances that shaped where I am today",
+  },
+  expertise: { eyebrow: "Expertise", title: "What I Do" },
+};

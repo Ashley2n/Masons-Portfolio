@@ -31,3 +31,8 @@ export const ctaBanner = {
   buttonLabel: "Get in touch",
   href: "/contact",
 };
+
+export const footerContent = {
+  rightsReserved: "All rights reserved.",
+  columns: { navigation: "Navigation", connect: "Connect", contact: "Contact" },
+};

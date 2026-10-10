@@ -1,5 +1,5 @@
 import SectionHeading from "@/components/ui/SectionHeading";
-import { expertiseItems } from "@/content/home";
+import { expertiseItems, sectionHeadings } from "@/content/home";
 import { cn } from "@/lib/utils";
 import type { ExpertiseItem } from "@/types/content";
 
@@ -21,7 +21,7 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
 export default function ExpertiseSection() {
   return (
     <section className="h-full bg-neutral-100 px-23 py-16 space-y-12">
-      <SectionHeading tone="light" eyebrow="Expertise" title="What I Do" />
+      <SectionHeading tone="light" {...sectionHeadings.expertise} />
       <div className="grid grid-cols-2 gap-4">
         {expertiseItems.map((item) => (
           <ExpertiseCard key={item.id} item={item} />

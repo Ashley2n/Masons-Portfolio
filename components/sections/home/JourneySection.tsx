@@ -1,6 +1,6 @@
 import GlowBackground from "@/components/ui/GlowBackground";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { stats } from "@/content/home";
+import { sectionHeadings, stats } from "@/content/home";
 import type { Stat } from "@/types/content";
 
 const StatItem = ({ value, label }: Stat) => (
@@ -16,12 +16,7 @@ const StatItem = ({ value, label }: Stat) => (
 export default function JourneySection() {
   return (
     <GlowBackground className="h-screen bg-neutral-100 px-23 py-16">
-      <SectionHeading
-        tone="light"
-        eyebrow="About Me"
-        title="The Journey So Far"
-        description="Years of training, stages, and performances that shaped where I am today"
-      />
+      <SectionHeading tone="light" {...sectionHeadings.journey} />
       <div className="flex justify-between py-8">
         {stats.map((stat) => (
           <StatItem key={stat.id} {...stat} />
