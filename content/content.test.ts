@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { aboutContent, milestones } from "./about";
 import { expertiseItems, homeImages, modelShots, stats, videos } from "./home";
 import type { Photo } from "@/types/content";
 import { contactInfo, navLinks, socialLinks } from "./site";
@@ -32,6 +33,8 @@ describe("home content", () => {
   const photos: [string, Photo][] = [
     ...Object.entries(homeImages),
     ...modelShots.map((shot): [string, Photo] => [shot.id, shot]),
+    ["about feature", aboutContent.feature.image],
+    ...milestones.flatMap((m): [string, Photo][] => (m.image ? [[m.id, m.image]] : [])),
   ];
 
   it.each(photos)(

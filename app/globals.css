@@ -46,6 +46,7 @@
   --font-playfair: var(--next-font-playfair);
   --font-inter: var(--next-font-inter);
   --font-space: var(--next-font-space-mono);
+  --font-signature: var(--next-font-signature);
 }
 
 /* Element defaults. In the base layer so utility classes can override them. */

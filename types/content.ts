@@ -62,6 +62,15 @@ export type Photo = {
 
 export type ModelShot = Photo & { id: string };
 
+export type Milestone = {
+  id: string;
+  title: string;
+  description: string;
+  image?: Photo;
+  /** Achieved milestones get a check mark; ongoing ones a plain dot */
+  status: "complete" | "ongoing";
+};
+
 export type PageIntro = {
   eyebrow: string;
   title: string;

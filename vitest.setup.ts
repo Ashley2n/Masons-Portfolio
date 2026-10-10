@@ -10,7 +10,7 @@ vi.mock("next/font/google", () => {
     variable: options.variable ?? "",
     style: { fontFamily: "stub" },
   });
-  return { Inter: loader, Playfair_Display: loader, Space_Mono: loader };
+  return { Inter: loader, Mrs_Saint_Delafield: loader, Playfair_Display: loader, Space_Mono: loader };
 });
 
 afterEach(() => {
