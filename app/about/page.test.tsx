@@ -66,6 +66,13 @@ describe("/about page", () => {
       ]);
     });
 
+    it("contains only list items directly inside the list (valid HTML)", () => {
+      render(<Page />);
+
+      const list = screen.getByRole("list", { name: "My Journey" });
+      expect([...list.children].map((child) => child.tagName)).toEqual(Array(6).fill("LI"));
+    });
+
     it("tells screen readers which milestones are completed and which are in progress", () => {
       render(<Page />);
 

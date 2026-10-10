@@ -26,12 +26,12 @@ export default function Timeline() {
       <Container className="space-y-12">
         <SectionHeading tone="light" eyebrow={journey.eyebrow} title={journey.title} />
 
-        <ol aria-label={journey.title} className="relative space-y-16">
-          {/* The line the milestones hang from: left on mobile, centered on desktop */}
-          <span
-            aria-hidden="true"
-            className="absolute bottom-0 left-4 top-0 border-l-2 border-dashed border-neutral-300 md:left-1/2"
-          />
+        {/* ::before draws the line the milestones hang from: left on mobile, centered on desktop.
+            A pseudo-element keeps the <ol> valid (only <li> children). */}
+        <ol
+          aria-label={journey.title}
+          className="relative space-y-16 before:absolute before:inset-y-0 before:left-4 before:border-l-2 before:border-dashed before:border-neutral-300 before:content-[''] md:before:left-1/2"
+        >
           {milestones.map((milestone, i) => {
             const textFirst = i % 2 === 0;
             return (
