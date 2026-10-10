@@ -12,6 +12,17 @@ describe("cn", () => {
     );
   });
 
+  it.each(["hero", "display", "h1", "h2", "h3", "body", "small", "caption"])(
+    "keeps the custom text-%s size next to a text color (they don't conflict)",
+    (size) => {
+      expect(cn(`text-${size}`, "text-neutral-800")).toBe(`text-${size} text-neutral-800`);
+    },
+  );
+
+  it("lets a later custom text size replace an earlier one", () => {
+    expect(cn("text-small", "text-caption")).toBe("text-caption");
+  });
+
   it("lets later Tailwind classes override conflicting earlier ones", () => {
     expect(cn("bg-white px-4", "bg-neutral-100")).toBe("px-4 bg-neutral-100");
   });
