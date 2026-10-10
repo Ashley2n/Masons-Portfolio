@@ -12,7 +12,6 @@ export const playfairDisplay = Playfair_Display({
 
 export const spaceMono = Space_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["italic", "normal"],
+  weight: "400",
   variable: "--next-font-space-mono",
 });

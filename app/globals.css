@@ -18,6 +18,24 @@
   --color-brand-500: #A78BFA;
   --color-brand-700: #7234E5;
   --color-brand-800: #4D3565;
+
+  /* Type scale (docs/design-system.md) */
+  --text-hero: 6.25rem;
+  --text-hero--line-height: 1.1;
+  --text-display: 4rem;
+  --text-display--line-height: 1.1;
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.15;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.25;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.4;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.7;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.6;
 }
 
 /* Font families come from next/font (lib/fonts.ts). `inline` makes utilities
@@ -28,27 +46,29 @@
   --font-space: var(--next-font-space-mono);
 }
 
-.display-font{
-  @apply text-[100px] text-neutral-100 font-playfair font-bold uppercase leading-tight ;
+/* Hero name: scales up to the 100px hero size on desktop */
+.display-font {
+  @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;
 }
 
-h1{
-  @apply text-5xl font-playfair font-semibold;
+h1 {
+  @apply text-h1 font-playfair font-semibold;
 }
-h2{
-  @apply text-3xl font-playfair font-semibold;
+h2 {
+  @apply text-h2 font-playfair font-semibold;
 }
-h3{
-  @apply text-xl font-playfair ;
+h3 {
+  @apply text-h3 font-playfair;
 }
-body{
-  @apply text-base font-inter text-neutral-400;
-}
-
-.small-text{
-  @apply text-sm font-playfair ;
+body {
+  @apply text-body font-inter text-neutral-400;
 }
 
-.caption-text{
-  @apply text-sm font-space uppercase font-medium;
+.small-text {
+  @apply text-small font-inter;
+}
+
+/* Eyebrow / caption labels */
+.caption-text {
+  @apply text-caption font-space uppercase tracking-wider;
 }
