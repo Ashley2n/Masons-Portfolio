@@ -14,4 +14,11 @@ describe("/about page", () => {
   it("is titled 'About'", () => {
     expect(metadata.title).toBe("About");
   });
+  it("ends with the get-in-touch banner", () => {
+    render(<Page />);
+
+    expect(
+      screen.getByRole("link", { name: "Get in touch" }),
+    ).toHaveAttribute("href", "/contact");
+  });
 });

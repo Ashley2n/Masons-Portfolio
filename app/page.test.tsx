@@ -64,4 +64,13 @@ describe("Home page", () => {
     for (let i = 0; i < 4; i++) await user.click(next);
     expect(mainImage()).toHaveAttribute("alt", "Something");
   });
+
+  it("ends with the get-in-touch banner", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: "Get in touch" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
+  });
 });

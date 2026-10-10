@@ -14,4 +14,11 @@ describe("/media page", () => {
   it("is titled 'Media'", () => {
     expect(metadata.title).toBe("Media");
   });
+  it("ends with the get-in-touch banner", () => {
+    render(<Page />);
+
+    expect(
+      screen.getByRole("link", { name: "Get in touch" }),
+    ).toHaveAttribute("href", "/contact");
+  });
 });

@@ -1,3 +1,4 @@
+import CtaBanner from "@/components/layout/CtaBanner";
 import ExpertiseSection from "@/components/sections/home/ExpertiseSection";
 import HeroSection from "@/components/sections/home/HeroSection";
 import JourneySection from "@/components/sections/home/JourneySection";
@@ -12,6 +13,7 @@ export default function Home() {
       <ExpertiseSection />
       <RecentWorkSection />
       <ModelShotsCarousel />
+      <CtaBanner />
     </>
   );
 }

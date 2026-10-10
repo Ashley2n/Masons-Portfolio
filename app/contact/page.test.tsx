@@ -14,4 +14,9 @@ describe("/contact page", () => {
   it("is titled 'Contact'", () => {
     expect(metadata.title).toBe("Contact");
   });
+  it("does not show the get-in-touch banner on the contact page itself", () => {
+    render(<Page />);
+
+    expect(screen.queryByRole("link", { name: "Get in touch" })).not.toBeInTheDocument();
+  });
 });

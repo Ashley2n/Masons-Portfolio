@@ -25,3 +25,9 @@ export const socialLinks: SocialLink[] = [
   { id: "youtube", label: "YouTube", href: "https://www.youtube.com/" },
   { id: "email", label: "Email", href: `mailto:${contactInfo.email}` },
 ];
+
+export const ctaBanner = {
+  title: "Interested in working together?",
+  buttonLabel: "Get in touch",
+  href: "/contact",
+};
