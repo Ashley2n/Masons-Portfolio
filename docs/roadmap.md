@@ -34,14 +34,14 @@ _Last updated: 2026-10-10_
 - [x] Remove `app/lib/` and the leftover Next.js boilerplate SVGs in `public/`; photos moved to `public/images/home/`
 - [x] Verify: tests, build, lint and type check pass; homepage looks unchanged (checked in browser)
 
-## Phase 3 · Design tokens (`feat/design-tokens`), Sun 10/11
+## Phase 3 · Design tokens (`feat/design-tokens`), Sat 10/10 ✅
 
-- [ ] Brand and neutral palettes match [design-system.md](design-system.md)
-- [ ] Type scale (Display 64, H1 48, H2 28, H3 20, Body 16, Small 14, Caption 12) with line heights
-- [ ] Fix the self-referencing `--font-*` variables (`@theme inline`)
-- [ ] Dark-first base (fixes the invisible hero in light mode; see D-04)
-- [ ] Site metadata (title, description) to replace "Create Next App"
-- [ ] Font usage matches the design system on every page (D-10)
+- [x] Brand and neutral palettes match [design-system.md](design-system.md) (covered by token tests)
+- [x] Type scale (Hero 100, Display 64, H1 48, H2 28, H3 20, Body 16, Small 14, Caption 12) with line heights (D-14)
+- [x] Fix the self-referencing `--font-*` variables (`@theme inline`)
+- [x] Dark-first base (fixes the invisible hero in light mode; see D-04)
+- [x] Site metadata (title, description) to replace "Create Next App"
+- [x] Font usage matches the design system on every page (D-10)
 
 ## Phase 4 · Shared layout (`feat/layout`), Sun 10/11
 
@@ -50,7 +50,7 @@ _Last updated: 2026-10-10_
 - [ ] `CtaBanner` → `/contact`
 - [ ] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
 - [ ] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
-- [ ] Add Playwright with an e2e smoke test: every nav link loads its page
+- [ ] Add Playwright with e2e smoke tests: every nav link loads its page; the hero stays readable with a light-mode OS theme (regression test for the Phase 3 fix)
 
 ## Phase 5 · Homepage complete (`feat/home`), Mon 10/12
 

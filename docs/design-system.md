@@ -2,7 +2,7 @@
 
 Sources: **the colors and fonts configured in code are the source of truth** ([`app/globals.css`](../app/globals.css), [`app/lib/constants.ts`](../app/lib/constants.ts)). Layout, type scale and components come from the "Design System" panel in [`Mockups/Homepage.png`](Mockups/Homepage.png). Tokens are Tailwind v4 theme variables (decision D-10).
 
-_Last updated: 2026-10-10_
+_Last updated: 2026-10-10 (Phase 3)_
 
 ## Theme
 
@@ -53,19 +53,18 @@ Fonts are loaded with `next/font/google` (self-hosted at build time, no layout s
 
 ### Type scale
 
-| Style | Size / line-height | Font | Notes |
-|---|---|---|---|
-| Display | 64px / 1.1 | Playfair Bold, uppercase | Hero name |
-| H1 | 48px / 1.15 | Playfair SemiBold | Page titles |
-| H2 | 28px / 1.25 | Playfair SemiBold | Section titles |
-| H3 | 20px / 1.4 | Playfair Regular | Card titles |
-| Body | 16px / 1.7 | Inter Regular | |
-| Small | 14px / 1.7 | Inter Regular | |
-| Caption | 12px / 1.6 | Space Mono, uppercase, tracked | "Eyebrow" labels above headings |
+| Style | Token | Size / line-height | Font | Notes |
+|---|---|---|---|---|
+| Hero | `text-hero` | 100px / 1.1 | Playfair Bold, uppercase | Homepage hero name only (D-14). 44px mobile → 72px tablet → 100px desktop via `.display-font` |
+| Display | `text-display` | 64px / 1.1 | Playfair Bold | Large page titles (About, Media, Contact) |
+| H1 | `text-h1` | 48px / 1.15 | Playfair SemiBold | Page titles |
+| H2 | `text-h2` | 28px / 1.25 | Playfair SemiBold | Section titles |
+| H3 | `text-h3` | 20px / 1.4 | Playfair Regular | Card titles |
+| Body | `text-body` | 16px / 1.7 | Inter Regular | |
+| Small | `text-small` | 14px / 1.7 | Inter Regular | `.small-text` |
+| Caption | `text-caption` | 12px / 1.6 | Space Mono, uppercase, tracked | "Eyebrow" labels, `.caption-text` |
 
-The code currently uses `text-[100px]` for Display and `text-3xl` (30px) for H2. Phase 3 aligns these with the scale.
-
-On mobile, scale down Display to about 40–44px and H1 to about 36px.
+Tokens live in `app/globals.css` and are checked by `app/design-tokens.test.ts`. On mobile, scale Display down to about 40–44px and H1 to about 36px.
 
 ## Spacing & layout
 
