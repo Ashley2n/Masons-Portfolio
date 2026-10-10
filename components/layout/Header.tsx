@@ -6,7 +6,7 @@ export default function Header() {
     <div className="py-6 px-23">
       <div className="flex flex-row justify-between items-center">
         <HeaderLogo />
-        <div className="flex md:flex-row gap-12 caption-text tracking-wider">
+        <div className="flex md:flex-row gap-12 caption-text">
           {navLinks.map((link) => (
             <Link
             key={link.href}

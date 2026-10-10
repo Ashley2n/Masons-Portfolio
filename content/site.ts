@@ -1,4 +1,4 @@
-import type { NavLink } from "@/types/content";
+import type { ContactInfo, NavLink, SocialLink } from "@/types/content";
 
 export const siteConfig = {
   name: "Mason Farrington",
@@ -8,7 +8,20 @@ export const siteConfig = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: "about", href: "/about" },
-  { label: "media", href: "/meida" },
-  { label: "resume", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Media", href: "/media" },
+  { label: "Resume", href: "/resume" },
+  { label: "Contact", href: "/contact" },
+];
+
+export const contactInfo: ContactInfo = {
+  email: "masonfarrington@gmail.com",
+  location: "Los Angeles, CA",
+};
+
+export const socialLinks: SocialLink[] = [
+  // TODO(Q C7): replace with Mason's real profile URLs
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/" },
+  { id: "youtube", label: "YouTube", href: "https://www.youtube.com/" },
+  { id: "email", label: "Email", href: `mailto:${contactInfo.email}` },
 ];

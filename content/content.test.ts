@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { expertiseItems, modelShots, stats, videos } from "./home";
-import { navLinks } from "./site";
+import { contactInfo, navLinks, socialLinks } from "./site";
 
 const expectUniqueIds = (items: { id: string }[]) => {
   const ids = items.map((item) => item.id);
@@ -28,8 +28,23 @@ describe("home content", () => {
 });
 
 describe("site content", () => {
-  it("nav links are internal and unique", () => {
-    navLinks.forEach((link) => expect(link.href).toMatch(/^\//));
-    expect(new Set(navLinks.map((link) => link.label)).size).toBe(navLinks.length);
+  it("nav links point to the four MVP pages, in mockup order", () => {
+    expect(navLinks).toEqual([
+      { label: "About", href: "/about" },
+      { label: "Media", href: "/media" },
+      { label: "Resume", href: "/resume" },
+      { label: "Contact", href: "/contact" },
+    ]);
+  });
+
+  it("social links are absolute https or mailto URLs with unique ids", () => {
+    expect(socialLinks.length).toBeGreaterThan(0);
+    socialLinks.forEach((link) => expect(link.href).toMatch(/^(https:\/\/|mailto:)/));
+    expectUniqueIds(socialLinks);
+  });
+
+  it("contact info has a valid email and a location", () => {
+    expect(contactInfo.email).toMatch(/^[^@\s]+@[^@\s]+\.[a-z]+$/);
+    expect(contactInfo.location.trim()).not.toBe("");
   });
 });

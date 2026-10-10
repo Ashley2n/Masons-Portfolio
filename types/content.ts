@@ -3,6 +3,17 @@ export type NavLink = {
   href: string;
 };
 
+export type SocialLink = {
+  id: string;
+  label: string;
+  href: string;
+};
+
+export type ContactInfo = {
+  email: string;
+  location: string;
+};
+
 export type Stat = {
   id: string;
   value: string;

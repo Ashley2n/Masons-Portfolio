@@ -12,8 +12,9 @@ describe("Header", () => {
   it("renders the navigation links", () => {
     render(<Header />);
 
-    expect(screen.getByRole("link", { name: "about" })).toHaveAttribute("href", "/about");
-    expect(screen.getByRole("link", { name: "media" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "resume" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
+    expect(screen.getByRole("link", { name: "Media" })).toHaveAttribute("href", "/media");
+    expect(screen.getByRole("link", { name: "Resume" })).toHaveAttribute("href", "/resume");
+    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
   });
 });
