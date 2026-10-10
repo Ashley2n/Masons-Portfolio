@@ -12,6 +12,7 @@ import {
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import Image from "next/image";
+import { getNextIndex } from "@/lib/carousel";
 
 const DotSeperator = () => <span className="text-xs "> • </span>;
 const SecondaryBtn = () => (
@@ -178,15 +179,11 @@ const ModelShotsSections = () => {
     ModelShotsData[0],
   );
 
-  const nextImage = ( shot :  ModelImageType ) => {
+  const nextImage = (shot: ModelImageType) => {
     const currentIndex = ModelShotsData.indexOf(shot);
-    const lastItemIndex = ModelShotsData.length - 1;
-
-    if (currentImage.id == ModelShotsData[lastItemIndex].id) {
-      setCurrentImage(ModelShotsData[0]);
-    }
-
-    setCurrentImage(ModelShotsData[currentIndex + 1]);
+    setCurrentImage(
+      ModelShotsData[getNextIndex(currentIndex, ModelShotsData.length)],
+    );
   };
 
   return (
