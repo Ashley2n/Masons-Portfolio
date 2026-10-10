@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { modelShots } from "@/content/home";
@@ -46,10 +46,19 @@ describe("Home page", () => {
     }
   });
 
-  it("renders a card for each other-work video", () => {
+  it("features the highlighted video in Recent Work", () => {
     render(<Home />);
 
-    expect(screen.getAllByRole("heading", { name: "My First Video" })).toHaveLength(3);
+    expect(screen.getByRole("button", { name: "Play Spring" })).toBeInTheDocument();
+  });
+
+  it("shows the next three newest videos as Other Work", () => {
+    render(<Home />);
+
+    const otherWork = screen.getByRole("region", { name: "Other Work" });
+    expect(
+      within(otherWork).getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
+    ).toEqual(["Agent 327: Operation Barbershop", "Cosmos Laundromat", "Big Buck Bunny"]);
   });
 
   it("advances the model shots carousel and wraps back to the first image", async () => {

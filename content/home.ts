@@ -13,10 +13,74 @@ export const expertiseItems: ExpertiseItem[] = [
   { id: "actor", title: "Actor", description: "Theate & On Camera", href: "/", colorClass: "bg-brand-700" },
 ];
 
+// Mock videos for the demo: Blender open movies and Blender Studio Shorts (Creative Commons),
+// with their real YouTube upload dates. Replace with Mason's videos (Q C6).
 export const videos: Video[] = [
-  { id: "video-1", title: "My first Video", date: "01/12/2024", href: "/" },
-  { id: "video-2", title: "My first Video", date: "01/14/2024", href: "/" },
-  { id: "video-3", title: "My first Video", date: "01/16/2024", href: "/" },
+  {
+    id: "spring",
+    platform: "youtube",
+    youtubeId: "WhWc3b3KhnY",
+    title: "Spring",
+    date: "2019-04-04",
+    orientation: "landscape",
+    featured: true,
+  },
+  {
+    id: "agent-327",
+    platform: "youtube",
+    youtubeId: "mN0zPOpADL4",
+    title: "Agent 327: Operation Barbershop",
+    date: "2017-05-15",
+    orientation: "landscape",
+  },
+  {
+    id: "cosmos-laundromat",
+    platform: "youtube",
+    youtubeId: "Y-rmzh0PI3c",
+    title: "Cosmos Laundromat",
+    date: "2015-08-10",
+    orientation: "landscape",
+  },
+  {
+    id: "big-buck-bunny",
+    platform: "youtube",
+    youtubeId: "aqz-KE-bpKQ",
+    title: "Big Buck Bunny",
+    date: "2014-11-10",
+    orientation: "landscape",
+  },
+  {
+    id: "tears-of-steel",
+    platform: "youtube",
+    youtubeId: "R6MlUcmOul8",
+    title: "Tears of Steel",
+    date: "2012-09-26",
+    orientation: "landscape",
+  },
+  {
+    id: "sintel",
+    platform: "youtube",
+    youtubeId: "eRsGyueVLvQ",
+    title: "Sintel",
+    date: "2010-09-30",
+    orientation: "landscape",
+  },
+  {
+    id: "singularity-bts",
+    platform: "youtube",
+    youtubeId: "66KvZ_P1BL4",
+    title: "Singularity: Behind the Scenes",
+    date: "2026-07-07",
+    orientation: "portrait",
+  },
+  {
+    id: "lighting-rigs-bts",
+    platform: "youtube",
+    youtubeId: "5PRpneyquqw",
+    title: "Setting Up Lighting Rigs",
+    date: "2024-09-12",
+    orientation: "portrait",
+  },
 ];
 
 // Free Unsplash photos for the demo (D-11). Replace with Mason's own before launch (Q C10).
@@ -73,4 +137,5 @@ export const sectionHeadings = {
     description: "Years of training, stages, and performances that shaped where I am today",
   },
   expertise: { eyebrow: "Expertise", title: "What I Do" },
+  recentWork: { eyebrow: "Media", title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
 };

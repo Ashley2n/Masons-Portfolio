@@ -1,41 +1,51 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import Eyebrow from "@/components/ui/Eyebrow";
-import { videos } from "@/content/home";
-
-const VideoCard = () => (
-  <div>
-    <div className="bg-neutral-700 w-full h-32 rounded-lg"></div>
-    <h4 className="text-neutral-800 font-medium pt-2">My First Video</h4>
-    <p className="text-sm ">01/12/2024</p>
-  </div>
-);
+import Container from "@/components/ui/Container";
+import SectionHeading from "@/components/ui/SectionHeading";
+import VideoCard from "@/components/ui/VideoCard";
+import { sectionHeadings, videos } from "@/content/home";
+import { selectHomeVideos } from "@/lib/video";
 
 export default function RecentWorkSection() {
+  const { featured, others } = selectHomeVideos(videos);
+  const copy = sectionHeadings.recentWork;
+
   return (
-    <section className="h-screen bg-neutral-100 px-23 py-16 ">
-      <div className="space-y-6">
-        <Eyebrow>Media</Eyebrow>
-        <div className="flex flex-row justify-between items-center">
-          <h2 className="text-neutral-800">Recent Work</h2>
-          <Link
-            className="uppercase text-neutral-700 border-b-2 border-b-transparent hover:border-b-neutral-700 transition-all duration-500"
-            href="/media"
-          >
-            View More
-            <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />
-          </Link>
+    <section className="bg-neutral-100 py-16">
+      <Container className="space-y-12">
+        <div className="space-y-6">
+          <div className="flex items-end justify-between gap-4">
+            <SectionHeading tone="light" eyebrow={copy.eyebrow} title={copy.title} />
+            <Link
+              href="/media"
+              className="caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-500 hover:border-neutral-700"
+            >
+              {copy.viewMore}
+              <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />
+            </Link>
+          </div>
+          {featured && (
+            <VideoCard
+              video={featured}
+              sizes="(min-width: 1280px) 1280px, 100vw"
+              frameClassName="lg:aspect-21/9"
+            />
+          )}
         </div>
-        <div className="bg-neutral-700 w-full h-70 rounded-lg"></div>
-      </div>
-      <div>
-        <h2 className="text-neutral-800">Other Work</h2>
-        <div className="grid grid-cols-3 gap-6">
-          {videos.map((video) => (
-            <VideoCard key={video.id} />
-          ))}
-        </div>
-      </div>
+
+        {others.length > 0 && (
+          <section aria-labelledby="other-work-heading" className="space-y-6">
+            <h2 id="other-work-heading" className="text-neutral-800">
+              {copy.otherWork}
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {others.map((video) => (
+                <VideoCard key={video.id} video={video} />
+              ))}
+            </div>
+          </section>
+        )}
+      </Container>
     </section>
   );
 }

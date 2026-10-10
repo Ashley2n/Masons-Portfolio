@@ -29,12 +29,28 @@ export type ExpertiseItem = {
   colorClass: string;
 };
 
-export type Video = {
+type VideoBase = {
   id: string;
   title: string;
+  /** Publish date, ISO "YYYY-MM-DD" */
   date: string;
-  href: string;
+  /** "portrait" for Shorts and Reels (9:16) */
+  orientation: "landscape" | "portrait";
+  /** Shown large in "Recent Work" on the homepage */
+  featured?: boolean;
 };
+
+/** YouTube videos and Shorts play inline after a click (D-12). */
+export type YouTubeVideo = VideoBase & { platform: "youtube"; youtubeId: string };
+
+/** Instagram has no styleable player, so Reels use our own thumbnail and open on Instagram (D-12). */
+export type InstagramVideo = VideoBase & {
+  platform: "instagram";
+  url: string;
+  thumbnail: Photo;
+};
+
+export type Video = YouTubeVideo | InstagramVideo;
 
 export type Photo = {
   /** Path under public/, e.g. /images/home/hero-portrait.jpg */
