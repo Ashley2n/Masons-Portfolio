@@ -18,11 +18,14 @@
   --color-brand-500: #A78BFA;
   --color-brand-700: #7234E5;
   --color-brand-800: #4D3565;
+}
 
-  --font-playfair: var(--font-playfair);
-  --font-inter: var(--font-inter);
-  --font-space: var(--font-space);
-
+/* Font families come from next/font (lib/fonts.ts). `inline` makes utilities
+   use the next/font variable directly. */
+@theme inline {
+  --font-playfair: var(--next-font-playfair);
+  --font-inter: var(--next-font-inter);
+  --font-space: var(--next-font-space-mono);
 }
 
 @media (prefers-color-scheme: dark) {
