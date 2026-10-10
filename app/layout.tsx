@@ -19,7 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} h-full antialiased`}
     >
       
-      <body className="min-h-full flex flex-col dark:bg-neutral-950">
+      <body className="min-h-full flex flex-col bg-neutral-950">
         <Header/>
         {children}
         </body>
