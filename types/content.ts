@@ -58,6 +58,9 @@ export type Photo = {
   alt: string;
   /** Photographer and source, for stock photos (D-11) */
   credit?: string;
+  /** Intrinsic size, needed where the image keeps its own aspect ratio (gallery) */
+  width?: number;
+  height?: number;
 };
 
 export type ModelShot = Photo & { id: string };
@@ -76,3 +79,18 @@ export type PageIntro = {
   title: string;
   description: string;
 };
+
+export const galleryCategoryIds = [
+  "performances",
+  "portraits",
+  "behind-the-scenes",
+  "editorial",
+  "other",
+] as const;
+
+export type GalleryCategory = (typeof galleryCategoryIds)[number];
+
+export type GalleryItem = { id: string; category: GalleryCategory } & (
+  | { kind: "photo"; photo: Photo & { width: number; height: number } }
+  | { kind: "video"; video: Video }
+);
