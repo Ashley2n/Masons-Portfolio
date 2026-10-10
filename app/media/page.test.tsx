@@ -21,4 +21,15 @@ describe("/media page", () => {
       screen.getByRole("link", { name: "Get in touch" }),
     ).toHaveAttribute("href", "/contact");
   });
+
+  it("links 'Explore the gallery' down to the gallery", () => {
+    render(<Page />);
+
+    expect(screen.getByRole("link", { name: "Explore the gallery" })).toHaveAttribute(
+      "href",
+      "#gallery",
+    );
+    const gallery = screen.getByRole("list", { name: "Gallery" });
+    expect(gallery.closest("#gallery")).not.toBeNull();
+  });
 });

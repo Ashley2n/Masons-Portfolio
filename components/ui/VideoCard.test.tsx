@@ -75,4 +75,11 @@ describe("VideoCard", () => {
       expect(screen.getByAltText("Backstage before the show")).toBeInTheDocument();
     });
   });
+
+  it("can hide the title and date visually while keeping the title for screen readers", () => {
+    render(<VideoCard video={youtube} showMeta={false} />);
+
+    expect(screen.getByRole("heading", { name: "Spring" })).toHaveClass("sr-only");
+    expect(screen.queryByText("04/04/2019")).not.toBeInTheDocument();
+  });
 });

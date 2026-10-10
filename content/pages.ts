@@ -2,12 +2,6 @@ import type { PageIntro } from "@/types/content";
 
 /** Page headings. Copy is from the mockups, except Resume, which has none. */
 export const pageIntros = {
-  media: {
-    eyebrow: "Media",
-    title: "Moments. Stories. Vision.",
-    description:
-      "A collection of visuals from my creative journey — performances, projects, and everything in between.",
-  },
   resume: {
     eyebrow: "Resume",
     title: "Resume",

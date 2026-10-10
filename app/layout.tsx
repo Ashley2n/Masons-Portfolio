@@ -17,7 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} ${signature.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} ${signature.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-neutral-950">
         <Header />

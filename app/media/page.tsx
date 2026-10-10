@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import CtaBanner from "@/components/layout/CtaBanner";
+import Gallery from "@/components/sections/media/Gallery";
+import MediaHero from "@/components/sections/media/MediaHero";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import { pageIntros } from "@/content/pages";
 
 export const metadata: Metadata = {
   title: "Media",
 };
 
-// Placeholder until the full page is built (see docs/roadmap.md)
 export default function MediaPage() {
   return (
     <>
-      <section className="py-24">
+      <MediaHero />
+      <section id="gallery" className="scroll-mt-8 pb-8">
         <Container>
-          <SectionHeading as="h1" {...pageIntros.media} />
+          <Gallery />
         </Container>
       </section>
       <CtaBanner />

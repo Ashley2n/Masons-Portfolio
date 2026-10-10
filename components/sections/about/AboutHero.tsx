@@ -9,7 +9,7 @@ export default function AboutHero() {
   const { feature } = aboutContent;
 
   return (
-    <section className="relative isolate overflow-hidden py-16 md:py-24">
+    <section className="relative isolate overflow-x-clip py-16 md:py-24">
       {/* Soft purple glow behind the intro, as in the mockup */}
       <div
         aria-hidden="true"

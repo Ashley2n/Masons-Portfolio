@@ -14,6 +14,8 @@ type VideoCardProps = {
   sizes?: string;
   /** Extra classes for the media frame, e.g. a wider aspect ratio */
   frameClassName?: string;
+  /** false hides the title (still read by screen readers) and the date, e.g. in the gallery */
+  showMeta?: boolean;
   className?: string;
 };
 
@@ -30,6 +32,7 @@ export default function VideoCard({
   tone = "light",
   sizes = "(min-width: 768px) 33vw, 100vw",
   frameClassName,
+  showMeta = true,
   className,
 }: VideoCardProps) {
   const [playing, setPlaying] = useState(false);
@@ -95,22 +98,26 @@ export default function VideoCard({
   return (
     <article className={cn("space-y-2", className)}>
       {media}
-      <div>
-        <h3
-          className={cn(
-            "font-inter text-small font-medium",
-            tone === "light" ? "text-neutral-800" : "text-neutral-100",
-          )}
-        >
-          {video.title}
-        </h3>
-        <time
-          dateTime={video.date}
-          className={cn("text-caption", tone === "light" ? "text-neutral-600" : "text-neutral-400")}
-        >
-          {formatVideoDate(video.date)}
-        </time>
-      </div>
+      {showMeta ? (
+        <div>
+          <h3
+            className={cn(
+              "font-inter text-small font-medium",
+              tone === "light" ? "text-neutral-800" : "text-neutral-100",
+            )}
+          >
+            {video.title}
+          </h3>
+          <time
+            dateTime={video.date}
+            className={cn("text-caption", tone === "light" ? "text-neutral-600" : "text-neutral-400")}
+          >
+            {formatVideoDate(video.date)}
+          </time>
+        </div>
+      ) : (
+        <h3 className="sr-only">{video.title}</h3>
+      )}
     </article>
   );
 }
