@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter, playfairDisplay, spaceMono } from "@/lib/fonts";
-import Header from "./components/layout/Header";
+import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
