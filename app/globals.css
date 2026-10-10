@@ -46,29 +46,35 @@
   --font-space: var(--next-font-space-mono);
 }
 
-/* Hero name: scales up to the 100px hero size on desktop */
-.display-font {
-  @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;
+/* Element defaults. In the base layer so utility classes can override them. */
+@layer base {
+  h1 {
+    @apply text-h1 font-playfair font-semibold;
+  }
+  h2 {
+    @apply text-h2 font-playfair font-semibold;
+  }
+  h3 {
+    @apply text-h3 font-playfair;
+  }
+  body {
+    @apply text-body font-inter text-neutral-400;
+  }
 }
 
-h1 {
-  @apply text-h1 font-playfair font-semibold;
-}
-h2 {
-  @apply text-h2 font-playfair font-semibold;
-}
-h3 {
-  @apply text-h3 font-playfair;
-}
-body {
-  @apply text-body font-inter text-neutral-400;
-}
+/* Reusable text styles. In the components layer so utilities still win. */
+@layer components {
+  /* Hero name: scales up to the 100px hero size on desktop */
+  .display-font {
+    @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;
+  }
 
-.small-text {
-  @apply text-small font-inter;
-}
+  .small-text {
+    @apply text-small font-inter;
+  }
 
-/* Eyebrow / caption labels */
-.caption-text {
-  @apply text-caption font-space uppercase tracking-wider;
+  /* Eyebrow / caption labels */
+  .caption-text {
+    @apply text-caption font-space uppercase tracking-wider;
+  }
 }
