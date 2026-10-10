@@ -20,7 +20,7 @@ describe("Header", () => {
     expect(logo).toHaveAttribute("href", "/");
   });
 
-  it("has a main navigation with the four page links", () => {
+  it("has a main navigation with the three page links", () => {
     render(<Header />);
 
     const nav = screen.getByRole("navigation", { name: "Main" });
@@ -28,7 +28,6 @@ describe("Header", () => {
     expect(links.map((link) => [link.textContent, link.getAttribute("href")])).toEqual([
       ["About", "/about"],
       ["Media", "/media"],
-      ["Resume", "/resume"],
       ["Contact", "/contact"],
     ]);
   });
@@ -82,7 +81,7 @@ describe("Header", () => {
         "true",
       );
       const mobileNav = screen.getByRole("navigation", { name: "Mobile" });
-      expect(within(mobileNav).getAllByRole("link")).toHaveLength(4);
+      expect(within(mobileNav).getAllByRole("link")).toHaveLength(3);
     });
 
     it("closes when a link is chosen", async () => {

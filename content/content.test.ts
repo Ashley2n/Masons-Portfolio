@@ -49,11 +49,10 @@ describe("home content", () => {
 });
 
 describe("site content", () => {
-  it("nav links point to the four MVP pages, in mockup order", () => {
+  it("nav links point to About, Media and Contact (the resume opens in a modal instead)", () => {
     expect(navLinks).toEqual([
       { label: "About", href: "/about" },
       { label: "Media", href: "/media" },
-      { label: "Resume", href: "/resume" },
       { label: "Contact", href: "/contact" },
     ]);
   });

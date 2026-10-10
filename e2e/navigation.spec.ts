@@ -3,7 +3,6 @@ import { expect, test } from "@playwright/test";
 const pages = [
   { label: "About", path: "/about", heading: "About Me" },
   { label: "Media", path: "/media", heading: "Moments. Stories. Vision." },
-  { label: "Resume", path: "/resume", heading: "Resume" },
   { label: "Contact", path: "/contact", heading: "Let's create something great." },
 ];
 
@@ -42,7 +41,8 @@ test.describe("navigation", () => {
 });
 
 test.describe("page structure", () => {
-  for (const path of ["/", ...pages.map((p) => p.path)]) {
+  // /resume is no longer in the nav but stays reachable as a shareable link
+  for (const path of ["/", "/resume", ...pages.map((p) => p.path)]) {
     test(`${path} has one header, main and footer`, async ({ page }) => {
       await page.goto(path);
 

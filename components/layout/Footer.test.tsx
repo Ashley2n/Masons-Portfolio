@@ -40,7 +40,6 @@ describe("Footer", () => {
     expect(within(nav).getAllByRole("link").map((link) => link.textContent)).toEqual([
       "About",
       "Media",
-      "Resume",
       "Contact",
     ]);
   });
