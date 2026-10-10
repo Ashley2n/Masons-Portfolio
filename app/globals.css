@@ -4,6 +4,8 @@
    color-scheme keeps scrollbars and form controls dark too. */
 :root {
   color-scheme: dark;
+  /* Shared by the header and the homepage hero, which slides up underneath it */
+  --header-height: 5.25rem;
 }
 
 @theme {

@@ -6,8 +6,8 @@ import NavLinks from "./NavLinks";
 
 export default function Header() {
   return (
-    <header className="relative">
-      <Container className="flex items-center justify-between py-6">
+    <header className="relative z-20">
+      <Container className="flex h-(--header-height) items-center justify-between">
         <Link
           href="/"
           aria-label={`MF, ${siteConfig.name}, home`}
