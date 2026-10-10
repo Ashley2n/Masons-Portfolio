@@ -1,22 +1,4 @@
-import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import { generateRandomId } from "./helper-func";
-
-export const inter = Inter({
-    subsets: ["latin"],
-    variable: '--font-inter'
-})
-
-export const playfair_display = Playfair_Display({
-    subsets: ["latin"],
-    variable: '--font-playfair'
-})
-
-export const space_mono = Space_Mono({
-    subsets: ["latin"],
-    weight: ['400', '700'],
-    style: ['italic', 'normal'],
-    variable: "--font-space"
-})
 
 type NavLinkType = {
     name: string,

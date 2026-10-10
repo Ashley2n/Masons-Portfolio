@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { inter, playfair_display, space_mono } from "./lib/constants";
+import { inter, playfairDisplay, spaceMono } from "@/lib/fonts";
 import Header from "./components/layout/Header";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${space_mono.variable} ${playfair_display.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} h-full antialiased`}
     >
       
       <body className="min-h-full flex flex-col dark:bg-neutral-950">
