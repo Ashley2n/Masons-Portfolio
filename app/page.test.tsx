@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { modelShots } from "@/content/home";
 import Home from "./page";
 
 describe("Home page", () => {
@@ -57,12 +58,12 @@ describe("Home page", () => {
     const [next] = screen.getAllByRole("button", { name: "→" });
     const mainImage = () => screen.getAllByRole("img")[0];
 
-    expect(mainImage()).toHaveAttribute("alt", "Something");
+    expect(mainImage()).toHaveAttribute("alt", modelShots[0].alt);
     await user.click(next);
-    expect(mainImage()).toHaveAttribute("alt", "Something 2");
+    expect(mainImage()).toHaveAttribute("alt", modelShots[1].alt);
 
-    for (let i = 0; i < 4; i++) await user.click(next);
-    expect(mainImage()).toHaveAttribute("alt", "Something");
+    for (let i = 1; i < modelShots.length; i++) await user.click(next);
+    expect(mainImage()).toHaveAttribute("alt", modelShots[0].alt);
   });
 
   it("ends with the get-in-touch banner", () => {

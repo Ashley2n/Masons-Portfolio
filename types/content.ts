@@ -36,13 +36,15 @@ export type Video = {
   href: string;
 };
 
-export type ModelShot = {
-  id: string;
+export type Photo = {
+  /** Path under public/, e.g. /images/home/hero-portrait.jpg */
   src: string;
   alt: string;
   /** Photographer and source, for stock photos (D-11) */
   credit?: string;
 };
+
+export type ModelShot = Photo & { id: string };
 
 export type PageIntro = {
   eyebrow: string;

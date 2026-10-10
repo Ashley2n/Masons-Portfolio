@@ -1,4 +1,4 @@
-import type { ExpertiseItem, ModelShot, Stat, Video } from "@/types/content";
+import type { ExpertiseItem, ModelShot, Photo, Stat, Video } from "@/types/content";
 
 export const stats: Stat[] = [
   { id: "theatrical-shows", value: "10", label: "theatrical shows" },
@@ -19,36 +19,50 @@ export const videos: Video[] = [
   { id: "video-3", title: "My first Video", date: "01/16/2024", href: "/" },
 ];
 
+// Free Unsplash photos for the demo (D-11). Replace with Mason's own before launch (Q C10).
+export const homeImages = {
+  hero: {
+    src: "/images/home/hero-portrait.jpg",
+    alt: "Black-and-white portrait of a man looking upward into the light",
+    credit: "Parthiv Sailesh / Unsplash",
+  },
+  journey: {
+    src: "/images/home/journey-spotlight.jpg",
+    alt: "A performer standing alone in a spotlight on a dark stage",
+    credit: "Luis Morera / Unsplash",
+  },
+} satisfies Record<string, Photo>;
+
 export const modelShots: ModelShot[] = [
   {
-    id: "arindam-mondal",
-    src: "/images/home/arindam-mondal-j1C4ZVwQ5UQ-unsplash.jpg",
-    alt: "Something",
-    credit: "Arindam Mondal / Unsplash",
+    id: "studio-portrait",
+    src: "/images/home/model-shot-1.jpg",
+    alt: "Black-and-white studio portrait, looking straight into the camera",
+    credit: "Matheus Farias / Unsplash",
   },
   {
-    id: "joseph-malone",
-    src: "/images/home/joseph-malone-DtJ7BJyez9E-unsplash.jpg",
-    alt: "Something 2",
-    credit: "Joseph Malone / Unsplash",
+    id: "turtleneck-portrait",
+    src: "/images/home/model-shot-2.jpg",
+    alt: "Black-and-white portrait in a dark sweater, glancing to the side",
+    credit: "mohammad kashkooli / Unsplash",
   },
   {
-    id: "mike-hindle",
-    src: "/images/home/mike-hindle-fw93NEMCq6c-unsplash.jpg",
-    alt: "Something 3",
-    credit: "Mike Hindle / Unsplash",
+    id: "low-key-portrait",
+    src: "/images/home/model-shot-3.jpg",
+    alt: "Low-key portrait with one hand raised to the chin",
+    credit: "omid armin / Unsplash",
   },
   {
-    id: "thorium",
-    src: "/images/home/thorium-o_IcRyN_Bo0-unsplash.jpg",
-    alt: "Something 4",
-    credit: "Thorium / Unsplash",
+    id: "shadow-portrait",
+    src: "/images/home/model-shot-4.jpg",
+    alt: "Portrait half in shadow against a black background",
+    credit: "Nartan Büyükyıldız / Unsplash",
   },
   {
-    id: "joseph-malone-2",
-    src: "/images/home/joseph-malone-DtJ7BJyez9E-unsplash.jpg",
-    alt: "Something 5",
-    credit: "Joseph Malone / Unsplash",
+    id: "seated-portrait",
+    src: "/images/home/model-shot-5.jpg",
+    alt: "Black-and-white portrait in a dark t-shirt",
+    credit: "Lukas Kaufmann / Unsplash",
   },
 ];
 

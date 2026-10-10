@@ -1,5 +1,8 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { expertiseItems, modelShots, stats, videos } from "./home";
+import { expertiseItems, homeImages, modelShots, stats, videos } from "./home";
+import type { Photo } from "@/types/content";
 import { contactInfo, navLinks, socialLinks } from "./site";
 
 const expectUniqueIds = (items: { id: string }[]) => {
@@ -25,6 +28,20 @@ describe("home content", () => {
       expect(shot.src).toMatch(/^\/images\//);
     });
   });
+
+  const photos: [string, Photo][] = [
+    ...Object.entries(homeImages),
+    ...modelShots.map((shot): [string, Photo] => [shot.id, shot]),
+  ];
+
+  it.each(photos)(
+    "%s image exists in public/ and credits its photographer",
+    (_, image) => {
+      expect(existsSync(join(process.cwd(), "public", image.src))).toBe(true);
+      expect(image.alt.trim()).not.toBe("");
+      expect(image.credit).toMatch(/ \/ Unsplash$/);
+    },
+  );
 });
 
 describe("site content", () => {
