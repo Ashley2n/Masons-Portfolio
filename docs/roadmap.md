@@ -65,12 +65,13 @@ _Last updated: 2026-10-10_
 - [x] Copy matches the homepage mockup exactly (stats, expertise wording, tagline)
 - [x] Source and optimize free stock photos (D-11)
 
-## Phase 6 · About & Media (`feat/about`, `feat/media`), Tue 10/13
+## Phase 6 · About & Media (`feat/about`, `feat/media`), Sun 10/11 ✅
 
-- [ ] About hero with signature
-- [ ] Journey timeline (6 milestones, alternating layout desktop / single column mobile)
-- [ ] Media hero, category tabs, gallery grid (photos + video items), "Load more"
-- [ ] Responsive pass
+- [x] About hero with signature (placeholder script font until Q C13) and feature card
+- [x] Journey timeline (6 milestones, alternating layout desktop / single column mobile)
+- [x] Media hero, category filters, masonry gallery (photos, videos and Shorts), "Load more"
+- [x] Responsive pass
+- [x] Fixed: `cn()` dropped custom text sizes next to text colors (tailwind-merge config)
 
 ## Phase 7 · Resume & Contact (`feat/resume`, `feat/contact`), Wed 10/14 AM
 
@@ -102,5 +103,6 @@ _Last updated: 2026-10-10_
 - [ ] Automatic video ordering via YouTube / Instagram APIs (D-12)
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
+- [ ] Gallery lightbox (open photos full screen)
 - [ ] CI: build once and share it between the `check` and `e2e` jobs (currently builds twice)
 - [ ] Footer year is set at build time; redeploy once a year (or render it client-side) so it doesn't go stale

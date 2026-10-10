@@ -40,18 +40,18 @@ _Last updated: 2026-10-10_
 | Item | Status | Notes |
 |---|---|---|
 | Intro copy (2 paragraphs) | ✅ | From mockup. |
-| Signature image / SVG | ⏳ | See Q C13. |
-| Hero feature image + caption | 📷 | Caption follows homepage wording: "Designer / Branding & Digital Design". |
+| Signature image / SVG | 🔁 | "Mason F." in a script font (Mrs Saint Delafield) until Q C13. |
+| Hero feature image + caption | 📷 | `about/feature-peaks.jpg` (Kai Oberhäuser / Unsplash). Caption follows homepage wording: "Designer / Branding & Digital Design". |
 | Journey milestones 01–06 (title + description) | ✅ | From mockup: Found the Stage · First Role, First Spark · Went All In · Joined American Gothic Performing Arts · Americas got Talent · Movie Actor. Copy-edit needed (e.g. "America's Got Talent"). |
-| Journey images (4) | 📷 | |
+| Journey images (4) | 📷 | `about/journey-*.jpg`, credits in `content/about.ts`. |
 
 ## Media (`/media`)
 
 | Item | Status | Notes |
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
-| Gallery photos (12+), each with category and alt text | 📷 | Categories: Performances, Portraits, Behind the Scenes, Editorial, Other (Q C11). |
-| Gallery videos (YouTube / Reel links + category) | ⏳ | Q C6. |
+| Gallery photos (12+), each with category and alt text | 📷 | 18 Unsplash photos in `public/images/media/` + reused home photos; credits in `content/media.ts`. Categories: Performances, Portraits, Behind the Scenes, Editorial, Other (Q C11). |
+| Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via Q C6. |
 
 ## Resume (`/resume`)
 
