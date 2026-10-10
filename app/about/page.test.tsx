@@ -100,4 +100,10 @@ describe("/about page", () => {
 
     expect(screen.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
   });
+
+  it("offers the resume in a modal", () => {
+    render(<Page />);
+
+    expect(screen.getByRole("button", { name: "View resume" })).toBeInTheDocument();
+  });
 });

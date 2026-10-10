@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ResumeDialog from "@/components/resume/ResumeDialog";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { heroContent, homeImages } from "@/content/home";
@@ -36,7 +37,10 @@ export default function HeroSection() {
           </h1>
         </div>
         <p className="max-w-sm text-neutral-300">{heroContent.tagline}</p>
-        <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
+        <div className="flex flex-wrap gap-4">
+          <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
+          <ResumeDialog />
+        </div>
       </Container>
     </section>
   );

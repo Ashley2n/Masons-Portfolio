@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ResumeDialog from "@/components/resume/ResumeDialog";
 import Container from "@/components/ui/Container";
 import Eyebrow from "@/components/ui/Eyebrow";
 import { aboutContent } from "@/content/about";
@@ -28,6 +29,7 @@ export default function AboutHero() {
           </div>
           <div aria-hidden="true" className="h-px w-16 bg-brand-600" />
           <p className="font-signature text-5xl text-brand-500">{aboutContent.signature}</p>
+          <ResumeDialog />
         </div>
 
         <Link

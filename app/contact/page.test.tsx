@@ -62,4 +62,10 @@ describe("/contact page", () => {
 
     expect(screen.queryByRole("link", { name: "Get in touch" })).not.toBeInTheDocument();
   });
+
+  it("offers the resume in a modal", () => {
+    render(<Page />);
+
+    expect(screen.getByRole("button", { name: "View resume" })).toBeInTheDocument();
+  });
 });

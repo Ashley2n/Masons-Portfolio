@@ -1,5 +1,6 @@
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
+import ResumeDialog from "@/components/resume/ResumeDialog";
 import Eyebrow from "@/components/ui/Eyebrow";
 import { contactContent } from "@/content/contact";
 import { contactInfo, siteConfig, socialLinks } from "@/content/site";
@@ -52,6 +53,7 @@ export default function ContactCard() {
               {contactInfo.location}
             </li>
           </ul>
+          <ResumeDialog className="px-5 py-3" />
         </div>
 
         <div className="space-y-4 border-t border-neutral-700 pt-6">

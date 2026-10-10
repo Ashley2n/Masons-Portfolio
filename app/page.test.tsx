@@ -132,4 +132,10 @@ describe("Home page", () => {
 
     expect(screen.getByRole("link", { name: /view more/i })).toHaveAttribute("href", "/media");
   });
+
+  it("offers the resume in a modal", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("button", { name: "View resume" })).toBeInTheDocument();
+  });
 });
