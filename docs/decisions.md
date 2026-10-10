@@ -111,3 +111,10 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The design system lists Display as 64px, but the hero name in the Homepage mockup is clearly larger, about 100px (matching the existing code).
 - **Decision:** Add a `text-hero` token (100px / 1.1) used only for the hero name, scaling 44px → 72px → 100px across breakpoints. `text-display` (64px) is for large page titles (About, Media, Contact).
 - **Consequences:** The homepage matches the mockup visually. All other sizes follow the documented scale, and both are covered by `app/design-tokens.test.ts`.
+
+### D-15 · Playwright uses the installed Google Chrome
+
+- **Date:** 2026-10-11 · **Status:** Accepted
+- **Context:** Downloading Playwright's bundled browser timed out in the development sandbox.
+- **Decision:** Playwright runs with `channel: "chrome"`, the Google Chrome already installed locally and preinstalled on GitHub's Ubuntu runners.
+- **Consequences:** No browser download step locally or in CI. Tests run on stable Chrome rather than a pinned build. Switch back to the bundled browser (`npx playwright install chromium`) if version pinning becomes important.

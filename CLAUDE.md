@@ -15,7 +15,8 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 
 - Red → green → refactor for every behavior change. Write the failing test first, run it, and confirm it fails for the right reason before writing implementation code.
 - Bug fixes start with a test that reproduces the bug.
-- Colocated `*.test.ts(x)`, Vitest + React Testing Library, user-centric queries (`getByRole`…). Playwright e2e for pages (from Phase 4).
+- Colocated `*.test.ts(x)`, Vitest + React Testing Library, user-centric queries (`getByRole`…). Playwright e2e in `e2e/*.spec.ts` (`npm run test:e2e`).
+- For regression tests, confirm the test fails with the bug reintroduced.
 - Commit the test and implementation together. Never use `--no-verify`.
 - What to test and what not to test: `docs/architecture.md#testing--tdd`.
 
@@ -23,6 +24,7 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 
 - `app/` is for routes only. Components go in `components/`, copy and data in `content/`, helpers in `lib/`, and types in `types/`. Import with the `@/` alias.
 - Use Server Components by default. Put `"use client"` only on the smallest interactive leaf.
+- Global CSS in `app/globals.css` must sit in `@layer base` or `@layer components`; unlayered rules override utility classes.
 - Use design tokens (`brand-*`, `neutral-*`, `font-playfair|inter|space`), not raw hex. The theme is dark-first and doesn't depend on OS color scheme.
 - Use stable IDs or slugs for list keys (never `Math.random()` or array index).
 - Use `next/image` with real dimensions or `fill` + `sizes`.

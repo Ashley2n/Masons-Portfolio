@@ -18,7 +18,7 @@ _Last updated: 2026-10-10_
 | Email address for the site | ✅ | `masonfarrington@gmail.com` (from mockup). Confirm it's the public one. |
 | Phone number | ✅ | Ashley has the real number and will add it (the mockup number is a placeholder). |
 | Location | ✅ | Los Angeles, CA |
-| Social links (Instagram, YouTube, others) | ⏳ | See Q C7. |
+| Social links (Instagram, YouTube, others) | ⏳ | See Q C7. Placeholder URLs in `content/site.ts` (`socialLinks`). |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
 | Domain | ❌ | Mason has none. Purchase is open in Q C5; launch can use `*.vercel.app`. |
 
@@ -33,7 +33,7 @@ _Last updated: 2026-10-10_
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
 | Recent Work: featured video | ⏳ | Most recent or most viewed YouTube video / Reel (Q C6). |
 | Other Work: 3 videos (title, date, link) | ⏳ | YouTube and/or Instagram Reels (Q C6). |
-| Model Shots: 5+ portrait photos | 📷 → ⏳ | Unsplash placeholders in `public/background/` for the demo; Mason's real photos for launch (Q C10). |
+| Model Shots: 5+ portrait photos | 📷 → ⏳ | Unsplash placeholders in `public/images/home/` for the demo; Mason's real photos for launch (Q C10). |
 
 ## About (`/about`)
 

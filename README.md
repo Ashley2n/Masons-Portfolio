@@ -24,6 +24,7 @@ Open http://localhost:3000.
 | `npm run typecheck` | Type check |
 | `npm test` | Run tests once |
 | `npm run test:watch` | Run tests in watch mode |
+| `npm run test:e2e` | Run Playwright end-to-end tests |
 
 ## Testing (TDD)
 
@@ -38,6 +39,7 @@ content/      all editable copy and data
 lib/          fonts and helpers
 types/        shared TypeScript types
 public/       images and the resume PDF
+e2e/          Playwright end-to-end tests
 docs/         project documentation and mockups
 ```
 

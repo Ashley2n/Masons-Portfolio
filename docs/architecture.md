@@ -15,7 +15,7 @@ _Last updated: 2026-10-10_
 | Video | YouTube embeds (click-to-load) + Instagram Reel cards (D-12) |
 | Linting | ESLint 9 + `eslint-config-next` |
 | Testing | Vitest + React Testing Library (jsdom); Playwright e2e from Phase 4 (D-13) |
-| Git hooks / CI | husky pre-commit (lint, typecheck, test); GitHub Actions (+ build) |
+| Git hooks / CI | husky pre-commit (lint, typecheck, test); GitHub Actions (+ build, + Playwright e2e) |
 | Hosting | Vercel + Vercel Web Analytics (proposed; see D-08) |
 
 ## Folder structure
@@ -53,6 +53,7 @@ types/
 public/
   images/<page>/…       # optimized images, kebab-case names
   resume/mason-farrington-resume.pdf
+e2e/                    # Playwright end-to-end tests (*.spec.ts)
 docs/                   # project documentation (you are here)
 ```
 
@@ -87,7 +88,7 @@ The restructure was completed in Phase 2 (2026-10-10). Pages that don't exist ye
 
 - Use Tailwind utilities and design tokens (`brand-*`, `neutral-*`, `font-playfair`…). Don't hard-code hex values in components.
 - Merge conditional classes with `cn()`.
-- Global element styles (`h1`–`h3`, `body`) and the few semantic classes (`.display-font`, `.caption-text`) live in `globals.css` only.
+- Global element styles (`h1`–`h3`, `body`) live in `@layer base` and the semantic classes (`.display-font`, `.caption-text`, `.small-text`) in `@layer components` in `globals.css`. Never add unlayered rules there: they override Tailwind utility classes.
 - Mobile-first: write base styles for mobile and add `md:` / `lg:` for larger screens.
 
 ### Images
@@ -125,12 +126,23 @@ This project uses **test-driven development** (D-13). For every change:
 
 **Don't unit-test** Tailwind class names, visual layout or Next.js/third-party internals. Check those visually against the mockups.
 
+### Where tests live
+
+| Test type | Location | File name | Tool |
+|---|---|---|---|
+| Logic, components, content | Next to the file it tests | `*.test.ts(x)` | Vitest + React Testing Library |
+| Whole pages in a real browser | `e2e/` | `*.spec.ts` | Playwright |
+
+Colocating keeps a test next to its code, so missing tests are visible and files move together. E2E tests cover several pages at once, so they get their own folder. Test files inside `app/` are safe: Next.js only routes `page.tsx`, `layout.tsx`, `route.ts` and similar.
+
 ### Conventions
 
 - Colocate tests next to the code: `Foo.tsx` → `Foo.test.tsx`.
 - Query like a user: `getByRole`, `getByLabelText`, `getByText`. Avoid test IDs and class selectors.
 - Use `@testing-library/user-event` for interactions.
 - Test names describe behavior: `it("wraps from the last image back to the first")`.
+- Playwright runs desktop and mobile (Pixel 7) projects with the installed Google Chrome (`channel: "chrome"`), so no browser download is needed (D-15). Locally it reuses `npm run dev`; CI tests the production build.
+- When a test guards against a bug, check it fails with the bug put back (a test that can't fail protects nothing).
 - `next/font/google` is stubbed globally in `vitest.setup.ts`. When adding a new Google font, add its loader to that stub.
 
 ## Git workflow
@@ -152,3 +164,4 @@ This project uses **test-driven development** (D-13). For every change:
 | `npm run typecheck` | Type check |
 | `npm test` | Run all tests once |
 | `npm run test:watch` | Tests in watch mode (use while doing TDD) |
+| `npm run test:e2e` | Playwright end-to-end tests (starts the dev server if needed) |

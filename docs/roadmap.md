@@ -43,14 +43,16 @@ _Last updated: 2026-10-10_
 - [x] Site metadata (title, description) to replace "Create Next App"
 - [x] Font usage matches the design system on every page (D-10)
 
-## Phase 4 · Shared layout (`feat/layout`), Sun 10/11
+## Phase 4 · Shared layout (`feat/layout`), Sun 10/11 ✅
 
-- [ ] Semantic `Header` with `<nav>`, active link, Contact link, mobile menu
-- [ ] `Footer` (Navigation / Connect / Contact columns, year generated automatically)
-- [ ] `CtaBanner` → `/contact`
-- [ ] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
-- [ ] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
-- [ ] Add Playwright with e2e smoke tests: every nav link loads its page; the hero stays readable with a light-mode OS theme (regression test for the Phase 3 fix)
+- [x] Semantic `Header` with `<nav>`, active link, Contact link, mobile menu
+- [x] `Footer` (Navigation / Connect / Contact columns, year generated automatically)
+- [x] `CtaBanner` → `/contact` (Home, About, Media, Resume)
+- [x] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
+- [x] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
+- [x] One `<main>` per page (root layout); "View work" links to `/media`
+- [x] Global CSS moved into Tailwind layers so utility classes can override element styles
+- [x] Add Playwright with e2e smoke tests: every nav link loads its page; the hero stays readable with a light-mode OS theme (regression test for the Phase 3 fix)
 
 ## Phase 5 · Homepage complete (`feat/home`), Mon 10/12
 
