@@ -58,8 +58,8 @@ A lightweight record of technical and product decisions, in the style of [Archit
 ### D-08 · Hosting on Vercel
 
 - **Date:** 2026-10-09 · **Status:** Proposed (see Q C5)
-- **Context:** Next.js-native hosting with preview deploys suits client demos.
-- **Decision:** Deploy to Vercel. Every branch or PR gets a preview URL. The production domain is connected at launch.
+- **Context:** Next.js-native hosting with preview deploys suits client demos. Mason has no domain yet (2026-10-10).
+- **Decision:** Deploy to Vercel. Every branch or PR gets a preview URL. Launch on the free `*.vercel.app` URL if no domain has been bought by then; connect a domain later. Use Vercel Web Analytics (cookieless) for visitor stats.
 - **Consequences:** Free tier is sufficient. Need to decide who owns the Vercel account.
 
 ### D-09 · Icons with `lucide-react`
@@ -68,3 +68,28 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The mockups use line icons (arrows, mail, phone, pin, social).
 - **Decision:** Use `lucide-react` for UI icons, plus inline SVGs for brand logos (Instagram, YouTube), since Lucide doesn't ship brand marks.
 - **Consequences:** One small, tree-shaken dependency. Consistent stroke style.
+
+### D-10 · Code is the source of truth for colors and fonts
+
+- **Date:** 2026-10-10 · **Status:** Accepted
+- **Context:** Hex values read from the mockup PNG differ slightly from the code (e.g. brand-600 `#8A5CF6` vs `#8A2CF6`), and the Contact mockup shows different fonts.
+- **Decision:** Colors in `app/globals.css` (brand scale + Tailwind's default `neutral`) and the fonts configured in code (Playfair Display, Inter, Space Mono) are canonical. The mockups define layout, type scale and components.
+- **Consequences:** No palette rework needed. [design-system.md](design-system.md) documents the code values.
+
+### D-11 · Free stock photos for the MVP
+
+- **Date:** 2026-10-10 · **Status:** Accepted
+- **Context:** Mason's current site has few photos, and extracting them takes time. The deadline is one week away.
+- **Decision:** Use free-licensed photos (Unsplash, Pexels and similar) for the MVP. Record each photo's source URL and photographer in `content/`. Portraits that stand in for Mason himself (hero, Model Shots, Portraits category) are placeholders and get replaced with his real photos before or shortly after launch (Q C10).
+- **Consequences:** Unblocks design work immediately. Optimize the images before committing them; the current placeholders are up to 7 MB.
+
+### D-12 · Videos: YouTube and Instagram Reels in one card system, hand-curated
+
+- **Date:** 2026-10-10 · **Status:** Proposed (confirm list and ordering with Mason; see Q C6)
+- **Context:** Mason may want both YouTube videos and Instagram Reels, ordered by most recent or most viewed.
+- **Decision:**
+  - The data model supports both: `{ id, platform: "youtube" | "instagram", url, title, date, thumbnail, orientation: "landscape" | "portrait", featured? }`.
+  - **YouTube:** thumbnail comes free from `img.youtube.com`. Clicking loads the `youtube-nocookie.com` player inline. Shorts use the same flow in a 9:16 card.
+  - **Instagram Reels:** Instagram doesn't offer a styleable player or free thumbnails, so cards use an uploaded thumbnail and open the Reel on Instagram (or in Instagram's official embed in a modal).
+  - **Ordering:** a hand-curated list sorted newest first, with a `featured` flag for "Recent Work". Automatic "most viewed / most recent" is a post-MVP option: the YouTube Data API needs a free API key; the Instagram Graph API needs a Business/Creator account plus a Meta app.
+- **Consequences:** Fully custom card styling for both platforms with no API keys in the MVP. This is independent of the CMS decision; a CMS would only let Mason add or reorder videos himself.

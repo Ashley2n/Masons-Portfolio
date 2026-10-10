@@ -1,6 +1,6 @@
 # Architecture & Conventions
 
-_Last updated: 2026-10-09_
+_Last updated: 2026-10-10_
 
 ## Tech stack
 
@@ -12,9 +12,9 @@ _Last updated: 2026-10-09_
 | Styling | Tailwind CSS v4 (CSS-first config in `app/globals.css`), `tailwind-merge` for class merging |
 | Fonts | `next/font/google`: Playfair Display, Inter, Space Mono |
 | Images | `next/image` |
-| Video | YouTube embeds (lazy-loaded) |
+| Video | YouTube embeds (click-to-load) + Instagram Reel cards (D-12) |
 | Linting | ESLint 9 + `eslint-config-next` |
-| Hosting | Vercel (proposed; see [decisions.md](decisions.md)) |
+| Hosting | Vercel + Vercel Web Analytics (proposed; see D-08) |
 
 ## Folder structure
 
@@ -35,7 +35,7 @@ app/
   sitemap.ts  robots.ts  opengraph-image.(tsx|png)
 components/
   layout/               # Header, MobileNav, Footer, CtaBanner
-  ui/                   # Button, Eyebrow, SectionHeading, Container, YouTubeEmbed
+  ui/                   # Button, Eyebrow, SectionHeading, Container, VideoCard
   sections/
     home/               # HeroSection, JourneySection, ExpertiseSection, RecentWorkSection, ModelShotsCarousel
     about/              # AboutHero, Timeline
