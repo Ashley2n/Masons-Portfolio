@@ -22,7 +22,6 @@ _Last updated: 2026-10-10_
 
 `app/` is used **only for routing** (pages, layouts and route-level files). Everything else lives at the project root and is imported through the `@/` alias (`tsconfig.json` → `"@/*": ["./*"]`).
 
-### Target
 
 ```
 app/
@@ -57,17 +56,7 @@ public/
 docs/                   # project documentation (you are here)
 ```
 
-### Current → target mapping
-
-| Current | Target |
-|---|---|
-| `app/components/layout/Header.tsx` | `components/layout/Header.tsx` |
-| `app/lib/constants.ts` (fonts) | `lib/fonts.ts` |
-| `app/lib/constants.ts` (data + types) | `content/*.ts` + `types/content.ts` |
-| `app/lib/helper-func.ts` | removed (static IDs instead of random) |
-| `app/lib/types.ts` (empty) | removed |
-| `app/page.tsx` (all sections inline) | `components/sections/home/*` |
-| `public/background/*` | `public/images/home/*` (placeholders until real photos arrive) |
+The restructure was completed in Phase 2 (2026-10-10). Pages that don't exist yet (`about`, `media`, `resume`, `contact`) and their section folders are added in later phases.
 
 ## Conventions
 
@@ -142,6 +131,7 @@ This project uses **test-driven development** (D-13). For every change:
 - Query like a user: `getByRole`, `getByLabelText`, `getByText`. Avoid test IDs and class selectors.
 - Use `@testing-library/user-event` for interactions.
 - Test names describe behavior: `it("wraps from the last image back to the first")`.
+- `next/font/google` is stubbed globally in `vitest.setup.ts`. When adding a new Google font, add its loader to that stub.
 
 ## Git workflow
 

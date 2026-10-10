@@ -41,7 +41,7 @@ public/       images and the resume PDF
 docs/         project documentation and mockups
 ```
 
-The full conventions are in [docs/architecture.md](docs/architecture.md). The project is currently being reorganized into this structure; see [docs/roadmap.md](docs/roadmap.md).
+The full conventions are in [docs/architecture.md](docs/architecture.md). Progress is tracked in [docs/roadmap.md](docs/roadmap.md).
 
 ## Editing content
 

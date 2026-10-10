@@ -24,15 +24,15 @@ _Last updated: 2026-10-10_
 - [x] Content checklist and open questions for the client
 - [x] README and `CLAUDE.md`
 
-## Phase 2 · Restructure, no visual changes (`refactor/project-structure`), Sat 10/10
+## Phase 2 · Restructure, no visual changes (`refactor/project-structure`), Sat 10/10 ✅
 
-- [ ] **First:** add a characterization test that renders the homepage sections (headings, stats, expertise cards) to protect the refactor
-- [ ] Move `Header` to `components/layout/`
-- [ ] Split `app/page.tsx` into `components/sections/home/*`. The page becomes a Server Component, and only the carousel is a client component.
-- [ ] Move fonts to `lib/fonts.ts`, add `cn()` to `lib/utils.ts`
-- [ ] Move data to `content/`, types to `types/content.ts`, with static IDs
-- [ ] Remove `app/lib/` and the leftover Next.js boilerplate SVGs in `public/`
-- [ ] Verify: tests, build, lint and type check pass; homepage looks unchanged
+- [x] **First:** add a characterization test that renders the homepage sections (headings, stats, expertise cards) to protect the refactor
+- [x] Move `Header` to `components/layout/`
+- [x] Split `app/page.tsx` into `components/sections/home/*`. The page becomes a Server Component, and only the carousel is a client component.
+- [x] Move fonts to `lib/fonts.ts`, add `cn()` to `lib/utils.ts`
+- [x] Move data to `content/`, types to `types/content.ts`, with static IDs
+- [x] Remove `app/lib/` and the leftover Next.js boilerplate SVGs in `public/`; photos moved to `public/images/home/`
+- [x] Verify: tests, build, lint and type check pass; homepage looks unchanged (checked in browser)
 
 ## Phase 3 · Design tokens (`feat/design-tokens`), Sun 10/11
 
