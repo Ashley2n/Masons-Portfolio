@@ -2,6 +2,18 @@ import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Footer from "./Footer";
 
+// Use a sample profile so link behavior is tested even while real socials are hidden (Q C7)
+vi.mock("@/content/site", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/content/site")>();
+  return {
+    ...actual,
+    socialLinks: [
+      { id: "instagram", label: "Instagram", href: "https://www.instagram.com/example/" },
+      ...actual.socialLinks,
+    ],
+  };
+});
+
 describe("Footer", () => {
   afterEach(() => {
     vi.useRealTimers();
@@ -36,11 +48,15 @@ describe("Footer", () => {
   it("opens social profiles in a new tab", () => {
     render(<Footer />);
 
-    for (const name of ["Instagram", "YouTube"]) {
-      const link = screen.getByRole("link", { name });
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
-    }
+    const link = screen.getByRole("link", { name: "Instagram" });
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+  });
+
+  it("keeps the email link in the same tab", () => {
+    render(<Footer />);
+
+    expect(screen.getByRole("link", { name: "Email" })).not.toHaveAttribute("target");
   });
 
   it("links the email address and shows the location", () => {

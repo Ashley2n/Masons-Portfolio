@@ -20,9 +20,9 @@ export const contactInfo: ContactInfo = {
 };
 
 export const socialLinks: SocialLink[] = [
-  // TODO(Q C7): replace with Mason's real profile URLs
-  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/" },
-  { id: "youtube", label: "YouTube", href: "https://www.youtube.com/" },
+  // Hidden until Mason sends his profile URLs (Q C7). Add them back like:
+  // { id: "instagram", label: "Instagram", href: "https://www.instagram.com/<handle>/" },
+  // { id: "youtube", label: "YouTube", href: "https://www.youtube.com/@<handle>" },
   { id: "email", label: "Email", href: `mailto:${contactInfo.email}` },
 ];
 

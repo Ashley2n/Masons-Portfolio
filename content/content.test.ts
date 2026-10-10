@@ -43,6 +43,12 @@ describe("site content", () => {
     expectUniqueIds(socialLinks);
   });
 
+  it("social links point to real profiles, not placeholder homepages", () => {
+    socialLinks
+      .filter((link) => link.href.startsWith("https://"))
+      .forEach((link) => expect(new URL(link.href).pathname).not.toBe("/"));
+  });
+
   it("contact info has a valid email and a location", () => {
     expect(contactInfo.email).toMatch(/^[^@\s]+@[^@\s]+\.[a-z]+$/);
     expect(contactInfo.location.trim()).not.toBe("");
