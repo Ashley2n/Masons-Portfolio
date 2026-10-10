@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const isCI = !!process.env.CI;
+const CHROME = "chrome";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -10,14 +11,13 @@ export default defineConfig({
   reporter: isCI ? "github" : "list",
   use: {
     baseURL: "http://localhost:3000",
-    // Installed Google Chrome (local machines and GitHub runners both have it),
-    // so no separate browser download is needed.
-    channel: "chrome",
     trace: "on-first-retry",
   },
+  // Installed Google Chrome (local machines and GitHub runners both have it), so no
+  // browser download is needed (D-15). Set per project: device presets override `use`.
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"], channel: "chrome" } },
-    { name: "mobile", use: { ...devices["Pixel 7"], channel: "chrome" } },
+    { name: "desktop", use: { ...devices["Desktop Chrome"], channel: CHROME } },
+    { name: "mobile", use: { ...devices["Pixel 7"], channel: CHROME } },
   ],
   webServer: {
     // CI tests the production build; locally, reuse a running dev server.
