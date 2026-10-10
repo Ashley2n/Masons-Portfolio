@@ -58,7 +58,7 @@ _Last updated: 2026-10-10_
 
 - [ ] Hero with portrait image, "View work" → `/media`
 - [ ] Journey stats + image with glow
-- [ ] Expertise cards with gradients and links
+- [ ] Expertise cards with gradients and links (cards must be real `<Link>`s; they currently look clickable but are divs, found in Phase 4 review)
 - [ ] Recent Work + Other Work with `VideoCard` (YouTube inline + Instagram Reel support, D-12)
 - [ ] Model Shots carousel: wraparound, prev/next, thumbnails, keyboard support
 - [ ] Responsive pass (mobile / tablet)
@@ -102,3 +102,5 @@ _Last updated: 2026-10-10_
 - [ ] Automatic video ordering via YouTube / Instagram APIs (D-12)
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
+- [ ] CI: build once and share it between the `check` and `e2e` jobs (currently builds twice)
+- [ ] Footer year is set at build time; redeploy once a year (or render it client-side) so it doesn't go stale
