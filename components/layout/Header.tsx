@@ -1,27 +1,27 @@
-import { navLinks } from "@/content/site";
 import Link from "next/link";
+import Container from "@/components/ui/Container";
+import { siteConfig } from "@/content/site";
+import MobileMenu from "./MobileMenu";
+import NavLinks from "./NavLinks";
 
 export default function Header() {
   return (
-    <div className="py-6 px-23">
-      <div className="flex flex-row justify-between items-center">
-        <HeaderLogo />
-        <div className="flex md:flex-row gap-12 caption-text">
-          {navLinks.map((link) => (
-            <Link
-            key={link.href}
-            href={link.href}
-            className="border-b border-b-transparent hover:border-b-neutral-300 hover:text-neutral-300 transition-all duration-300 hover:cursor-pointer"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+    <header className="relative">
+      <Container className="flex items-center justify-between py-6">
+        <Link
+          href="/"
+          aria-label={`${siteConfig.name}, home`}
+          className="font-playfair text-3xl italic text-neutral-100"
+        >
+          MF
+        </Link>
+
+        <nav aria-label="Main" className="hidden md:block">
+          <NavLinks className="gap-12" />
+        </nav>
+
+        <MobileMenu />
+      </Container>
+    </header>
   );
 }
-
-const HeaderLogo = () => {
-  return <h4 className="font-playfair text-3xl italic text-neutral-100 hover:cursor-pointer">MF</h4>;
-};
