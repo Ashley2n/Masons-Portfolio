@@ -13,6 +13,19 @@ vi.mock("next/font/google", () => {
   return { Inter: loader, Mrs_Saint_Delafield: loader, Playfair_Display: loader, Space_Mono: loader };
 });
 
+// jsdom doesn't implement <dialog>'s showModal()/close(). Minimal stand-ins: real browsers
+// (and the Playwright tests) provide the full behavior, e.g. Escape and focus trapping.
+if (!HTMLDialogElement.prototype.showModal) {
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute("open", "");
+  };
+  HTMLDialogElement.prototype.close = function () {
+    if (!this.hasAttribute("open")) return;
+    this.removeAttribute("open");
+    this.dispatchEvent(new Event("close"));
+  };
+}
+
 afterEach(() => {
   cleanup();
 });

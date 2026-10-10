@@ -63,6 +63,10 @@
   body {
     @apply text-body font-inter text-neutral-400;
   }
+  /* Keep the page behind an open modal (e.g. the resume) from scrolling */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 /* Reusable text styles. In the components layer so utilities still win. */

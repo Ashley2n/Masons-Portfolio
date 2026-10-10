@@ -7,6 +7,8 @@ export const resumeContent = {
     href: "/resume/mason-farrington-resume.pdf",
     downloadName: "Mason-Farrington-Resume.pdf",
   },
+  viewLabel: "View resume",
+  closeLabel: "Close resume",
   downloadLabel: "Download PDF",
   openLabel: "Open in new tab",
   previewTitle: "Mason Farrington's resume (PDF preview)",
