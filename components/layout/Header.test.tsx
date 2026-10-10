@@ -83,12 +83,26 @@ describe("Header", () => {
       expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
     });
 
-    it("closes with the Escape key", async () => {
+    it("closes with the Escape key and returns focus to the Menu button", async () => {
       const user = userEvent.setup();
       render(<Header />);
 
       await user.click(screen.getByRole("button", { name: "Menu" }));
+      const mobileNav = screen.getByRole("navigation", { name: "Mobile" });
+      within(mobileNav).getByRole("link", { name: "Media" }).focus();
       await user.keyboard("{Escape}");
+
+      expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Menu" })).toHaveFocus();
+    });
+
+    it("closes when the page changes some other way (logo, back button)", async () => {
+      const user = userEvent.setup();
+      const { rerender } = render(<Header />);
+
+      await user.click(screen.getByRole("button", { name: "Menu" }));
+      navigation.pathname = "/about";
+      rerender(<Header />);
 
       expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
     });
