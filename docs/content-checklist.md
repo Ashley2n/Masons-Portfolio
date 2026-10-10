@@ -26,14 +26,14 @@ _Last updated: 2026-10-10_
 
 | Item | Status | Notes |
 |---|---|---|
-| Hero portrait (high-res, dark background) | 📷 → ⏳ | Stock for the demo; Mason's real portrait for launch (Q C10). |
+| Hero portrait (high-res, dark background) | 📷 → ⏳ | Stock (`hero-portrait.jpg`, Parthiv Sailesh / Unsplash) for the demo; Mason's real portrait for launch (Q C10). |
 | Hero copy (roles + tagline) | ✅ | Match mockup: "Actor • Musician • Singer • Designer" / "A multidisciplinary artist creating meaningful experiences through performance and design." |
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
-| Journey image (spotlight on stage) | 📷 | |
+| Journey image (spotlight on stage) | 📷 | `journey-spotlight.jpg` (Luis Morera / Unsplash) |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
-| Recent Work: featured video | ⏳ | Most recent or most viewed YouTube video / Reel (Q C6). |
-| Other Work: 3 videos (title, date, link) | ⏳ | YouTube and/or Instagram Reels (Q C6). |
-| Model Shots: 5+ portrait photos | 📷 → ⏳ | Unsplash placeholders in `public/images/home/` for the demo; Mason's real photos for launch (Q C10). |
+| Recent Work: featured video | 🔁 | Mock: Blender open movie "Spring" (CC). Replace with Mason's most recent or most viewed video / Reel (Q C6). |
+| Other Work: 3 videos (title, date, link) | 🔁 | Mock: Blender open movies and Blender Studio Shorts (CC) with real upload dates in `content/home.ts`. Replace with YouTube and/or Instagram Reels (Q C6). |
+| Model Shots: 5+ portrait photos | 📷 → ⏳ | Five Unsplash portraits (`model-shot-1..5.jpg`, credits in `content/home.ts`) for the demo; Mason's real photos for launch (Q C10). |
 
 ## About (`/about`)
 

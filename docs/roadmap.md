@@ -54,16 +54,16 @@ _Last updated: 2026-10-10_
 - [x] Global CSS moved into Tailwind layers so utility classes can override element styles
 - [x] Add Playwright with e2e smoke tests: every nav link loads its page; the hero stays readable with a light-mode OS theme (regression test for the Phase 3 fix)
 
-## Phase 5 · Homepage complete (`feat/home`), Mon 10/12
+## Phase 5 · Homepage complete (`feat/home`), Sun 10/11 ✅
 
-- [ ] Hero with portrait image, "View work" → `/media`
-- [ ] Journey stats + image with glow
-- [ ] Expertise cards with gradients and links (cards must be real `<Link>`s; they currently look clickable but are divs, found in Phase 4 review)
-- [ ] Recent Work + Other Work with `VideoCard` (YouTube inline + Instagram Reel support, D-12)
-- [ ] Model Shots carousel: wraparound, prev/next, thumbnails, keyboard support
-- [ ] Responsive pass (mobile / tablet)
-- [ ] Copy matches the homepage mockup exactly (stats, expertise wording, tagline)
-- [ ] Source and optimize free stock photos (D-11)
+- [x] Hero with portrait image, "View work" → `/media`; name is the page `<h1>`
+- [x] Journey stats + image with glow
+- [x] Expertise cards are real links (to `/media` for now)
+- [x] Recent Work + Other Work with `VideoCard` (YouTube inline + Instagram Reel support, D-12); mock Blender open-movie videos and Shorts
+- [x] Model Shots carousel: wraparound, prev/next, thumbnails, keyboard support
+- [x] Responsive pass (mobile / tablet), checked in the browser at 375 / 768 / 1280
+- [x] Copy matches the homepage mockup exactly (stats, expertise wording, tagline)
+- [x] Source and optimize free stock photos (D-11)
 
 ## Phase 6 · About & Media (`feat/about`, `feat/media`), Tue 10/13
 
@@ -89,7 +89,7 @@ _Last updated: 2026-10-10_
 - [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
 - [ ] Contact form backend (per D-07)
 - [ ] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon
-- [ ] Accessibility pass (keyboard, focus, alt text, contrast)
+- [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup)
 - [ ] Lighthouse audit (target ≥ 90 on every category)
 - [ ] Custom 404 page
 - [ ] Enable Vercel Web Analytics
