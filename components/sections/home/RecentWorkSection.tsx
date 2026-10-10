@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { videos } from "@/content/home";
 
 const VideoCard = () => (
@@ -13,7 +14,7 @@ export default function RecentWorkSection() {
   return (
     <section className="h-screen bg-neutral-100 px-23 py-16 ">
       <div className="space-y-6">
-        <p className="caption-text text-brand-600 ">Media</p>
+        <Eyebrow>Media</Eyebrow>
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-neutral-800">Recent Work</h2>
           <Link

@@ -1,4 +1,5 @@
 import GlowBackground from "@/components/ui/GlowBackground";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { stats } from "@/content/home";
 import type { Stat } from "@/types/content";
 
@@ -15,13 +16,12 @@ const StatItem = ({ value, label }: Stat) => (
 export default function JourneySection() {
   return (
     <GlowBackground className="h-screen bg-neutral-100 px-23 py-16">
-      <div className="space-y-4">
-        <p className="caption-text text-brand-600 ">About Me</p>
-        <h2 className="text-neutral-800">The Journey So Far</h2>
-        <p className="max-w-md text-neutral-600">
-          Years of training, stages, and performances that shaped where I am today
-        </p>
-      </div>
+      <SectionHeading
+        tone="light"
+        eyebrow="About Me"
+        title="The Journey So Far"
+        description="Years of training, stages, and performances that shaped where I am today"
+      />
       <div className="flex justify-between py-8">
         {stats.map((stat) => (
           <StatItem key={stat.id} {...stat} />

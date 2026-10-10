@@ -11,7 +11,7 @@ describe("Home page", () => {
     for (const role of ["Actor", "Musician", "Singer", "Designer"]) {
       expect(screen.getAllByText(role).length).toBeGreaterThan(0);
     }
-    expect(screen.getByRole("button", { name: /view work/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View work" })).toHaveAttribute("href", "/media");
   });
 
   it("renders every section heading", () => {
@@ -72,5 +72,11 @@ describe("Home page", () => {
       "href",
       "/contact",
     );
+  });
+
+  it("leaves the <main> landmark to the root layout", () => {
+    render(<Home />);
+
+    expect(screen.queryByRole("main")).not.toBeInTheDocument();
   });
 });
