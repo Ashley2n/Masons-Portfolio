@@ -10,11 +10,13 @@ _Last updated: 2026-10-10_
 | Client demo meeting | One meeting Wed 10/14 – Sun 10/18 (Mason's availability) |
 | Launch | **Fri 2026-10-16** |
 
-## Phase 0 · Secure current work (`fix/homepage-wip`), Sat 10/10
+## Phase 0 · Secure current work + TDD setup (`fix/homepage-wip`), Sat 10/10 ✅
 
-- [ ] Fix the carousel crash on the last image ([`app/page.tsx` `nextImage`](../app/page.tsx))
-- [ ] Commit the in-progress homepage work and placeholder images
-- [ ] Add `.gitattributes` to normalize line endings (LF)
+- [x] Fix the carousel crash on the last image (test-first, `lib/carousel.ts`)
+- [x] Commit the in-progress homepage work and placeholder images (optimized 13 MB → 1.5 MB)
+- [x] Add `.gitattributes` to normalize line endings (LF)
+- [x] TDD setup: Vitest + React Testing Library, husky pre-commit hook, GitHub Actions CI (D-13)
+- [x] Patch `next` and `sharp` security advisories
 
 ## Phase 1 · Documentation (`docs/project-foundation`), Fri 10/9 ✅
 
@@ -24,12 +26,13 @@ _Last updated: 2026-10-10_
 
 ## Phase 2 · Restructure, no visual changes (`refactor/project-structure`), Sat 10/10
 
+- [ ] **First:** add a characterization test that renders the homepage sections (headings, stats, expertise cards) to protect the refactor
 - [ ] Move `Header` to `components/layout/`
 - [ ] Split `app/page.tsx` into `components/sections/home/*`. The page becomes a Server Component, and only the carousel is a client component.
 - [ ] Move fonts to `lib/fonts.ts`, add `cn()` to `lib/utils.ts`
 - [ ] Move data to `content/`, types to `types/content.ts`, with static IDs
 - [ ] Remove `app/lib/` and the leftover Next.js boilerplate SVGs in `public/`
-- [ ] Verify: `npm run build`, lint and type check pass; homepage looks unchanged
+- [ ] Verify: tests, build, lint and type check pass; homepage looks unchanged
 
 ## Phase 3 · Design tokens (`feat/design-tokens`), Sun 10/11
 
@@ -47,6 +50,7 @@ _Last updated: 2026-10-10_
 - [ ] `CtaBanner` → `/contact`
 - [ ] UI primitives: `Button` (outline / light), `Eyebrow`, `SectionHeading`, `Container`
 - [ ] Stub pages for `/about`, `/media`, `/resume`, `/contact` so nav links work
+- [ ] Add Playwright with an e2e smoke test: every nav link loads its page
 
 ## Phase 5 · Homepage complete (`feat/home`), Mon 10/12
 

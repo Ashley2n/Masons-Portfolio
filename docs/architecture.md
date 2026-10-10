@@ -14,6 +14,8 @@ _Last updated: 2026-10-10_
 | Images | `next/image` |
 | Video | YouTube embeds (click-to-load) + Instagram Reel cards (D-12) |
 | Linting | ESLint 9 + `eslint-config-next` |
+| Testing | Vitest + React Testing Library (jsdom); Playwright e2e from Phase 4 (D-13) |
+| Git hooks / CI | husky pre-commit (lint, typecheck, test); GitHub Actions (+ build) |
 | Hosting | Vercel + Vercel Web Analytics (proposed; see D-08) |
 
 ## Folder structure
@@ -111,11 +113,42 @@ docs/                   # project documentation (you are here)
 - Visible focus styles. Carousel and gallery are keyboard accessible.
 - Color contrast is at least WCAG AA.
 
+## Testing & TDD
+
+This project uses **test-driven development** (D-13). For every change:
+
+1. **Red:** write a test describing the behavior. Run it and watch it fail for the right reason.
+2. **Green:** write the minimum code to make it pass.
+3. **Refactor:** clean up with the tests still green.
+4. Commit the test and the implementation **together**. The pre-commit hook rejects commits with failing tests.
+
+**Bug fixes** start with a test that reproduces the bug.
+
+### What to test
+
+| Kind of code | How | Example |
+|---|---|---|
+| Pure logic (`lib/`) | Unit test | `getNextIndex` wraps around (`lib/carousel.test.ts`) |
+| Interactive client components | RTL: user clicks, keyboard, ARIA state | Carousel next/prev and thumbnails, mobile menu, gallery filter, contact form validation |
+| Content (`content/`) | Data integrity tests | Unique IDs, every image has alt text, nav links point to real routes, video URLs are valid |
+| Sync Server Components | RTL render + query by role/text | Section shows heading and items from content |
+| Pages / routing / async Server Components | Playwright e2e (from Phase 4) | Every nav link loads, resume downloads, contact form submits |
+
+**Don't unit-test** Tailwind class names, visual layout or Next.js/third-party internals. Check those visually against the mockups.
+
+### Conventions
+
+- Colocate tests next to the code: `Foo.tsx` → `Foo.test.tsx`.
+- Query like a user: `getByRole`, `getByLabelText`, `getByText`. Avoid test IDs and class selectors.
+- Use `@testing-library/user-event` for interactions.
+- Test names describe behavior: `it("wraps from the last image back to the first")`.
+
 ## Git workflow
 
 - `main` is always deployable.
 - Do the work on short-lived branches: `docs/…`, `feat/…`, `fix/…`, `refactor/…`, `chore/…`.
 - Make **small, focused commits** using [Conventional Commits](https://www.conventionalcommits.org): `feat: add footer`, `fix: carousel wraps to first image`, `docs: add design system`.
+- The pre-commit hook runs lint, typecheck and tests. Never bypass it with `--no-verify`.
 - Open a PR (or merge locally) per roadmap phase. Vercel preview deploys are used for client review.
 
 ## Scripts
@@ -126,4 +159,6 @@ docs/                   # project documentation (you are here)
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npx tsc --noEmit` | Type check |
+| `npm run typecheck` | Type check |
+| `npm test` | Run all tests once |
+| `npm run test:watch` | Tests in watch mode (use while doing TDD) |

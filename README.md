@@ -21,7 +21,13 @@ Open http://localhost:3000.
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run ESLint |
-| `npx tsc --noEmit` | Type check |
+| `npm run typecheck` | Type check |
+| `npm test` | Run tests once |
+| `npm run test:watch` | Run tests in watch mode |
+
+## Testing (TDD)
+
+This project uses test-driven development: write a failing test, make it pass, then refactor. A pre-commit hook runs lint, type check and tests, and GitHub Actions runs them (plus the build) on every push and PR. See [docs/architecture.md](docs/architecture.md#testing--tdd).
 
 ## Project structure
 
