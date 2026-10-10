@@ -35,7 +35,8 @@ app/
   globals.css           # Tailwind import + @theme design tokens
   sitemap.ts  robots.ts  opengraph-image.(tsx|png)
 components/
-  layout/               # Header, MobileNav, Footer, CtaBanner
+  layout/               # Header, MobileMenu, NavLinks, Footer, CtaBanner
+  resume/               # ResumeDialog ("View resume" modal, used on several pages)
   ui/                   # Button, Eyebrow, SectionHeading, Container, VideoCard
   sections/
     home/               # HeroSection, JourneySection, ExpertiseSection, RecentWorkSection, ModelShotsCarousel

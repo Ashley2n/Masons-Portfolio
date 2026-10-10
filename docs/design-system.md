@@ -87,7 +87,7 @@ There are no mobile mockups. Rules:
 
 | Component | Appears on | Notes |
 |---|---|---|
-| Header / Nav | All | MF monogram, links: About, Media, Resume, Contact. Active link = `brand-600` underline. |
+| Header / Nav | All | MF monogram, links: About, Media, Contact (resume opens in a modal, D-16). Active link = `brand-600` underline. |
 | Footer | All | Monogram + ©, Navigation, Connect, Contact/Location columns. |
 | CTA banner | Home, About, Media | "Interested in working together?" + "Get in touch" button → `/contact`. |
 | Eyebrow | All | Caption style, `brand-600`, uppercase. |
@@ -101,7 +101,8 @@ There are no mobile mockups. Rules:
 | Timeline item | About | Number, title, underline accent, text, image, check node. |
 | Gallery grid + filter tabs | Media | Category tabs, play badge on video items, "Load more". |
 | Contact form | Contact | Name, Email, Message, Send. Labels in Space Mono. |
-| Contact info card | Contact | Image background, contact rows with icons, social links. |
+| Contact info card | Contact | Image background, contact rows with icons, social links, "View resume". |
+| Resume modal | Home, About, Contact | "View resume" button → native `<dialog>` with PDF preview, Download PDF, Open in new tab (D-16). |
 
 ## Icons
 

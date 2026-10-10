@@ -77,6 +77,7 @@ _Last updated: 2026-10-10_
 
 - [x] `/resume`: inline PDF preview + download button (D-06), placeholder PDF until Q C4
 - [x] `/contact`: form UI with validation, contact card, socials. `mailto:` fallback until D-07 is decided.
+- [x] Resume opens in a modal from Home, About and Contact; Resume removed from the nav (D-16)
 
 ## 🎬 Demo-ready Wed 10/14, meeting Wed–Sun
 

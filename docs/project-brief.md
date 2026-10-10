@@ -32,10 +32,10 @@ A personal portfolio website for **Mason Farrington**, a multidisciplinary artis
 | Home | `/` | `docs/Mockups/Homepage.png` | Hero, Journey stats, Expertise, Recent Work, Other Work, Model Shots carousel, CTA, footer |
 | About | `/about` | `docs/Mockups/About.png` | About hero, "My Journey" timeline (6 milestones), CTA |
 | Media | `/media` | `docs/Mockups/Gallery.png` | Category tabs, photo + YouTube video grid, "Load more" |
-| Resume | `/resume` | _No mockup_ | **Preview and download** of a PDF resume |
+| Resume | `/resume` + modal | _No mockup_ | **Preview and download** of a PDF resume, in a "View resume" modal on Home, About and Contact (D-16). `/resume` stays as a direct link, not in the nav. |
 | Contact | `/contact` | `docs/Mockups/Contact.png` | Contact form, contact info card, social links |
 
-**Shared across all pages:** header nav (About, Media, Resume, Contact) with an active state, the "Interested in working together?" CTA banner, and the footer.
+**Shared across all pages:** header nav (About, Media, Contact) with an active state, the "Interested in working together?" CTA banner, and the footer.
 
 **Responsive:** there are no mobile mockups, so mobile and tablet layouts are derived from the desktop designs (see [design-system.md](design-system.md#responsive)).
 
