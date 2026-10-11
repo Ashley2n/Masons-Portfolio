@@ -21,7 +21,7 @@ Open http://localhost:3000.
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run ESLint |
-| `npm run typecheck` | Type check |
+| `npm run typecheck` | Generate Next.js route types (`next typegen`), then type check. Works on a fresh checkout, so CI can run it before `build` |
 | `npm test` | Run tests once |
 | `npm run test:watch` | Run tests in watch mode |
 | `npm run test:e2e` | Run Playwright end-to-end tests |

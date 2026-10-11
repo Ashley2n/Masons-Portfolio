@@ -162,7 +162,7 @@ Colocating keeps a test next to its code, so missing tests are visible and files
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run typecheck` | Type check |
+| `npm run typecheck` | Generate Next.js route types (`next typegen`), then type check. Works on a fresh checkout, so CI can run it before `build` |
 | `npm test` | Run all tests once |
 | `npm run test:watch` | Tests in watch mode (use while doing TDD) |
 | `npm run test:e2e` | Playwright end-to-end tests (starts the dev server if needed) |
