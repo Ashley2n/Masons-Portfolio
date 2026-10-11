@@ -33,7 +33,7 @@ app/
   contact/page.tsx
   not-found.tsx
   globals.css           # Tailwind import + @theme design tokens
-  sitemap.ts  robots.ts  opengraph-image.(tsx|png)
+  sitemap.ts  robots.ts  opengraph-image.tsx  icon.svg  apple-icon.tsx
 components/
   layout/               # Header, MobileMenu, NavLinks, Footer, CtaBanner
   resume/               # ResumeDialog ("View resume" modal, used on several pages)
@@ -84,10 +84,11 @@ The restructure was completed in Phase 2 (2026-10-10). Pages that don't exist ye
 - All user-facing copy and lists live in `content/`. Components receive data through props or import it from `content/`.
 - Every list item has a **stable, human-readable `id` or `slug`** (no `Math.random()`), used as the React `key`.
 - Every image has meaningful `alt` text.
+- Page titles, search descriptions and link-preview copy live in `content/seo.ts`. Pages export `metadata = pageMetadata(pageSeo.<page>)` (`lib/seo.ts`). A new page needs an entry there, which also adds it to the sitemap.
 
 ### Styling
 
-- Use Tailwind utilities and design tokens (`brand-*`, `neutral-*`, `font-playfair`…). Don't hard-code hex values in components.
+- Use Tailwind utilities and design tokens (`brand-*`, `neutral-*`, `font-playfair`…). Don't hard-code hex values in components. The exception is generated images (`opengraph-image.tsx`, `apple-icon.tsx`, `icon.svg`), which can't read CSS variables. Their hex values are commented with the token they mirror.
 - Merge conditional classes with `cn()`.
 - Global element styles (`h1`–`h3`, `body`) live in `@layer base` and the semantic classes (`.display-font`, `.caption-text`, `.small-text`) in `@layer components` in `globals.css`. Never add unlayered rules there: they override Tailwind utility classes.
 - Mobile-first: write base styles for mobile and add `md:` / `lg:` for larger screens.

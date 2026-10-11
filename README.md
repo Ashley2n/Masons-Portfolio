@@ -64,4 +64,6 @@ Text, stats, links, videos and gallery items live in `content/`. Change them the
 
 ## Deployment
 
-Deployed on [Vercel](https://vercel.com) (proposed). Every branch gets a preview URL for client review.
+Deployed on [Vercel](https://vercel.com). Pushes to `main` deploy to production, and other branches get a preview URL. Previews require a Vercel login, so share the production URL with the client.
+
+Absolute URLs (canonical links, sitemap, link previews) use Vercel's production domain automatically. When Mason has a custom domain, set `NEXT_PUBLIC_SITE_URL` (e.g. `https://masonfarrington.com`) in the Vercel project's environment variables and redeploy (D-17).
