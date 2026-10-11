@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { heroContent, homeImages } from "@/content/home";
+import { heroContent } from "@/content/home";
 import { shareImage } from "@/content/seo";
+import { imageDataUrl, readSharePhoto, sharePhotoSrc } from "@/lib/share-image";
 
 // The link preview shown when the site is shared (iMessage, Slack, social posts).
 // Every page links to it through lib/seo.ts (pageMetadata).
@@ -20,9 +19,8 @@ const colors = {
   glow: "#7234E5", // brand-700
 };
 
-export default async function OpengraphImage() {
-  const portrait = await readFile(join(process.cwd(), "public", homeImages.hero.src));
-  const portraitSrc = `data:image/jpeg;base64,${portrait.toString("base64")}`;
+export default function OpengraphImage() {
+  const portraitSrc = imageDataUrl(readSharePhoto(), sharePhotoSrc);
 
   return new ImageResponse(
     (

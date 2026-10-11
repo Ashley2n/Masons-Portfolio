@@ -41,16 +41,19 @@ describe("pageMetadata share image", () => {
   // shared without a picture until the image was set explicitly.
   const about = pageMetadata({ title: "About", description: "Mason's story.", path: "/about" });
 
-  it("includes the share image in the link preview", () => {
+  // The ?v= version changes with the image, so sites that cache previews by URL refetch it
+  const versionedUrl = expect.stringMatching(/^\/opengraph-image\?v=[0-9a-f]{8}$/);
+
+  it("includes the share image in the link preview, with a versioned URL", () => {
     expect(about.openGraph?.images).toEqual([
-      expect.objectContaining({ url: shareImage.path, width: 1200, height: 630, alt: shareImage.alt }),
+      expect.objectContaining({ url: versionedUrl, width: 1200, height: 630, alt: shareImage.alt }),
     ]);
   });
 
   it("includes the share image for X/Twitter cards", () => {
     expect(about.twitter).toMatchObject({
       card: "summary_large_image",
-      images: [expect.objectContaining({ url: shareImage.path })],
+      images: [expect.objectContaining({ url: versionedUrl })],
     });
   });
 });

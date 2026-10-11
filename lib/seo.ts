@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { shareImage } from "@/content/seo";
 import { siteConfig } from "@/content/site";
+import { readSharePhoto, shareImageText, shareImageVersion } from "./share-image";
 
 type PageSeo = {
   /** Omit for the home page, which uses the site's default title */
@@ -12,7 +13,7 @@ type PageSeo = {
 export const defaultTitle = `${siteConfig.name} | ${siteConfig.tagline}`;
 
 const image = {
-  url: shareImage.path,
+  url: `${shareImage.path}?v=${shareImageVersion(readSharePhoto(), shareImageText)}`,
   width: shareImage.width,
   height: shareImage.height,
   alt: shareImage.alt,
