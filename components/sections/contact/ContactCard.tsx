@@ -53,7 +53,7 @@ export default function ContactCard() {
               {contactInfo.location}
             </li>
           </ul>
-          <ResumeDialog className="px-5 py-3" />
+          <ResumeDialog />
         </div>
 
         <div className="space-y-4 border-t border-neutral-700 pt-6">

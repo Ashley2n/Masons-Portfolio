@@ -1,6 +1,6 @@
-import { ArrowUpRight, Download, FileText } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import Link from "next/link";
-import type { ReactNode, Ref } from "react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const variants = {
@@ -10,7 +10,7 @@ const variants = {
   light: "bg-neutral-100 text-neutral-900 hover:bg-white",
 };
 
-const icons = { arrow: ArrowUpRight, download: Download, file: FileText };
+const icons = { arrow: ArrowUpRight, download: Download };
 
 type ButtonProps = {
   children: ReactNode;
@@ -24,15 +24,8 @@ type ButtonProps = {
       download?: string;
       newTab?: boolean;
       onClick?: never;
-      ref?: never;
     }
-  | {
-      href?: undefined;
-      download?: never;
-      newTab?: never;
-      onClick?: () => void;
-      ref?: Ref<HTMLButtonElement>;
-    }
+  | { href?: undefined; download?: never; newTab?: never; onClick?: () => void }
 );
 
 export default function Button({
@@ -44,7 +37,6 @@ export default function Button({
   download,
   newTab,
   onClick,
-  ref,
 }: ButtonProps) {
   const Icon = icons[icon];
   const classes = cn(
@@ -81,7 +73,7 @@ export default function Button({
     );
   }
   return (
-    <button ref={ref} type="button" onClick={onClick} className={classes}>
+    <button type="button" onClick={onClick} className={classes}>
       {content}
     </button>
   );

@@ -57,9 +57,13 @@ describe("ResumeDialog", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("can use a custom trigger label", () => {
-    render(<ResumeDialog label="Resume" />);
+  it("is an icon-only button that still has a name and a tooltip", () => {
+    render(<ResumeDialog />);
 
-    expect(screen.getByRole("button", { name: "Resume" })).toBeInTheDocument();
+    const trigger = screen.getByRole("button", { name: "View resume" });
+    expect(trigger).toHaveTextContent(/^$/);
+    expect(trigger).toHaveAttribute("title", "View resume");
+    expect(trigger.querySelector("svg")).toHaveClass("lucide-file-text");
+    expect(trigger.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
   });
 });

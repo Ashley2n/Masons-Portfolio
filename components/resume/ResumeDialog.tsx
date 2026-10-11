@@ -1,26 +1,19 @@
 "use client";
-import { X } from "lucide-react";
+import { FileText, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Button from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
 import { cn } from "@/lib/utils";
 
 type ResumeDialogProps = {
-  /** Text on the trigger button */
-  label?: string;
-  variant?: "outline" | "light";
   className?: string;
 };
 
 /**
- * "View resume" button that opens the PDF in a modal with download options.
+ * Icon-only "View resume" button that opens the PDF in a modal with download options.
  * Uses the native <dialog>: Escape closes it, focus stays inside, the page behind is inert.
  */
-export default function ResumeDialog({
-  label = resumeContent.viewLabel,
-  variant = "outline",
-  className,
-}: ResumeDialogProps) {
+export default function ResumeDialog({ className }: ResumeDialogProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -43,9 +36,20 @@ export default function ResumeDialog({
 
   return (
     <>
-      <Button ref={triggerRef} onClick={() => setOpen(true)} icon="file" variant={variant} className={className}>
-        {label}
-      </Button>
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={resumeContent.viewLabel}
+        title={resumeContent.viewLabel}
+        className={cn(
+          "grid size-13 shrink-0 place-items-center rounded-md border border-brand-600 bg-neutral-950 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
+          className,
+        )}
+      >
+        <FileText aria-hidden="true" className="size-5" strokeWidth={1.75} />
+      </button>
 
       {open && (
         <dialog
