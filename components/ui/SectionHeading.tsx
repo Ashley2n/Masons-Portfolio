@@ -31,7 +31,7 @@ export default function SectionHeading({
       <Eyebrow>{eyebrow}</Eyebrow>
       <Heading className={tones[tone].title}>{title}</Heading>
       {description && (
-        <p className={cn("max-w-md", tones[tone].description)}>{description}</p>
+        <p className={cn("max-w-sm text-small", tones[tone].description)}>{description}</p>
       )}
     </div>
   );

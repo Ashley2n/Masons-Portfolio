@@ -143,7 +143,7 @@ export const sectionHeadings = {
   journey: {
     eyebrow: "About Me",
     title: "The Journey So Far",
-    description: "Years of training, stages, and performances that shaped where I am today",
+    description: "Years of training, stages, and performances that shaped where I am today.",
   },
   expertise: { eyebrow: "Expertise", title: "What I Do" },
   recentWork: { eyebrow: "Media", title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },

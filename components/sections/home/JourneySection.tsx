@@ -7,18 +7,18 @@ import type { Stat } from "@/types/content";
 
 const StatItem = ({ value, label }: Stat) => (
   <div>
-    <p className="font-playfair text-6xl text-brand-800 md:text-7xl">
+    <p className="font-playfair text-5xl text-brand-800 md:text-6xl">
       {value}
-      <span className="text-4xl text-brand-600">+</span>
+      <span className="text-3xl text-brand-600 md:text-4xl">+</span>
     </p>
-    <p className="max-w-48 text-neutral-700">{label}</p>
+    <p className="mt-2 max-w-48 text-small text-neutral-700">{label}</p>
   </div>
 );
 
 export default function JourneySection() {
   return (
-    <GlowBackground className="bg-neutral-100 py-16">
-      <Container className="space-y-12">
+    <GlowBackground className="bg-neutral-100 pt-16 pb-24 md:pt-20 md:pb-32">
+      <Container className="space-y-12 md:space-y-14">
         <SectionHeading tone="light" {...sectionHeadings.journey} />
         <div className="grid gap-8 sm:grid-cols-3">
           {stats.map((stat) => (
