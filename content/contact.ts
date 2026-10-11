@@ -24,6 +24,8 @@ export const contactContent = {
       emailInvalid: "Please enter a valid email address, like you@example.com.",
       messageRequired: "Please enter a message.",
       messageTooShort: "Please write at least 10 characters so I know how to help.",
+      messageTooLong:
+        "Please keep it under 1,500 characters. We can go into more detail once we're in touch.",
     },
     subjectPrefix: "Portfolio inquiry from",
   },

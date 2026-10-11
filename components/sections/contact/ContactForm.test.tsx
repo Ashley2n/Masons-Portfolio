@@ -88,4 +88,25 @@ describe("ContactForm", () => {
       `mailto:${contactInfo.email}`,
     );
   });
+
+  it("tells assistive tech every field is required", () => {
+    const { name, email, message } = setup();
+
+    for (const field of [name, email, message]) {
+      expect(field).toHaveAttribute("aria-required", "true");
+    }
+  });
+
+  it("clears the 'sent' confirmation once the visitor edits the form again", async () => {
+    const { user, name, email, message, submit } = setup();
+
+    await user.type(name, "Ada");
+    await user.type(email, "ada@example.com");
+    await user.type(message, "Would love to collaborate.");
+    await user.click(submit);
+    expect(screen.getByRole("status")).toHaveTextContent(contactInfo.email);
+
+    await user.type(message, " Also, one more thing.");
+    expect(screen.getByRole("status")).toHaveTextContent(contactContent.form.note);
+  });
 });

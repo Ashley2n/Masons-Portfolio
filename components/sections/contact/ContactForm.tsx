@@ -40,6 +40,8 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
   const update = (field: keyof ContactValues, value: string) => {
     const next = { ...values, [field]: value };
     setValues(next);
+    // An edit means the confirmation no longer describes what's in the form
+    setSent(false);
     // After the first submit, re-check as the visitor types so fixed fields clear
     if (submitted) setErrors(validateContact(next));
   };
@@ -63,6 +65,7 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
     name: field,
     value: values[field],
     placeholder: form.placeholders[field],
+    "aria-required": true,
     "aria-invalid": errors[field] ? true : undefined,
     "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
     className: cn(inputClass, errors[field] ? "border-red-400" : "border-neutral-700"),

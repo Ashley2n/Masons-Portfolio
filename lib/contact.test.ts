@@ -26,6 +26,14 @@ describe("validateContact", () => {
     },
   );
 
+  it("caps the message so the email link stays within mail-app URL limits", () => {
+    expect(errors.messageTooLong).toEqual(expect.any(String));
+    expect(validateContact({ ...valid, message: "a".repeat(1500) }).message).toBeUndefined();
+    expect(validateContact({ ...valid, message: "a".repeat(1501) }).message).toBe(
+      errors.messageTooLong,
+    );
+  });
+
   it("asks for a slightly longer message", () => {
     expect(validateContact({ ...valid, message: "Hi there" }).message).toBe(errors.messageTooShort);
   });

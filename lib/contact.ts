@@ -5,6 +5,9 @@ export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
 
 const { errors, subjectPrefix } = contactContent.form;
 const MIN_MESSAGE_LENGTH = 10;
+// The message travels inside a mailto: URL; some mail apps (e.g. Outlook on Windows)
+// truncate or refuse links over ~2,000 characters once encoded.
+export const MAX_MESSAGE_LENGTH = 1500;
 // Deliberately simple: something@something.tld, no spaces
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -17,6 +20,7 @@ export const validateContact = ({ name, email, message }: ContactValues): Contac
 
   if (!message.trim()) result.message = errors.messageRequired;
   else if (message.trim().length < MIN_MESSAGE_LENGTH) result.message = errors.messageTooShort;
+  else if (message.trim().length > MAX_MESSAGE_LENGTH) result.message = errors.messageTooLong;
 
   return result;
 };
