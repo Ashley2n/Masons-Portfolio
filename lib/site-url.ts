@@ -10,7 +10,11 @@ type SiteUrlEnv = {
  * its production domain automatically.
  */
 export const getSiteUrl = (env: SiteUrlEnv = process.env) => {
-  if (env.NEXT_PUBLIC_SITE_URL) return env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  if (env.NEXT_PUBLIC_SITE_URL) {
+    const url = env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+    // Accept a bare domain ("masonfarrington.com"), the same format as Vercel's variable
+    return /^https?:\/\//.test(url) ? url : `https://${url}`;
+  }
   if (env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`;
   return "http://localhost:3000";
 };

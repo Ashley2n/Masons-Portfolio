@@ -27,3 +27,12 @@ describe("getSiteUrl", () => {
     expect(getSiteUrl({})).toBe("http://localhost:3000");
   });
 });
+
+describe("getSiteUrl with a domain entered without a protocol", () => {
+  it("adds https:// so building absolute URLs doesn't fail", () => {
+    expect(getSiteUrl({ NEXT_PUBLIC_SITE_URL: "masonfarrington.com" })).toBe(
+      "https://masonfarrington.com",
+    );
+    expect(() => new URL(getSiteUrl({ NEXT_PUBLIC_SITE_URL: "masonfarrington.com" }))).not.toThrow();
+  });
+});
