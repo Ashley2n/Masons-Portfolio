@@ -5,6 +5,7 @@ import { aboutContent, milestones } from "./about";
 import { expertiseItems, homeImages, modelShots, stats, videos } from "./home";
 import { galleryCategoryIds, type Photo } from "@/types/content";
 import { galleryCategories, galleryItems } from "./media";
+import { pageSeo } from "./seo";
 import { contactInfo, navLinks, socialLinks } from "./site";
 
 const expectUniqueIds = (items: { id: string }[]) => {
@@ -96,5 +97,23 @@ describe("media gallery content", () => {
     for (const id of galleryCategoryIds) {
       expect(galleryItems.some((item) => item.category === id)).toBe(true);
     }
+  });
+});
+
+describe("SEO content", () => {
+  const pages = Object.values(pageSeo);
+
+  it("gives every page a unique description", () => {
+    const descriptions = pages.map((page) => page.description);
+    expect(new Set(descriptions).size).toBe(descriptions.length);
+  });
+
+  it("keeps descriptions short enough that search results don't cut them off", () => {
+    pages.forEach((page) => expect(page.description.length).toBeLessThanOrEqual(160));
+  });
+
+  it("covers every page in the nav", () => {
+    const paths = pages.map((page) => page.path);
+    navLinks.forEach((link) => expect(paths).toContain(link.href));
   });
 });

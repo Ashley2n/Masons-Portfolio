@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import { pageSeo } from "@/content/seo";
+import { pageMetadata } from "@/lib/seo";
 import CtaBanner from "@/components/layout/CtaBanner";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { resumeContent } from "@/content/resume";
 
-export const metadata: Metadata = {
-  title: "Resume",
-};
+export const metadata: Metadata = pageMetadata(pageSeo.resume);
 
 export default function ResumePage() {
   const { file } = resumeContent;
