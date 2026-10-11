@@ -21,8 +21,15 @@ const fields = ["name", "email", "message"] as const;
 const inputClass =
   "w-full rounded-md border bg-neutral-950/60 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 transition-colors focus-visible:border-brand-500 focus-visible:outline-2 focus-visible:outline-brand-500/40";
 
+// Opens the mail app by clicking a temporary link. Unlike assigning window.location,
+// this is a normal link activation that browsers (and the e2e test) can observe.
 const openMailApp = (url: string) => {
-  window.location.href = url;
+  const link = document.createElement("a");
+  link.href = url;
+  link.hidden = true;
+  document.body.append(link);
+  link.click();
+  link.remove();
 };
 
 export default function ContactForm({ send = openMailApp }: ContactFormProps) {

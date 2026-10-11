@@ -12,9 +12,22 @@ test.describe("contact form", () => {
   });
 
   test("opens a prefilled email and confirms", async ({ page }) => {
+    // Capture the mailto: link instead of launching a mail app
+    // (network routes can't intercept mailto: navigations)
+    await page.addInitScript(() => {
+      document.addEventListener(
+        "click",
+        (event) => {
+          const link = (event.target as Element | null)?.closest?.('a[href^="mailto:"]');
+          if (link instanceof HTMLAnchorElement && link.closest("form") === null) {
+            event.preventDefault();
+            (window as unknown as { __mailto?: string }).__mailto = link.href;
+          }
+        },
+        true,
+      );
+    });
     await page.goto("/contact");
-    // Don't launch a mail app during the test
-    await page.route("mailto:*", (route) => route.abort());
 
     await page.getByLabel("Name").fill("Ada Lovelace");
     await page.getByLabel("Email").fill("ada@example.com");
@@ -22,6 +35,11 @@ test.describe("contact form", () => {
     await page.getByRole("button", { name: "Send message" }).click();
 
     await expect(page.getByRole("status")).toContainText("masonfarrington@gmail.com");
-    await expect(page).toHaveURL(/\/contact$/);
+    const mailto = await page.evaluate(() => (window as unknown as { __mailto?: string }).__mailto);
+    expect(mailto).toBeDefined();
+    const url = new URL(mailto!);
+    expect(url.pathname).toBe("masonfarrington@gmail.com");
+    expect(url.searchParams.get("subject")).toBe("Portfolio inquiry from Ada Lovelace");
+    expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
   });
 });
