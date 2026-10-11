@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { resumeContent } from "@/content/resume";
@@ -65,5 +65,18 @@ describe("ResumeDialog", () => {
     expect(trigger).toHaveAttribute("title", "View resume");
     expect(trigger.querySelector("svg")).toHaveClass("lucide-file-text");
     expect(trigger.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("stays open when a press starts inside the panel and ends on the backdrop", async () => {
+    const user = userEvent.setup();
+    render(<ResumeDialog />);
+    await user.click(screen.getByRole("button", { name: "View resume" }));
+    const dialog = screen.getByRole("dialog");
+
+    // e.g. selecting text in the footer and releasing just outside the panel
+    fireEvent.pointerDown(within(dialog).getByText(resumeContent.previewHint));
+    fireEvent.click(dialog);
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 });

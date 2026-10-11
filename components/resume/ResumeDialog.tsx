@@ -1,6 +1,6 @@
 "use client";
 import { FileText, X } from "lucide-react";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import Button from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
 import { cn } from "@/lib/utils";
@@ -17,6 +17,9 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  // Only a press that starts AND ends on the backdrop closes the dialog, so selecting
+  // text and releasing just outside the panel doesn't.
+  const pressStartedOnBackdrop = useRef(false);
   const { file } = resumeContent;
 
   useEffect(() => {
@@ -29,9 +32,15 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
     triggerRef.current?.focus();
   };
 
+  // The panel fills the dialog's content box, so the dialog element itself is the backdrop
+  const onDialogPointerDown = (event: PointerEvent<HTMLDialogElement>) => {
+    pressStartedOnBackdrop.current = event.target === event.currentTarget;
+  };
   const onDialogClick = (event: MouseEvent<HTMLDialogElement>) => {
-    // The panel fills the dialog's content box, so a click on the dialog itself is the backdrop
-    if (event.target === event.currentTarget) dialogRef.current?.close();
+    if (pressStartedOnBackdrop.current && event.target === event.currentTarget) {
+      dialogRef.current?.close();
+    }
+    pressStartedOnBackdrop.current = false;
   };
 
   return (
@@ -56,6 +65,7 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
           ref={dialogRef}
           aria-labelledby="resume-dialog-title"
           onClose={onClose}
+          onPointerDown={onDialogPointerDown}
           onClick={onDialogClick}
           className={cn(
             "m-auto h-[min(90svh,60rem)] w-[min(calc(100vw-2rem),64rem)] max-w-none overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950 p-0 text-neutral-300",
