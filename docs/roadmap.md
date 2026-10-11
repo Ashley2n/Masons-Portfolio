@@ -107,5 +107,7 @@ _Last updated: 2026-10-10_
 - [ ] Gallery lightbox (open photos full screen)
 - [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
 - [ ] Phase 6 review cleanups: row-ordered gallery grid (CSS-columns masonry reorders on "Load more"), move remaining aria/status strings to `content/`, shared `Glow` component, shared `.page-title` h1 size, single helper in `content/media.ts`
+- [ ] SEO/404 review cleanups: note the generated-image hex exception in CLAUDE.md (it's only in architecture.md), reuse the shared page-title and glow styles in the 404 page, drop the unsupported italic in `apple-icon.tsx`, give `shareImage` a `url` key so `lib/seo.ts` doesn't re-map it
+- [ ] Decide whether `/resume` should be `noindex` (and out of the sitemap) until the real resume replaces the placeholder (Q C4)
 - [ ] CI: build once and share it between the `check` and `e2e` jobs (currently builds twice)
 - [ ] Footer year is set at build time; redeploy once a year (or render it client-side) so it doesn't go stale
