@@ -105,6 +105,7 @@ _Last updated: 2026-10-10_
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
 - [ ] Gallery lightbox (open photos full screen)
+- [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
 - [ ] Phase 6 review cleanups: row-ordered gallery grid (CSS-columns masonry reorders on "Load more"), move remaining aria/status strings to `content/`, shared `Glow` component, shared `.page-title` h1 size, single helper in `content/media.ts`
 - [ ] CI: build once and share it between the `check` and `e2e` jobs (currently builds twice)
 - [ ] Footer year is set at build time; redeploy once a year (or render it client-side) so it doesn't go stale

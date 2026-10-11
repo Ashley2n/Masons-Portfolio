@@ -124,5 +124,5 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 - **Date:** 2026-10-11 · **Status:** Accepted (refines D-06)
 - **Context:** Ashley asked to drop "Resume" from the navigation and let visitors open the resume from the pages where it's relevant.
-- **Decision:** A `ResumeDialog` ("View resume") on the home hero, the About intro and the Contact card opens the PDF in a native `<dialog>` with **Download PDF** and **Open in new tab**. The nav and footer list About, Media and Contact. `/resume` stays as an unlinked page, useful as a direct link to share and as a fallback.
+- **Decision:** An icon-only `ResumeDialog` button (file icon, accessible name "View resume") on the home hero, the About intro and the Contact card opens the PDF in a native `<dialog>` with **Download PDF** and **Open in new tab**. The nav and footer list About, Media and Contact. `/resume` stays as an unlinked page, useful as a direct link to share and as a fallback.
 - **Consequences:** The PDF only loads when someone opens the modal. Escape, focus containment and an inert background come from the browser. Adding the button to another page is one `<ResumeDialog />`.
