@@ -2,7 +2,7 @@
 
 Phased plan to an MVP launch. Each phase is a branch with small commits. Tick items as they're done.
 
-_Last updated: 2026-10-10_
+_Last updated: 2026-10-19_
 
 | Milestone | Target date |
 |---|---|
@@ -82,26 +82,28 @@ _Last updated: 2026-10-10_
 ## 🎬 Demo-ready Wed 10/14, meeting Wed–Sun
 
 - [ ] Deploy to Vercel and share the preview URL with Mason
-- [ ] Schedule the demo meeting (Wed 10/14 – Sun 10/18)
-- [ ] Walk through [open-questions.md](open-questions.md) with Mason
+- [x] Schedule the demo meeting (held Mon 10/19)
+- [x] Walk through [open-questions.md](open-questions.md) with Mason (answers in D-18 – D-22)
 
 ## Phase 8 · Polish & launch (`chore/launch`), Thu 10/15 → Fri 10/16
 
 - [ ] Apply demo feedback
 - [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
-- [ ] Contact form backend (per D-07)
+- [ ] Contact form backend: Resend server action with branded email (D-19, needs F1)
+- [ ] Rename gallery categories to All / Concerts / Modeling / Staged / Design / Other (D-22)
+- [ ] Remove Instagram Reels from content and video cards; YouTube-only socials (D-20)
+- [ ] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5)
+- [ ] Swap in the real resume once confirmed (F2) and the real YouTube links (F3, F4)
 - [x] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon (D-17)
 - [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup)
 - [ ] Lighthouse audit (target ≥ 90 on every category)
 - [x] Custom 404 page
-- [ ] Enable Vercel Web Analytics
 - [ ] Launch on `*.vercel.app` (connect a domain when Mason buys one) 🚀
 
 ## Post-launch (backlog)
 
-- [ ] CMS for client self-editing (if requested; see Q C1 / D-03)
-- [ ] Replace stock portraits with Mason's own photos (Q C10)
-- [ ] Automatic video ordering via YouTube / Instagram APIs (D-12)
+- [ ] Git-based admin page (Keystatic/Decap) if Mason's photo updates become frequent (D-18)
+- [ ] Automatic video ordering via the YouTube Data API (D-20)
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
 - [ ] Gallery lightbox (open photos full screen)

@@ -53,7 +53,7 @@ A personal portfolio website for **Mason Farrington**, a multidisciplinary artis
 - **The homepage mockup is the copy source of truth.** Wording (e.g. Model / Designer / Singer / Actor and their subtitles) follows it on every page.
 - Mason's current site, which has little content: https://sites.google.com/view/masonmfarrington-com/home
 - **Photos:** free stock photos (Unsplash and similar) for the MVP. Portraits that represent Mason himself should be replaced with his real photos before launch (Q C10).
-- Videos are **YouTube embeds** (and possibly Instagram Reels), shown in custom-styled cards (D-12).
+- Videos are **YouTube embeds**, shown in custom-styled cards (D-20).
 - Everything still needed from Mason is tracked in [content-checklist.md](content-checklist.md).
 
 ## Timeline

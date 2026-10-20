@@ -2,22 +2,23 @@
 
 Questions to resolve with Mason (or internally). When something is answered, move it to **Resolved** with the date and the answer, and record any lasting decision in [decisions.md](decisions.md).
 
-_Last updated: 2026-10-10_
+_Last updated: 2026-10-19_
 
-## For the client demo meeting (Wed 10/14 – Sun 10/18, date TBD)
+## For the client demo meeting
 
-| # | Question | Why it matters | Proposed default if no answer |
-|---|---|---|---|
-| C1 | **Do you want to edit site content yourself after launch?** If so, how often, and what content (gallery, videos, journey, resume)? | Decides whether we add a headless CMS (e.g. Sanity) or keep content in code files. | Content stays in typed files under `content/`, structured so a CMS can be added later. |
-| C2 | **How should the contact form deliver messages?** Options: email to your inbox via a service like Resend, a form service like Formspree, or a simple `mailto:` link. Which email address should receive them? | The form needs a backend. Some options need an account or API key owned by Mason. | `mailto:` fallback for the demo, then a real form backend once confirmed. |
-| C4 | **Can you send the resume as a PDF?** Should the site show one resume, or separate ones (acting, music, design)? | Resume preview and download are in the MVP. | One PDF. |
-| C5 | **Domain:** you don't have one yet. Do you want to buy one (e.g. `masonfarrington.com`, about $10–20/yr), and who should own the domain and hosting accounts? | Needed for a professional launch URL, email deliverability (Resend needs a verified domain), and SEO. | Launch on a free `*.vercel.app` URL and connect a domain whenever it's purchased. |
-| C6 | **Videos:** which YouTube videos and Instagram Reels should be featured? Should they be ordered by **most recent** or **most viewed**? Is your Instagram a Business or Creator account? | Placeholders in mockup. The account type decides whether Reels can be pulled automatically later (see D-12). | Hand-picked list, newest first. |
-| C7 | **Social links:** Instagram and YouTube URLs. Any others (TikTok, IMDb, Backstage, LinkedIn, Spotify)? | Footer and Contact page. | Instagram, YouTube and Email only. |
-| C10 | **Photos of you:** the MVP uses free stock photos (Unsplash and similar). For launch, can you send real photos of yourself for the hero portrait and Model Shots? | A portfolio showing a stranger's face as Mason misrepresents him to casting directors and clients. Stock is fine for atmospheric images (stages, landscapes, textures). | Stock photos for the demo. Swap in Mason's own portraits before launch. |
-| C11 | **Media categories:** are "Performances, Portraits, Behind the Scenes, Editorial, Other" final? | Gallery filtering and data model. | Use these five. |
-| C13 | **Signature:** can you provide your signature (used on the About hero) as an image or SVG? | Asset needed. | Use a script font as a placeholder. |
-| C14 | **Analytics:** confirm Vercel Analytics is OK. | Privacy. Vercel Analytics is cookieless, so no cookie banner is needed. | Enable Vercel Web Analytics at launch. |
+_All answered at the 2026-10-19 meeting; see **Resolved**._
+
+## Waiting on Mason
+
+Answered in principle; the asset or account is still to come.
+
+| # | Item | Notes |
+|---|---|---|
+| F1 | **Resend account** (C2) | Mason signs up with the address that should receive contact messages and shares an API key. Ashley asks when following up. |
+| F2 | **Updated resume?** (C4) | Ashley has a resume; check whether Mason has a newer version. |
+| F3 | **Video links** (C6) | Mason sends the YouTube videos to feature. |
+| F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
+| F5 | **Real photos** (C10) | Hero portrait and Model Shots via the shared Drive folder. Launch blocker. |
 
 ## Internal (Ashley)
 
@@ -44,3 +45,13 @@ _None open._
 | 2026-10-10 | I3: Fonts? | The design-system fonts as configured in code: Playfair Display, Inter, Space Mono. |
 | 2026-10-10 | I4: Footer year? | Generated automatically. |
 | 2026-10-10 | Image source? | Free photos from Unsplash and similar sites for the MVP, instead of extracting them from Mason's current site. |
+| 2026-10-19 | C1: Will Mason edit content himself? | No CMS. Mason adds or removes photos every 3–6 months by dropping them (with a category and caption) into a shared Google Drive folder that Ashley already set up; Ashley adds them to the site (D-18). |
+| 2026-10-19 | C2: Contact form delivery? | Resend with a branded HTML email to Mason, reply-to set to the visitor. Mason owns the Resend account (D-19). |
+| 2026-10-19 | C4: Resume? | One PDF. Ashley has it; checking whether Mason has an updated version (F2). |
+| 2026-10-19 | C5: Domain and hosting? | No domain for now; launch on `*.vercel.app`. Hosted on Ashley's Vercel account (D-21). |
+| 2026-10-19 | C6: Videos? | Hand-picked list, newest first. Mason will send the links (F3). |
+| 2026-10-19 | C7: Social links? | YouTube only for now. Instagram Reels are dropped from the video section too (D-20). |
+| 2026-10-19 | C10: Real photos? | Yes, via the shared folder. Swapping out stock faces is a launch blocker (F5). |
+| 2026-10-19 | C11: Media categories? | All (default), Concerts, Modeling, Staged, Design, Other. "Staged" is theater/stage acting (D-22). |
+| 2026-10-19 | C13: Signature? | Keep the script font permanently. |
+| 2026-10-19 | C14: Analytics? | No analytics (D-21). |
