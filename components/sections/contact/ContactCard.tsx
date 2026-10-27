@@ -22,6 +22,8 @@ export default function ContactCard() {
         alt={card.image.alt}
         fill
         sizes="(min-width: 1024px) 40vw, 100vw"
+        // The LCP on desktop: load it eagerly instead of lazily (Next docs prefer this over preload)
+        loading="eager"
         className="-z-20 object-cover object-top"
       />
       {/* Brand tint + fade so the text stays readable over the photo */}
