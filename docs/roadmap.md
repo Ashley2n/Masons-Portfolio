@@ -107,6 +107,7 @@ _Last updated: 2026-10-19_
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
 - [ ] Gallery lightbox (open photos full screen)
+- [ ] Consider React Hook Form for the contact form (Ashley, 2026-10-26). Today's form has 3 fields and a small tested validation helper; RHF adds client JavaScript, so it pays off once forms grow (many fields, conditional steps). Decide with `/architect` before adopting
 - [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
 - [ ] Phase 6 review cleanups: row-ordered gallery grid (CSS-columns masonry reorders on "Load more"), move remaining aria/status strings to `content/`, shared `Glow` component, shared `.page-title` h1 size, single helper in `content/media.ts`
 - [ ] SEO/404 review cleanups: note the generated-image hex exception in CLAUDE.md (it's only in architecture.md), reuse the shared page-title and glow styles in the 404 page, drop the unsupported italic in `apple-icon.tsx`, give `shareImage` a `url` key so `lib/seo.ts` doesn't re-map it
