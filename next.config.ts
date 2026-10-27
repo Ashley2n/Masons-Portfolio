@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     // YouTube video thumbnails (lib/video.ts)
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
+  experimental: {
+    agentUpgrade: "security",
+  },
 };
 
 export default nextConfig;
