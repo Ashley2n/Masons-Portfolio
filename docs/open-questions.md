@@ -31,6 +31,7 @@ Answered in principle; the asset or account is still to come.
 | C19 | **CTA banner contrast.** The white "Interested in working together?" heading fades into the light end of the purple gradient (2.5:1; WCAG AA needs 3:1 for large text). On every page. | End the gradient at `brand-600` instead of `brand-500` (5.11:1). Slightly darker right edge, same palette. |
 | C20 | **Model and Singer card contrast.** White text on the two light-purple cards is 2.0:1 and 2.5:1 (AA needs 4.5:1 for the subtitles), as in the mockup. | Dark text (`neutral-950`) on those two cards only (8.88:1 and 7.27:1). Same colors, different text color. |
 | C21 | **Duplicate stat label.** "10+ theatrical/musical shows" and "4+ theatrical/musical shows" (C8: match the mockup). Is the second one meant to say something else? | Ask what the 4+ counts; keep the mockup wording until he answers. |
+| C22 | **New Contact card photo (FYI).** The stock coastline was swapped for a darker violet seascape so the "Contact info" label is readable (D-28); the card is also taller on mobile. Closer to the Contact mockup's mood. | Show him the before/after; keep it unless he prefers another image. |
 
 ## Internal (Ashley)
 
