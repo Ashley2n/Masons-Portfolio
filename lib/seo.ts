@@ -21,7 +21,9 @@ const image = {
 
 /** Title, description, canonical URL and link-preview tags for one page. */
 export const pageMetadata = ({ title, description, path }: PageSeo): Metadata => ({
-  title,
+  // Omit the key entirely without a title: `title: undefined` overrides the layout's
+  // default and the page renders with no <title> at all
+  ...(title && { title }),
   description,
   alternates: { canonical: path },
   // A page's openGraph and twitter replace the inherited ones instead of merging (the

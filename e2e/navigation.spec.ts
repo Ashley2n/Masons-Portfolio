@@ -7,6 +7,12 @@ const pages = [
 ];
 
 test.describe("navigation", () => {
+  test("home page has the site's default title", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page).toHaveTitle("Mason Farrington | Actor, Musician, Singer & Designer");
+  });
+
   for (const page of pages) {
     test(`reaches ${page.label} from the header`, async ({ page: browser, isMobile }) => {
       await browser.goto("/");

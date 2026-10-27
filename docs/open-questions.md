@@ -16,16 +16,22 @@ Answered in principle; the asset or account is still to come.
 |---|---|---|
 | F1 | **Resend account** (C2) | Mason signs up with the address that should receive contact messages and shares an API key. Ashley asks when following up. |
 | F2 | **Updated resume?** (C4) | Ashley has a resume; check whether Mason has a newer version. |
-| F3 | **Video links** (C6) | Mason sends the YouTube videos to feature. |
+| F3 | **Video links** (C6) · **urgent** | Mason sends the YouTube videos to feature. The public site (`masons-portfolio.vercel.app`) still shows Blender demo films (Spring, Agent 327, Cosmos Laundromat, Big Buck Bunny, Singularity) as his work. Ask for 1 recent video + 3 others, or his OK to hide the video sections until they arrive (Impeccable audit, 2026-10-26). |
 | F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
 | F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
 ## For the next update to Mason
 
+**First item, urgent: official videos (F3).** The public site still shows Blender demo films as his work. Ashley will ask for the official videos at the next meeting.
+
 | # | Question | Ashley's recommendation |
 |---|---|---|
 | C17 | **Sharper versions of 13 small photos?** Under 1200 px (smallest 756 px wide); they show, but can look soft when large. | Only if he has them; they stay on the site either way (D-24). |
 | C18 | **New "Recital" filter** (D-23), from his folder name. | Just mention it. |
+| C19 | **CTA banner contrast.** The white "Interested in working together?" heading fades into the light end of the purple gradient (2.5:1; WCAG AA needs 3:1 for large text). On every page. | End the gradient at `brand-600` instead of `brand-500` (5.11:1). Slightly darker right edge, same palette. Picture: [meeting/c19](meeting/c19-cta-banner-contrast.png). |
+| C20 | **Model and Singer card contrast.** White text on the two light-purple cards is 2.0:1 and 2.5:1 (AA needs 4.5:1 for the subtitles), as in the mockup. | Dark text (`neutral-950`) on those two cards only (8.88:1 and 7.27:1). Same colors, different text color. Picture: [meeting/c20](meeting/c20-expertise-cards-contrast.png). |
+| C21 | **Duplicate stat label.** "10+ theatrical/musical shows" and "4+ theatrical/musical shows" (C8: match the mockup). Is the second one meant to say something else? | Ask what the 4+ counts; keep the mockup wording until he answers. |
+| C22 | **Approve the new Contact card?** To fix an accessibility failure on the live site (the "Contact info" label was 1.2:1), we changed the approved look before asking: a darker violet seascape photo, a lighter lilac label, and a taller card on mobile (D-28). Do you approve, or prefer another photo or the old one back? | Approve: it's closer to the Contact mockup's mood and passes WCAG AA. Picture: [meeting/c22](meeting/c22-contact-card-photo.png). If he declines, we revert or pick another photo and re-measure. |
 
 ## Internal (Ashley)
 

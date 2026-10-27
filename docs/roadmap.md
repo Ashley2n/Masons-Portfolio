@@ -95,8 +95,8 @@ _Last updated: 2026-10-19_
 - [x] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero (D-24, C15)
 - [ ] Swap in the real resume once confirmed (F2) and the real YouTube links (F3, F4)
 - [x] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon (D-17)
-- [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup)
-- [ ] Lighthouse audit (target ≥ 90 on every category)
+- [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup). 2026-10-26 Impeccable audit: keyboard, focus, alt text and headings pass; eyebrow, placeholder and Contact card contrast fixed (D-27, D-28). Left: the cards (C20) and the CTA banner (C19), waiting on Mason
+- [ ] Lighthouse audit (target ≥ 90 on every category). 2026-10-26: every page ≥ 90 except Media mobile performance (88; option: AVIF images) and Home accessibility (96, the C20 cards). `/resume` desktop CLS 0.134 seen only in Lighthouse, not reproduced
 - [x] Custom 404 page
 - [ ] Launch on `*.vercel.app` (connect a domain when Mason buys one) 🚀
 
