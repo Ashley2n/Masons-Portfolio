@@ -197,3 +197,12 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The first import added 97 photos at once. Writing every alt text from scratch would take 1–2 hours; reviewing drafts takes far less.
 - **Decision:** For large batches, Claude drafts alt text after viewing each photo, and Ashley reviews and edits every line before the commit. The drafts describe only what is visible and don't name people, because the same person can't be confirmed across photos; Ashley adds "Mason" where she knows it's him. (Ashley, 2026-10-26.)
 - **Consequences:** D-18's goal (good alt text with a person behind it) holds. The review step can't be skipped: the drafts can't know who is who, what the show was, or which details matter to Mason.
+
+### D-27 · Impeccable for the design-polish pass, project-scoped, hooks off
+
+- **Date:** 2026-10-26 · **Status:** Accepted
+- **Context:** The built site needs a design-quality pass (accessibility, hierarchy, spacing, motion) before the roadmap's Lighthouse and a11y items, without changing the approved design system (D-10).
+- **Decision:** Use Impeccable v4.8.0 (`audit`, `critique`, `polish`), installed for this project only with `npx impeccable@4.8.0 install --project --providers=claude --no-hooks`. The skill text and its 4 agents are committed so every clone uses the same version; the 17 MB native binary in `.claude/skills/impeccable/scripts/bin/` is gitignored, because the launcher downloads the right one for each OS and refuses it unless its SHA-256 matches `scripts/engine-checksums.txt`. The automatic design-detector hooks stay off. Impeccable findings that would change the approved look (layout, palette, type, copy) become questions in `docs/open-questions.md`, not code changes. Its flags on Inter and the purple brand are expected noise: both are client-approved (D-10).
+- **Rejected:** Taste Skill (`Leonxlnx/taste-skill`), which is aimed at generating new designs while this site is in polish (Ashley, 2026-10-26). Hooks on: they run the binary after every edit and would repeat the D-10 noise.
+- **Sources:** install flags and commands: https://impeccable.style and `npx impeccable install --help`; checksum check: the launcher `.claude/skills/impeccable/scripts/impeccable`; git scope and hooks off: Ashley, 2026-10-26.
+- **Consequences:** On first run on a new machine (including Ashley's Windows PC), the launcher downloads the engine from GitHub releases. Upgrading means re-running the installer with a new pinned version and reviewing the diff.
