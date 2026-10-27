@@ -22,6 +22,8 @@ Answered in principle; the asset or account is still to come.
 
 ## For the next update to Mason
 
+**First item, urgent: official videos (F3).** The public site still shows Blender demo films as his work. Ashley will ask for the official videos at the next meeting.
+
 | # | Question | Ashley's recommendation |
 |---|---|---|
 | C17 | **Sharper versions of 13 small photos?** Under 1200 px (smallest 756 px wide); they show, but can look soft when large. | Only if he has them; they stay on the site either way (D-24). |
