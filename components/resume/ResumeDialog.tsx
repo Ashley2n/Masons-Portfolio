@@ -1,7 +1,7 @@
 "use client";
 import { FileText, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
-import Button from "@/components/ui/Button";
+import Button, { buttonClasses } from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
 import { cn } from "@/lib/utils";
 
@@ -49,11 +49,8 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        // Same look as the outline Button; the visible text is the accessible name (D-29)
-        className={cn(
-          "caption-text inline-flex w-fit shrink-0 items-center gap-4 rounded-md border border-brand-600 bg-neutral-950 px-6 py-4 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
-          className,
-        )}
+        // Exactly the outline Button's look; the visible text is the accessible name (D-29)
+        className={buttonClasses("outline", cn("shrink-0", className))}
       >
         {resumeContent.viewLabel}
         <FileText aria-hidden="true" className="size-4" strokeWidth={1.75} />

@@ -12,6 +12,14 @@ const variants = {
 
 const icons = { arrow: ArrowUpRight, download: Download };
 
+/** Button look without the element, for controls that must render their own <button> (e.g. ResumeDialog) */
+export const buttonClasses = (variant: keyof typeof variants = "outline", className?: string) =>
+  cn(
+    "caption-text inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors duration-300 sm:px-8",
+    variants[variant],
+    className,
+  );
+
 type ButtonProps = {
   children: ReactNode;
   variant?: keyof typeof variants;
@@ -39,11 +47,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const Icon = icons[icon];
-  const classes = cn(
-    "caption-text inline-flex w-fit items-center gap-6 rounded-md px-8 py-4 transition-colors duration-300",
-    variants[variant],
-    className,
-  );
+  const classes = buttonClasses(variant, className);
   const content = (
     <>
       {children}
