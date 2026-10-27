@@ -107,6 +107,8 @@ _Last updated: 2026-10-19_
 - [ ] Custom domain (Q C5)
 - [ ] Page transitions and scroll animations
 - [ ] Gallery lightbox (open photos full screen)
+- [ ] Expertise cards link to their gallery category (`/media?category=…`, Model→Modeling, Singer→Concerts, Actor→Staged, Designer→Design per D-22). Critique P2, 2026-10-27. Decide with `/architect` after Mason answers C24 (photo tiles), which needs the same links
+- [ ] Swipe on the Model Shots carousel (touch gesture or CSS scroll-snap). Critique P2, 2026-10-27. Decide with `/architect`
 - [ ] Consider React Hook Form for the contact form (Ashley, 2026-10-26). Today's form has 3 fields and a small tested validation helper; RHF adds client JavaScript, so it pays off once forms grow (many fields, conditional steps). Decide with `/architect` before adopting
 - [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
 - [ ] Phase 6 review cleanups: row-ordered gallery grid (CSS-columns masonry reorders on "Load more"), move remaining aria/status strings to `content/`, shared `Glow` component, shared `.page-title` h1 size, single helper in `content/media.ts`
