@@ -164,8 +164,29 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-22 · Gallery categories
 
-- **Date:** 2026-10-19 · **Status:** Accepted
+- **Date:** 2026-10-19 · **Status:** Accepted (order amended by D-23)
 - **Context:** Mason renamed the gallery categories (Q C11).
 - **Decision:** Filters in this order: **All** (default), Concerts, Modeling, Staged (theater/stage acting), Design, Other. Existing items move over as Performances → Concerts, Portraits and Editorial → Modeling, Behind the Scenes → Other.
 - **Consequences:** `GalleryCategory` and `galleryCategories` change, along with their tests. No current placeholder is in Staged or Design until Mason's photos arrive.
 
+
+### D-23 · Recital gallery category
+
+- **Date:** 2026-10-26 · **Status:** Accepted (amends D-22)
+- **Context:** Mason's shared Drive folder sorts his photos into Concert Performances, Recital Performances, Staged Performances, Modeling and Designs. D-22 has no category for recitals.
+- **Decision:** Add **Recital** right after Concerts. Filters in this order: All, Concerts, Recital, Modeling, Staged, Design, Other. Drive folders map to categories by name: Concert Performances → Concerts, Recital Performances → Recital, Staged Performances → Staged, Modeling → Modeling, Designs → Design. (Ashley, 2026-10-26, based on Mason's folder names.)
+- **Consequences:** One more filter tab. Mason chose D-22's list himself, so mention the new tab in the next update to him.
+
+### D-24 · Mason's photos replace all stock photos in the gallery
+
+- **Date:** 2026-10-26 · **Status:** Accepted (extends D-11)
+- **Context:** The Drive folder has 99 unique photos across five categories. D-11 only required replacing stock *portraits*.
+- **Decision:** All 99 go into the `/media` gallery (D-18: what Mason puts in the folder goes on the site). Every stock photo leaves the gallery, and the homepage hero and Model Shots use Mason's photos (F5). Stock stays only where no real photo fits yet: the About journey and feature images and the Contact background. Weak photos (for example the ones under ~800 px wide) are flagged to Mason, not dropped. (Ashley, 2026-10-26.)
+- **Consequences:** A gallery about Mason shows only Mason. About 30 MB of images added to the repo. Unused stock files and their credits are deleted.
+
+### D-25 · Photo import script
+
+- **Date:** 2026-10-26 · **Status:** Accepted
+- **Context:** The 99 originals total 172 MB (largest 8.6 MB, up to 7008 px wide), against a 500 KB target per image (`docs/architecture.md`). Mason sends new batches every 3–6 months (D-18), so the import repeats.
+- **Decision:** `npm run import-photos -- <unzipped Drive folder>` runs `scripts/import-photos.ts` with [sharp](https://sharp.pixelplumbing.com/). For each photo it applies the EXIF rotation, resizes to fit 2000 px, saves a JPEG at quality 80, and strips all metadata (including any GPS location). It writes `public/images/media/<category>/<category>-NN.jpg`, numbering after the photos already there, and appends entries to `content/gallery-photos.ts` with real dimensions and **empty alt text for Ashley to write** (D-18). It skips byte-identical duplicates and files it can't read, and reports them. The file type comes from the contents, not the extension: Mason's four `.heif` files are really JPEGs. Pure helpers live in `lib/images.ts`, and the script runs on Node's built-in TypeScript support (`allowImportingTsExtensions` in `tsconfig.json`), so there's no extra runner.
+- **Consequences:** `sharp` becomes a devDependency (it was already an optional dependency of `next`). A content test fails while any alt text is empty, so photos can't ship without it. A real iPhone HEIC file would be reported, not imported; convert it first (on a Mac: `sips -s format jpeg`).
