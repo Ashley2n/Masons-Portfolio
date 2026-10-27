@@ -31,7 +31,8 @@ describe("pageMetadata", () => {
   it("uses the site's default title for a page without its own (the home page)", () => {
     const home = pageMetadata({ description: "Home.", path: "/" });
 
-    expect(home.title).toBeUndefined();
+    // Absent, not undefined: an undefined title overrides the layout default (no <title>)
+    expect(home).not.toHaveProperty("title");
     expect(home.openGraph?.title).toBe("Mason Farrington | Actor, Musician, Singer & Designer");
   });
 });
