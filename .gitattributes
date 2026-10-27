@@ -9,3 +9,5 @@
 *.webp binary
 *.ico binary
 *.pdf binary
+# Windows batch files need CRLF line endings to run reliably (D-27 launcher)
+*.cmd text eol=crlf
