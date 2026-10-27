@@ -28,7 +28,7 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("space-y-4", className)}>
-      <Eyebrow>{eyebrow}</Eyebrow>
+      <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
       <Heading className={tones[tone].title}>{title}</Heading>
       {description && (
         <p className={cn("max-w-sm text-small", tones[tone].description)}>{description}</p>

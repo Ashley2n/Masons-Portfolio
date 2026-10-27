@@ -19,7 +19,7 @@ type ContactFormProps = {
 
 const fields = ["name", "email", "message"] as const;
 const inputClass =
-  "w-full rounded-md border bg-neutral-950/60 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 transition-colors focus-visible:border-brand-500 focus-visible:outline-2 focus-visible:outline-brand-500/40";
+  "w-full rounded-md border bg-neutral-950/60 px-4 py-3 text-neutral-100 placeholder:text-neutral-400 transition-colors focus-visible:border-brand-500 focus-visible:outline-2 focus-visible:outline-brand-500/40";
 
 // Opens the mail app by clicking a temporary link. Unlike assigning window.location,
 // this is a normal link activation that browsers (and the e2e test) can observe.
