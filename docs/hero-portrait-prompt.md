@@ -69,6 +69,8 @@ Output at least 1600 × 2133 pixels.
 
 ## Variant: turn his gaze to the left (Nano Banana)
 
+> **Don't use this.** Tried 2026-10-26: Nano Banana re-angled his head and invented a realistic but different face, which breaks Mason's condition (C15). For a mirror image, flip it without AI (Preview: Tools → Flip Horizontal; sharp: `flop()`). The live hero was made that way. The prompt stays here as a record of what was tried.
+
 The first edit put him on the right, looking up and to the **right**, away from the headline. In a layout, a face looking *into* the page pulls the eye toward the text, so he should look left. Attach the edited image and paste:
 
 ```text
