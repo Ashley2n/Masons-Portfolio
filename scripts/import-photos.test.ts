@@ -20,7 +20,13 @@ const setup = async (folder: string) => {
     `export const galleryPhotos = [\n  ${galleryEntriesMarker}\n];\n`,
   );
   const jpeg = await sharp({
-    create: { width: 400, height: 300, channels: 3, noise: { type: "gaussian", mean: 128, sigma: 30 } },
+    create: {
+      width: 400,
+      height: 300,
+      channels: 3,
+      background: "#808080",
+      noise: { type: "gaussian", mean: 128, sigma: 30 },
+    },
   })
     .jpeg()
     .toBuffer();

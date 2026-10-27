@@ -3,12 +3,14 @@ import {
   appendGalleryEntries,
   categoryForFolder,
   findDuplicates,
+  folderCategories,
   galleryEntriesMarker,
   isSkippedFile,
   nextPhotoNumber,
   photoFileName,
   renderGalleryEntry,
 } from "./images";
+import { galleryCategoryIds } from "@/types/content";
 
 describe("categoryForFolder", () => {
   it.each([
@@ -19,6 +21,10 @@ describe("categoryForFolder", () => {
     ["Designs", "design"],
   ])("maps the Drive folder %s to %s", (folder, category) => {
     expect(categoryForFolder(folder)).toBe(category);
+  });
+
+  it("only maps to categories the gallery has (D-23)", () => {
+    Object.values(folderCategories).forEach((category) => expect(galleryCategoryIds).toContain(category));
   });
 
   it("ignores case and the trailing spaces Drive leaves on folder names", () => {

@@ -1,4 +1,13 @@
 import type { ExpertiseItem, ModelShot, Photo, Stat, Video } from "@/types/content";
+import { galleryPhotos } from "./gallery-photos";
+
+/** One of Mason's gallery photos by id; alt text and size come from the gallery entry, so they're written once */
+const galleryPhoto = (id: string) => {
+  const photo = galleryPhotos.find((p) => p.id === id);
+  if (!photo) throw new Error(`Unknown gallery photo "${id}" on the homepage`);
+  const { src, alt, width, height } = photo;
+  return { src, alt, width, height };
+};
 
 export const heroContent = {
   roles: ["Actor", "Musician", "Singer", "Designer"],
@@ -99,45 +108,14 @@ export const homeImages = {
     alt: "Black-and-white portrait of a man looking upward into the light",
     credit: "Parthiv Sailesh / Unsplash",
   },
-  journey: {
-    src: "/images/home/journey-spotlight.jpg",
-    alt: "A performer standing alone in a spotlight on a dark stage",
-    credit: "Luis Morera / Unsplash",
-  },
+  // Mason's photo in the purple stage light of the brand theme (D-24)
+  journey: galleryPhoto("staged-11"),
 } satisfies Record<string, Photo>;
 
-export const modelShots: ModelShot[] = [
-  {
-    id: "studio-portrait",
-    src: "/images/home/model-shot-1.jpg",
-    alt: "Black-and-white studio portrait, looking straight into the camera",
-    credit: "Matheus Farias / Unsplash",
-  },
-  {
-    id: "turtleneck-portrait",
-    src: "/images/home/model-shot-2.jpg",
-    alt: "Black-and-white portrait in a dark sweater, glancing to the side",
-    credit: "mohammad kashkooli / Unsplash",
-  },
-  {
-    id: "low-key-portrait",
-    src: "/images/home/model-shot-3.jpg",
-    alt: "Low-key portrait with one hand raised to the chin",
-    credit: "omid armin / Unsplash",
-  },
-  {
-    id: "shadow-portrait",
-    src: "/images/home/model-shot-4.jpg",
-    alt: "Portrait half in shadow against a black background",
-    credit: "Nartan Büyükyıldız / Unsplash",
-  },
-  {
-    id: "seated-portrait",
-    src: "/images/home/model-shot-5.jpg",
-    alt: "Black-and-white portrait in a dark t-shirt",
-    credit: "Lukas Kaufmann / Unsplash",
-  },
-];
+/** Mason's photos chosen for the homepage (F5) */
+const modelShotIds = ["modeling-02", "modeling-08", "modeling-10", "modeling-01", "modeling-06"];
+
+export const modelShots: ModelShot[] = modelShotIds.map((id) => ({ id, ...galleryPhoto(id) }));
 
 export const sectionHeadings = {
   journey: {

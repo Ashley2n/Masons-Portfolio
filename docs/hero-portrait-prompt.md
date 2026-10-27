@@ -32,6 +32,8 @@ Ask Mason first (C15 in [open-questions.md](open-questions.md)). Two things need
 
 **GPT Image 2** (in ChatGPT). Arena's crowd-voted image-edit leaderboard reportedly ranks it #1 in all seven categories, with Meta's Muse Image and Microsoft's MAI-Image-2.5 close behind for single-image edits ([Alphasignal](https://alphasignal.ai/news/lm-arena-breaks-down-52-image-models-across-7-categories-with-28m-votes)). ⚠ That article has no date, and rankings change often, so check the live image-edit leaderboard on [arena.ai](https://arena.ai/blog/march-2026-arena-updates/) before you choose.
 
+Ashley used GPT Image for the first edit (`Smiling in the Shadows.png`, 1086 × 1448) and switched to **Nano Banana** (Google Gemini) for follow-ups when the free GPT quota ran out (2026-10-26).
+
 ## The prompt
 
 Attach the photo and paste:
@@ -64,6 +66,33 @@ Output at least 1600 × 2133 pixels.
 ```
 
 **If the face drifts:** reply in the same chat with *"Keep his face exactly as in my original photo; only change lighting, background and color."* Compare the result side by side with the original. If it no longer clearly looks like Mason, don't use it.
+
+## Variant: turn his gaze to the left (Nano Banana)
+
+The first edit put him on the right, looking up and to the **right**, away from the headline. In a layout, a face looking *into* the page pulls the eye toward the text, so he should look left. Attach the edited image and paste:
+
+```text
+Edit this photo. Change only the direction he is facing: turn his head and eyes so he
+looks up and toward the LEFT side of the frame (his right), the opposite of now.
+
+Keep everything else exactly the same:
+- Same person: identical face, features, smile, moustache, freckles, curly hair, and the
+  earring in the same ear. Do not beautify, smooth, or change his age.
+- Same position: his head stays in the upper-right part of the frame, the same size.
+  Do not move or mirror him.
+- Same lighting: black-and-white, one hard light, pure black background, his shirt and
+  shoulders fading into black.
+- Same framing: vertical 3:4, with the left side and bottom left empty and black.
+
+No text, logos, borders or extra people. Output as large as possible, ideally at least
+1600 × 2133 pixels.
+```
+
+**If his face changes:** reply *"Keep his face exactly as in the image I sent; only turn his head."* Turning a head means the model has to redraw the face, which drifts more than a lighting change does. Compare the result side by side with the original.
+
+**Free alternative without AI:** the background is pure black, so the image can be mirrored and shifted back to the right with no visible seam (sharp: `flop()`, then pad the left with black). His face stays exactly the same pixels, but mirrored: the earring moves to the other ear and any facial asymmetry flips. A preview was made on 2026-10-26.
+
+**Either way, resolution:** at 1086 px wide the hero will look soft on high-density (2×) screens, where it renders about 1900 px wide. Ask for a larger output, or start the next edit from the full-size original.
 
 ## Fallback: edit by hand (no AI)
 

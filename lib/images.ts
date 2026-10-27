@@ -1,4 +1,5 @@
 // Pure helpers for scripts/import-photos.ts (D-25). No sharp or file system here, so they stay unit-testable.
+import type { GalleryCategory } from "@/types/content";
 
 /** Drive folder names (lowercase) → gallery category (D-23) */
 export const folderCategories = {
@@ -7,7 +8,7 @@ export const folderCategories = {
   "staged performances": "staged",
   modeling: "modeling",
   designs: "design",
-} as const;
+} as const satisfies Record<string, GalleryCategory>;
 
 export type PhotoCategory = (typeof folderCategories)[keyof typeof folderCategories];
 
