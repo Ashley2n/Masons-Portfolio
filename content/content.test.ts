@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutContent, milestones } from "./about";
@@ -25,16 +25,33 @@ describe("home content", () => {
     expectUniqueIds(items);
   });
 
-  it("every model shot has alt text and a local image path", () => {
+  it("every model shot is one of Mason's own photos, with alt text and no stock credit (D-24)", () => {
     modelShots.forEach((shot) => {
+      expect(shot.src).toMatch(/^\/images\/media\/modeling\//);
+      expect(existsSync(join(process.cwd(), "public", shot.src))).toBe(true);
       expect(shot.alt.trim()).not.toBe("");
-      expect(shot.src).toMatch(/^\/images\//);
+      expect(shot.credit).toBeUndefined();
+      // The carousel shows portrait photos whole on wide screens, so it needs the real size
+      expect(shot.width).toBeGreaterThan(0);
+      expect(shot.height).toBeGreaterThan(0);
     });
   });
 
+  it("the Journey image is one of Mason's own photos, with no stock credit (D-24)", () => {
+    expect(homeImages.journey.src).toMatch(/^\/images\/media\//);
+    expect(existsSync(join(process.cwd(), "public", homeImages.journey.src))).toBe(true);
+    expect(homeImages.journey.alt.trim()).not.toBe("");
+    expect("credit" in homeImages.journey).toBe(false);
+  });
+
+  it("the hero is Mason's own portrait, with alt text and no stock credit (F5)", () => {
+    expect(existsSync(join(process.cwd(), "public", homeImages.hero.src))).toBe(true);
+    expect(homeImages.hero.alt.trim()).not.toBe("");
+    expect("credit" in homeImages.hero).toBe(false);
+  });
+
+  // Stock photos that stay until Mason's replacements arrive (D-24)
   const photos: [string, Photo][] = [
-    ...Object.entries(homeImages),
-    ...modelShots.map((shot): [string, Photo] => [shot.id, shot]),
     ["about feature", aboutContent.feature.image],
     ...milestones.flatMap((m): [string, Photo][] => (m.image ? [[m.id, m.image]] : [])),
   ];
@@ -81,15 +98,37 @@ describe("media gallery content", () => {
     expectUniqueIds(galleryItems);
   });
 
-  it("every photo exists, is credited and has its real size", () => {
+  it("every photo is Mason's own: it exists, has alt text and its real size, and no stock credit (D-24)", () => {
     galleryItems.forEach((item) => {
       if (item.kind !== "photo") return;
+      expect(item.photo.src).toMatch(new RegExp(`^/images/media/${item.category}/`));
       expect(existsSync(join(process.cwd(), "public", item.photo.src))).toBe(true);
-      expect(item.photo.alt.trim()).not.toBe("");
-      expect(item.photo.credit).toMatch(/ \/ Unsplash$/);
+      expect(item.photo.alt.trim(), `alt text for ${item.id}`).not.toBe("");
+      expect(item.photo.credit).toBeUndefined();
       expect(item.photo.width).toBeGreaterThan(0);
       expect(item.photo.height).toBeGreaterThan(0);
     });
+  });
+
+  it("labels the filters in Mason's order (D-22, D-23)", () => {
+    expect(galleryCategories.map((c) => c.label)).toEqual([
+      "All",
+      "Concerts",
+      "Recital",
+      "Modeling",
+      "Staged",
+      "Design",
+      "Other",
+    ]);
+  });
+
+  it("uses every image file in public/images/media, so no stock leftovers ship", () => {
+    const dir = join(process.cwd(), "public", "images", "media");
+    const files = readdirSync(dir, { recursive: true, encoding: "utf8" })
+      .filter((file) => file.endsWith(".jpg"))
+      .map((file) => `/images/media/${file.split("\\").join("/")}`);
+    const used = new Set(galleryItems.flatMap((item) => (item.kind === "photo" ? [item.photo.src] : [])));
+    expect(files.filter((src) => !used.has(src))).toEqual([]);
   });
 
   it("offers a filter for every category, and every category has items", () => {

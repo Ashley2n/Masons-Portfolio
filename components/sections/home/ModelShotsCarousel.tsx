@@ -14,6 +14,7 @@ export default function ModelShotsCarousel() {
   const [index, setIndex] = useState(0);
   const total = modelShots.length;
   const current = modelShots[index];
+  const isPortrait = current.height > current.width;
   const next = () => setIndex((i) => getNextIndex(i, total));
   const prev = () => setIndex((i) => getPrevIndex(i, total));
 
@@ -37,13 +38,25 @@ export default function ModelShotsCarousel() {
         </h2>
 
         <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-neutral-800 sm:aspect-video lg:aspect-21/9">
+          {/* Wide screens: a portrait photo is shown whole over a blurred copy of itself instead of being cropped.
+              The copy is decorative and tiny (it's blurred anyway). */}
+          {isPortrait && (
+            <Image
+              key={`${current.id}-backdrop`}
+              src={current.src}
+              alt=""
+              fill
+              sizes="256px"
+              className="hidden scale-110 object-cover blur-2xl brightness-50 sm:block"
+            />
+          )}
           <Image
             key={current.id}
             src={current.src}
             alt={current.alt}
             fill
             sizes="(min-width: 1280px) 1280px, 100vw"
-            className="object-cover object-[50%_30%]"
+            className={cn("object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
           />
           <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
             <ChevronLeft aria-hidden="true" className="size-6" />

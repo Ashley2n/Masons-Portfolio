@@ -15,7 +15,8 @@ vi.mock("next/font/google", () => {
 
 // jsdom doesn't implement <dialog>'s showModal()/close(). Minimal stand-ins: real browsers
 // (and the Playwright tests) provide the full behavior, e.g. Escape and focus trapping.
-if (!HTMLDialogElement.prototype.showModal) {
+// Skipped in `@vitest-environment node` files (scripts/), which have no DOM.
+if (typeof HTMLDialogElement !== "undefined" && !HTMLDialogElement.prototype.showModal) {
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute("open", "");
   };

@@ -14,7 +14,7 @@ test.describe("media gallery", () => {
 
     await page
       .getByRole("group", { name: "Filter by category" })
-      .getByRole("button", { name: "Portraits" })
+      .getByRole("button", { name: "Recital" })
       .click();
     await expect(status).toHaveText(/Showing (\d+) of \1/);
     await expect(page.getByRole("button", { name: "Load more" })).toHaveCount(0);

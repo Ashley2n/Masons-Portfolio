@@ -2,7 +2,7 @@
 
 Assets and copy needed to finish the site. Tick items off as they arrive, and note where each file lives in the repo.
 
-_Last updated: 2026-10-10_
+_Last updated: 2026-10-26_
 
 **Copy:** the homepage mockup is the source of truth. **Photos:** free stock (Unsplash, Pexels and similar) for the MVP. Record each photo's source URL and photographer next to it in `content/` so credits are easy to find. Mason's own portraits replace stock portraits before launch (Q C10).
 
@@ -26,14 +26,14 @@ _Last updated: 2026-10-10_
 
 | Item | Status | Notes |
 |---|---|---|
-| Hero portrait (high-res, dark background) | 📷 → ⏳ | Stock (`hero-portrait.jpg`, Parthiv Sailesh / Unsplash) for the demo; Mason's real portrait for launch (Q C10). |
+| Hero portrait (high-res, dark background) | ✅ | `mason-hero.jpg`: Mason's photo, AI-edited to low-key black and white, then mirrored to face the headline ([hero-portrait-prompt.md](hero-portrait-prompt.md)). 1086 px wide, slightly soft on 2× screens. Mason OK'd it on the condition that his face isn't altered (C15). |
 | Hero copy (roles + tagline) | ✅ | Match mockup: "Actor • Musician • Singer • Designer" / "A multidisciplinary artist creating meaningful experiences through performance and design." |
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
-| Journey image (spotlight on stage) | 📷 | `journey-spotlight.jpg` (Luis Morera / Unsplash) |
+| Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
 | Recent Work: featured video | 🔁 | Mock: Blender open movie "Spring" (CC). Replace with Mason's most recent or most viewed video / Reel (Q C6). |
 | Other Work: 3 videos (title, date, link) | 🔁 | Mock: Blender open movies and Blender Studio Shorts (CC) with real upload dates in `content/home.ts`. Replace with Mason's hand-picked YouTube videos, newest first (F3, D-20). |
-| Model Shots: 5+ portrait photos | 📷 → ⏳ | Five Unsplash portraits (`model-shot-1..5.jpg`, credits in `content/home.ts`) for the demo; Mason's real photos for launch (Q C10). |
+| Model Shots: 5+ portrait photos | ✅ | Mason's `modeling-02, 08, 10, 01, 06` (all landscape, so they fill the wide desktop frame); alt text shared with the gallery. |
 
 ## About (`/about`)
 
@@ -50,7 +50,7 @@ _Last updated: 2026-10-10_
 | Item | Status | Notes |
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
-| Gallery photos (12+), each with category and alt text | 📷 | 18 Unsplash photos in `public/images/media/` + reused home photos; credits in `content/media.ts`. Categories change to Concerts, Modeling, Staged, Design, Other (D-22). |
+| Gallery photos (12+), each with category and alt text | ✅ | 97 of Mason's photos via `npm run import-photos` (D-25), in `public/images/media/<category>/`; alt text drafted by Claude, reviewed by Ashley (D-26). 2 damaged files left out (C16). |
 | Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via F3 (YouTube only, D-20). |
 
 ## Resume (`/resume`)

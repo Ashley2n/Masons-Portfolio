@@ -17,7 +17,7 @@ describe("Gallery", () => {
     render(<Gallery />);
 
     expect(filterButton("All")).toHaveAttribute("aria-pressed", "true");
-    expect(filterButton("Portraits")).toHaveAttribute("aria-pressed", "false");
+    expect(filterButton("Modeling")).toHaveAttribute("aria-pressed", "false");
     expect(shownItems()).toHaveLength(pageSize);
     expect(screen.getByRole("status")).toHaveTextContent(`Showing ${pageSize} of ${total}`);
   });
@@ -39,18 +39,18 @@ describe("Gallery", () => {
   it("filters by category and starts that category from its first page", async () => {
     const user = userEvent.setup();
     render(<Gallery />);
-    const portraits = filterGallery(galleryItems, "portraits");
+    const modeling = filterGallery(galleryItems, "modeling");
 
     await user.click(screen.getByRole("button", { name: "Load more" }));
-    await user.click(filterButton("Portraits"));
+    await user.click(filterButton("Modeling"));
 
-    expect(filterButton("Portraits")).toHaveAttribute("aria-pressed", "true");
+    expect(filterButton("Modeling")).toHaveAttribute("aria-pressed", "true");
     expect(filterButton("All")).toHaveAttribute("aria-pressed", "false");
-    expect(shownItems()).toHaveLength(Math.min(pageSize, portraits.length));
+    expect(shownItems()).toHaveLength(Math.min(pageSize, modeling.length));
     expect(screen.getByRole("status")).toHaveTextContent(
-      `Showing ${Math.min(pageSize, portraits.length)} of ${portraits.length}`,
+      `Showing ${Math.min(pageSize, modeling.length)} of ${modeling.length}`,
     );
-    portraits.slice(0, pageSize).forEach((item) => {
+    modeling.slice(0, pageSize).forEach((item) => {
       if (item.kind === "photo") expect(screen.getByAltText(item.photo.alt)).toBeInTheDocument();
     });
   });

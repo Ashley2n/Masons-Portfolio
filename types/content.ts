@@ -65,7 +65,8 @@ export type Photo = {
   height?: number;
 };
 
-export type ModelShot = Photo & { id: string };
+/** Real size required: the carousel shows portrait photos whole on wide screens */
+export type ModelShot = Photo & { id: string; width: number; height: number };
 
 export type Milestone = {
   id: string;
@@ -76,13 +77,8 @@ export type Milestone = {
   status: "complete" | "ongoing";
 };
 
-export const galleryCategoryIds = [
-  "performances",
-  "portraits",
-  "behind-the-scenes",
-  "editorial",
-  "other",
-] as const;
+/** Filter order: D-22, plus Recital after Concerts (D-23) */
+export const galleryCategoryIds = ["concerts", "recital", "modeling", "staged", "design", "other"] as const;
 
 export type GalleryCategory = (typeof galleryCategoryIds)[number];
 
