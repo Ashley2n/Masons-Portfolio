@@ -22,7 +22,7 @@ export default function Timeline() {
   const { journey } = aboutContent;
 
   return (
-    <section className="bg-neutral-100 py-16 md:py-24">
+    <section className="surface-light bg-neutral-100 py-16 md:py-24">
       <Container className="space-y-12">
         <SectionHeading tone="light" eyebrow={journey.eyebrow} title={journey.title} />
 

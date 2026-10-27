@@ -52,7 +52,7 @@ export default function Gallery() {
             disabled={counts[id] === 0}
             className={cn(
               "caption-text shrink-0 border-b-2 pb-2 transition-colors",
-              "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400",
+              "focus-visible:outline-offset-4",
               filter === id
                 ? "border-brand-600 text-brand-500"
                 : "border-transparent text-neutral-300 hover:text-neutral-100",
@@ -81,7 +81,7 @@ export default function Gallery() {
           <li
             key={item.id}
             tabIndex={-1}
-            className="mb-4 break-inside-avoid rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+            className="mb-4 break-inside-avoid rounded-lg"
           >
             {item.kind === "photo" ? (
               <Image
@@ -112,7 +112,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={loadMore}
-            className="caption-text inline-flex items-center gap-2 text-neutral-100 transition-colors hover:text-brand-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+            className="caption-text inline-flex items-center gap-2 text-neutral-100 transition-colors hover:text-brand-500 focus-visible:outline-offset-4"
           >
             {mediaContent.loadMore}
             <ArrowDown aria-hidden="true" className="size-4" />

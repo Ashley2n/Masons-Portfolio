@@ -53,7 +53,6 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
         title={resumeContent.viewLabel}
         className={cn(
           "grid size-13 shrink-0 place-items-center rounded-md border border-brand-600 bg-neutral-950 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
           className,
         )}
       >
@@ -81,7 +80,7 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label={resumeContent.closeLabel}
-                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-400"
+                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100"
               >
                 <X aria-hidden="true" className="size-5" />
               </button>

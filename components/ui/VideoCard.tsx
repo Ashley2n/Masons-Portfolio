@@ -39,7 +39,6 @@ export default function VideoCard({
   const frame = cn(
     "group relative block w-full overflow-hidden rounded-lg bg-neutral-800",
     video.orientation === "portrait" ? "aspect-9/16" : "aspect-video",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
     frameClassName,
   );
 

@@ -11,7 +11,6 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
     href={item.href}
     className={cn(
       "group flex min-h-40 items-end justify-between gap-4 rounded-lg p-6 text-neutral-100 transition-transform duration-300 hover:scale-102 md:min-h-48 md:p-8",
-      "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600",
       item.colorClass,
     )}
   >
@@ -29,7 +28,7 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
 
 export default function ExpertiseSection() {
   return (
-    <section className="bg-neutral-100 py-16">
+    <section className="surface-light bg-neutral-100 py-16">
       <Container className="space-y-12">
         <SectionHeading tone="light" {...sectionHeadings.expertise} />
         <div className="grid gap-4 sm:grid-cols-2">

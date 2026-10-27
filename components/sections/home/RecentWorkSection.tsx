@@ -11,7 +11,7 @@ export default function RecentWorkSection() {
   const copy = sectionHeadings.recentWork;
 
   return (
-    <section className="bg-neutral-100 py-16">
+    <section className="surface-light bg-neutral-100 py-16">
       <Container className="space-y-12">
         <div className="space-y-6">
           <div className="flex items-end justify-between gap-4">

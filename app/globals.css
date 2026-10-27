@@ -63,6 +63,13 @@
   body {
     @apply text-body font-inter text-neutral-400;
   }
+  /* One focus ring for every control. Its colour follows the surface it sits on:
+     brand-400 on the dark page (8.9:1), brand-600 on light sections (5.1:1),
+     neutral-100 on purple or photo backgrounds. Sections opt in with .surface-* */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring, var(--color-brand-400));
+    outline-offset: 2px;
+  }
   /* Keep the page behind an open modal (e.g. the resume) from scrolling */
   html:has(dialog[open]) {
     overflow: hidden;
@@ -71,6 +78,13 @@
 
 /* Reusable text styles. In the components layer so utilities still win. */
 @layer components {
+  /* Focus-ring colour for the surface a control sits on (see :focus-visible in base) */
+  .surface-light {
+    --focus-ring: var(--color-brand-600);
+  }
+  .surface-color {
+    --focus-ring: var(--color-neutral-100);
+  }
   /* Hero name: scales up to the 100px hero size on desktop */
   .display-font {
     @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;

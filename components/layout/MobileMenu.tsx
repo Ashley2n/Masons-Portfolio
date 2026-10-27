@@ -31,7 +31,7 @@ export default function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpenedOn(open ? null : pathname)}
-        className="p-1 text-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-400"
+        className="p-1 text-neutral-100"
       >
         {open ? (
           <X aria-hidden="true" className="size-6" />

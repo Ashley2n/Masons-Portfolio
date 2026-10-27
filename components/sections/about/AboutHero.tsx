@@ -34,7 +34,7 @@ export default function AboutHero() {
 
         <Link
           href={feature.href}
-          className="group relative block aspect-4/3 overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          className="group relative block aspect-4/3 overflow-hidden rounded-lg"
         >
           {/* Text first so the link is announced as "Designer, …" before the image */}
           <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between p-6 text-neutral-100 md:p-8">
