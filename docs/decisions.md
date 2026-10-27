@@ -22,7 +22,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-03 · Content stored in typed TypeScript files (CMS deferred)
 
-- **Date:** 2026-10-09 · **Status:** Accepted (revisit after client meeting; see Q C1)
+- **Date:** 2026-10-09 · **Status:** Accepted (confirmed by D-18)
 - **Context:** Whether Mason will edit content himself is not yet decided. The deadline is one week away.
 - **Decision:** All copy and data go in `content/*.ts`, typed by `types/content.ts`. Data shapes are designed so a headless CMS (e.g. Sanity) could replace these files later.
 - **Consequences:** Fastest to build, with no extra accounts or costs. Content edits need a developer until a CMS is added.
@@ -50,7 +50,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-07 · Contact form delivery: pending client input
 
-- **Date:** 2026-10-09 · **Status:** Proposed
+- **Date:** 2026-10-09 · **Status:** Superseded by D-19
 - **Context:** The contact form needs a backend. Options: Resend (via a Next.js server action, needs an API key and verified domain), Formspree (hosted, free tier), or `mailto:`.
 - **Decision:** Build the form UI with validation now. For the demo, fall back to `mailto:`. Choose the delivery method after Q C2 is answered.
 - **Implemented (2026-10-11):** `lib/contact.ts` validates and builds a prefilled `mailto:` link; `ContactForm` takes an injectable `send` function, so swapping in Resend/Formspree later means replacing that one function (e.g. with a server action) without touching validation or UI.
@@ -58,7 +58,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-08 · Hosting on Vercel
 
-- **Date:** 2026-10-09 · **Status:** Proposed (see Q C5)
+- **Date:** 2026-10-09 · **Status:** Superseded by D-21
 - **Context:** Next.js-native hosting with preview deploys suits client demos. Mason has no domain yet (2026-10-10).
 - **Decision:** Deploy to Vercel. Every branch or PR gets a preview URL. Launch on the free `*.vercel.app` URL if no domain has been bought by then; connect a domain later. Use Vercel Web Analytics (cookieless) for visitor stats.
 - **Consequences:** Free tier is sufficient. Need to decide who owns the Vercel account.
@@ -86,7 +86,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-12 · Videos: YouTube and Instagram Reels in one card system, hand-curated
 
-- **Date:** 2026-10-10 · **Status:** Proposed (confirm list and ordering with Mason; see Q C6)
+- **Date:** 2026-10-10 · **Status:** Superseded by D-20
 - **Context:** Mason may want both YouTube videos and Instagram Reels, ordered by most recent or most viewed.
 - **Decision:**
   - The data model supports both: `{ id, platform: "youtube" | "instagram", url, title, date, thumbnail, orientation: "landscape" | "portrait", featured? }`.
@@ -133,3 +133,39 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** Link previews, canonical URLs and the sitemap need the site's absolute URL. There's no domain yet (Q C5), and the Vercel URL shouldn't be hard-coded.
 - **Decision:** `getSiteUrl()` (`lib/site-url.ts`) uses `NEXT_PUBLIC_SITE_URL` when set, else Vercel's built-in `VERCEL_PROJECT_PRODUCTION_URL`, else `localhost`. Per-page copy lives in `content/seo.ts` and goes through `pageMetadata()`. It repeats the shared Open Graph fields and the share image on every page, because a page's `openGraph`/`twitter` replaces the layout's instead of merging. The share image is generated from the hero photo (`app/opengraph-image.tsx`). The favicon is an "MF" monogram (`app/icon.svg`, `app/apple-icon.tsx`).
 - **Consequences:** Nothing to configure now. A custom domain later is one environment variable. Generated images use Next.js's default sans-serif font, since using Playfair would mean committing its font file. The share image updates automatically when the hero photo or tagline changes. Its URL carries a `?v=` hash of the photo and hero text, so sites that cache link previews fetch the new one. The photo must be a JPEG or PNG (the image renderer can't read WebP), and the build stops with a clear error otherwise. `NEXT_PUBLIC_SITE_URL` accepts a bare domain; `https://` is added if missing.
+
+### D-18 · Photo updates through a shared folder, no CMS
+
+- **Date:** 2026-10-19 · **Status:** Accepted (confirms D-03)
+- **Context:** Mason will add and remove photos, but only every 3–6 months (Q C1). A CMS costs setup time and another account for very little use.
+- **Decision:** Content stays in `content/*.ts`. Mason drops new photos into the shared Google Drive folder with a category and a short caption, and Ashley adds them (file, alt text, dimensions) and redeploys.
+- **Consequences:** No cost and nothing new to build; alt text stays good because Ashley writes it. If updates become frequent, a Git-based admin page (Keystatic or Decap: free, no database, commits to the repo) is the cheapest upgrade.
+
+### D-19 · Contact form sends through Resend
+
+- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-07)
+- **Context:** Mason wants a nicely formatted email when someone reaches out (Q C2). Formspree's free emails are plain; sending through his Gmail would store a password with full mailbox access in Vercel.
+- **Decision:** A server action sends a branded HTML email via Resend (free tier) to Mason, with `replyTo` set to the visitor. Mason owns the Resend account, signed up with the receiving address, so it can deliver to him before a domain is verified. The API key lives in a Vercel environment variable. It replaces the `send` function injected into `ContactForm`.
+- **Consequences:** Send-only credential and delivery logs. Until a domain is verified, mail comes from `onboarding@resend.dev` and only reaches the account owner's address; adding a domain later only changes the `from` address. Blocked on Mason creating the account (F1).
+
+### D-20 · Videos are YouTube-only
+
+- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-12)
+- **Context:** Mason only wants YouTube linked for now (Q C7) and will send a hand-picked list, newest first (Q C6).
+- **Decision:** Keep D-12's YouTube flow (free thumbnails, click-to-load `youtube-nocookie.com` player, 9:16 cards for Shorts) and its hand-curated, newest-first list with a `featured` flag. Drop Instagram Reels from the content and the UI; the `platform` field can stay so Reels can come back later.
+- **Consequences:** No Instagram embed script or uploaded thumbnails. Footer and Contact show YouTube and Email only.
+
+### D-21 · Hosting on Ashley's Vercel account, no domain, no analytics
+
+- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-08)
+- **Context:** Mason isn't buying a domain for now and declined analytics (Q C5, Q C14).
+- **Decision:** Deploy on Vercel as in D-08, under Ashley's account, and launch on the `*.vercel.app` URL. Don't add Vercel Web Analytics.
+- **Consequences:** Ashley controls deploys. If the project later moves to Mason's account, the `vercel.app` URL may change (D-17 handles the URL automatically). The Hobby plan is officially for non-commercial use, which a working portfolio sits close to; revisit if Vercel flags it or a domain is bought.
+
+### D-22 · Gallery categories
+
+- **Date:** 2026-10-19 · **Status:** Accepted
+- **Context:** Mason renamed the gallery categories (Q C11).
+- **Decision:** Filters in this order: **All** (default), Concerts, Modeling, Staged (theater/stage acting), Design, Other. Existing items move over as Performances → Concerts, Portraits and Editorial → Modeling, Behind the Scenes → Other.
+- **Consequences:** `GalleryCategory` and `galleryCategories` change, along with their tests. No current placeholder is in Staged or Design until Mason's photos arrive.
+

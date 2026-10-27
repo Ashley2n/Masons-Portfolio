@@ -12,11 +12,11 @@ _Last updated: 2026-10-10_
 | Styling | Tailwind CSS v4 (CSS-first config in `app/globals.css`), `tailwind-merge` for class merging |
 | Fonts | `next/font/google`: Playfair Display, Inter, Space Mono |
 | Images | `next/image` |
-| Video | YouTube embeds (click-to-load) + Instagram Reel cards (D-12) |
+| Video | YouTube embeds (click-to-load) (D-20) |
 | Linting | ESLint 9 + `eslint-config-next` |
 | Testing | Vitest + React Testing Library (jsdom); Playwright e2e from Phase 4 (D-13) |
 | Git hooks / CI | husky pre-commit (lint, typecheck, test); GitHub Actions (+ build, + Playwright e2e) |
-| Hosting | Vercel + Vercel Web Analytics (proposed; see D-08) |
+| Hosting | Vercel, no analytics (D-21) |
 
 ## Folder structure
 

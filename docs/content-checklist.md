@@ -18,9 +18,9 @@ _Last updated: 2026-10-10_
 | Email address for the site | ✅ | `masonfarrington@gmail.com` (from mockup). Confirm it's the public one. |
 | Phone number | ⏳ | Ashley adds it as `phone` in `contactInfo` (`content/site.ts`); the contact card shows it automatically once set. |
 | Location | ✅ | Los Angeles, CA |
-| Social links (Instagram, YouTube, others) | ⏳ | See Q C7. Instagram/YouTube are **hidden** until real URLs arrive; add them to `socialLinks` in `content/site.ts`. |
+| Social links (Instagram, YouTube, others) | ⏳ | YouTube only (Q C7, D-20). Hidden until Mason sends the URL (F4); add it to `socialLinks` in `content/site.ts`. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
-| Domain | ❌ | Mason has none. Purchase is open in Q C5; launch can use `*.vercel.app`. |
+| Domain | ❌ | None for now (Q C5); launch on `*.vercel.app` (D-21). |
 
 ## Home (`/`)
 
@@ -32,7 +32,7 @@ _Last updated: 2026-10-10_
 | Journey image (spotlight on stage) | 📷 | `journey-spotlight.jpg` (Luis Morera / Unsplash) |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
 | Recent Work: featured video | 🔁 | Mock: Blender open movie "Spring" (CC). Replace with Mason's most recent or most viewed video / Reel (Q C6). |
-| Other Work: 3 videos (title, date, link) | 🔁 | Mock: Blender open movies and Blender Studio Shorts (CC) with real upload dates in `content/home.ts`. Replace with YouTube and/or Instagram Reels (Q C6). |
+| Other Work: 3 videos (title, date, link) | 🔁 | Mock: Blender open movies and Blender Studio Shorts (CC) with real upload dates in `content/home.ts`. Replace with Mason's hand-picked YouTube videos, newest first (F3, D-20). |
 | Model Shots: 5+ portrait photos | 📷 → ⏳ | Five Unsplash portraits (`model-shot-1..5.jpg`, credits in `content/home.ts`) for the demo; Mason's real photos for launch (Q C10). |
 
 ## About (`/about`)
@@ -40,7 +40,7 @@ _Last updated: 2026-10-10_
 | Item | Status | Notes |
 |---|---|---|
 | Intro copy (2 paragraphs) | ✅ | From mockup. |
-| Signature image / SVG | 🔁 | "Mason F." in a script font (Mrs Saint Delafield) until Q C13. |
+| Signature image / SVG | 🔁 | "Mason F." in a script font (Mrs Saint Delafield). Final per Q C13. |
 | Hero feature image + caption | 📷 | `about/feature-peaks.jpg` (Kai Oberhäuser / Unsplash). Caption follows homepage wording: "Designer / Branding & Digital Design". |
 | Journey milestones 01–06 (title + description) | ✅ | From mockup: Found the Stage · First Role, First Spark · Went All In · Joined American Gothic Performing Arts · Americas got Talent · Movie Actor. Copy-edit needed (e.g. "America's Got Talent"). |
 | Journey images (4) | 📷 | `about/journey-*.jpg`, credits in `content/about.ts`. |
@@ -50,8 +50,8 @@ _Last updated: 2026-10-10_
 | Item | Status | Notes |
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
-| Gallery photos (12+), each with category and alt text | 📷 | 18 Unsplash photos in `public/images/media/` + reused home photos; credits in `content/media.ts`. Categories: Performances, Portraits, Behind the Scenes, Editorial, Other (Q C11). |
-| Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via Q C6. |
+| Gallery photos (12+), each with category and alt text | 📷 | 18 Unsplash photos in `public/images/media/` + reused home photos; credits in `content/media.ts`. Categories change to Concerts, Modeling, Staged, Design, Other (D-22). |
+| Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via F3 (YouTube only, D-20). |
 
 ## Resume (`/resume`)
 
