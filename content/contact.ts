@@ -34,9 +34,9 @@ export const contactContent = {
     followTitle: "Follow",
     quote: "Good art starts with a conversation.",
     image: {
-      src: "/images/contact/coast-dusk.jpg",
-      alt: "Rocky coastline under a violet dusk sky",
-      credit: "JIWON KANG / Unsplash",
+      src: "/images/contact/coast-violet-rocks.jpg",
+      alt: "Dark rocks in misty, long-exposure sea water under a violet dusk sky",
+      credit: "Wang / Wikimedia Commons (CC0)",
     } satisfies Photo,
   },
 };

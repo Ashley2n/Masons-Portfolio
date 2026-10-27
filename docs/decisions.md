@@ -206,3 +206,12 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Rejected:** Taste Skill (`Leonxlnx/taste-skill`), which is aimed at generating new designs while this site is in polish (Ashley, 2026-10-26). Hooks on: they run the binary after every edit and would repeat the D-10 noise.
 - **Sources:** install flags and commands: https://impeccable.style and `npx impeccable install --help`; checksum check: the launcher `.claude/skills/impeccable/scripts/impeccable`; git scope and hooks off: Ashley, 2026-10-26.
 - **Consequences:** On first run on a new machine (including Ashley's Windows PC), the launcher downloads the engine from GitHub releases. Upgrading means re-running the installer with a new pinned version and reviewing the diff.
+
+### D-28 · Contact card photo and label meet WCAG AA
+
+- **Date:** 2026-10-26 · **Status:** Accepted (amends D-11 for this photo)
+- **Context:** The "Contact info" label on the Contact card measured 1.2:1. The stock photo (JIWON KANG / Unsplash) is bright sky where the label sits, unlike the mockup's dark sea stacks, so no text color passed (even `brand-100` reached only 4.1:1). On mobile the card's text fills it from the top, so the label lands on the brightest part of any dusk photo.
+- **Decision:** Replace the photo with a violet long-exposure seascape, dark rocks across the middle ("Sunset" by Wang, Wikimedia Commons, CC0, imported from the 500px archive; its 500px watermark sits under the card's opaque fade). Show the label in `brand-200` on this card only. On mobile, make the card taller (`min-h-[50rem]`, desktop unchanged at `36rem`) so the text sits on the dark lower half, as it does on desktop. Saved as `coast-violet-rocks.jpg`, a new file name so Next's image cache doesn't serve the old photo. (Ashley, 2026-10-26.)
+- **Options measured with the Impeccable detector (desktop / mobile):** old photo + any palette color: fail; new photo alone: 3.9 / 1.7:1; beach-sunset photo (WordPress Photos, CC0): 3.8 / 2.6:1; new photo + `brand-200` + taller mobile card: pass at 1440, 412 and 390 px.
+- **Sources:** licence: https://commons.wikimedia.org/w/index.php?curid=71315995 (CC0 1.0); contrast rule: `docs/architecture.md` (Accessibility, WCAG AA); the mobile layout is derived, not mocked up: `docs/design-system.md` (Responsive).
+- **Consequences:** Closer to the Contact mockup's mood than the old photo. The mobile card is about 14rem taller. The label is a lighter lilac than other dark-section eyebrows.

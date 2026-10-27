@@ -64,7 +64,7 @@ _Last updated: 2026-10-26_
 | Item | Status | Notes |
 |---|---|---|
 | Heading and intro copy | ✅ | From mockup. |
-| Side card image (coastline at dusk) | 📷 | `contact/coast-dusk.jpg` (JIWON KANG / Unsplash) |
+| Side card image (violet seascape) | 📷 | `contact/coast-violet-rocks.jpg` (Wang / Wikimedia Commons, CC0; D-28) |
 | Quote ("Good art starts with a conversation.") | ✅ | |
 | Footer tagline ("Creating a more expressive tomorrow.") | ✅ | |
 | Form delivery method and recipient | 🔁 | Demo uses a prefilled `mailto:` to `contactInfo.email`. See Q C2. |
