@@ -32,6 +32,16 @@ describe("/about page", () => {
       expect(card).toHaveTextContent("Branding & Digital Design");
       expect(within(card).getByAltText(aboutContent.feature.image.alt)).toBeInTheDocument();
     });
+
+    it("doesn't add the feature card title to the heading outline", () => {
+      render(<Page />);
+
+      const card = screen.getByRole("link", { name: /^Designer/ });
+      expect(within(card).queryByRole("heading")).not.toBeInTheDocument();
+      expect(screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent)).not.toContain(
+        aboutContent.feature.title,
+      );
+    });
   });
 
   describe("journey timeline", () => {

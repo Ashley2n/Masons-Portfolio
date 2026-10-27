@@ -39,7 +39,8 @@ export default function AboutHero() {
           {/* Text first so the link is announced as "Designer, …" before the image */}
           <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between p-6 text-neutral-100 md:p-8">
             <div>
-              <h2 className="text-h2">{feature.title}</h2>
+              {/* Styled like an h2 but not one: a link label shouldn't add a section to the outline */}
+              <p className="text-h2 font-playfair font-semibold">{feature.title}</p>
               <p className="text-small">{feature.description}</p>
             </div>
             <ArrowUpRight aria-hidden="true" className="size-6" strokeWidth={1.5} />
