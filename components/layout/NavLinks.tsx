@@ -24,7 +24,7 @@ export default function NavLinks({ className, onNavigate }: NavLinksProps) {
               aria-current={active ? "page" : undefined}
               onClick={onNavigate}
               className={cn(
-                "border-b-2 pb-1 transition-colors duration-300 hover:text-neutral-100",
+                "touch-target border-b-2 pb-1 transition-colors duration-300 hover:text-neutral-100",
                 active
                   ? "border-brand-600 text-neutral-100"
                   : "border-transparent text-neutral-300",

@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import { contactInfo, footerContent, navLinks, siteConfig, socialLinks } from "@/content/site";
 
-const linkClass = "transition-colors duration-300 hover:text-neutral-100";
+// 44px tall rows on mobile (touch); same line box as before on desktop
+const linkClass = "inline-block min-w-11 py-2.5 transition-colors duration-300 hover:text-neutral-100 md:py-0";
 
 const FooterColumn = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="space-y-4">
@@ -29,7 +30,7 @@ export default function Footer() {
 
         <FooterColumn title={footerContent.columns.navigation}>
           <nav aria-label="Footer">
-            <ul className="space-y-2">
+            <ul className="md:space-y-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className={linkClass}>
@@ -42,7 +43,7 @@ export default function Footer() {
         </FooterColumn>
 
         <FooterColumn title={footerContent.columns.connect}>
-          <ul className="space-y-2">
+          <ul className="md:space-y-2">
             {socialLinks.map((link) => {
               const external = link.href.startsWith("http");
               return (
@@ -61,7 +62,7 @@ export default function Footer() {
         </FooterColumn>
 
         <FooterColumn title={footerContent.columns.contact}>
-          <ul className="space-y-2">
+          <ul className="md:space-y-2">
             <li>
               <a href={`mailto:${contactInfo.email}`} className={linkClass}>
                 {contactInfo.email}

@@ -11,7 +11,7 @@ export default function Header() {
         <Link
           href="/"
           aria-label={`MF, ${siteConfig.name}, home`}
-          className="font-playfair text-3xl italic text-neutral-100"
+          className="inline-flex min-h-11 min-w-11 items-center font-playfair text-3xl italic text-neutral-100"
         >
           MF
         </Link>

@@ -18,7 +18,7 @@ export default function RecentWorkSection() {
             <SectionHeading tone="light" eyebrow={copy.eyebrow} title={copy.title} />
             <Link
               href="/media"
-              className="caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-500 hover:border-neutral-700"
+              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-500 hover:border-neutral-700"
             >
               {copy.viewMore}
               <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />

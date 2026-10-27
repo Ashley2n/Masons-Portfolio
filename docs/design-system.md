@@ -73,6 +73,7 @@ Tokens live in `app/globals.css` and are checked by `app/design-tokens.test.ts`.
 - Section vertical padding: about 64px desktop / 48px mobile.
 - Corner radius: `rounded-lg` (8px) for cards and media; `rounded-md` (6px) for buttons and inputs.
 - Focus ring: one rule in `app/globals.css` (`:focus-visible`, 2px solid, 2px offset). Don't add per-component `focus-visible:outline-*` colours. The colour follows the surface: `brand-400` on the dark page (default, 8.9:1), `brand-600` inside sections with `.surface-light` (5.1:1 on `neutral-100`), `neutral-100` inside `.surface-color` (purple banner, controls over photos). Form fields keep their own border + soft ring.
+- Touch targets: at least 44x44px on mobile. For a small, isolated control, add `.touch-target` (an invisible 44px tap area that moves nothing). Where controls sit closer than 44px (footer link lists), add real padding instead: overlapping tap areas send taps to the wrong link.
 
 ## Responsive
 

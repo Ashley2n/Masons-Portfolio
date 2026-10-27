@@ -85,6 +85,20 @@
   .surface-color {
     --focus-ring: var(--color-neutral-100);
   }
+  /* Grows a small control's tap area to at least 44x44px without moving anything.
+     Only for controls with 44px of free space around them: overlapping areas steal taps */
+  .touch-target {
+    position: relative;
+  }
+  .touch-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
+  }
   /* Hero name: scales up to the 100px hero size on desktop */
   .display-font {
     @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;
