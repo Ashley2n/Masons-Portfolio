@@ -47,7 +47,7 @@ export default function ModelShotsCarousel() {
               alt=""
               fill
               sizes="256px"
-              className="hidden scale-110 object-cover blur-2xl brightness-50 sm:block"
+              className="hidden scale-110 animate-fade-in object-cover blur-2xl brightness-50 sm:block"
             />
           )}
           <Image
@@ -56,7 +56,7 @@ export default function ModelShotsCarousel() {
             alt={current.alt}
             fill
             sizes="(min-width: 1280px) 1280px, 100vw"
-            className={cn("object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
+            className={cn("animate-fade-in object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
           />
           <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
             <ChevronLeft aria-hidden="true" className="size-6" />

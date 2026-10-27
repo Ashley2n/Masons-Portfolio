@@ -51,7 +51,7 @@ export default function AboutHero() {
             fill
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-linear-to-t from-neutral-950/80 via-transparent" />
         </Link>

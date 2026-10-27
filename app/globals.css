@@ -38,6 +38,14 @@
   --text-small--line-height: 1.7;
   --text-caption: 0.75rem;
   --text-caption--line-height: 1.6;
+
+  /* Motion: opacity only, so it also runs for visitors who ask for reduced motion */
+  --animate-fade-in: fade-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 /* Font families come from next/font (lib/fonts.ts). `inline` makes utilities

@@ -10,7 +10,7 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
   <Link
     href={item.href}
     className={cn(
-      "group flex min-h-40 items-end justify-between gap-4 rounded-lg p-6 text-neutral-100 transition-transform duration-300 hover:scale-102 md:min-h-48 md:p-8",
+      "group flex min-h-40 items-end justify-between gap-4 rounded-lg p-6 text-neutral-100 transition-transform duration-300 motion-safe:hover:scale-102 md:min-h-48 md:p-8",
       item.colorClass,
     )}
   >
@@ -20,7 +20,7 @@ const ExpertiseCard = ({ item }: { item: ExpertiseItem }) => (
     </div>
     <ArrowUpRight
       aria-hidden="true"
-      className="size-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+      className="size-6 shrink-0 transition-transform duration-300 motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1"
       strokeWidth={1.5}
     />
   </Link>
