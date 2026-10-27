@@ -26,7 +26,7 @@ _Last updated: 2026-10-26_
 
 | Item | Status | Notes |
 |---|---|---|
-| Hero portrait (high-res, dark background) | 📷 → ⏳ | Stock (`hero-portrait.jpg`, Parthiv Sailesh / Unsplash) for the demo; Mason's real portrait for launch (Q C10). |
+| Hero portrait (high-res, dark background) | ✅ | `mason-hero.jpg`: Mason's photo, AI-edited to low-key black and white, then mirrored to face the headline ([hero-portrait-prompt.md](hero-portrait-prompt.md)). 1086 px wide, soft on 2× screens; Mason's OK pending (C15). |
 | Hero copy (roles + tagline) | ✅ | Match mockup: "Actor • Musician • Singer • Designer" / "A multidisciplinary artist creating meaningful experiences through performance and design." |
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
 | Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |

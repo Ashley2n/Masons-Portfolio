@@ -1,6 +1,6 @@
 # Hero Portrait: AI Edit Prompt
 
-How to turn one of Mason's own photos into a hero portrait that matches the current placeholder's look. Until the edited photo is approved, the stock hero (`public/images/home/hero-portrait.jpg`, Parthiv Sailesh / Unsplash) stays in place (F5).
+How to turn one of Mason's own photos into a hero portrait that matches the current placeholder's look. **Status (2026-10-26):** the hero is `public/images/home/mason-hero.jpg`, Ashley's GPT Image edit of Mason's photo, mirrored without AI so he faces the headline. Mason still has to OK it (C15).
 
 _Last updated: 2026-10-26_
 
@@ -105,7 +105,7 @@ His face can't change this way. In Lightroom or Photoshop:
 
 ## Swapping it in
 
-1. Run the file through the same optimization as the gallery: rotate, fit to 2000 px, JPEG q80, metadata stripped (`scripts/optimize-photo.ts`). Save it as `public/images/home/hero-portrait.jpg`.
-2. In `content/home.ts`, update `homeImages.hero`: write new alt text and remove the Unsplash `credit`.
+1. Run the file through the same optimization as the gallery: rotate, fit to 2000 px, JPEG q80, metadata stripped (`scripts/optimize-photo.ts`). Save it under a **new file name**: Next.js's image optimizer and browsers cache images by URL, so reusing the old name can keep showing the old photo.
+2. In `content/home.ts`, point `homeImages.hero.src` at the new file and update the alt text. Delete the old file.
 3. Check the crop on desktop and mobile with `npm run dev`. The face should stay clear of the headline.
 4. Tick F5 in [open-questions.md](open-questions.md) and the hero row in [content-checklist.md](content-checklist.md).

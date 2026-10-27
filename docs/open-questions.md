@@ -18,7 +18,7 @@ Answered in principle; the asset or account is still to come.
 | F2 | **Updated resume?** (C4) | Ashley has a resume; check whether Mason has a newer version. |
 | F3 | **Video links** (C6) | Mason sends the YouTube videos to feature. |
 | F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
-| F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Model Shots use his photos. The hero waits on C15. |
+| F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Model Shots and hero use his photos. The hero is an AI edit, live on the branch, pending his OK (C15). |
 
 ## For the next update to Mason
 

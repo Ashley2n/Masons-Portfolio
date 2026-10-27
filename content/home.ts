@@ -103,10 +103,10 @@ export const videos: Video[] = [
 
 // Free Unsplash photos for the demo (D-11). Replace with Mason's own before launch (Q C10).
 export const homeImages = {
+  // Mason's portrait: AI-edited to low-key black and white, then mirrored to face the headline (docs/hero-portrait-prompt.md)
   hero: {
-    src: "/images/home/hero-portrait.jpg",
-    alt: "Black-and-white portrait of a man looking upward into the light",
-    credit: "Parthiv Sailesh / Unsplash",
+    src: "/images/home/mason-hero.jpg",
+    alt: "Black-and-white portrait of Mason smiling and looking up to the left against a black background",
   },
   // Mason's photo in the purple stage light of the brand theme (D-24)
   journey: galleryPhoto("staged-11"),

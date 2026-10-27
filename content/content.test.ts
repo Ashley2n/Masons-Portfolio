@@ -44,9 +44,14 @@ describe("home content", () => {
     expect("credit" in homeImages.journey).toBe(false);
   });
 
-  // Stock photos that stay until Mason's replacements arrive (D-24, C15)
+  it("the hero is Mason's own portrait, with alt text and no stock credit (F5)", () => {
+    expect(existsSync(join(process.cwd(), "public", homeImages.hero.src))).toBe(true);
+    expect(homeImages.hero.alt.trim()).not.toBe("");
+    expect("credit" in homeImages.hero).toBe(false);
+  });
+
+  // Stock photos that stay until Mason's replacements arrive (D-24)
   const photos: [string, Photo][] = [
-    ["hero", homeImages.hero],
     ["about feature", aboutContent.feature.image],
     ...milestones.flatMap((m): [string, Photo][] => (m.image ? [[m.id, m.image]] : [])),
   ];
