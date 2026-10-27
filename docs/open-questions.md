@@ -2,7 +2,7 @@
 
 Questions to resolve with Mason (or internally). When something is answered, move it to **Resolved** with the date and the answer, and record any lasting decision in [decisions.md](decisions.md).
 
-_Last updated: 2026-10-19_
+_Last updated: 2026-10-26_
 
 ## For the client demo meeting
 
@@ -18,7 +18,16 @@ Answered in principle; the asset or account is still to come.
 | F2 | **Updated resume?** (C4) | Ashley has a resume; check whether Mason has a newer version. |
 | F3 | **Video links** (C6) | Mason sends the YouTube videos to feature. |
 | F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
-| F5 | **Real photos** (C10) | Hero portrait and Model Shots via the shared Drive folder. Launch blocker. |
+| F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Model Shots use his photos. The hero waits on C15. |
+
+## For the next update to Mason
+
+| # | Question | Ashley's recommendation |
+|---|---|---|
+| C15 | **AI-edited hero portrait?** OK to upload one of his photos (e.g. `modeling-08`) to an AI image editor and use the low-key black-and-white result as the homepage hero? | Yes, if he likes the result; stock hero until then. Process: [hero-portrait-prompt.md](hero-portrait-prompt.md) |
+| C16 | **Re-upload two damaged photos:** `Staged Performances/IMG_0217.JPG` and `IMG_0224.JPG` are cut off and can't be opened. | Re-upload from the original source. |
+| C17 | **Sharper versions of 13 small photos?** Under 1200 px (smallest 756 px wide); they show, but can look soft when large. | Only if he has them; they stay on the site either way (D-24). |
+| C18 | **New "Recital" filter** (D-23), from his folder name. | Just mention it. |
 
 ## Internal (Ashley)
 
