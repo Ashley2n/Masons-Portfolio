@@ -92,7 +92,8 @@ export default function Gallery() {
                 sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="h-auto w-full rounded-lg bg-neutral-800"
                 // The first photo is the mobile LCP: load it eagerly, not lazily (Next docs:
-                // prefer loading/fetchPriority over preload when the LCP varies by viewport)
+                // prefer loading/fetchPriority over preload when the LCP varies by viewport).
+                // After a filter change the new first photo gets it too, which is harmless.
                 {...(index === 0 && { loading: "eager", fetchPriority: "high" })}
               />
             ) : (

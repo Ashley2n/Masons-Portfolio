@@ -15,7 +15,7 @@ export default function ContactCard() {
     <aside
       aria-label={card.eyebrow}
       // Taller on mobile so the text sits on the dark lower half of the photo, as on desktop (D-28)
-      className="relative isolate flex min-h-[50rem] md:min-h-[36rem] flex-col justify-end overflow-hidden rounded-lg border border-neutral-800"
+      className="relative isolate flex min-h-[50rem] flex-col justify-end overflow-hidden rounded-lg border border-neutral-800 md:min-h-[36rem]"
     >
       <Image
         src={card.image.src}
