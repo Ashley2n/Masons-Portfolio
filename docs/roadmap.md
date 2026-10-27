@@ -92,7 +92,7 @@ _Last updated: 2026-10-19_
 - [ ] Contact form backend: Resend server action with branded email (D-19, needs F1)
 - [x] Rename gallery categories to All / Concerts / Recital / Modeling / Staged / Design / Other (D-22, D-23)
 - [ ] Remove Instagram Reels from content and video cards; YouTube-only socials (D-20)
-- [ ] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero done (D-24); hero needs Mason's OK (C15)
+- [x] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero (D-24, C15)
 - [ ] Swap in the real resume once confirmed (F2) and the real YouTube links (F3, F4)
 - [x] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon (D-17)
 - [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup)

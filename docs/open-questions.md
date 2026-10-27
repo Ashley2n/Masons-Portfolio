@@ -18,14 +18,12 @@ Answered in principle; the asset or account is still to come.
 | F2 | **Updated resume?** (C4) | Ashley has a resume; check whether Mason has a newer version. |
 | F3 | **Video links** (C6) | Mason sends the YouTube videos to feature. |
 | F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
-| F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Model Shots and hero use his photos. The hero is an AI edit, live on the branch, pending his OK (C15). |
+| F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
 ## For the next update to Mason
 
 | # | Question | Ashley's recommendation |
 |---|---|---|
-| C15 | **AI-edited hero portrait?** OK to upload one of his photos (e.g. `modeling-08`) to an AI image editor and use the low-key black-and-white result as the homepage hero? | Yes, if he likes the result; stock hero until then. Process: [hero-portrait-prompt.md](hero-portrait-prompt.md) |
-| C16 | **Re-upload two damaged photos:** `Staged Performances/IMG_0217.JPG` and `IMG_0224.JPG` are cut off and can't be opened. | Re-upload from the original source. |
 | C17 | **Sharper versions of 13 small photos?** Under 1200 px (smallest 756 px wide); they show, but can look soft when large. | Only if he has them; they stay on the site either way (D-24). |
 | C18 | **New "Recital" filter** (D-23), from his folder name. | Just mention it. |
 
@@ -37,6 +35,8 @@ _None open._
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-10-26 | C15: AI-edited hero portrait? | OK, as long as the edit doesn't alter his face (Mason, relayed by Ashley). The live hero is the edit mirrored to face the headline; show him `mason-hero.jpg` itself, since mirroring shows his face flipped (earring in the other ear). Don't AI-upscale it: upscalers redraw facial detail. |
+| 2026-10-26 | C16: Re-upload two damaged photos? | Not needed. `IMG_0217` and `IMG_0224` stay out of the gallery (Mason, relayed by Ashley). |
 | 2026-10-09 | Is resume in MVP? | Yes: preview **and** download. |
 | 2026-10-09 | Is "Contact" a nav item? | Yes, on every page. |
 | 2026-10-09 | How are videos hosted? | YouTube embeds, with custom card styling. Instagram Reels may also be included (see D-12). |

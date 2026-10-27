@@ -26,7 +26,7 @@ _Last updated: 2026-10-26_
 
 | Item | Status | Notes |
 |---|---|---|
-| Hero portrait (high-res, dark background) | ✅ | `mason-hero.jpg`: Mason's photo, AI-edited to low-key black and white, then mirrored to face the headline ([hero-portrait-prompt.md](hero-portrait-prompt.md)). 1086 px wide, soft on 2× screens; Mason's OK pending (C15). |
+| Hero portrait (high-res, dark background) | ✅ | `mason-hero.jpg`: Mason's photo, AI-edited to low-key black and white, then mirrored to face the headline ([hero-portrait-prompt.md](hero-portrait-prompt.md)). 1086 px wide, slightly soft on 2× screens. Mason OK'd it on the condition that his face isn't altered (C15). |
 | Hero copy (roles + tagline) | ✅ | Match mockup: "Actor • Musician • Singer • Designer" / "A multidisciplinary artist creating meaningful experiences through performance and design." |
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
 | Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |
@@ -50,7 +50,7 @@ _Last updated: 2026-10-26_
 | Item | Status | Notes |
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
-| Gallery photos (12+), each with category and alt text | ✅ | 97 of Mason's photos via `npm run import-photos` (D-25), in `public/images/media/<category>/`; alt text drafted by Claude, reviewed by Ashley (D-26). 2 damaged files to re-upload (C16). |
+| Gallery photos (12+), each with category and alt text | ✅ | 97 of Mason's photos via `npm run import-photos` (D-25), in `public/images/media/<category>/`; alt text drafted by Claude, reviewed by Ashley (D-26). 2 damaged files left out (C16). |
 | Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via F3 (YouTube only, D-20). |
 
 ## Resume (`/resume`)
