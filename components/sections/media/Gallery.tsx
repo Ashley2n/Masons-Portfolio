@@ -77,7 +77,7 @@ export default function Gallery() {
         aria-labelledby="gallery-heading"
         className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4"
       >
-        {shown.map((item) => (
+        {shown.map((item, index) => (
           <li
             key={item.id}
             tabIndex={-1}
@@ -91,6 +91,9 @@ export default function Gallery() {
                 height={item.photo.height}
                 sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="h-auto w-full rounded-lg bg-neutral-800"
+                // The first photo is the mobile LCP: load it eagerly, not lazily (Next docs:
+                // prefer loading/fetchPriority over preload when the LCP varies by viewport)
+                {...(index === 0 && { loading: "eager", fetchPriority: "high" })}
               />
             ) : (
               <VideoCard
