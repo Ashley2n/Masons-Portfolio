@@ -31,8 +31,7 @@ export default function ContactCard() {
       <div className="space-y-8 p-6 md:p-10">
         <div className="space-y-6">
           <div className="space-y-2">
-            {/* Over the photo, brand-500 isn't enough; the lighter brand-200 passes AA (D-28) */}
-            <Eyebrow className="text-brand-200">{card.eyebrow}</Eyebrow>
+            <Eyebrow tone="photo">{card.eyebrow}</Eyebrow>
             <h2 className="text-h1 font-normal text-neutral-100">{siteConfig.name}</h2>
           </div>
           <ul className="space-y-3">

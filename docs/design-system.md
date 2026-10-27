@@ -90,7 +90,7 @@ There are no mobile mockups. Rules:
 | Header / Nav | All | MF monogram, links: About, Media, Contact (resume opens in a modal, D-16). Active link = `brand-600` underline. |
 | Footer | All | Monogram + ©, Navigation, Connect, Contact/Location columns. |
 | CTA banner | Home, About, Media | "Interested in working together?" + "Get in touch" button → `/contact`. |
-| Eyebrow | All | Caption style, uppercase. `tone="light"`: `brand-600` (5.1:1 on `neutral-100`); `tone="dark"` (default): `brand-500` (7.3:1 on `neutral-950`; `brand-600` is only 3.6:1, below WCAG AA). `SectionHeading` passes its `tone` through. Over a photo (the Contact card), use `brand-200` (D-28). |
+| Eyebrow | All | Caption style, uppercase. `tone="light"`: `brand-600` (5.1:1 on `neutral-100`); `tone="dark"` (default): `brand-500` (7.3:1 on `neutral-950`; `brand-600` is only 3.6:1, below WCAG AA). `SectionHeading` passes its `tone` through. `tone="photo"`: `brand-200`, for labels over a photo (the Contact card, D-28). |
 | Section heading | All | Eyebrow + H2 (+ optional subtitle and "View more" link). |
 | Button: outline | Hero, Media | Dark fill, `brand-600` border, label + ↗ arrow. |
 | Button: solid light | CTA banner | White pill, dark text. |

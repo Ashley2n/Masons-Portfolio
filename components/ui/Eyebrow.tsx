@@ -6,6 +6,8 @@ const tones = {
   light: "text-brand-600",
   /** On the dark page background: brand-600 is only 3.6:1, brand-500 is 7.3:1 */
   dark: "text-brand-500",
+  /** Over a photo (the Contact card): brand-500 isn't enough there, brand-200 passes AA (D-28) */
+  photo: "text-brand-200",
 };
 
 /** Small uppercase label shown above headings ("caption" style). */
