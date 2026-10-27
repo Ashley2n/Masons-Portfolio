@@ -104,7 +104,7 @@ There are no mobile mockups. Rules:
 | Gallery grid + filter tabs | Media | Category tabs, play badge on video items, "Load more". |
 | Contact form | Contact | Name, Email, Message, Send. Labels in Space Mono. |
 | Contact info card | Contact | Image background, contact rows with icons, social links, "View resume". |
-| Resume modal | Home, About, Contact | Icon-only "View resume" button (Lucide `FileText`, aria-label + tooltip) → native `<dialog>` with PDF preview, Download PDF, Open in new tab (D-16). |
+| Resume modal | Home, About, Contact | "View resume" button with visible text and the Lucide `FileText` icon, styled like the outline button (D-29) → native `<dialog>` with PDF preview, Download PDF, Open in new tab (D-16). |
 
 ## Icons
 

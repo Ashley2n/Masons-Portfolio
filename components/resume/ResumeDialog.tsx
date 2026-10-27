@@ -10,7 +10,7 @@ type ResumeDialogProps = {
 };
 
 /**
- * Icon-only "View resume" button that opens the PDF in a modal with download options.
+ * "View resume" button that opens the PDF in a modal with download options.
  * Uses the native <dialog>: Escape closes it, focus stays inside, the page behind is inert.
  */
 export default function ResumeDialog({ className }: ResumeDialogProps) {
@@ -49,14 +49,14 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={resumeContent.viewLabel}
-        title={resumeContent.viewLabel}
+        // Same look as the outline Button; the visible text is the accessible name (D-29)
         className={cn(
-          "grid size-13 shrink-0 place-items-center rounded-md border border-brand-600 bg-neutral-950 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
+          "caption-text inline-flex w-fit shrink-0 items-center gap-4 rounded-md border border-brand-600 bg-neutral-950 px-6 py-4 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
           className,
         )}
       >
-        <FileText aria-hidden="true" className="size-5" strokeWidth={1.75} />
+        {resumeContent.viewLabel}
+        <FileText aria-hidden="true" className="size-4" strokeWidth={1.75} />
       </button>
 
       {open && (

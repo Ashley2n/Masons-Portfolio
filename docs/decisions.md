@@ -122,7 +122,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-16 · Resume opens in a modal; removed from the nav
 
-- **Date:** 2026-10-11 · **Status:** Accepted (refines D-06)
+- **Date:** 2026-10-11 · **Status:** Accepted (refines D-06); the icon-only button is amended by D-29
 - **Context:** Ashley asked to drop "Resume" from the navigation and let visitors open the resume from the pages where it's relevant.
 - **Decision:** An icon-only `ResumeDialog` button (file icon, accessible name "View resume") on the home hero, the About intro and the Contact card opens the PDF in a native `<dialog>` with **Download PDF** and **Open in new tab**. The nav and footer list About, Media and Contact. `/resume` stays as an unlinked page, useful as a direct link to share and as a fallback.
 - **Consequences:** The PDF only loads when someone opens the modal. Escape, focus containment and an inert background come from the browser. Adding the button to another page is one `<ResumeDialog />`.
@@ -216,3 +216,10 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Client check:** this changed the approved look (D-10) before Mason saw it. Exception made because the live site failed WCAG AA (1.2:1); Mason is asked to approve or reject it (C22), and it's reverted if he declines (Ashley, 2026-10-26, after code review).
 - **Sources:** licence: https://commons.wikimedia.org/w/index.php?curid=71315995 (CC0 1.0); contrast rule: `docs/architecture.md` (Accessibility, WCAG AA); the mobile layout is derived, not mocked up: `docs/design-system.md` (Responsive).
 - **Consequences:** Closer to the Contact mockup's mood than the old photo. The mobile card is about 14rem taller. The label is a lighter lilac than other dark-section eyebrows.
+
+### D-29 · The resume button shows its label
+
+- **Date:** 2026-10-27 · **Status:** Accepted (amends D-16)
+- **Context:** The Impeccable homepage critique (2026-10-27) rated the icon-only resume button P1: the resume is a top goal for the primary visitor (casting directors, `PRODUCT.md`), and a file icon whose name only appears on hover can't be read on touch screens at all. The Contact mockup also had RESUME in the nav.
+- **Decision:** Keep D-16's modal and placements (home hero, About intro, Contact card), but the button now shows the text "View resume" plus the `FileText` icon, styled like the outline button next to it. The visible text is the accessible name, so the `aria-label` and the duplicate `title` tooltip are removed (WCAG 2.5.3 Label in Name: https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html). (Ashley, 2026-10-27.)
+- **Consequences:** The button is wider (169px vs 52px) but still fits beside "View work" at 412px. Covered by `components/resume/ResumeDialog.test.tsx` ("shows a visible 'View resume' label…").

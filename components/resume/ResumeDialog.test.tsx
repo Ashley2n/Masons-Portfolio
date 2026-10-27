@@ -57,12 +57,14 @@ describe("ResumeDialog", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("is an icon-only button that still has a name and a tooltip", () => {
+  it("shows a visible 'View resume' label that is also its accessible name (D-29)", () => {
     render(<ResumeDialog />);
 
     const trigger = screen.getByRole("button", { name: "View resume" });
-    expect(trigger).toHaveTextContent(/^$/);
-    expect(trigger).toHaveAttribute("title", "View resume");
+    // Name comes from the visible text, not a hidden aria-label (WCAG 2.5.3 Label in Name)
+    expect(trigger).toHaveTextContent("View resume");
+    expect(trigger).not.toHaveAttribute("aria-label");
+    expect(trigger).not.toHaveAttribute("title");
     expect(trigger.querySelector("svg")).toHaveClass("lucide-file-text");
     expect(trigger.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
   });
