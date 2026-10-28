@@ -32,7 +32,7 @@ export default function NotFound() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="caption-text text-neutral-300 underline-offset-4 transition-colors hover:text-brand-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+                  className="caption-text text-neutral-300 underline-offset-4 transition-colors hover:text-brand-400 hover:underline"
                 >
                   {link.label}
                 </Link>

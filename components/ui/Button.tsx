@@ -7,10 +7,18 @@ const variants = {
   /** Dark fill with a brand border (hero, media hero) */
   outline: "border border-brand-600 bg-neutral-950 text-neutral-100 hover:bg-brand-600/15",
   /** Light fill (CTA banner on purple) */
-  light: "bg-neutral-100 text-neutral-900 hover:bg-white",
+  light: "bg-neutral-100 text-neutral-900 hover:bg-brand-200",
 };
 
 const icons = { arrow: ArrowUpRight, download: Download };
+
+/** Button look without the element, for controls that must render their own <button> (e.g. ResumeDialog) */
+export const buttonClasses = (variant: keyof typeof variants = "outline", className?: string) =>
+  cn(
+    "caption-text inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors duration-300 sm:px-8",
+    variants[variant],
+    className,
+  );
 
 type ButtonProps = {
   children: ReactNode;
@@ -39,12 +47,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const Icon = icons[icon];
-  const classes = cn(
-    "caption-text inline-flex w-fit items-center gap-6 rounded-md px-8 py-4 transition-colors duration-300",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
-    variants[variant],
-    className,
-  );
+  const classes = buttonClasses(variant, className);
   const content = (
     <>
       {children}

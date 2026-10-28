@@ -21,7 +21,7 @@ type VideoCardProps = {
 
 const PlayBadge = () => (
   <span className="absolute inset-0 grid place-items-center bg-neutral-950/20 transition-colors duration-300 group-hover:bg-neutral-950/40">
-    <span className="grid size-14 place-items-center rounded-full border border-neutral-100/80 bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+    <span className="grid size-14 place-items-center rounded-full border border-neutral-100/80 bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-transform duration-300 motion-safe:group-hover:scale-110">
       <Play aria-hidden="true" className="ml-0.5 size-6" fill="currentColor" />
     </span>
   </span>
@@ -39,7 +39,6 @@ export default function VideoCard({
   const frame = cn(
     "group relative block w-full overflow-hidden rounded-lg bg-neutral-800",
     video.orientation === "portrait" ? "aspect-9/16" : "aspect-video",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
     frameClassName,
   );
 

@@ -72,6 +72,10 @@ Tokens live in `app/globals.css` and are checked by `app/design-tokens.test.ts`.
 - Page gutter: 92px on desktop (`px-23`, as currently used) → 24px on tablet → 16px on mobile.
 - Section vertical padding: about 64px desktop / 48px mobile.
 - Corner radius: `rounded-lg` (8px) for cards and media; `rounded-md` (6px) for buttons and inputs.
+- Button states: outline buttons darken to `brand-600/15` on hover; the light button (CTA banner) turns `brand-200` on hover (its earlier `bg-white` hover was invisible on `neutral-100`).
+- Focus ring: one rule in `app/globals.css` (`:focus-visible`, 2px solid, 2px offset). Don't add per-component `focus-visible:outline-*` colours. The colour follows the surface: `brand-400` on the dark page (default, 8.9:1), `brand-600` inside sections with `.surface-light` (5.1:1 on `neutral-100`), `neutral-100` inside `.surface-color` (purple banner, controls over photos). Form fields keep their own border + soft ring.
+- Touch targets: at least 44x44px on mobile. For a small, isolated control, add `.touch-target` (an invisible 44px tap area that moves nothing). Where controls sit closer than 44px (footer link lists), add real padding instead: overlapping tap areas send taps to the wrong link.
+- Motion: anything that moves (`scale`, `translate`) uses the `motion-safe:` variant, so it stops for visitors who ask for reduced motion; colour and opacity feedback stays. Photo changes ease in with `animate-fade-in` (250ms, opacity). Larger motion (scroll reveals, page transitions) needs an `/architect` decision first.
 
 ## Responsive
 
@@ -102,7 +106,7 @@ There are no mobile mockups. Rules:
 | Gallery grid + filter tabs | Media | Category tabs, play badge on video items, "Load more". |
 | Contact form | Contact | Name, Email, Message, Send. Labels in Space Mono. |
 | Contact info card | Contact | Image background, contact rows with icons, social links, "View resume". |
-| Resume modal | Home, About, Contact | Icon-only "View resume" button (Lucide `FileText`, aria-label + tooltip) → native `<dialog>` with PDF preview, Download PDF, Open in new tab (D-16). |
+| Resume modal | Home, About, Contact | "View resume" button with visible text and the Lucide `FileText` icon, styled like the outline button (D-29) → native `<dialog>` with PDF preview, Download PDF, Open in new tab (D-16). |
 
 ## Icons
 

@@ -1,7 +1,7 @@
 "use client";
 import { FileText, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
-import Button from "@/components/ui/Button";
+import Button, { buttonClasses } from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +10,7 @@ type ResumeDialogProps = {
 };
 
 /**
- * Icon-only "View resume" button that opens the PDF in a modal with download options.
+ * "View resume" button that opens the PDF in a modal with download options.
  * Uses the native <dialog>: Escape closes it, focus stays inside, the page behind is inert.
  */
 export default function ResumeDialog({ className }: ResumeDialogProps) {
@@ -49,15 +49,11 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={resumeContent.viewLabel}
-        title={resumeContent.viewLabel}
-        className={cn(
-          "grid size-13 shrink-0 place-items-center rounded-md border border-brand-600 bg-neutral-950 text-neutral-100 transition-colors duration-300 hover:bg-brand-600/15",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
-          className,
-        )}
+        // Exactly the outline Button's look; the visible text is the accessible name (D-29)
+        className={buttonClasses("outline", cn("shrink-0", className))}
       >
-        <FileText aria-hidden="true" className="size-5" strokeWidth={1.75} />
+        {resumeContent.viewLabel}
+        <FileText aria-hidden="true" className="size-4" strokeWidth={1.75} />
       </button>
 
       {open && (
@@ -81,7 +77,7 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label={resumeContent.closeLabel}
-                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-400"
+                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100"
               >
                 <X aria-hidden="true" className="size-5" />
               </button>

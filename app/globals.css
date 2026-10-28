@@ -38,6 +38,14 @@
   --text-small--line-height: 1.7;
   --text-caption: 0.75rem;
   --text-caption--line-height: 1.6;
+
+  /* Motion: opacity only, so it also runs for visitors who ask for reduced motion */
+  --animate-fade-in: fade-in 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 /* Font families come from next/font (lib/fonts.ts). `inline` makes utilities
@@ -63,6 +71,13 @@
   body {
     @apply text-body font-inter text-neutral-400;
   }
+  /* One focus ring for every control. Its colour follows the surface it sits on:
+     brand-400 on the dark page (8.9:1), brand-600 on light sections (5.1:1),
+     neutral-100 on purple or photo backgrounds. Sections opt in with .surface-* */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring, var(--color-brand-400));
+    outline-offset: 2px;
+  }
   /* Keep the page behind an open modal (e.g. the resume) from scrolling */
   html:has(dialog[open]) {
     overflow: hidden;
@@ -71,6 +86,27 @@
 
 /* Reusable text styles. In the components layer so utilities still win. */
 @layer components {
+  /* Focus-ring colour for the surface a control sits on (see :focus-visible in base) */
+  .surface-light {
+    --focus-ring: var(--color-brand-600);
+  }
+  .surface-color {
+    --focus-ring: var(--color-neutral-100);
+  }
+  /* Grows a small control's tap area to at least 44x44px without moving anything.
+     Only for controls with 44px of free space around them: overlapping areas steal taps */
+  .touch-target {
+    position: relative;
+  }
+  .touch-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
+  }
   /* Hero name: scales up to the 100px hero size on desktop */
   .display-font {
     @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;

@@ -11,14 +11,14 @@ export default function RecentWorkSection() {
   const copy = sectionHeadings.recentWork;
 
   return (
-    <section className="bg-neutral-100 py-16">
+    <section className="surface-light bg-neutral-100 py-16">
       <Container className="space-y-12">
         <div className="space-y-6">
           <div className="flex items-end justify-between gap-4">
             <SectionHeading tone="light" eyebrow={copy.eyebrow} title={copy.title} />
             <Link
               href="/media"
-              className="caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-500 hover:border-neutral-700"
+              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-300 hover:border-neutral-700"
             >
               {copy.viewMore}
               <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />

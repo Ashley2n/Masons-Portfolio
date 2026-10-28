@@ -8,7 +8,7 @@ import { getNextIndex, getPrevIndex } from "@/lib/carousel";
 import { cn } from "@/lib/utils";
 
 const arrowClass =
-  "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-colors hover:bg-neutral-950/70 focus-visible:outline-2 focus-visible:outline-brand-400";
+  "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-colors hover:bg-neutral-950/70 surface-color focus-visible:outline-offset-0";
 
 export default function ModelShotsCarousel() {
   const [index, setIndex] = useState(0);
@@ -30,7 +30,7 @@ export default function ModelShotsCarousel() {
       aria-roledescription="carousel"
       aria-labelledby="model-shots-heading"
       onKeyDown={onKeyDown}
-      className="bg-neutral-100 py-16"
+      className="surface-light bg-neutral-100 py-16"
     >
       <Container className="space-y-6">
         <h2 id="model-shots-heading" className="text-neutral-800">
@@ -47,7 +47,7 @@ export default function ModelShotsCarousel() {
               alt=""
               fill
               sizes="256px"
-              className="hidden scale-110 object-cover blur-2xl brightness-50 sm:block"
+              className="hidden scale-110 animate-fade-in object-cover blur-2xl brightness-50 sm:block"
             />
           )}
           <Image
@@ -56,7 +56,7 @@ export default function ModelShotsCarousel() {
             alt={current.alt}
             fill
             sizes="(min-width: 1280px) 1280px, 100vw"
-            className={cn("object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
+            className={cn("animate-fade-in object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
           />
           <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
             <ChevronLeft aria-hidden="true" className="size-6" />
@@ -80,7 +80,6 @@ export default function ModelShotsCarousel() {
               aria-current={i === index ? "true" : undefined}
               className={cn(
                 "relative size-12 overflow-hidden rounded-md border-2 transition-colors sm:size-16",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400",
                 i === index ? "border-brand-600" : "border-transparent opacity-60 hover:opacity-100",
               )}
             >

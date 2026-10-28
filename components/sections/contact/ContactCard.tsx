@@ -22,6 +22,8 @@ export default function ContactCard() {
         alt={card.image.alt}
         fill
         sizes="(min-width: 1024px) 40vw, 100vw"
+        // The LCP on desktop: load it eagerly instead of lazily (Next docs prefer this over preload)
+        loading="eager"
         className="-z-20 object-cover object-top"
       />
       {/* Brand tint + fade so the text stays readable over the photo */}
@@ -36,14 +38,14 @@ export default function ContactCard() {
           </div>
           <ul className="space-y-3">
             <li>
-              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} hover:text-brand-500`}>
+              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} min-h-11 hover:text-brand-500 md:min-h-0`}>
                 <Mail aria-hidden="true" className={iconClass} />
                 {contactInfo.email}
               </a>
             </li>
             {contactInfo.phone && (
               <li>
-                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} hover:text-brand-500`}>
+                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} min-h-11 hover:text-brand-500 md:min-h-0`}>
                   <Phone aria-hidden="true" className={iconClass} />
                   {contactInfo.phone}
                 </a>
@@ -66,7 +68,7 @@ export default function ContactCard() {
                 <li key={link.id}>
                   <a
                     href={link.href}
-                    className="inline-flex items-center gap-3 text-small text-neutral-200 hover:text-brand-500"
+                    className="inline-flex min-h-11 items-center gap-3 text-small text-neutral-200 hover:text-brand-500 md:min-h-0"
                     {...(external && { target: "_blank", rel: "noopener noreferrer" })}
                   >
                     {link.label}
