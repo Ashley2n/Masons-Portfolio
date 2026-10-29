@@ -223,3 +223,38 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The Impeccable homepage critique (2026-10-27) rated the icon-only resume button P1: the resume is a top goal for the primary visitor (casting directors, `PRODUCT.md`), and a file icon whose name only appears on hover can't be read on touch screens at all. The Contact mockup also had RESUME in the nav.
 - **Decision:** Keep D-16's modal and placements (home hero, About intro, Contact card), but the button now shows the text "View resume" plus the `FileText` icon, styled like the outline button next to it. The visible text is the accessible name, so the `aria-label` and the duplicate `title` tooltip are removed (WCAG 2.5.3 Label in Name: https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html). (Ashley, 2026-10-27.)
 - **Consequences:** The button reuses the outline `Button` classes through `buttonClasses()` in `components/ui/Button.tsx`, so the two hero buttons can't drift apart again. All buttons use `px-6` below 640px (`px-8` above) so "View work" and "View resume" fit side by side at 412px. Covered by `components/resume/ResumeDialog.test.tsx` ("shows a visible 'View resume' label…").
+
+### D-30 · No social links; YouTube only for embedded videos
+
+- **Date:** 2026-10-29 · **Status:** Accepted (amends D-20)
+- **Context:** Mason doesn't want YouTube (or any social profile) linked (F4, 2026-10-29 meeting). With no profile URLs, the footer "Connect" column and the Contact card "Follow" section held only "Email", which repeats the email already shown next to them.
+- **Decision:** `socialLinks` in `content/site.ts` holds real profiles only (no Email entry). The footer "Connect" column and the Contact card "Follow" section render only when `socialLinks` has at least one item. Videos keep D-20's click-to-load YouTube embeds; the site never links to his channel. (Ashley, 2026-10-29.)
+- **Consequences:** Footer becomes Navigation + Contact. Adding a profile later is one line in `content/site.ts`; the sections come back on their own. The embedded player still shows YouTube's own logo, which can't be removed.
+
+### D-31 · Public contact email matches the resume; no phone number anywhere public
+
+- **Date:** 2026-10-29 · **Status:** Accepted
+- **Context:** His resume lists `mason.13.farrington@gmail.com`; the site used `masonfarrington@gmail.com`. The resume also prints his cell number, which the site has never shown (C3).
+- **Decision:** The site's email becomes `mason.13.farrington@gmail.com`. The phone number appears nowhere public: the published resume PDF has the phone line removed from the file itself (not covered with a box), and the output is checked with a text extraction. (Ashley, 2026-10-29.)
+- **Consequences:** The Resend account (F1, D-19) is expected under the same address; with no domain, Resend can only deliver to the account's own address, so confirm it before building the form. The original resume (with phone) is not committed.
+
+### D-32 · Only real videos on the site; empty video sections hide
+
+- **Date:** 2026-10-29 · **Status:** Accepted
+- **Context:** Mason has sent one video so far, "Mason Farrington Reel 2 0" (`1BnBTdARUHk`, unlisted, sent by him). More are coming (F3). The live site still shows Blender demo films as his work.
+- **Decision:** "Reel 2 0" is the featured Recent Work video and joins the gallery under "Other". Every Blender placeholder video is removed (home and gallery). Other Work hides itself while it has no videos (C25). (Ashley, 2026-10-29.)
+- **Consequences:** Unlisted videos embed fine (embedding is on; checked with YouTube oEmbed), but they become effectively public once on the site. New videos are added newest first as Mason sends them, and Other Work comes back on its own.
+
+### D-33 · Impeccable redesign of the banner, buttons, Contact card, footer, expertise cards and animations
+
+- **Date:** 2026-10-29 · **Status:** Accepted (scope); designs to come
+- **Context:** At the 2026-10-29 review, Ashley decided to redesign several parts of the site rather than patch them (replaces the C19 gradient fix, C20 text-color fix and C22 approval).
+- **Decision:** One redesign pass with the Impeccable skill (D-27), on its own branch after the content fixes. Scope:
+  1. CTA banner ("Interested in working together?"). Its heading must reach AA (3:1 large text; it's 2.5:1 today).
+  2. Buttons across the site.
+  3. The Contact page's right-hand card. Starting point: D-28 (darker photo, lighter label) is what made it pass AA.
+  4. Footer, starting from the D-30 version (no Connect column).
+  5. Site animations (absorbs the "Page transitions and scroll animations" backlog item); respect `prefers-reduced-motion`.
+  6. Expertise cards: text must pass AA (4.5:1 for subtitles; Model and Singer are 2.0:1 and 2.5:1 today). Try photos on the tiles (C24); the tiles don't link anywhere.
+  - Also: "Get in touch" reachable from the top of the homepage on mobile (C26), via a third hero action or a header that stays visible. Try options and review.
+- **Consequences:** Changes the approved look (D-10), so Mason sees a before/after before it ships. Every redesigned piece is re-measured for AA contrast.

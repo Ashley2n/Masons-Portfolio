@@ -18,7 +18,7 @@ _Last updated: 2026-10-26_
 | Email address for the site | ✅ | `masonfarrington@gmail.com` (from mockup). Confirm it's the public one. |
 | Phone number | ⏳ | Ashley adds it as `phone` in `contactInfo` (`content/site.ts`); the contact card shows it automatically once set. |
 | Location | ✅ | Los Angeles, CA |
-| Social links (Instagram, YouTube, others) | ⏳ | YouTube only (Q C7, D-20). Hidden until Mason sends the URL (F4); add it to `socialLinks` in `content/site.ts`. |
+| Social links (Instagram, YouTube, others) | ✅ | None: Mason doesn't want any linked (F4, D-30). Add one to `socialLinks` in `content/site.ts` if that changes. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
 | Domain | ❌ | None for now (Q C5); launch on `*.vercel.app` (D-21). |
 

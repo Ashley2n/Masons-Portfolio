@@ -93,21 +93,44 @@ _Last updated: 2026-10-19_
 - [x] Rename gallery categories to All / Concerts / Recital / Modeling / Staged / Design / Other (D-22, D-23)
 - [ ] Remove Instagram Reels from content and video cards; YouTube-only socials (D-20)
 - [x] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero (D-24, C15)
-- [ ] Swap in the real resume once confirmed (F2) and the real YouTube links (F3, F4)
+- [ ] Swap in the real resume once confirmed (F2) and the real YouTube links (F3, F4). 2026-10-29: moved to Phase 9; no channel link (D-30)
 - [x] SEO: per-page metadata, Open Graph image, `sitemap.ts`, `robots.ts`, favicon (D-17)
-- [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup). 2026-10-26 Impeccable audit: keyboard, focus, alt text and headings pass; eyebrow, placeholder and Contact card contrast fixed (D-27, D-28). Left: the cards (C20) and the CTA banner (C19), waiting on Mason
+- [ ] Accessibility pass (keyboard, focus, alt text, contrast). Known: white text on the light purple Model/Singer cards is below 4.5:1 (as in the mockup). 2026-10-26 Impeccable audit: keyboard, focus, alt text and headings pass; eyebrow, placeholder and Contact card contrast fixed (D-27, D-28). Left: the cards (C20) and the CTA banner (C19), now part of the Phase 10 redesign (D-33)
 - [ ] Lighthouse audit (target ≥ 90 on every category). 2026-10-26: every page ≥ 90 except Media mobile performance (88; option: AVIF images) and Home accessibility (96, the C20 cards). `/resume` desktop CLS 0.134 seen only in Lighthouse, not reproduced
 - [x] Custom 404 page
 - [ ] Launch on `*.vercel.app` (connect a domain when Mason buys one) 🚀
+
+## Phase 9 · 10/29 meeting fixes (`fix/meeting-content`)
+
+Live-site content that's wrong today. Ships before the redesign.
+
+- [ ] Real resume at `public/resume/mason-farrington-resume.pdf`, phone line removed from the file and checked (F2, D-31)
+- [ ] Contact email → `mason.13.farrington@gmail.com` (D-31)
+- [ ] "Reel 2 0" as featured Recent Work and in the gallery under Other; remove all Blender videos; Other Work hides when empty (F3, D-32)
+- [ ] Remove Email from `socialLinks`; hide footer Connect and Contact Follow when empty (D-30)
+- [ ] Move Model Shots to right after the hero (C23)
+- [ ] Add `RESEND_API_KEY` in Vercel env vars; confirm the Resend account email before building the form (F1)
+
+## Phase 10 · Impeccable redesign (`feat/redesign`)
+
+Scope and requirements in D-33. Show Mason a before/after before it ships.
+
+- [ ] CTA banner (AA 3:1 heading)
+- [ ] Buttons
+- [ ] Contact page right-hand card
+- [ ] Footer (from the D-30 version)
+- [ ] Animations (reduced-motion safe)
+- [ ] Expertise cards (AA text; try photos, no links)
+- [ ] "Get in touch" near the top on mobile (C26): try options and review
 
 ## Post-launch (backlog)
 
 - [ ] Git-based admin page (Keystatic/Decap) if Mason's photo updates become frequent (D-18)
 - [ ] Automatic video ordering via the YouTube Data API (D-20)
 - [ ] Custom domain (Q C5)
-- [ ] Page transitions and scroll animations
+- [ ] ~~Page transitions and scroll animations~~ Moved to Phase 10 (D-33)
 - [ ] Gallery lightbox (open photos full screen)
-- [ ] Expertise cards link to their gallery category (`/media?category=…`, Model→Modeling, Singer→Concerts, Actor→Staged, Designer→Design per D-22). Critique P2, 2026-10-27. Decide with `/architect` after Mason answers C24 (photo tiles), which needs the same links
+- [ ] ~~Expertise cards link to their gallery category~~ Dropped: tiles don't link (C24, 2026-10-29)
 - [ ] Swipe on the Model Shots carousel (touch gesture or CSS scroll-snap). Critique P2, 2026-10-27. Decide with `/architect`
 - [ ] Consider React Hook Form for the contact form (Ashley, 2026-10-26). Today's form has 3 fields and a small tested validation helper; RHF adds client JavaScript, so it pays off once forms grow (many fields, conditional steps). Decide with `/architect` before adopting
 - [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
