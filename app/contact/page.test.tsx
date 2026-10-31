@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { contactContent } from "@/content/contact";
-import { contactInfo, socialLinks } from "@/content/site";
+import { contactInfo } from "@/content/site";
 import Page, { metadata } from "./page";
 
 describe("/contact page", () => {
@@ -27,30 +27,15 @@ describe("/contact page", () => {
 
       expect(within(card()).getByRole("heading", { name: "Mason Farrington" })).toBeInTheDocument();
       expect(
-        within(card()).getByRole("link", { name: "mason.13.farrington@gmail.com" }),
-      ).toHaveAttribute("href", "mailto:mason.13.farrington@gmail.com");
+        within(card()).getByRole("link", { name: contactInfo.email }),
+      ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
       expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
     });
 
-    it("shows a phone link only when a number is set", () => {
+    it("shows no phone link (D-31)", () => {
       render(<Page />);
 
-      const phoneLink = card().querySelector('a[href^="tel:"]');
-      if (contactInfo.phone) expect(phoneLink).not.toBeNull();
-      else expect(phoneLink).toBeNull();
-    });
-
-    it("lists the social links under Follow, or hides Follow when there are none (D-30)", () => {
-      render(<Page />);
-
-      const follow = within(card()).queryByRole("list", { name: "Follow" });
-      if (socialLinks.length === 0) {
-        expect(follow).toBeNull();
-        return;
-      }
-      expect(within(follow!).getAllByRole("link").map((a) => a.textContent)).toEqual(
-        socialLinks.map((s) => s.label),
-      );
+      expect(card().querySelector('a[href^="tel:"]')).toBeNull();
     });
 
     it("shows the photo and the quote", () => {

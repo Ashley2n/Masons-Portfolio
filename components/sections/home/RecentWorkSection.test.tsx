@@ -1,9 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import type { Video } from "@/types/content";
+import type { YouTubeVideo } from "@/types/content";
 import RecentWorkSection from "./RecentWorkSection";
 
-const video = (id: string, title: string, date: string, extra: Partial<Video> = {}): Video => ({
+const video = (id: string, title: string, date: string, extra: { featured?: boolean } = {}): YouTubeVideo => ({
   id,
   platform: "youtube",
   youtubeId: `yt-${id}`,
@@ -11,7 +11,7 @@ const video = (id: string, title: string, date: string, extra: Partial<Video> = 
   date,
   orientation: "landscape",
   ...extra,
-} as Video);
+});
 
 const reel = video("reel", "Reel", "2026-03-31", { featured: true });
 
