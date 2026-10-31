@@ -15,7 +15,7 @@ _Last updated: 2026-10-26_
 | Logo / monogram "MF" | 🔁 | Currently styled text (Playfair italic). Confirm whether an SVG logo exists. |
 | Favicon and app icon | ❌ | Can be generated from the MF monogram. |
 | Social share image (Open Graph, 1200×630) | ❌ | Can be generated from the hero photo. |
-| Email address for the site | ✅ | `masonfarrington@gmail.com` (from mockup). Confirm it's the public one. |
+| Email address for the site | ✅ | `mason.13.farrington@gmail.com`, as on his resume (D-31, 2026-10-29). |
 | Phone number | ⏳ | Ashley adds it as `phone` in `contactInfo` (`content/site.ts`); the contact card shows it automatically once set. |
 | Location | ✅ | Los Angeles, CA |
 | Social links (Instagram, YouTube, others) | ✅ | None: Mason doesn't want any linked (F4, D-30). Add one to `socialLinks` in `content/site.ts` if that changes. |
