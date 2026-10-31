@@ -34,11 +34,11 @@ test.describe("contact form", () => {
     await page.getByLabel("Message").fill("Would love to collaborate on a show.");
     await page.getByRole("button", { name: "Send message" }).click();
 
-    await expect(page.getByRole("status")).toContainText("masonfarrington@gmail.com");
+    await expect(page.getByRole("status")).toContainText("email me directly at mason.13.farrington@gmail.com");
     const mailto = await page.evaluate(() => (window as unknown as { __mailto?: string }).__mailto);
     expect(mailto).toBeDefined();
     const url = new URL(mailto!);
-    expect(url.pathname).toBe("masonfarrington@gmail.com");
+    expect(url.pathname).toBe("mason.13.farrington@gmail.com");
     expect(url.searchParams.get("subject")).toBe("Portfolio inquiry from Ada Lovelace");
     expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
   });
