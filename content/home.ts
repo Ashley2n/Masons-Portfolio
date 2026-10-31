@@ -31,73 +31,16 @@ export const expertiseItems: ExpertiseItem[] = [
   { id: "actor", title: "Actor", description: "Theatre & On Camera", href: "/media", colorClass: "bg-brand-700" },
 ];
 
-// Mock videos for the demo: Blender open movies and Blender Studio Shorts (Creative Commons),
-// with their real YouTube upload dates. Replace with Mason's videos (Q C6).
+// Mason's real videos only (D-32). The date is the YouTube upload date.
 export const videos: Video[] = [
   {
-    id: "spring",
+    id: "reel-2-0",
     platform: "youtube",
-    youtubeId: "WhWc3b3KhnY",
-    title: "Spring",
-    date: "2019-04-04",
+    youtubeId: "1BnBTdARUHk",
+    title: "Mason Farrington Reel 2 0",
+    date: "2026-03-31",
     orientation: "landscape",
     featured: true,
-  },
-  {
-    id: "agent-327",
-    platform: "youtube",
-    youtubeId: "mN0zPOpADL4",
-    title: "Agent 327: Operation Barbershop",
-    date: "2017-05-15",
-    orientation: "landscape",
-  },
-  {
-    id: "cosmos-laundromat",
-    platform: "youtube",
-    youtubeId: "Y-rmzh0PI3c",
-    title: "Cosmos Laundromat",
-    date: "2015-08-10",
-    orientation: "landscape",
-  },
-  {
-    id: "big-buck-bunny",
-    platform: "youtube",
-    youtubeId: "aqz-KE-bpKQ",
-    title: "Big Buck Bunny",
-    date: "2014-11-10",
-    orientation: "landscape",
-  },
-  {
-    id: "tears-of-steel",
-    platform: "youtube",
-    youtubeId: "R6MlUcmOul8",
-    title: "Tears of Steel",
-    date: "2012-09-26",
-    orientation: "landscape",
-  },
-  {
-    id: "sintel",
-    platform: "youtube",
-    youtubeId: "eRsGyueVLvQ",
-    title: "Sintel",
-    date: "2010-09-30",
-    orientation: "landscape",
-  },
-  {
-    id: "singularity-bts",
-    platform: "youtube",
-    youtubeId: "66KvZ_P1BL4",
-    title: "Singularity: Behind the Scenes",
-    date: "2026-07-07",
-    orientation: "portrait",
-  },
-  {
-    id: "lighting-rigs-bts",
-    platform: "youtube",
-    youtubeId: "5PRpneyquqw",
-    title: "Setting Up Lighting Rigs",
-    date: "2024-09-12",
-    orientation: "portrait",
   },
 ];
 

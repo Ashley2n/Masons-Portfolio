@@ -50,6 +50,17 @@ describe("home content", () => {
     expect("credit" in homeImages.hero).toBe(false);
   });
 
+  it("only Mason's real reel is on the site, featured on the homepage (D-32)", () => {
+    expect(videos).toEqual([
+      expect.objectContaining({
+        platform: "youtube",
+        youtubeId: "1BnBTdARUHk",
+        title: "Mason Farrington Reel 2 0",
+        featured: true,
+      }),
+    ]);
+  });
+
   // Stock photos that stay until Mason's replacements arrive (D-24)
   const photos: [string, Photo][] = [
     ["about feature", aboutContent.feature.image],
@@ -108,6 +119,13 @@ describe("media gallery content", () => {
       expect(item.photo.width).toBeGreaterThan(0);
       expect(item.photo.height).toBeGreaterThan(0);
     });
+  });
+
+  it("files the reel under Other and keeps no Blender placeholder videos (D-32)", () => {
+    const galleryVideos = galleryItems.flatMap((item) =>
+      item.kind === "video" ? [{ category: item.category, youtubeId: item.video.platform === "youtube" ? item.video.youtubeId : undefined }] : [],
+    );
+    expect(galleryVideos).toEqual([{ category: "other", youtubeId: "1BnBTdARUHk" }]);
   });
 
   it("labels the filters in Mason's order (D-22, D-23)", () => {
