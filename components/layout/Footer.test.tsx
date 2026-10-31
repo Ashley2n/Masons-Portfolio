@@ -73,8 +73,8 @@ describe("Footer", () => {
     render(<Footer />);
 
     expect(
-      screen.getByRole("link", { name: "masonfarrington@gmail.com" }),
-    ).toHaveAttribute("href", "mailto:masonfarrington@gmail.com");
+      screen.getByRole("link", { name: "mason.13.farrington@gmail.com" }),
+    ).toHaveAttribute("href", "mailto:mason.13.farrington@gmail.com");
     expect(screen.getByText("Los Angeles, CA")).toBeInTheDocument();
   });
 });
