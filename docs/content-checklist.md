@@ -67,7 +67,7 @@ _Last updated: 2026-10-31_
 | Side card image (violet seascape) | 📷 | `contact/coast-violet-rocks.jpg` (Wang / Wikimedia Commons, CC0; D-28). If this photo changes, re-run the Impeccable detector on `/contact` at 1440 and 390 px: the label's contrast depends on it. |
 | Quote ("Good art starts with a conversation.") | ✅ | |
 | Footer tagline ("Creating a more expressive tomorrow.") | ✅ | |
-| Form delivery method and recipient | 🔁 | Demo uses a prefilled `mailto:` to `contactInfo.email`. See Q C2. |
+| Form delivery method and recipient | 🔁 | Resend, to `contactInfo.email` from `onboarding@resend.dev` (D-19, D-36). Branded email (#18) and live check (#20) left. |
 
 ## Image guidelines (share with Mason when requesting his own photos)
 

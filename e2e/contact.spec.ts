@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test.describe("contact form", () => {
   test("blocks an empty submit with errors and focuses the first field", async ({ page }) => {
@@ -11,22 +11,8 @@ test.describe("contact form", () => {
     await expect(page.getByText("Please enter your email address.")).toBeVisible();
   });
 
-  test("opens a prefilled email and confirms", async ({ page }) => {
-    // Capture the mailto: link instead of launching a mail app
-    // (network routes can't intercept mailto: navigations)
-    await page.addInitScript(() => {
-      document.addEventListener(
-        "click",
-        (event) => {
-          const link = (event.target as Element | null)?.closest?.('a[href^="mailto:"]');
-          if (link instanceof HTMLAnchorElement && link.closest("form") === null) {
-            event.preventDefault();
-            (window as unknown as { __mailto?: string }).__mailto = link.href;
-          }
-        },
-        true,
-      );
-    });
+  test("offers Mason's email when the message can't be sent", async ({ page, contactActionCalls }) => {
+    // The shared fixture aborts the server action, so this is the "network failed" path
     await page.goto("/contact");
 
     await page.getByLabel("Name").fill("Ada Lovelace");
@@ -34,12 +20,11 @@ test.describe("contact form", () => {
     await page.getByLabel("Message").fill("Would love to collaborate on a show.");
     await page.getByRole("button", { name: "Send message" }).click();
 
-    await expect(page.getByRole("status")).toContainText("email me directly at mason.13.farrington@gmail.com");
-    const mailto = await page.evaluate(() => (window as unknown as { __mailto?: string }).__mailto);
-    expect(mailto).toBeDefined();
-    const url = new URL(mailto!);
-    expect(url.pathname).toBe("mason.13.farrington@gmail.com");
-    expect(url.searchParams.get("subject")).toBe("Portfolio inquiry from Ada Lovelace");
-    expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
+    await expect(page.getByRole("status")).toContainText("Sorry, your message didn't send.");
+    await expect(page.getByRole("status").getByRole("link", { name: "mason.13.farrington@gmail.com" })).toHaveAttribute(
+      "href",
+      "mailto:mason.13.farrington@gmail.com",
+    );
+    expect(contactActionCalls.count).toBe(1);
   });
 });

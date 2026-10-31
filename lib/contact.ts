@@ -9,8 +9,7 @@ export type ContactSend = (values: ContactValues) => Promise<ContactSendResult>;
 
 const { errors, subjectPrefix } = contactContent.form;
 const MIN_MESSAGE_LENGTH = 10;
-// The message travels inside a mailto: URL; some mail apps (e.g. Outlook on Windows)
-// truncate or refuse links over ~2,000 characters once encoded.
+// Keeps contact emails short enough to read at a glance; the error copy promises this limit
 export const MAX_MESSAGE_LENGTH = 1500;
 // Deliberately simple: something@something.tld, no spaces
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,9 +30,8 @@ export const validateContact = ({ name, email, message }: ContactValues): Contac
 
 export const hasErrors = (result: ContactErrors) => Object.keys(result).length > 0;
 
-/** mailto: link with the message ready to send. encodeURIComponent keeps spaces as %20. */
-export const buildMailtoUrl = ({ name, email, message }: ContactValues, to: string) => {
-  const subject = `${subjectPrefix} ${name.trim()}`;
-  const body = `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`;
-  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-};
+/** Subject and plain-text body of the email Mason receives. */
+export const buildContactEmail = ({ name, email, message }: ContactValues) => ({
+  subject: `${subjectPrefix} ${name.trim()}`,
+  text: `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`,
+});

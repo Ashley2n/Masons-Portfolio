@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 // Pages whose hero has a decorative glow that could spill over the footer
 const pagesWithGlows = ["/about", "/contact", "/this-page-does-not-exist"];

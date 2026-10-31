@@ -1,7 +1,7 @@
 import type { Photo } from "@/types/content";
 
-// Copy from the Contact mockup. The form opens the visitor's email app (mailto) until
-// Mason chooses a delivery service (D-07, Q C2).
+// Copy from the Contact mockup. The form sends through Resend (D-19); the sending, sent
+// and failed wording was agreed with Ashley on 2026-10-31 (the mockup has none).
 export const contactContent = {
   eyebrow: "Get in touch",
   title: "Let's create something great.",
@@ -15,8 +15,10 @@ export const contactContent = {
       message: "Tell me about your project, opportunity, or idea…",
     },
     submit: "Send message",
+    sending: "Sending…",
     note: "I'll get back to you as soon as possible.",
-    sent: "Your email app should open with the message ready to send. If it didn't, email me directly at",
+    sent: "Thanks, your message is on its way. I'll get back to you as soon as possible.",
+    failed: "Sorry, your message didn't send. Please email me directly at",
     errorSummary: "Please fix the highlighted fields.",
     errors: {
       nameRequired: "Please enter your name.",
@@ -28,6 +30,8 @@ export const contactContent = {
         "Please keep it under 1,500 characters. We can go into more detail once we're in touch.",
     },
     subjectPrefix: "Portfolio inquiry from",
+    // Sender name Mason sees in his inbox; the address is Resend's until a domain is verified
+    emailFromName: "Portfolio contact form",
   },
   card: {
     eyebrow: "Contact info",

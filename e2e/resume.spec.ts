@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test.describe("resume", () => {
   test("downloads the PDF with a friendly file name", async ({ page }) => {
