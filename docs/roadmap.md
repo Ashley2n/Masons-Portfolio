@@ -108,7 +108,7 @@ Live-site content that's wrong today. Ships before the redesign.
 - [ ] Contact email → `mason.13.farrington@gmail.com` (D-31)
 - [ ] "Reel 2 0" as featured Recent Work and in the gallery under Other; remove all Blender videos; Other Work hides when empty (F3, D-32)
 - [ ] Remove Email from `socialLinks`; hide footer Connect and Contact Follow when empty (D-30)
-- [ ] Move Model Shots to right after the hero (C23)
+- [x] Move Model Shots to right after the hero (C23)
 - [ ] Add `RESEND_API_KEY` in Vercel env vars; confirm the Resend account email before building the form (F1)
 
 ## Phase 10 · Impeccable redesign (`feat/redesign`)
