@@ -2,7 +2,7 @@
 
 Assets and copy needed to finish the site. Tick items off as they arrive, and note where each file lives in the repo.
 
-_Last updated: 2026-10-26_
+_Last updated: 2026-10-31_
 
 **Copy:** the homepage mockup is the source of truth. **Photos:** free stock (Unsplash, Pexels and similar) for the MVP. Record each photo's source URL and photographer next to it in `content/` so credits are easy to find. Mason's own portraits replace stock portraits before launch (Q C10).
 
@@ -16,7 +16,7 @@ _Last updated: 2026-10-26_
 | Favicon and app icon | ❌ | Can be generated from the MF monogram. |
 | Social share image (Open Graph, 1200×630) | ❌ | Can be generated from the hero photo. |
 | Email address for the site | ✅ | `mason.13.farrington@gmail.com`, as on his resume (D-31, 2026-10-29). |
-| Phone number | ⏳ | Ashley adds it as `phone` in `contactInfo` (`content/site.ts`); the contact card shows it automatically once set. |
+| Phone number | ✅ | None: no phone number anywhere public, including the resume PDF (D-31, 2026-10-29). Leave `phone` unset in `contactInfo` (`content/site.ts`). |
 | Location | ✅ | Los Angeles, CA |
 | Social links (Instagram, YouTube, others) | ✅ | None: Mason doesn't want any linked (F4, D-30). Add one to `socialLinks` in `content/site.ts` if that changes. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
@@ -31,8 +31,8 @@ _Last updated: 2026-10-26_
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
 | Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
-| Recent Work: featured video | 🔁 | Mock: Blender open movie "Spring" (CC). Replace with Mason's most recent or most viewed video / Reel (Q C6). |
-| Other Work: 3 videos (title, date, link) | 🔁 | Mock: Blender open movies and Blender Studio Shorts (CC) with real upload dates in `content/home.ts`. Replace with Mason's hand-picked YouTube videos, newest first (F3, D-20). |
+| Recent Work: featured video | ✅ | Mason's "Reel 2 0" (`1BnBTdARUHk`, D-32). The Blender placeholders are gone. |
+| Other Work: 3 videos (title, date, link) | ⏳ | Hidden while there are no videos besides the featured reel (D-32, C25). Add Mason's next YouTube videos to `content/home.ts`, newest first, and the section comes back on its own (F3, D-20). |
 | Model Shots: 5+ portrait photos | ✅ | Mason's `modeling-02, 08, 10, 01, 06` (all landscape, so they fill the wide desktop frame); alt text shared with the gallery. |
 
 ## About (`/about`)
@@ -51,7 +51,7 @@ _Last updated: 2026-10-26_
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
 | Gallery photos (12+), each with category and alt text | ✅ | 97 of Mason's photos via `npm run import-photos` (D-25), in `public/images/media/<category>/`; alt text drafted by Claude, reviewed by Ashley (D-26). 2 damaged files left out (C16). |
-| Gallery videos (YouTube / Reel links + category) | 🔁 | Mock Blender videos and Shorts. Replace via F3 (YouTube only, D-20). |
+| Gallery videos (YouTube / Reel links + category) | ⏳ | "Reel 2 0" under Other is live; the Blender placeholders are gone (D-32). More videos to come from Mason via F3 (YouTube only, D-20). |
 
 ## Resume (`/resume`)
 
