@@ -15,10 +15,13 @@ const FooterColumn = ({ title, children }: { title: string; children: ReactNode 
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  // One desktop column per visible block, so a hidden Connect column leaves no gap.
+  // Full literal class names: Tailwind can't see classes built from template strings.
+  const desktopColumns = socialLinks.length > 0 ? "lg:grid-cols-4" : "lg:grid-cols-3";
 
   return (
     <footer className="mt-auto border-t border-neutral-800 bg-neutral-950 text-small">
-      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <Container className={`grid gap-10 py-12 sm:grid-cols-2 ${desktopColumns}`}>
         <div className="space-y-4">
           <p className="font-playfair text-3xl italic text-neutral-100">MF</p>
           <p>
