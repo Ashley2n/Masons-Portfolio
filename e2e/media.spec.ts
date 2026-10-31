@@ -20,6 +20,17 @@ test.describe("media gallery", () => {
     await expect(page.getByRole("button", { name: "Load more" })).toHaveCount(0);
   });
 
+  test("every category filter can be tapped (the hero glows don't block it)", async ({ page }) => {
+    await page.goto("/media");
+    const filters = page.getByRole("group", { name: "Filter by category" }).getByRole("button");
+
+    for (const name of await filters.allTextContents()) {
+      const button = filters.filter({ hasText: name });
+      await button.click({ timeout: 5_000 });
+      await expect(button).toHaveAttribute("aria-pressed", "true");
+    }
+  });
+
   test("'Explore the gallery' scrolls to the gallery", async ({ page }) => {
     await page.goto("/media");
     await page.getByRole("link", { name: "Explore the gallery" }).click();
