@@ -30,7 +30,7 @@ export const galleryCategories: { id: GalleryCategory | "all"; label: string }[]
   { id: "other", label: "Other" },
 ];
 
-// Mason's photos (D-24) and the mock videos from content/home.ts, mapped to the D-22 categories.
+// Mason's photos (D-24) and his videos from content/home.ts (D-32), mapped to the D-22 categories.
 const photoItems = galleryPhotos.map(({ id, category, src, alt, width, height }): GalleryItem => ({
   id,
   kind: "photo",
@@ -38,16 +38,7 @@ const photoItems = galleryPhotos.map(({ id, category, src, alt, width, height })
   photo: { src, alt, width, height },
 }));
 
-const videoItems = [
-  video("concerts", "spring"),
-  video("other", "singularity-bts"),
-  video("other", "agent-327"),
-  video("concerts", "tears-of-steel"),
-  video("other", "lighting-rigs-bts"),
-  video("other", "cosmos-laundromat"),
-  video("concerts", "sintel"),
-  video("other", "big-buck-bunny"),
-];
+const videoItems = [video("other", "reel-2-0")];
 
 /** Gallery order: one item from each category in turn, so every page of results has variety, like the mockup. */
 export const galleryItems: GalleryItem[] = interleave([
