@@ -30,7 +30,7 @@ export default function ModelShotsCarousel() {
       aria-roledescription="carousel"
       aria-labelledby="model-shots-heading"
       onKeyDown={onKeyDown}
-      className="surface-light bg-neutral-100 py-16"
+      className="surface-light bg-neutral-100 py-16 md:pt-20"
     >
       <Container className="space-y-6">
         <h2 id="model-shots-heading" className="text-neutral-800">
