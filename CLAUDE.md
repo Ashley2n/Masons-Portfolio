@@ -4,6 +4,7 @@ Portfolio site for client **Mason Farrington**, built by Ashley. Next.js 16 App 
 
 ## Read first
 
+- `docs/handoff.md`: where the project is now and what's next. At the end of each session, update it and add one line to its progress log.
 - `docs/project-brief.md`: scope, pages, timeline (demo-ready Wed 2026-10-14, launch Fri 2026-10-16)
 - `docs/roadmap.md`: current phase. Tick items off when you complete them.
 - `docs/architecture.md`: folder structure and conventions (follow them)
