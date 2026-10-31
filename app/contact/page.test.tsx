@@ -27,8 +27,8 @@ describe("/contact page", () => {
 
       expect(within(card()).getByRole("heading", { name: "Mason Farrington" })).toBeInTheDocument();
       expect(
-        within(card()).getByRole("link", { name: contactInfo.email }),
-      ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
+        within(card()).getByRole("link", { name: "mason.13.farrington@gmail.com" }),
+      ).toHaveAttribute("href", "mailto:mason.13.farrington@gmail.com");
       expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
     });
 
