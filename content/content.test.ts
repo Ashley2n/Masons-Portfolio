@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutContent, milestones } from "./about";
@@ -50,6 +50,21 @@ describe("home content", () => {
     expect("credit" in homeImages.hero).toBe(false);
   });
 
+  it("only Mason's real reels are on the site, the Intro Video featured on the homepage (D-32, F3)", () => {
+    expect(videos).toEqual([
+      expect.objectContaining({
+        platform: "youtube",
+        youtubeId: "1BnBTdARUHk",
+        title: "Mason Farrington Intro Video",
+        featured: true,
+      }),
+      expect.objectContaining({ youtubeId: "sK9xduGWTaQ", title: "Mason Farrington Vocal Reel" }),
+      expect.objectContaining({ youtubeId: "3yPWsqxpAa8", title: "Mason Farrington Dance Reel" }),
+      expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel" }),
+    ]);
+    expect(videos.filter((v) => v.featured)).toHaveLength(1);
+  });
+
   // Stock photos that stay until Mason's replacements arrive (D-24)
   const photos: [string, Photo][] = [
     ["about feature", aboutContent.feature.image],
@@ -75,10 +90,13 @@ describe("site content", () => {
     ]);
   });
 
-  it("social links are absolute https or mailto URLs with unique ids", () => {
-    expect(socialLinks.length).toBeGreaterThan(0);
-    socialLinks.forEach((link) => expect(link.href).toMatch(/^(https:\/\/|mailto:)/));
+  it("social links may be empty, but every link is an absolute https URL with a unique id (D-30)", () => {
+    socialLinks.forEach((link) => expect(link.href).toMatch(/^https:\/\//));
     expectUniqueIds(socialLinks);
+  });
+
+  it("social links have no Email entry; email lives in the Contact column instead (D-30)", () => {
+    expect(socialLinks.find((link) => link.id === "email" || link.href.startsWith("mailto:"))).toBeUndefined();
   });
 
   it("social links point to real profiles, not placeholder homepages", () => {
@@ -90,6 +108,24 @@ describe("site content", () => {
   it("contact info has a valid email and a location", () => {
     expect(contactInfo.email).toMatch(/^[^@\s]+@[^@\s]+\.[a-z]+$/);
     expect(contactInfo.location.trim()).not.toBe("");
+  });
+
+  it("uses the email on Mason's resume (D-31)", () => {
+    expect(contactInfo.email).toBe("mason.13.farrington@gmail.com");
+  });
+
+  it("has no other real email address anywhere in the site content", () => {
+    // Form placeholders use the reserved example.com domain (RFC 2606), not a real inbox
+    const addresses = readdirSync(__dirname)
+      .filter((file) => file.endsWith(".ts") && !file.endsWith(".test.ts"))
+      .flatMap((file) => readFileSync(join(__dirname, file), "utf8").match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g) ?? [])
+      .filter((address) => !address.endsWith("@example.com"));
+
+    expect(new Set(addresses)).toEqual(new Set(["mason.13.farrington@gmail.com"]));
+  });
+
+  it("keeps the phone number off the site's pages (D-35)", () => {
+    expect(contactInfo.phone).toBeUndefined();
   });
 });
 
@@ -108,6 +144,18 @@ describe("media gallery content", () => {
       expect(item.photo.width).toBeGreaterThan(0);
       expect(item.photo.height).toBeGreaterThan(0);
     });
+  });
+
+  it("files every reel under Other and keeps no Blender placeholder videos (D-32, F3)", () => {
+    const galleryVideos = galleryItems.flatMap((item) =>
+      item.kind === "video" ? [{ category: item.category, youtubeId: item.video.platform === "youtube" ? item.video.youtubeId : undefined }] : [],
+    );
+    expect(galleryVideos).toEqual(
+      expect.arrayContaining(
+        ["1BnBTdARUHk", "sK9xduGWTaQ", "3yPWsqxpAa8", "VdFlh2DAS20"].map((youtubeId) => ({ category: "other", youtubeId })),
+      ),
+    );
+    expect(galleryVideos).toHaveLength(4);
   });
 
   it("labels the filters in Mason's order (D-22, D-23)", () => {

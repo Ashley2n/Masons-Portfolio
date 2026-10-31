@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { contactContent } from "@/content/contact";
-import { contactInfo, socialLinks } from "@/content/site";
+import { contactInfo } from "@/content/site";
 import Page, { metadata } from "./page";
 
 describe("/contact page", () => {
@@ -32,21 +32,10 @@ describe("/contact page", () => {
       expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
     });
 
-    it("shows a phone link only when a number is set", () => {
+    it("shows no phone link (D-35)", () => {
       render(<Page />);
 
-      const phoneLink = card().querySelector('a[href^="tel:"]');
-      if (contactInfo.phone) expect(phoneLink).not.toBeNull();
-      else expect(phoneLink).toBeNull();
-    });
-
-    it("lists the social links under Follow", () => {
-      render(<Page />);
-
-      const follow = within(card()).getByRole("list", { name: "Follow" });
-      expect(within(follow).getAllByRole("link").map((a) => a.textContent)).toEqual(
-        socialLinks.map((s) => s.label),
-      );
+      expect(card().querySelector('a[href^="tel:"]')).toBeNull();
     });
 
     it("shows the photo and the quote", () => {

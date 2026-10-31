@@ -14,7 +14,7 @@ export default function ContactPage() {
     <section className="relative isolate overflow-x-clip py-16 md:py-24">
       <div
         aria-hidden="true"
-        className="absolute -left-40 top-0 -z-10 size-96 rounded-full bg-brand-700/30 blur-[120px]"
+        className="pointer-events-none absolute -left-40 top-0 -z-10 size-96 rounded-full bg-brand-700/30 blur-[120px]"
       />
       <Container className="grid gap-12 lg:grid-cols-[1fr_minmax(0,28rem)] lg:gap-16">
         <div className="space-y-10">

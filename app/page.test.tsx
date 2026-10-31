@@ -42,18 +42,25 @@ describe("Home page", () => {
     });
   });
 
-  it("renders every section heading", () => {
+  it("orders the sections Hero → Model Shots → Journey → Expertise → Recent Work → CTA (C23)", () => {
     render(<Home />);
 
-    for (const heading of [
+    const headings = screen
+      .getAllByRole("heading", { level: 2 })
+      .map((h) => h.textContent)
+      // "Other Work" is a sub-part of Recent Work and may be hidden when empty (D-32).
+      .filter((text) => text !== "Other Work");
+    expect(headings).toEqual([
+      "Model Shots",
       "The Journey So Far",
       "What I Do",
       "Recent Work",
-      "Other Work",
-      "Model Shots",
-    ]) {
-      expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
-    }
+      "Interested in working together?",
+    ]);
+    // The hero's h1 comes before every section heading.
+    const h1 = screen.getByRole("heading", { level: 1 });
+    const firstH2 = screen.getByRole("heading", { level: 2, name: "Model Shots" });
+    expect(h1.compareDocumentPosition(firstH2) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("shows the journey stats with the mockup labels and image", () => {
@@ -88,19 +95,23 @@ describe("Home page", () => {
     }
   });
 
-  it("features the highlighted video in Recent Work", () => {
+  it("features Mason's reel in Recent Work as a click-to-load YouTube card (D-20, D-32)", () => {
     render(<Home />);
 
-    expect(screen.getByRole("button", { name: "Play Spring" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Play Mason Farrington Intro Video" }),
+    ).toBeInTheDocument();
   });
 
-  it("shows the next three newest videos as Other Work", () => {
+  it("lists the vocal, dance and acting reels under Other Work (F3; hide-when-empty in RecentWorkSection.test.tsx)", () => {
     render(<Home />);
 
     const otherWork = screen.getByRole("region", { name: "Other Work" });
-    expect(
-      within(otherWork).getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
-    ).toEqual(["Agent 327: Operation Barbershop", "Cosmos Laundromat", "Big Buck Bunny"]);
+    for (const title of ["Vocal", "Dance", "Acting"]) {
+      expect(
+        within(otherWork).getByRole("button", { name: `Play Mason Farrington ${title} Reel` }),
+      ).toBeInTheDocument();
+    }
   });
 
   it("includes the Model Shots carousel (behavior tested in ModelShotsCarousel.test.tsx)", () => {

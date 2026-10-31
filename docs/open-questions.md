@@ -2,7 +2,7 @@
 
 Questions to resolve with Mason (or internally). When something is answered, move it to **Resolved** with the date and the answer, and record any lasting decision in [decisions.md](decisions.md).
 
-_Last updated: 2026-10-26_
+_Last updated: 2026-10-31_
 
 ## For the client demo meeting
 
@@ -14,37 +14,42 @@ Answered in principle; the asset or account is still to come.
 
 | # | Item | Notes |
 |---|---|---|
-| F1 | **Resend account** (C2) | Mason signs up with the address that should receive contact messages and shares an API key. Ashley asks when following up. |
-| F2 | **Real resume** (C4) · **urgent** | The live site still serves the placeholder PDF (stamped SAMPLE, `content/resume.ts`). Get his final resume and save it as `public/resume/mason-farrington-resume.pdf` (same name, no code change). Flagged P0 by the Impeccable critique, 2026-10-27. |
-| F3 | **Video links** (C6) · **urgent** | Mason sends the YouTube videos to feature. The public site (`masons-portfolio.vercel.app`) still shows Blender demo films (Spring, Agent 327, Cosmos Laundromat, Big Buck Bunny, Singularity) as his work. Ask for 1 recent video + 3 others, or his OK to hide the video sections until they arrive (Impeccable audit, 2026-10-26). |
-| F4 | **YouTube channel URL** (C7) | For the footer and Contact page. |
+| F3 | **More video links** (C6) | 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32), shown on the site as "Mason Farrington Intro Video". 2026-10-31: Vocal, Dance and Acting reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`; unlisted, landscape, embedding on), live in Other Work and the gallery under Other. More may come; add each newest first. |
 | F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
 ## For the next update to Mason
 
-**First items, urgent: official videos (F3) and his real resume (F2).** The public site still shows Blender demo films as his work, and the "View resume" button opens the placeholder PDF stamped SAMPLE. Ashley will ask for both at the next meeting.
-
-| # | Question | Ashley's recommendation |
+| # | Item | Notes |
 |---|---|---|
-| C17 | **Sharper versions of 13 small photos?** Under 1200 px (smallest 756 px wide); they show, but can look soft when large. | Only if he has them; they stay on the site either way (D-24). |
-| C18 | **New "Recital" filter** (D-23), from his folder name. | Just mention it. |
-| C19 | **CTA banner contrast.** The white "Interested in working together?" heading fades into the light end of the purple gradient (2.5:1; WCAG AA needs 3:1 for large text). On every page. | End the gradient at `brand-600` instead of `brand-500` (5.11:1). Slightly darker right edge, same palette. Picture: [meeting/c19](meeting/c19-cta-banner-contrast.png). |
-| C20 | **Model and Singer card contrast.** White text on the two light-purple cards is 2.0:1 and 2.5:1 (AA needs 4.5:1 for the subtitles), as in the mockup. | Dark text (`neutral-950`) on those two cards only (8.88:1 and 7.27:1). Same colors, different text color. Picture: [meeting/c20](meeting/c20-expertise-cards-contrast.png). |
-| C21 | **Duplicate stat label.** "10+ theatrical/musical shows" and "4+ theatrical/musical shows" (C8: match the mockup). Is the second one meant to say something else? | Ask what the 4+ counts; keep the mockup wording until he answers. |
-| C22 | **Approve the new Contact card?** To fix an accessibility failure on the live site (the "Contact info" label was 1.2:1), we changed the approved look before asking: a darker violet seascape photo, a lighter lilac label, and a taller card on mobile (D-28). Do you approve, or prefer another photo or the old one back? | Approve: it's closer to the Contact mockup's mood and passes WCAG AA. Picture: [meeting/c22](meeting/c22-contact-card-photo.png). If he declines, we revert or pick another photo and re-measure. |
-| C23 | **Move Model Shots up?** His headshots are what casting checks first, but they start about 4,600 px down on mobile, after stats, tiles and videos (Impeccable critique, 2026-10-27). | Move Model Shots to right after the hero. Same section, new position. |
-| C24 | **Photos on the four Expertise tiles?** Today they're plain purple; one photo per discipline (Model, Designer, Singer, Actor) would show his range instead of claiming it, and each tile could open that gallery category. | Yes, using his existing gallery photos; needs a small feature so gallery filters have their own links. |
-| C25 | **Hide Recent Work until the real videos arrive?** Pairs with F3: the section disappears on its own when there are no videos, instead of showing Blender cartoons. | Yes, if the official videos won't arrive soon; it comes back as soon as he sends them. |
-| C26 | **A way to get in touch near the top?** The hero offers "View work" and "View resume", but on a phone "Get in touch" is about 5,000px down (Impeccable critique, 2026-10-27). | Add a third hero action, "Get in touch", or keep the header visible while scrolling. |
+| U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
 
 ## Internal (Ashley)
 
-_None open._
+| # | Question | Notes |
+|---|---|---|
+| I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
 
 ## Resolved
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-10-31 | U3: Contact card on the reels? | Mason wants it shown, and the resume published with his phone line (D-35). |
+| 2026-10-31 | F1: Resend account? | `RESEND_API_KEY` is in Vercel's environment variables, and the account is under `mason.13.farrington@gmail.com` (Ashley). The form backend can be built (D-19). |
+| 2026-10-31 | U2: "Reel 2.0" or "Reel 2 0"? | Neither: the site calls it "Mason Farrington Intro Video", since that's what the video is (Ashley; she has free rein on copy, 2026-10-09). The YouTube title is unchanged. |
+| 2026-10-29 | F2: Real resume? | Received. Publish it with the phone line removed from the file (D-31). |
+| 2026-10-29 | Which contact email? | `mason.13.farrington@gmail.com`, as on his resume. No phone number anywhere public (D-31). |
+| 2026-10-29 | F3: Videos? | One so far, "Reel 2 0"; it's featured, Blender videos come out, Other Work hides until more arrive (D-32). |
+| 2026-10-29 | F4: YouTube channel link? | No. No social links at all; footer Connect and Contact Follow hide when empty (D-30). |
+| 2026-10-29 | C17: Sharper versions of 13 small photos? | None available; the current ones stay. |
+| 2026-10-29 | C18: "Recital" filter? | Approved; it was Mason's suggestion. |
+| 2026-10-29 | C19: CTA banner contrast? | Replaced by the Impeccable redesign of the banner (D-33). |
+| 2026-10-29 | C20: Model/Singer card contrast? | Folded into the redesign of the expertise cards; text must pass AA (D-33). |
+| 2026-10-29 | C21: Duplicate "theatrical/musical shows" label? | Keep as is. |
+| 2026-10-29 | C22: Approve the new Contact card? | Replaced by the redesign of the Contact card; the current one stays live until then (D-33). |
+| 2026-10-29 | C23: Move Model Shots up? | Yes, right after the hero. |
+| 2026-10-29 | C24: Photos on the Expertise tiles? | Tiles don't link anywhere. Photos are tried in the redesign (D-33). |
+| 2026-10-29 | C25: Hide video sections until real videos arrive? | Other Work hides while empty; Recent Work shows "Reel 2 0" (D-32). |
+| 2026-10-29 | C26: Get in touch near the top? | Try options in the redesign and review (D-33). |
 | 2026-10-26 | C15: AI-edited hero portrait? | OK, as long as the edit doesn't alter his face (Mason, relayed by Ashley). The live hero is the edit mirrored to face the headline; show him `mason-hero.jpg` itself, since mirroring shows his face flipped (earring in the other ear). Don't AI-upscale it: upscalers redraw facial detail. |
 | 2026-10-26 | C16: Re-upload two damaged photos? | Not needed. `IMG_0217` and `IMG_0224` stay out of the gallery (Mason, relayed by Ashley). |
 | 2026-10-09 | Is resume in MVP? | Yes: preview **and** download. |

@@ -5,9 +5,15 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import VideoCard from "@/components/ui/VideoCard";
 import { sectionHeadings, videos } from "@/content/home";
 import { selectHomeVideos } from "@/lib/video";
+import type { Video } from "@/types/content";
 
-export default function RecentWorkSection() {
-  const { featured, others } = selectHomeVideos(videos);
+type RecentWorkSectionProps = {
+  /** Defaults to Mason's video list; tests pass their own to cover the Other Work rule (C25) */
+  videos?: Video[];
+};
+
+export default function RecentWorkSection({ videos: list = videos }: RecentWorkSectionProps) {
+  const { featured, others } = selectHomeVideos(list);
   const copy = sectionHeadings.recentWork;
 
   return (

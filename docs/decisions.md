@@ -36,14 +36,14 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-05 · Videos are YouTube embeds behind a custom card
 
-- **Date:** 2026-10-09 · **Status:** Accepted
+- **Date:** 2026-10-09 · **Status:** Accepted; extended by D-12, then D-20
 - **Context:** Mason's videos are on YouTube, and the cards should match the site's styling.
 - **Decision:** Show a custom card (YouTube thumbnail, title, date, play badge). Load the YouTube iframe only on click, using `youtube-nocookie.com`.
 - **Consequences:** Full control over card styling and much faster page loads (no iframes until needed). Better privacy.
 
 ### D-06 · Resume: preview + download page
 
-- **Date:** 2026-10-09 · **Status:** Accepted (implementation details proposed)
+- **Date:** 2026-10-09 · **Status:** Accepted; implemented in Phase 7, amended by D-16
 - **Context:** Resume preview and download are in the MVP. There's no mockup.
 - **Decision:** A `/resume` page in the site's layout with a **Download PDF** button (`download` attribute) and an inline preview of the PDF (`<object>`/`<iframe>`, with a fallback link on mobile, where inline PDF viewing is unreliable). The PDF lives at `public/resume/`.
 - **Consequences:** No extra dependencies. Updating the resume means replacing one file.
@@ -79,7 +79,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-11 · Free stock photos for the MVP
 
-- **Date:** 2026-10-10 · **Status:** Accepted
+- **Date:** 2026-10-10 · **Status:** Accepted; amended by D-24 (gallery) and D-28 (Contact photo)
 - **Context:** Mason's current site has few photos, and extracting them takes time. The deadline is one week away.
 - **Decision:** Use free-licensed photos (Unsplash, Pexels and similar) for the MVP. Record each photo's source URL and photographer in `content/`. Portraits that stand in for Mason himself (hero, Model Shots, Portraits category) are placeholders and get replaced with his real photos before or shortly after launch (Q C10).
 - **Consequences:** Unblocks design work immediately. Optimize the images before committing them; the current placeholders are up to 7 MB.
@@ -136,21 +136,21 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-18 · Photo updates through a shared folder, no CMS
 
-- **Date:** 2026-10-19 · **Status:** Accepted (confirms D-03)
+- **Date:** 2026-10-19 · **Status:** Accepted (confirms D-03); amended by D-26
 - **Context:** Mason will add and remove photos, but only every 3–6 months (Q C1). A CMS costs setup time and another account for very little use.
 - **Decision:** Content stays in `content/*.ts`. Mason drops new photos into the shared Google Drive folder with a category and a short caption, and Ashley adds them (file, alt text, dimensions) and redeploys.
 - **Consequences:** No cost and nothing new to build; alt text stays good because Ashley writes it. If updates become frequent, a Git-based admin page (Keystatic or Decap: free, no database, commits to the repo) is the cheapest upgrade.
 
 ### D-19 · Contact form sends through Resend
 
-- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-07)
+- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-07); unblocked 2026-10-31 (F1 resolved)
 - **Context:** Mason wants a nicely formatted email when someone reaches out (Q C2). Formspree's free emails are plain; sending through his Gmail would store a password with full mailbox access in Vercel.
 - **Decision:** A server action sends a branded HTML email via Resend (free tier) to Mason, with `replyTo` set to the visitor. Mason owns the Resend account, signed up with the receiving address, so it can deliver to him before a domain is verified. The API key lives in a Vercel environment variable. It replaces the `send` function injected into `ContactForm`.
 - **Consequences:** Send-only credential and delivery logs. Until a domain is verified, mail comes from `onboarding@resend.dev` and only reaches the account owner's address; adding a domain later only changes the `from` address. Blocked on Mason creating the account (F1).
 
 ### D-20 · Videos are YouTube-only
 
-- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-12)
+- **Date:** 2026-10-19 · **Status:** Accepted (supersedes D-12); social links amended by D-30
 - **Context:** Mason only wants YouTube linked for now (Q C7) and will send a hand-picked list, newest first (Q C6).
 - **Decision:** Keep D-12's YouTube flow (free thumbnails, click-to-load `youtube-nocookie.com` player, 9:16 cards for Shorts) and its hand-curated, newest-first list with a `featured` flag. Drop Instagram Reels from the content and the UI; the `platform` field can stay so Reels can come back later.
 - **Consequences:** No Instagram embed script or uploaded thumbnails. Footer and Contact show YouTube and Email only.
@@ -179,7 +179,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-24 · Mason's photos replace all stock photos in the gallery
 
-- **Date:** 2026-10-26 · **Status:** Accepted (extends D-11)
+- **Date:** 2026-10-26 · **Status:** Accepted (extends D-11); 97 imported, two damaged photos left out (C16)
 - **Context:** The Drive folder has 99 unique photos across five categories. D-11 only required replacing stock *portraits*.
 - **Decision:** All 99 go into the `/media` gallery (D-18: what Mason puts in the folder goes on the site). Every stock photo leaves the gallery, and the homepage hero and Model Shots use Mason's photos (F5). Stock stays only where no real photo fits yet: the About journey and feature images and the Contact background. Weak photos (for example the ones under ~800 px wide) are flagged to Mason, not dropped. (Ashley, 2026-10-26.)
 - **Consequences:** A gallery about Mason shows only Mason. About 30 MB of images added to the repo. Unused stock files and their credits are deleted.
@@ -209,7 +209,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-28 · Contact card photo and label meet WCAG AA
 
-- **Date:** 2026-10-26 · **Status:** Accepted (amends D-11 for this photo)
+- **Date:** 2026-10-26 · **Status:** Accepted (amends D-11 for this photo); the card is redesigned under D-33 (C22)
 - **Context:** The "Contact info" label on the Contact card measured 1.2:1. The stock photo (JIWON KANG / Unsplash) is bright sky where the label sits, unlike the mockup's dark sea stacks, so no text color passed (even `brand-100` reached only 4.1:1). On mobile the card's text fills it from the top, so the label lands on the brightest part of any dusk photo.
 - **Decision:** Replace the photo with a violet long-exposure seascape, dark rocks across the middle ("Sunset" by Wang, Wikimedia Commons, CC0, imported from the 500px archive; its 500px watermark sits under the card's opaque fade). Show the label in `brand-200` on this card only (`<Eyebrow tone="photo">`). On mobile, make the card taller (`min-h-[50rem]`, desktop unchanged at `36rem`) so the text sits on the dark lower half, as it does on desktop. Saved as `coast-violet-rocks.jpg`, a new file name so Next's image cache doesn't serve the old photo. (Ashley, 2026-10-26.)
 - **Options measured with the Impeccable detector (desktop / mobile):** old photo + any palette color: fail; new photo alone: 3.9 / 1.7:1; beach-sunset photo (WordPress Photos, CC0): 3.8 / 2.6:1; new photo + `brand-200` + taller mobile card: pass at 1440, 412 and 390 px. Re-measured after code review: every text element on `/contact` passes at those widths, including the "Follow" label (3.6:1 before the D-27 eyebrow fix).
@@ -223,3 +223,52 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The Impeccable homepage critique (2026-10-27) rated the icon-only resume button P1: the resume is a top goal for the primary visitor (casting directors, `PRODUCT.md`), and a file icon whose name only appears on hover can't be read on touch screens at all. The Contact mockup also had RESUME in the nav.
 - **Decision:** Keep D-16's modal and placements (home hero, About intro, Contact card), but the button now shows the text "View resume" plus the `FileText` icon, styled like the outline button next to it. The visible text is the accessible name, so the `aria-label` and the duplicate `title` tooltip are removed (WCAG 2.5.3 Label in Name: https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html). (Ashley, 2026-10-27.)
 - **Consequences:** The button reuses the outline `Button` classes through `buttonClasses()` in `components/ui/Button.tsx`, so the two hero buttons can't drift apart again. All buttons use `px-6` below 640px (`px-8` above) so "View work" and "View resume" fit side by side at 412px. Covered by `components/resume/ResumeDialog.test.tsx` ("shows a visible 'View resume' label…").
+
+### D-30 · No social links; YouTube only for embedded videos
+
+- **Date:** 2026-10-29 · **Status:** Accepted (amends D-20)
+- **Context:** Mason doesn't want YouTube (or any social profile) linked (F4, 2026-10-29 meeting). With no profile URLs, the footer "Connect" column and the Contact card "Follow" section held only "Email", which repeats the email already shown next to them.
+- **Decision:** `socialLinks` in `content/site.ts` holds real profiles only (no Email entry). The footer "Connect" column and the Contact card "Follow" section render only when `socialLinks` has at least one item. Videos keep D-20's click-to-load YouTube embeds; the site never links to his channel. (Ashley, 2026-10-29.)
+- **Consequences:** Footer becomes Navigation + Contact. Adding a profile later is one line in `content/site.ts`; the sections come back on their own. The embedded player still shows YouTube's own logo, which can't be removed.
+
+### D-31 · Public contact email matches the resume; no phone number anywhere public
+
+- **Date:** 2026-10-29 · **Status:** Email part Accepted; phone part superseded by D-35
+- **Context:** His resume lists `mason.13.farrington@gmail.com`; the site used `masonfarrington@gmail.com`. The resume also prints his cell number, which the site has never shown (C3).
+- **Decision:** The site's email becomes `mason.13.farrington@gmail.com`. The phone number appears nowhere public: the published resume PDF has the phone line removed from the file itself (not covered with a box), and the output is checked with a text extraction. (Ashley, 2026-10-29.)
+- **Consequences:** The Resend account (F1, D-19) is expected under the same address; with no domain, Resend can only deliver to the account's own address, so confirm it before building the form. The original resume (with phone) is not committed.
+
+### D-32 · Only real videos on the site; empty video sections hide
+
+- **Date:** 2026-10-29 · **Status:** Accepted; Reel 2 0 shown as "Intro Video" (U2), three more reels added 2026-10-31 (F3)
+- **Context:** Mason has sent one video so far, "Mason Farrington Reel 2 0" (`1BnBTdARUHk`, unlisted, sent by him). More are coming (F3). The live site still shows Blender demo films as his work.
+- **Decision:** "Reel 2 0" is the featured Recent Work video and joins the gallery under "Other". Every Blender placeholder video is removed (home and gallery). Other Work hides itself while it has no videos (C25). (Ashley, 2026-10-29.)
+- **Consequences:** Unlisted videos embed fine (embedding is on; checked with YouTube oEmbed), but they become effectively public once on the site. New videos are added newest first as Mason sends them, and Other Work comes back on its own.
+
+### D-33 · Impeccable redesign of the banner, buttons, Contact card, footer, expertise cards and animations
+
+- **Date:** 2026-10-29 · **Status:** Accepted (scope); designs to come
+- **Context:** At the 2026-10-29 review, Ashley decided to redesign several parts of the site rather than patch them (replaces the C19 gradient fix, C20 text-color fix and C22 approval).
+- **Decision:** One redesign pass with the Impeccable skill (D-27), on its own branch after the content fixes. Scope:
+  1. CTA banner ("Interested in working together?"). Its heading must reach AA (3:1 large text; it's 2.5:1 today).
+  2. Buttons across the site.
+  3. The Contact page's right-hand card. Starting point: D-28 (darker photo, lighter label) is what made it pass AA.
+  4. Footer, starting from the D-30 version (no Connect column).
+  5. Site animations (absorbs the "Page transitions and scroll animations" backlog item); respect `prefers-reduced-motion`.
+  6. Expertise cards: text must pass AA (4.5:1 for subtitles; Model and Singer are 2.0:1 and 2.5:1 today). Try photos on the tiles (C24); the tiles don't link anywhere.
+  - Also: "Get in touch" reachable from the top of the homepage on mobile (C26), via a third hero action or a header that stays visible. Try options and review.
+- **Consequences:** Changes the approved look (D-10), so Mason sees a before/after before it ships. Every redesigned piece is re-measured for AA contrast.
+
+### D-34 · Mason's reels keep their contact title card (exception to D-31)
+
+- **Date:** 2026-10-31 · **Status:** Superseded by D-35
+- **Context:** Mason sent three more reels (Vocal, Dance, Acting; F3). Their YouTube thumbnail is a title card he made with his email, phone number and Instagram handle, so the Other Work cards show it. D-31 says no phone number anywhere public, and D-30 says no social links.
+- **Decision:** Show the reels as Mason uploaded them, title card included. Ashley believes the card is deliberate (a casting-style contact slate) and that it's the only place the number appears. The site itself still shows no phone number and links no profiles: the exception covers Mason's own video content only. Ashley confirms with Mason (U3). (Ashley, 2026-10-31.)
+- **Consequences:** The number is visible on the homepage and Media page through YouTube's thumbnails and players. The site's code, content files and docs still never contain it. If Mason wants it gone, he changes the thumbnail (and the video, if the card is in it) on YouTube; the site picks that up without a code change. If he can't, swap to our own thumbnails or hold the reels back.
+
+### D-35 · Mason's phone number may be public: resume as sent, reels as uploaded
+
+- **Date:** 2026-10-31 · **Status:** Accepted; supersedes D-34 and the phone part of D-31
+- **Context:** D-31 kept his phone number off everything public, and D-34 made a provisional exception for the contact card on his reels. Ashley checked with Mason (U3).
+- **Decision:** Mason wants his contact details shown where he put them. The resume PDF is published exactly as he sent it, phone line included, and the reels keep their contact-card thumbnails. (Mason, confirmed to Ashley 2026-10-31.)
+- **Consequences:** The resume PDF and reel thumbnails are the only places the number appears; the site's own pages still don't show it and `contactInfo.phone` stays unset: Ashley keeps it off the Contact page and footer (2026-10-31). No exception is left to track. D-30 (no social links on the site) is unchanged, even though his Instagram handle shows on the reel thumbnails.

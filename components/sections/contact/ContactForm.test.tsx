@@ -82,7 +82,7 @@ describe("ContactForm", () => {
     expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
 
     const status = screen.getByRole("status");
-    expect(status).toHaveTextContent(contactInfo.email);
+    expect(status).toHaveTextContent(`email me directly at ${contactInfo.email}`);
     expect(screen.getByRole("link", { name: contactInfo.email })).toHaveAttribute(
       "href",
       `mailto:${contactInfo.email}`,
