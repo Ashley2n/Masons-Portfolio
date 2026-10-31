@@ -124,7 +124,7 @@ describe("site content", () => {
     expect(new Set(addresses)).toEqual(new Set(["mason.13.farrington@gmail.com"]));
   });
 
-  it("shows no phone number (D-31)", () => {
+  it("keeps the phone number off the site's pages (D-35)", () => {
     expect(contactInfo.phone).toBeUndefined();
   });
 });

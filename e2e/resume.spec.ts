@@ -17,6 +17,12 @@ test.describe("resume", () => {
     expect(response.ok()).toBe(true);
     expect(response.headers()["content-type"]).toContain("application/pdf");
   });
+
+  test("serves Mason's real resume, not the 2 KB placeholder (F2, #13)", async ({ request }) => {
+    const response = await request.get("/resume/mason-farrington-resume.pdf");
+
+    expect((await response.body()).byteLength).toBeGreaterThan(50_000);
+  });
 });
 
 test.describe("resume modal", () => {

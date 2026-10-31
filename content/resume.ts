@@ -2,7 +2,7 @@ export const resumeContent = {
   eyebrow: "Resume",
   title: "Resume",
   description: "Training, credits and experience across stage, screen, music and design.",
-  // Placeholder PDF until Mason sends his resume (Q C4). Replace the file, keep the name.
+  // Mason's resume as he sent it (F2, D-35). To update it, replace the file and keep the name.
   file: {
     href: "/resume/mason-farrington-resume.pdf",
     downloadName: "Mason-Farrington-Resume.pdf",

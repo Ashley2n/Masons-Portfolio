@@ -233,7 +233,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-31 · Public contact email matches the resume; no phone number anywhere public
 
-- **Date:** 2026-10-29 · **Status:** Accepted
+- **Date:** 2026-10-29 · **Status:** Email part Accepted; phone part superseded by D-35
 - **Context:** His resume lists `mason.13.farrington@gmail.com`; the site used `masonfarrington@gmail.com`. The resume also prints his cell number, which the site has never shown (C3).
 - **Decision:** The site's email becomes `mason.13.farrington@gmail.com`. The phone number appears nowhere public: the published resume PDF has the phone line removed from the file itself (not covered with a box), and the output is checked with a text extraction. (Ashley, 2026-10-29.)
 - **Consequences:** The Resend account (F1, D-19) is expected under the same address; with no domain, Resend can only deliver to the account's own address, so confirm it before building the form. The original resume (with phone) is not committed.
@@ -261,7 +261,14 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-34 · Mason's reels keep their contact title card (exception to D-31)
 
-- **Date:** 2026-10-31 · **Status:** Accepted, pending Mason's confirmation (U3); amends D-31
+- **Date:** 2026-10-31 · **Status:** Superseded by D-35
 - **Context:** Mason sent three more reels (Vocal, Dance, Acting; F3). Their YouTube thumbnail is a title card he made with his email, phone number and Instagram handle, so the Other Work cards show it. D-31 says no phone number anywhere public, and D-30 says no social links.
 - **Decision:** Show the reels as Mason uploaded them, title card included. Ashley believes the card is deliberate (a casting-style contact slate) and that it's the only place the number appears. The site itself still shows no phone number and links no profiles: the exception covers Mason's own video content only. Ashley confirms with Mason (U3). (Ashley, 2026-10-31.)
 - **Consequences:** The number is visible on the homepage and Media page through YouTube's thumbnails and players. The site's code, content files and docs still never contain it. If Mason wants it gone, he changes the thumbnail (and the video, if the card is in it) on YouTube; the site picks that up without a code change. If he can't, swap to our own thumbnails or hold the reels back.
+
+### D-35 · Mason's phone number may be public: resume as sent, reels as uploaded
+
+- **Date:** 2026-10-31 · **Status:** Accepted; supersedes D-34 and the phone part of D-31
+- **Context:** D-31 kept his phone number off everything public, and D-34 made a provisional exception for the contact card on his reels. Ashley checked with Mason (U3).
+- **Decision:** Mason wants his contact details shown where he put them. The resume PDF is published exactly as he sent it, phone line included, and the reels keep their contact-card thumbnails. (Mason, confirmed to Ashley 2026-10-31.)
+- **Consequences:** The resume PDF and reel thumbnails are the only places the number appears; the site's own pages still don't show it and `contactInfo.phone` stays unset (showing it on the Contact page would be a new decision). No exception is left to track. D-30 (no social links on the site) is unchanged, even though his Instagram handle shows on the reel thumbnails.

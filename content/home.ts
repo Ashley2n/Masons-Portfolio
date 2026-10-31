@@ -43,7 +43,7 @@ export const videos: Video[] = [
     featured: true,
   },
   // Sent by Mason 2026-10-31 (F3), all unlisted with embedding on; their thumbnail is his
-  // contact card (D-34). Same upload day, so the order he sent them is the Other Work order.
+  // contact card (D-35). Same upload day, so the order he sent them is the Other Work order.
   {
     id: "vocal-reel",
     platform: "youtube",

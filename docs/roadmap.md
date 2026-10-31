@@ -104,12 +104,12 @@ _Last updated: 2026-10-19_
 
 Live-site content that's wrong today. Ships before the redesign.
 
-- [ ] Real resume at `public/resume/mason-farrington-resume.pdf`, phone line removed from the file and checked (F2, D-31)
+- [x] Real resume at `public/resume/mason-farrington-resume.pdf`, ~~phone line removed from the file and checked~~ published as sent, phone included (D-35) (F2, D-31)
 - [x] Contact email → `mason.13.farrington@gmail.com` (D-31)
 - [x] "Reel 2 0" as featured Recent Work and in the gallery under Other; remove all Blender videos; Other Work hides when empty (F3, D-32)
 - [x] Remove Email from `socialLinks`; hide footer Connect and Contact Follow when empty (D-30)
 - [x] Move Model Shots to right after the hero (C23)
-- [ ] Add `RESEND_API_KEY` in Vercel env vars; confirm the Resend account email before building the form (F1)
+- [x] Add `RESEND_API_KEY` in Vercel env vars; confirm the Resend account email before building the form (F1, done 2026-10-31)
 
 ## Phase 10 · Impeccable redesign (`feat/redesign`)
 

@@ -14,7 +14,6 @@ Answered in principle; the asset or account is still to come.
 
 | # | Item | Notes |
 |---|---|---|
-| F1 | **Resend account** (C2) | API key received 2026-10-29 and stored in `.env.local` as `RESEND_API_KEY` (gitignored). Still to do: add it in Vercel env vars, and **confirm the account is under `mason.13.farrington@gmail.com`** before building the form (D-31: with no domain, Resend only delivers to the account's own address). |
 | F3 | **More video links** (C6) | 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32), shown on the site as "Mason Farrington Intro Video". 2026-10-31: Vocal, Dance and Acting reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`; unlisted, landscape, embedding on), live in Other Work and the gallery under Other. More may come; add each newest first. |
 | F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
@@ -23,7 +22,6 @@ Answered in principle; the asset or account is still to come.
 | # | Item | Notes |
 |---|---|---|
 | U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
-| U3 | **Contact card on the reels** (D-34) | The Vocal, Dance and Acting reels' thumbnail (and maybe their opening) shows his phone number and Instagram handle. They're live on the site as he uploaded them. Confirm he wants that public; if not, he changes the thumbnail on YouTube and nothing changes in the code. |
 
 ## Internal (Ashley)
 
@@ -35,6 +33,8 @@ Answered in principle; the asset or account is still to come.
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-10-31 | U3: Contact card on the reels? | Mason wants it shown, and the resume published with his phone line (D-35). |
+| 2026-10-31 | F1: Resend account? | `RESEND_API_KEY` is in Vercel's environment variables, and the account is under `mason.13.farrington@gmail.com` (Ashley). The form backend can be built (D-19). |
 | 2026-10-31 | U2: "Reel 2.0" or "Reel 2 0"? | Neither: the site calls it "Mason Farrington Intro Video", since that's what the video is (Ashley; she has free rein on copy, 2026-10-09). The YouTube title is unchanged. |
 | 2026-10-29 | F2: Real resume? | Received. Publish it with the phone line removed from the file (D-31). |
 | 2026-10-29 | Which contact email? | `mason.13.farrington@gmail.com`, as on his resume. No phone number anywhere public (D-31). |

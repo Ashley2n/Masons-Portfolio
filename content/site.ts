@@ -16,7 +16,7 @@ export const navLinks: NavLink[] = [
 export const contactInfo: ContactInfo = {
   // The address on Mason's resume (D-31)
   email: "mason.13.farrington@gmail.com",
-  // No phone number anywhere public (D-31)
+  // No phone number on the site's pages; it's only in the resume PDF and reel thumbnails (D-35)
   location: "Los Angeles, CA",
 };
 

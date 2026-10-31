@@ -16,7 +16,7 @@ _Last updated: 2026-10-31_
 | Favicon and app icon | ❌ | Can be generated from the MF monogram. |
 | Social share image (Open Graph, 1200×630) | ❌ | Can be generated from the hero photo. |
 | Email address for the site | ✅ | `mason.13.farrington@gmail.com`, as on his resume (D-31, 2026-10-29). |
-| Phone number | ✅ | None: no phone number anywhere public, including the resume PDF (D-31, 2026-10-29). Leave `phone` unset in `contactInfo` (`content/site.ts`). |
+| Phone number | ✅ | In the resume PDF and on the reel thumbnails only, as Mason wants (D-35). The site's pages don't show it; leave `phone` unset in `contactInfo`. |
 | Location | ✅ | Los Angeles, CA |
 | Social links (Instagram, YouTube, others) | ✅ | None: Mason doesn't want any linked (F4, D-30). Add one to `socialLinks` in `content/site.ts` if that changes. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
@@ -32,7 +32,7 @@ _Last updated: 2026-10-31_
 | Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
 | Recent Work: featured video | ✅ | "Mason Farrington Intro Video" (YouTube title "Reel 2 0", `1BnBTdARUHk`, D-32). The Blender placeholders are gone. |
-| Other Work: 3 videos (title, date, link) | ✅ | Vocal, Dance and Acting reels, received 2026-10-31 (F3); thumbnails show his contact card (D-34, pending U3). Later videos go in `content/home.ts`, newest first; Other Work shows the newest three. |
+| Other Work: 3 videos (title, date, link) | ✅ | Vocal, Dance and Acting reels, received 2026-10-31 (F3); thumbnails show his contact card (D-35). Later videos go in `content/home.ts`, newest first; Other Work shows the newest three. |
 | Model Shots: 5+ portrait photos | ✅ | Mason's `modeling-02, 08, 10, 01, 06` (all landscape, so they fill the wide desktop frame); alt text shared with the gallery. |
 
 ## About (`/about`)
@@ -57,7 +57,7 @@ _Last updated: 2026-10-31_
 
 | Item | Status | Notes |
 |---|---|---|
-| Resume PDF | 🔁 | Placeholder (watermarked SAMPLE) at `public/resume/mason-farrington-resume.pdf`. Replace the file with Mason's PDF, same name (Q C4). |
+| Resume PDF | ✅ | Mason's resume as he sent it, at `public/resume/mason-farrington-resume.pdf` (F2, D-35, 2026-10-31). To update, replace the file and keep the name. |
 
 ## Contact (`/contact`)
 

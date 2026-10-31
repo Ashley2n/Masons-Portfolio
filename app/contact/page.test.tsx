@@ -32,7 +32,7 @@ describe("/contact page", () => {
       expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
     });
 
-    it("shows no phone link (D-31)", () => {
+    it("shows no phone link (D-35)", () => {
       render(<Page />);
 
       expect(card().querySelector('a[href^="tel:"]')).toBeNull();
