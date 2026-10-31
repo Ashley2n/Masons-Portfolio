@@ -50,15 +50,19 @@ describe("home content", () => {
     expect("credit" in homeImages.hero).toBe(false);
   });
 
-  it("only Mason's real reel is on the site, featured on the homepage (D-32)", () => {
+  it("only Mason's real reels are on the site, the Intro Video featured on the homepage (D-32, F3)", () => {
     expect(videos).toEqual([
       expect.objectContaining({
         platform: "youtube",
         youtubeId: "1BnBTdARUHk",
-        title: "Mason Farrington Reel 2 0",
+        title: "Mason Farrington Intro Video",
         featured: true,
       }),
+      expect.objectContaining({ youtubeId: "sK9xduGWTaQ", title: "Mason Farrington Vocal Reel" }),
+      expect.objectContaining({ youtubeId: "3yPWsqxpAa8", title: "Mason Farrington Dance Reel" }),
+      expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel" }),
     ]);
+    expect(videos.filter((v) => v.featured)).toHaveLength(1);
   });
 
   // Stock photos that stay until Mason's replacements arrive (D-24)
@@ -142,11 +146,16 @@ describe("media gallery content", () => {
     });
   });
 
-  it("files the reel under Other and keeps no Blender placeholder videos (D-32)", () => {
+  it("files every reel under Other and keeps no Blender placeholder videos (D-32, F3)", () => {
     const galleryVideos = galleryItems.flatMap((item) =>
       item.kind === "video" ? [{ category: item.category, youtubeId: item.video.platform === "youtube" ? item.video.youtubeId : undefined }] : [],
     );
-    expect(galleryVideos).toEqual([{ category: "other", youtubeId: "1BnBTdARUHk" }]);
+    expect(galleryVideos).toEqual(
+      expect.arrayContaining(
+        ["1BnBTdARUHk", "sK9xduGWTaQ", "3yPWsqxpAa8", "VdFlh2DAS20"].map((youtubeId) => ({ category: "other", youtubeId })),
+      ),
+    );
+    expect(galleryVideos).toHaveLength(4);
   });
 
   it("labels the filters in Mason's order (D-22, D-23)", () => {

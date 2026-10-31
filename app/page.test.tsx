@@ -99,14 +99,19 @@ describe("Home page", () => {
     render(<Home />);
 
     expect(
-      screen.getByRole("button", { name: "Play Mason Farrington Reel 2 0" }),
+      screen.getByRole("button", { name: "Play Mason Farrington Intro Video" }),
     ).toBeInTheDocument();
   });
 
-  it("hides Other Work while the reel is the only video (C25; both branches in RecentWorkSection.test.tsx)", () => {
+  it("lists the vocal, dance and acting reels under Other Work (F3; hide-when-empty in RecentWorkSection.test.tsx)", () => {
     render(<Home />);
 
-    expect(screen.queryByRole("region", { name: "Other Work" })).not.toBeInTheDocument();
+    const otherWork = screen.getByRole("region", { name: "Other Work" });
+    for (const title of ["Vocal", "Dance", "Acting"]) {
+      expect(
+        within(otherWork).getByRole("button", { name: `Play Mason Farrington ${title} Reel` }),
+      ).toBeInTheDocument();
+    }
   });
 
   it("includes the Model Shots carousel (behavior tested in ModelShotsCarousel.test.tsx)", () => {

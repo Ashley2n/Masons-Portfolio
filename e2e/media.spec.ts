@@ -45,9 +45,9 @@ test.describe("media gallery", () => {
       .getByRole("group", { name: "Filter by category" })
       .getByRole("button", { name: "Other" })
       .click();
-    await page.getByRole("button", { name: "Play Mason Farrington Reel 2 0" }).click();
+    await page.getByRole("button", { name: "Play Mason Farrington Intro Video" }).click();
 
-    await expect(page.locator('iframe[title="Mason Farrington Reel 2 0"]')).toHaveAttribute(
+    await expect(page.locator('iframe[title="Mason Farrington Intro Video"]')).toHaveAttribute(
       "src",
       /youtube-nocookie\.com\/embed\/1BnBTdARUHk/,
     );
@@ -58,7 +58,13 @@ test.describe("media gallery", () => {
     const loadMore = page.getByRole("button", { name: "Load more" });
     while (await loadMore.count()) await loadMore.click();
 
-    await expect(page.getByRole("button", { name: /^Play / })).toHaveCount(1);
+    // Only Mason's own videos (F3)
+    const playLabels = await page
+      .getByRole("button", { name: /^Play / })
+      .evaluateAll((buttons) => buttons.map((b) => b.getAttribute("aria-label")));
+    expect(playLabels.sort()).toEqual(
+      ["Acting Reel", "Dance Reel", "Intro Video", "Vocal Reel"].map((t) => `Play Mason Farrington ${t}`),
+    );
     // Exact text inside the gallery, so later copy (e.g. "Spring recital") can't false-fail this
     const gallery = page.getByRole("list", { name: "Gallery" });
     const blenderTitles = [

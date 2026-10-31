@@ -34,13 +34,39 @@ export const expertiseItems: ExpertiseItem[] = [
 // Mason's real videos only (D-32). The date is the YouTube upload date.
 export const videos: Video[] = [
   {
-    id: "reel-2-0",
+    id: "intro-video",
     platform: "youtube",
     youtubeId: "1BnBTdARUHk",
-    title: "Mason Farrington Reel 2 0",
+    title: "Mason Farrington Intro Video",
     date: "2026-03-31",
     orientation: "landscape",
     featured: true,
+  },
+  // Sent by Mason 2026-10-31 (F3), all unlisted with embedding on; their thumbnail is his
+  // contact card (D-34). Same upload day, so the order he sent them is the Other Work order.
+  {
+    id: "vocal-reel",
+    platform: "youtube",
+    youtubeId: "sK9xduGWTaQ",
+    title: "Mason Farrington Vocal Reel",
+    date: "2026-10-31",
+    orientation: "landscape",
+  },
+  {
+    id: "dance-reel",
+    platform: "youtube",
+    youtubeId: "3yPWsqxpAa8",
+    title: "Mason Farrington Dance Reel",
+    date: "2026-10-31",
+    orientation: "landscape",
+  },
+  {
+    id: "acting-reel",
+    platform: "youtube",
+    youtubeId: "VdFlh2DAS20",
+    title: "Mason Farrington Acting Reel",
+    date: "2026-10-31",
+    orientation: "landscape",
   },
 ];
 

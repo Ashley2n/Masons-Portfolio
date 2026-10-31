@@ -258,3 +258,10 @@ A lightweight record of technical and product decisions, in the style of [Archit
   6. Expertise cards: text must pass AA (4.5:1 for subtitles; Model and Singer are 2.0:1 and 2.5:1 today). Try photos on the tiles (C24); the tiles don't link anywhere.
   - Also: "Get in touch" reachable from the top of the homepage on mobile (C26), via a third hero action or a header that stays visible. Try options and review.
 - **Consequences:** Changes the approved look (D-10), so Mason sees a before/after before it ships. Every redesigned piece is re-measured for AA contrast.
+
+### D-34 · Mason's reels keep their contact title card (exception to D-31)
+
+- **Date:** 2026-10-31 · **Status:** Accepted, pending Mason's confirmation (U3); amends D-31
+- **Context:** Mason sent three more reels (Vocal, Dance, Acting; F3). Their YouTube thumbnail is a title card he made with his email, phone number and Instagram handle, so the Other Work cards show it. D-31 says no phone number anywhere public, and D-30 says no social links.
+- **Decision:** Show the reels as Mason uploaded them, title card included. Ashley believes the card is deliberate (a casting-style contact slate) and that it's the only place the number appears. The site itself still shows no phone number and links no profiles: the exception covers Mason's own video content only. Ashley confirms with Mason (U3). (Ashley, 2026-10-31.)
+- **Consequences:** The number is visible on the homepage and Media page through YouTube's thumbnails and players. The site's code, content files and docs still never contain it. If Mason wants it gone, he changes the thumbnail (and the video, if the card is in it) on YouTube; the site picks that up without a code change. If he can't, swap to our own thumbnails or hold the reels back.

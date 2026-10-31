@@ -38,7 +38,12 @@ const photoItems = galleryPhotos.map(({ id, category, src, alt, width, height })
   photo: { src, alt, width, height },
 }));
 
-const videoItems = [video("other", "reel-2-0")];
+const videoItems = [
+  video("other", "intro-video"),
+  video("other", "vocal-reel"),
+  video("other", "dance-reel"),
+  video("other", "acting-reel"),
+];
 
 /** Gallery order: one item from each category in turn, so every page of results has variety, like the mockup. */
 export const galleryItems: GalleryItem[] = interleave([

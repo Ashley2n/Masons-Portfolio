@@ -31,8 +31,8 @@ _Last updated: 2026-10-31_
 | Journey stats (3) | ✅ | Match mockup: 10+ theatrical/musical shows · 12+ concerts, competitions & live events · 4+ theatrical/musical shows. |
 | Journey image (spotlight on stage) | ✅ | Mason's `staged-11` (full cast in violet stage light), reused from the gallery (D-24). |
 | Expertise cards | ✅ | Match mockup: Model (Stage & Screen Work) · Designer (Branding & Digital Design) · Singer (Live Vocals & Studio) · Actor (Theatre & On Camera). Proposed link: `/media`. |
-| Recent Work: featured video | ✅ | Mason's "Reel 2 0" (`1BnBTdARUHk`, D-32). The Blender placeholders are gone. |
-| Other Work: 3 videos (title, date, link) | ⏳ | Hidden while there are no videos besides the featured reel (D-32, C25). Add Mason's next YouTube videos to `content/home.ts`, newest first, and the section comes back on its own (F3, D-20). |
+| Recent Work: featured video | ✅ | "Mason Farrington Intro Video" (YouTube title "Reel 2 0", `1BnBTdARUHk`, D-32). The Blender placeholders are gone. |
+| Other Work: 3 videos (title, date, link) | ✅ | Vocal, Dance and Acting reels, received 2026-10-31 (F3); thumbnails show his contact card (D-34, pending U3). Later videos go in `content/home.ts`, newest first; Other Work shows the newest three. |
 | Model Shots: 5+ portrait photos | ✅ | Mason's `modeling-02, 08, 10, 01, 06` (all landscape, so they fill the wide desktop frame); alt text shared with the gallery. |
 
 ## About (`/about`)
@@ -51,7 +51,7 @@ _Last updated: 2026-10-31_
 |---|---|---|
 | Hero copy ("Moments. Stories. Vision.") | ✅ | |
 | Gallery photos (12+), each with category and alt text | ✅ | 97 of Mason's photos via `npm run import-photos` (D-25), in `public/images/media/<category>/`; alt text drafted by Claude, reviewed by Ashley (D-26). 2 damaged files left out (C16). |
-| Gallery videos (YouTube / Reel links + category) | ⏳ | "Reel 2 0" under Other is live; the Blender placeholders are gone (D-32). More videos to come from Mason via F3 (YouTube only, D-20). |
+| Gallery videos (YouTube / Reel links + category) | ✅ | The Intro Video and the Vocal, Dance and Acting reels are live under Other; the Blender placeholders are gone (D-32). Add later videos via F3 (YouTube only, D-20). |
 
 ## Resume (`/resume`)
 

@@ -15,7 +15,7 @@ Answered in principle; the asset or account is still to come.
 | # | Item | Notes |
 |---|---|---|
 | F1 | **Resend account** (C2) | API key received 2026-10-29 and stored in `.env.local` as `RESEND_API_KEY` (gitignored). Still to do: add it in Vercel env vars, and **confirm the account is under `mason.13.farrington@gmail.com`** before building the form (D-31: with no domain, Resend only delivers to the account's own address). |
-| F3 | **More video links** (C6) | One received 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32). More coming; add each newest first, and Other Work reappears on its own. |
+| F3 | **More video links** (C6) | 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32), shown on the site as "Mason Farrington Intro Video". 2026-10-31: Vocal, Dance and Acting reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`; unlisted, landscape, embedding on), live in Other Work and the gallery under Other. More may come; add each newest first. |
 | F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
 ## For the next update to Mason
@@ -23,18 +23,19 @@ Answered in principle; the asset or account is still to come.
 | # | Item | Notes |
 |---|---|---|
 | U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
-| U2 | **Reel title** (D-32) | The site shows the YouTube title "Mason Farrington Reel 2 0". Should it read "Reel 2.0"? If so, change the title on YouTube too, or only on the site? |
+| U3 | **Contact card on the reels** (D-34) | The Vocal, Dance and Acting reels' thumbnail (and maybe their opening) shows his phone number and Instagram handle. They're live on the site as he uploaded them. Confirm he wants that public; if not, he changes the thumbnail on YouTube and nothing changes in the code. |
 
 ## Internal (Ashley)
 
 | # | Question | Notes |
 |---|---|---|
-| I1 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason's next video is a portrait Short, Other Work stays hidden, which isn't what D-32 expects ("Other Work comes back on its own"). Behaviour unchanged until decided. |
+| I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
 
 ## Resolved
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-10-31 | U2: "Reel 2.0" or "Reel 2 0"? | Neither: the site calls it "Mason Farrington Intro Video", since that's what the video is (Ashley; she has free rein on copy, 2026-10-09). The YouTube title is unchanged. |
 | 2026-10-29 | F2: Real resume? | Received. Publish it with the phone line removed from the file (D-31). |
 | 2026-10-29 | Which contact email? | `mason.13.farrington@gmail.com`, as on his resume. No phone number anywhere public (D-31). |
 | 2026-10-29 | F3: Videos? | One so far, "Reel 2 0"; it's featured, Blender videos come out, Other Work hides until more arrive (D-32). |
