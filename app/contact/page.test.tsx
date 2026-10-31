@@ -27,8 +27,8 @@ describe("/contact page", () => {
 
       expect(within(card()).getByRole("heading", { name: "Mason Farrington" })).toBeInTheDocument();
       expect(
-        within(card()).getByRole("link", { name: contactInfo.email }),
-      ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
+        within(card()).getByRole("link", { name: "mason.13.farrington@gmail.com" }),
+      ).toHaveAttribute("href", "mailto:mason.13.farrington@gmail.com");
       expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
     });
 
@@ -40,11 +40,15 @@ describe("/contact page", () => {
       else expect(phoneLink).toBeNull();
     });
 
-    it("lists the social links under Follow", () => {
+    it("lists the social links under Follow, or hides Follow when there are none (D-30)", () => {
       render(<Page />);
 
-      const follow = within(card()).getByRole("list", { name: "Follow" });
-      expect(within(follow).getAllByRole("link").map((a) => a.textContent)).toEqual(
+      const follow = within(card()).queryByRole("list", { name: "Follow" });
+      if (socialLinks.length === 0) {
+        expect(follow).toBeNull();
+        return;
+      }
+      expect(within(follow!).getAllByRole("link").map((a) => a.textContent)).toEqual(
         socialLinks.map((s) => s.label),
       );
     });

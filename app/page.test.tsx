@@ -42,17 +42,25 @@ describe("Home page", () => {
     });
   });
 
-  it("renders every section heading", () => {
+  it("orders the sections Hero → Model Shots → Journey → Expertise → Recent Work → CTA (C23)", () => {
     render(<Home />);
 
-    for (const heading of [
+    const headings = screen
+      .getAllByRole("heading", { level: 2 })
+      .map((h) => h.textContent)
+      // "Other Work" is a sub-part of Recent Work and may be hidden when empty (D-32).
+      .filter((text) => text !== "Other Work");
+    expect(headings).toEqual([
+      "Model Shots",
       "The Journey So Far",
       "What I Do",
       "Recent Work",
-      "Model Shots",
-    ]) {
-      expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
-    }
+      "Interested in working together?",
+    ]);
+    // The hero's h1 comes before every section heading.
+    const h1 = screen.getByRole("heading", { level: 1 });
+    const firstH2 = screen.getByRole("heading", { level: 2, name: "Model Shots" });
+    expect(h1.compareDocumentPosition(firstH2) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("shows the journey stats with the mockup labels and image", () => {

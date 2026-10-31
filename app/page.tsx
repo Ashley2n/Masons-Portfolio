@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <ModelShotsCarousel />
       <JourneySection />
       <ExpertiseSection />
       <RecentWorkSection />
-      <ModelShotsCarousel />
       <CtaBanner />
     </>
   );

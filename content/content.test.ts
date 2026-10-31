@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutContent, milestones } from "./about";
@@ -86,10 +86,13 @@ describe("site content", () => {
     ]);
   });
 
-  it("social links are absolute https or mailto URLs with unique ids", () => {
-    expect(socialLinks.length).toBeGreaterThan(0);
-    socialLinks.forEach((link) => expect(link.href).toMatch(/^(https:\/\/|mailto:)/));
+  it("social links may be empty, but every link is an absolute https URL with a unique id (D-30)", () => {
+    socialLinks.forEach((link) => expect(link.href).toMatch(/^https:\/\//));
     expectUniqueIds(socialLinks);
+  });
+
+  it("social links have no Email entry; email lives in the Contact column instead (D-30)", () => {
+    expect(socialLinks.find((link) => link.id === "email" || link.href.startsWith("mailto:"))).toBeUndefined();
   });
 
   it("social links point to real profiles, not placeholder homepages", () => {
@@ -101,6 +104,24 @@ describe("site content", () => {
   it("contact info has a valid email and a location", () => {
     expect(contactInfo.email).toMatch(/^[^@\s]+@[^@\s]+\.[a-z]+$/);
     expect(contactInfo.location.trim()).not.toBe("");
+  });
+
+  it("uses the email on Mason's resume (D-31)", () => {
+    expect(contactInfo.email).toBe("mason.13.farrington@gmail.com");
+  });
+
+  it("has no other real email address anywhere in the site content", () => {
+    // Form placeholders use the reserved example.com domain (RFC 2606), not a real inbox
+    const addresses = readdirSync(__dirname)
+      .filter((file) => file.endsWith(".ts") && !file.endsWith(".test.ts"))
+      .flatMap((file) => readFileSync(join(__dirname, file), "utf8").match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g) ?? [])
+      .filter((address) => !address.endsWith("@example.com"));
+
+    expect(new Set(addresses)).toEqual(new Set(["mason.13.farrington@gmail.com"]));
+  });
+
+  it("shows no phone number (D-31)", () => {
+    expect(contactInfo.phone).toBeUndefined();
   });
 });
 
