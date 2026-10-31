@@ -1,14 +1,15 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { contactContent } from "@/content/contact";
 import { contactInfo } from "@/content/site";
+import type { ContactSend, ContactSendResult } from "@/lib/contact";
 import ContactForm from "./ContactForm";
 
 const { errors } = contactContent.form;
 
 const setup = () => {
-  const send = vi.fn();
+  const send = vi.fn<ContactSend>().mockResolvedValue({ ok: true });
   const user = userEvent.setup();
   render(<ContactForm send={send} />);
   return {
@@ -67,7 +68,7 @@ describe("ContactForm", () => {
     expect(email).toHaveAccessibleDescription(errors.emailInvalid);
   });
 
-  it("opens the email app with the message and confirms with a fallback address", async () => {
+  it("sends the visitor's values and confirms with a fallback address", async () => {
     const { user, send, name, email, message, submit } = setup();
 
     await user.type(name, "Ada Lovelace");
@@ -75,11 +76,11 @@ describe("ContactForm", () => {
     await user.type(message, "Would love to collaborate on a show.");
     await user.click(submit);
 
-    expect(send).toHaveBeenCalledOnce();
-    const url = new URL(send.mock.calls[0][0]);
-    expect(url.protocol).toBe("mailto:");
-    expect(url.pathname).toBe(contactInfo.email);
-    expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
+    expect(send).toHaveBeenCalledExactlyOnceWith({
+      name: "Ada Lovelace",
+      email: "ada@example.com",
+      message: "Would love to collaborate on a show.",
+    });
 
     const status = screen.getByRole("status");
     expect(status).toHaveTextContent(`email me directly at ${contactInfo.email}`);
@@ -87,6 +88,34 @@ describe("ContactForm", () => {
       "href",
       `mailto:${contactInfo.email}`,
     );
+  });
+
+  it("waits for the send to finish before confirming", async () => {
+    const { user, send, name, email, message, submit } = setup();
+    let finish!: (result: ContactSendResult) => void;
+    send.mockReturnValue(new Promise((resolve) => (finish = resolve)));
+
+    await user.type(name, "Ada");
+    await user.type(email, "ada@example.com");
+    await user.type(message, "Would love to collaborate.");
+    await user.click(submit);
+    expect(screen.getByRole("status")).toHaveTextContent(contactContent.form.note);
+
+    finish({ ok: true });
+    expect(await screen.findByRole("link", { name: contactInfo.email })).toBeInTheDocument();
+  });
+
+  it("does not confirm when the send fails", async () => {
+    const { user, send, name, email, message, submit } = setup();
+    send.mockResolvedValue({ ok: false });
+
+    await user.type(name, "Ada");
+    await user.type(email, "ada@example.com");
+    await user.type(message, "Would love to collaborate.");
+    await user.click(submit);
+
+    await waitFor(() => expect(send).toHaveBeenCalledOnce());
+    expect(screen.getByRole("status")).toHaveTextContent(contactContent.form.note);
   });
 
   it("tells assistive tech every field is required", () => {

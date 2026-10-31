@@ -8,13 +8,14 @@ import {
   hasErrors,
   validateContact,
   type ContactErrors,
+  type ContactSend,
   type ContactValues,
 } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 type ContactFormProps = {
-  /** Opens the mailto: link. Injectable so tests don't navigate. */
-  send?: (url: string) => void;
+  /** Sends the validated values. Injectable so tests don't navigate or hit the network. */
+  send?: ContactSend;
 };
 
 const fields = ["name", "email", "message"] as const;
@@ -23,13 +24,14 @@ const inputClass =
 
 // Opens the mail app by clicking a temporary link. Unlike assigning window.location,
 // this is a normal link activation that browsers (and the e2e test) can observe.
-const openMailApp = (url: string) => {
+const openMailApp: ContactSend = async (values) => {
   const link = document.createElement("a");
-  link.href = url;
+  link.href = buildMailtoUrl(values, contactInfo.email);
   link.hidden = true;
   document.body.append(link);
   link.click();
   link.remove();
+  return { ok: true };
 };
 
 export default function ContactForm({ send = openMailApp }: ContactFormProps) {
@@ -53,7 +55,7 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
     if (submitted) setErrors(validateContact(next));
   };
 
-  const onSubmit = (event: FormEvent) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
     const result = validateContact(values);
@@ -63,8 +65,8 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
       if (firstInvalid) refs[firstInvalid].current?.focus();
       return;
     }
-    send(buildMailtoUrl(values, contactInfo.email));
-    setSent(true);
+    const { ok } = await send(values);
+    setSent(ok);
   };
 
   const fieldProps = (field: (typeof fields)[number]) => ({
