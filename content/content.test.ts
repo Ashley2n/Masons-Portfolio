@@ -75,10 +75,13 @@ describe("site content", () => {
     ]);
   });
 
-  it("social links are absolute https or mailto URLs with unique ids", () => {
-    expect(socialLinks.length).toBeGreaterThan(0);
-    socialLinks.forEach((link) => expect(link.href).toMatch(/^(https:\/\/|mailto:)/));
+  it("social links may be empty, but every link is an absolute https URL with a unique id (D-30)", () => {
+    socialLinks.forEach((link) => expect(link.href).toMatch(/^https:\/\//));
     expectUniqueIds(socialLinks);
+  });
+
+  it("social links have no Email entry; email lives in the Contact column instead (D-30)", () => {
+    expect(socialLinks.find((link) => link.id === "email" || link.href.startsWith("mailto:"))).toBeUndefined();
   });
 
   it("social links point to real profiles, not placeholder homepages", () => {

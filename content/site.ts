@@ -20,10 +20,10 @@ export const contactInfo: ContactInfo = {
 };
 
 export const socialLinks: SocialLink[] = [
-  // Hidden until Mason sends his profile URLs (Q C7). Add them back like:
+  // Mason wants no social profiles linked (D-30). The footer Connect column and the
+  // Contact card Follow section hide while this is empty. To add a profile later:
   // { id: "instagram", label: "Instagram", href: "https://www.instagram.com/<handle>/" },
   // { id: "youtube", label: "YouTube", href: "https://www.youtube.com/@<handle>" },
-  { id: "email", label: "Email", href: `mailto:${contactInfo.email}` },
 ];
 
 export const ctaBanner = {

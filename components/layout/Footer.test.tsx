@@ -1,22 +1,26 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type { SocialLink } from "@/types/content";
 import Footer from "./Footer";
 
-// Use a sample profile so link behavior is tested even while real socials are hidden (Q C7)
+// Mason links no profiles today (D-30), so each test picks the list it needs
+const content = vi.hoisted(() => ({ socialLinks: [] as SocialLink[] }));
+const sampleProfile: SocialLink = { id: "instagram", label: "Instagram", href: "https://www.instagram.com/example/" };
+
 vi.mock("@/content/site", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/content/site")>();
   return {
     ...actual,
-    socialLinks: [
-      { id: "instagram", label: "Instagram", href: "https://www.instagram.com/example/" },
-      ...actual.socialLinks,
-    ],
+    get socialLinks() {
+      return content.socialLinks;
+    },
   };
 });
 
 describe("Footer", () => {
   afterEach(() => {
     vi.useRealTimers();
+    content.socialLinks = [];
   });
 
   it("is the page's contentinfo landmark", () => {
@@ -44,18 +48,25 @@ describe("Footer", () => {
     ]);
   });
 
-  it("opens social profiles in a new tab", () => {
+  it("hides the Connect column when there are no social links, keeping Navigation and Contact", () => {
     render(<Footer />);
 
-    const link = screen.getByRole("link", { name: "Instagram" });
-    expect(link).toHaveAttribute("target", "_blank");
-    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    expect(screen.queryByRole("heading", { name: "Connect" })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("heading").map((heading) => heading.textContent)).toEqual([
+      "Navigation",
+      "Contact",
+    ]);
   });
 
-  it("keeps the email link in the same tab", () => {
+  it("shows the Connect column and opens social profiles in a new tab when one exists", () => {
+    content.socialLinks = [sampleProfile];
     render(<Footer />);
 
-    expect(screen.getByRole("link", { name: "Email" })).not.toHaveAttribute("target");
+    expect(screen.getByRole("heading", { name: "Connect" })).toBeInTheDocument();
+    const link = screen.getByRole("link", { name: "Instagram" });
+    expect(link).toHaveAttribute("href", "https://www.instagram.com/example/");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
 
   it("links the email address and shows the location", () => {

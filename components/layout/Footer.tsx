@@ -42,24 +42,27 @@ export default function Footer() {
           </nav>
         </FooterColumn>
 
-        <FooterColumn title={footerContent.columns.connect}>
-          <ul className="md:space-y-2">
-            {socialLinks.map((link) => {
-              const external = link.href.startsWith("http");
-              return (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    className={linkClass}
-                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </FooterColumn>
+        {/* Hidden while Mason links no profiles; returns when one is added (D-30) */}
+        {socialLinks.length > 0 && (
+          <FooterColumn title={footerContent.columns.connect}>
+            <ul className="md:space-y-2">
+              {socialLinks.map((link) => {
+                const external = link.href.startsWith("http");
+                return (
+                  <li key={link.id}>
+                    <a
+                      href={link.href}
+                      className={linkClass}
+                      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </FooterColumn>
+        )}
 
         <FooterColumn title={footerContent.columns.contact}>
           <ul className="md:space-y-2">

@@ -40,11 +40,15 @@ describe("/contact page", () => {
       else expect(phoneLink).toBeNull();
     });
 
-    it("lists the social links under Follow", () => {
+    it("lists the social links under Follow, or hides Follow when there are none (D-30)", () => {
       render(<Page />);
 
-      const follow = within(card()).getByRole("list", { name: "Follow" });
-      expect(within(follow).getAllByRole("link").map((a) => a.textContent)).toEqual(
+      const follow = within(card()).queryByRole("list", { name: "Follow" });
+      if (socialLinks.length === 0) {
+        expect(follow).toBeNull();
+        return;
+      }
+      expect(within(follow!).getAllByRole("link").map((a) => a.textContent)).toEqual(
         socialLinks.map((s) => s.label),
       );
     });
