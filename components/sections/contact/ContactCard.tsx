@@ -59,26 +59,29 @@ export default function ContactCard() {
           <ResumeDialog />
         </div>
 
-        <div className="space-y-4 border-t border-neutral-700 pt-6">
-          <Eyebrow id="follow-title">{card.followTitle}</Eyebrow>
-          <ul aria-labelledby="follow-title" className="space-y-3">
-            {socialLinks.map((link) => {
-              const external = link.href.startsWith("http");
-              return (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    className="inline-flex min-h-11 items-center gap-3 text-small text-neutral-200 hover:text-brand-500 md:min-h-0"
-                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                  >
-                    {link.label}
-                    <ArrowUpRight aria-hidden="true" className="size-4" />
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        {/* Hidden while Mason links no profiles; returns when one is added (D-30) */}
+        {socialLinks.length > 0 && (
+          <div className="space-y-4 border-t border-neutral-700 pt-6">
+            <Eyebrow id="follow-title">{card.followTitle}</Eyebrow>
+            <ul aria-labelledby="follow-title" className="space-y-3">
+              {socialLinks.map((link) => {
+                const external = link.href.startsWith("http");
+                return (
+                  <li key={link.id}>
+                    <a
+                      href={link.href}
+                      className="inline-flex min-h-11 items-center gap-3 text-small text-neutral-200 hover:text-brand-500 md:min-h-0"
+                      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                    >
+                      {link.label}
+                      <ArrowUpRight aria-hidden="true" className="size-4" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         <figure className="flex items-center gap-4 pt-4">
           <blockquote className="font-playfair text-small italic text-neutral-300">
