@@ -99,7 +99,7 @@ There are no mobile mockups. Rules:
 | Button: outline | Hero, Media | Dark fill, `brand-600` border, label + ↗ arrow. |
 | Button: solid light | CTA banner | White pill, dark text. |
 | Expertise card | Home | Purple gradient tile, title, subtitle, ↗. Hover: slight scale. |
-| Video card | Home, Media | One card style for both platforms: thumbnail, title, date, platform badge. YouTube plays inline on click; Instagram Reels open Instagram (D-12). Vertical 9:16 variant for Reels/Shorts. |
+| Video card | Home, Media | Thumbnail, title, date. YouTube only (D-20): plays inline on click. The Instagram variant stays in the code in case Reels come back. Vertical 9:16 variant for Shorts. |
 | Stat | Home | Large Playfair number + `brand-600` "+" + label. |
 | Carousel | Home (Model Shots) | Prev/next arrows + thumbnail strip; must be keyboard accessible. |
 | Timeline item | About | Number, title, underline accent, text, image, check node. |
