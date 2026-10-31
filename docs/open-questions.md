@@ -2,7 +2,7 @@
 
 Questions to resolve with Mason (or internally). When something is answered, move it to **Resolved** with the date and the answer, and record any lasting decision in [decisions.md](decisions.md).
 
-_Last updated: 2026-10-29_
+_Last updated: 2026-10-31_
 
 ## For the client demo meeting
 
@@ -23,10 +23,13 @@ Answered in principle; the asset or account is still to come.
 | # | Item | Notes |
 |---|---|---|
 | U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
+| U2 | **Reel title** (D-32) | The site shows the YouTube title "Mason Farrington Reel 2 0". Should it read "Reel 2.0"? If so, change the title on YouTube too, or only on the site? |
 
 ## Internal (Ashley)
 
-_None open._
+| # | Question | Notes |
+|---|---|---|
+| I1 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason's next video is a portrait Short, Other Work stays hidden, which isn't what D-32 expects ("Other Work comes back on its own"). Behaviour unchanged until decided. |
 
 ## Resolved
 
