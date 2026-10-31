@@ -27,5 +27,5 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-10-31
 - `architect` if a ticket hits an unmade decision · `impeccable` for Phase 10
 - `verification-before-completion` before claiming done
 
-## Progress log (newest first; one line per session, append yours)
+## Progress log (newest first: add one line per session at the top)
 - 2026-10-31: Phase 9 shipped (PR #15). Handoff moved into the repo (this file). Added Vocal/Dance/Acting reels, renamed Reel 2 0 to "Intro Video", published the real resume (D-35), re-audited decision statuses, created Resend tickets #16–#20.
