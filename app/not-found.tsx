@@ -15,7 +15,7 @@ export default function NotFound() {
     <section className="relative isolate overflow-x-clip py-24 text-center md:py-32">
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/3 -z-10 size-96 -translate-x-1/2 rounded-full bg-brand-700/30 blur-[120px]"
+        className="pointer-events-none absolute left-1/2 top-1/3 -z-10 size-96 -translate-x-1/2 rounded-full bg-brand-700/30 blur-[120px]"
       />
       <Container className="flex flex-col items-center gap-6">
         <Eyebrow>{notFoundContent.eyebrow}</Eyebrow>

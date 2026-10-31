@@ -78,14 +78,14 @@ describe("ContactForm", () => {
     expect(send).toHaveBeenCalledOnce();
     const url = new URL(send.mock.calls[0][0]);
     expect(url.protocol).toBe("mailto:");
-    expect(url.pathname).toBe("mason.13.farrington@gmail.com");
+    expect(url.pathname).toBe(contactInfo.email);
     expect(url.searchParams.get("body")).toContain("Would love to collaborate on a show.");
 
     const status = screen.getByRole("status");
-    expect(status).toHaveTextContent("email me directly at mason.13.farrington@gmail.com");
-    expect(screen.getByRole("link", { name: "mason.13.farrington@gmail.com" })).toHaveAttribute(
+    expect(status).toHaveTextContent(`email me directly at ${contactInfo.email}`);
+    expect(screen.getByRole("link", { name: contactInfo.email })).toHaveAttribute(
       "href",
-      "mailto:mason.13.farrington@gmail.com",
+      `mailto:${contactInfo.email}`,
     );
   });
 

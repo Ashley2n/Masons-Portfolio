@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { contactInfo } from "@/content/site";
 import type { SocialLink } from "@/types/content";
 import Footer from "./Footer";
 
@@ -73,8 +74,8 @@ describe("Footer", () => {
     render(<Footer />);
 
     expect(
-      screen.getByRole("link", { name: "mason.13.farrington@gmail.com" }),
-    ).toHaveAttribute("href", "mailto:mason.13.farrington@gmail.com");
+      screen.getByRole("link", { name: contactInfo.email }),
+    ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
     expect(screen.getByText("Los Angeles, CA")).toBeInTheDocument();
   });
 });

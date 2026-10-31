@@ -59,6 +59,8 @@ test.describe("media gallery", () => {
     while (await loadMore.count()) await loadMore.click();
 
     await expect(page.getByRole("button", { name: /^Play / })).toHaveCount(1);
+    // Exact text inside the gallery, so later copy (e.g. "Spring recital") can't false-fail this
+    const gallery = page.getByRole("list", { name: "Gallery" });
     const blenderTitles = [
       "Spring",
       "Agent 327",
@@ -70,7 +72,7 @@ test.describe("media gallery", () => {
       "Lighting Rigs",
     ];
     for (const title of blenderTitles) {
-      await expect(page.getByText(title)).toHaveCount(0);
+      await expect(gallery.getByText(title, { exact: true })).toHaveCount(0);
     }
   });
 });

@@ -14,7 +14,7 @@ export default function AboutHero() {
       {/* Soft purple glow behind the intro, as in the mockup */}
       <div
         aria-hidden="true"
-        className="absolute -left-40 top-1/4 -z-10 size-96 rounded-full bg-brand-700/30 blur-[120px]"
+        className="pointer-events-none absolute -left-40 top-1/4 -z-10 size-96 rounded-full bg-brand-700/30 blur-[120px]"
       />
       <Container className="grid items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6">

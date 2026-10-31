@@ -11,4 +11,13 @@ test.describe("404 page", () => {
     await page.getByRole("link", { name: "Back to home" }).click();
     await expect(page).toHaveURL("/");
   });
+
+  test("every suggested page and the home button can be clicked (the glow doesn't block them)", async ({ page }) => {
+    await page.goto("/this-page-does-not-exist");
+    const links = page.getByRole("main").getByRole("link");
+
+    for (const name of await links.allTextContents()) {
+      await links.filter({ hasText: name }).click({ trial: true, timeout: 5_000 });
+    }
+  });
 });
