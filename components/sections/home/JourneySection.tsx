@@ -6,24 +6,26 @@ import { homeImages, sectionHeadings, stats } from "@/content/home";
 import type { Stat } from "@/types/content";
 
 const StatItem = ({ value, label }: Stat) => (
-  <div>
-    <p className="font-playfair text-5xl text-brand-800 md:text-6xl">
+  <div className="border-t border-neutral-300 pt-5">
+    <p className="font-playfair text-6xl leading-none text-brand-800 tabular-nums md:text-7xl">
       {value}
-      <span className="text-3xl text-brand-600 md:text-4xl">+</span>
+      <span className="text-4xl text-brand-600 md:text-5xl">+</span>
     </p>
-    <p className="mt-2 max-w-48 text-small text-neutral-700">{label}</p>
+    <p className="mt-3 max-w-48 text-small text-neutral-700">{label}</p>
   </div>
 );
 
 export default function JourneySection() {
   return (
     <GlowBackground className="surface-light bg-neutral-100 pt-16 pb-24 md:pb-32">
-      <Container className="space-y-12 md:space-y-14">
-        <SectionHeading tone="light" {...sectionHeadings.journey} />
-        <div className="grid gap-8 sm:grid-cols-3">
-          {stats.map((stat) => (
-            <StatItem key={stat.id} {...stat} />
-          ))}
+      <Container className="space-y-12 md:space-y-16">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <SectionHeading tone="light" className="lg:col-span-5" {...sectionHeadings.journey} />
+          <div className="grid gap-8 sm:grid-cols-3 lg:col-span-7">
+            {stats.map((stat) => (
+              <StatItem key={stat.id} {...stat} />
+            ))}
+          </div>
         </div>
         <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-800 lg:aspect-21/9">
           <Image

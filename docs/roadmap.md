@@ -115,8 +115,8 @@ Live-site content that's wrong today. Ships before the redesign.
 
 Scope and requirements in D-33. Show Mason a before/after before it ships.
 
-- [ ] CTA banner (AA 3:1 heading)
-- [ ] Buttons
+- [x] CTA banner (AA 3:1 heading), 2026-11-06 on `feat/redesign`: white on near-black, glow kept to the right edge (D-38)
+- [x] Buttons: arrow nudge on hover, 2026-11-06 on `feat/redesign` (D-38)
 - [ ] Contact page right-hand card
 - [ ] Footer (from the D-30 version)
 - [ ] Animations (reduced-motion safe)
