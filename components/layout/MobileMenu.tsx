@@ -4,6 +4,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import NavLinks from "./NavLinks";
 
+// How long the panel stays after closing so its fade-out can play. Keep in step with --animate-fade-out in globals.css.
+const EXIT_MS = 150;
+
+const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
 export default function MobileMenu() {
   const pathname = usePathname();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -11,6 +16,20 @@ export default function MobileMenu() {
   const [openedOn, setOpenedOn] = useState<string | null>(null);
   const open = openedOn === pathname;
   const close = () => setOpenedOn(null);
+
+  // After closing, the panel stays mounted for EXIT_MS so it can fade out. The scroll lock in globals.css
+  // follows the panel being in the page, so it releases only when the panel is gone.
+  const [leaving, setLeaving] = useState(false);
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    setLeaving(wasOpen && !open && !prefersReducedMotion());
+  }
+  useEffect(() => {
+    if (!leaving) return;
+    const timer = setTimeout(() => setLeaving(false), EXIT_MS);
+    return () => clearTimeout(timer);
+  }, [leaving]);
 
   useEffect(() => {
     if (!open) return;
@@ -41,12 +60,15 @@ export default function MobileMenu() {
         <span className="sr-only">Menu</span>
       </button>
 
-      {open && (
+      {(open || leaving) && (
         <nav
           id="mobile-menu"
           aria-label="Mobile"
+          // While fading out it can't be tapped or focused
+          inert={!open}
           // Fills the screen under the logo and Menu button (both z-50); the page behind it is locked in globals.css
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900 pt-(--header-height)"
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900 pt-(--header-height) motion-safe:animate-fade-in motion-safe:data-[leaving]:animate-fade-out"
+          data-leaving={open ? undefined : ""}
         >
           {/* onNavigate also closes the menu when the link is the current page */}
           <NavLinks
