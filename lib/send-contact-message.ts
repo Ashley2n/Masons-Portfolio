@@ -65,7 +65,7 @@ export const sendContactMessage = async (
     return { ok: false };
   }
 
-  const { subject, text } = buildContactEmail(values);
+  const { subject, text, html } = buildContactEmail(values);
   try {
     const { error } = await createMailer(apiKey).emails.send({
       from: FROM,
@@ -73,6 +73,7 @@ export const sendContactMessage = async (
       replyTo: values.email.trim(),
       subject,
       text,
+      html,
     });
     if (error) {
       // Resend's error message can echo addresses, so log only its code and status
