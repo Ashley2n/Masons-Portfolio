@@ -30,7 +30,7 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 - **Launch on `*.vercel.app`:** not done (roadmap Phase 8). The milestone dates in the roadmap are stale; re-plan once round 1 and 2 are settled.
 
 ## Open decisions (don't guess, ask Ashley)
-- Round 2 and the motion pass are decided and built. Still open for Ashley: whether the Menu icon should turn on page load; whether `.impeccable/live/config.json` is committed or gitignored; a stronger menu effect (needs research); and permission to push (never push, open a PR or merge without asking).
+- Round 2 and the motion pass are decided and built. Still open for Ashley: whether `.impeccable/live/config.json` is committed or gitignored; a stronger menu effect (needs research); and permission to push (never push, open a PR or merge without asking).
 - U1: show Mason the refresh before/after. U2: contact email wording (placeholder). I5: should portrait videos (Shorts) count for Other Work? (`docs/open-questions.md`)
 - Mason: is "Iowa, US" right to show publicly? (Ashley's call 2026-11-06; Los Angeles came from the mockup.)
 
