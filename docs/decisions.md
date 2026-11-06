@@ -321,9 +321,9 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Progress (2026-11-06, buttons 3.2):** Ashley chose option A (solid `brand-600` primary + outline secondary) after comparing A, B and C in the browser. Built in `48d82c6`: `Button` `primary` variant (5.11:1 text on `brand-600`, calculated with the WCAG formula and checked in the browser by `e2e/buttons.spec.ts`), `ResumeDialog` `variant` prop, Home hero order resume then work. B (pill with arrow disc) and C (gradient wipe on hover) were rejected. Applied to the Home hero only; the rest of the site's buttons are still open (see the spec).
 - **Progress (2026-11-06, buttons on every page):** Ashley decided one primary per page: About hero View resume (`b689829`), Contact Send message with a spinner while sending (`36a5d4a`), Resume page Download PDF (`446d1ac`). The â†— now means "opens a new tab": `Button` shows it only for `newTab` links, and internal links (About Designer card, Home View More, View work, Get in touch, Back home) have no icon. F8: the About Designer card stays as it is. Each change was test-first (unit plus the `e2e/buttons.spec.ts` colour and contrast table). 3.2 is finished; still Proposed overall because the navbar, homepage, Contact card and footer options are open.
 
-### D-41 · Motion pass: one authored moment and three quiet supports
+### D-41 Â· Motion pass: one authored moment and three quiet supports
 
-- **Date:** 2026-11-06 · **Status:** Accepted (Ashley's decision); slice 1 built, the rest in progress
+- **Date:** 2026-11-06 Â· **Status:** Accepted (Ashley's decision); slice 1 built, the rest in progress
 - **Context:** `docs/design-system.md:79` says larger motion (scroll reveals, page transitions) needs an `/architect` decision first. Ashley asked for a motion pass before the reviews and agreed every item, timing and test seam with the agent on 2026-11-06 (`docs/handoff.md`, "Motion pass").
 - **Decision:**
 
