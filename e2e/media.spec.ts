@@ -31,14 +31,6 @@ test.describe("media gallery", () => {
     }
   });
 
-  test("'Explore the gallery' scrolls to the gallery", async ({ page }) => {
-    await page.goto("/media");
-    await page.getByRole("link", { name: "Explore the gallery" }).click();
-
-    await expect(page).toHaveURL(/#gallery$/);
-    await expect(page.getByRole("group", { name: "Filter by category" })).toBeInViewport();
-  });
-
   test("shows Mason's reel under Other and plays it inline (D-32)", async ({ page }) => {
     await page.goto("/media");
     await page

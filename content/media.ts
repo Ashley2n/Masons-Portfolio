@@ -13,7 +13,6 @@ export const mediaContent = {
   title: "Moments. Stories. Vision.",
   description:
     "A collection of visuals from my creative journey — performances, projects, and everything in between.",
-  cta: { label: "Explore the gallery", href: "#gallery" },
   loadMore: "Load more",
   /** Items shown at first and added per "Load more" */
   pageSize: 12,

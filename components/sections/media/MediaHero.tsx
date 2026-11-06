@@ -1,4 +1,3 @@
-import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { mediaContent } from "@/content/media";
 
@@ -13,7 +12,6 @@ export default function MediaHero() {
           {mediaContent.title}
         </h1>
         <p className="max-w-md text-neutral-300">{mediaContent.description}</p>
-        <Button href={mediaContent.cta.href}>{mediaContent.cta.label}</Button>
       </Container>
     </section>
   );
