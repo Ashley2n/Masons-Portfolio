@@ -90,3 +90,19 @@ test.describe("hero roles line (D-39)", () => {
     });
   }
 });
+
+// Recent Work (dark) runs straight into the dark CTA banner, so a hairline marks where one ends (D-39).
+// The colour is neutral-800 from docs/design-system.md, written out so a token change fails here.
+test.describe("separator above the CTA banner (D-39)", () => {
+  test("a 1px neutral-800 line sits between Recent Work and the banner", async ({ page }) => {
+    await page.goto("/");
+
+    const banner = page
+      .getByRole("heading", { name: "Interested in working together?", level: 2 })
+      .locator("xpath=ancestor::section[1]");
+    await expect(banner).toHaveCSS("border-top-width", "1px");
+    expect(await toRgb(page, await banner.evaluate((el) => getComputedStyle(el).borderTopColor))).toBe(
+      "rgb(38, 38, 38)",
+    );
+  });
+});

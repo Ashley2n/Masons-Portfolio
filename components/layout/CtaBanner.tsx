@@ -5,7 +5,7 @@ import { ctaBanner } from "@/content/site";
 /** "Interested in working together?" banner shown above the footer. */
 export default function CtaBanner() {
   return (
-    <section className="py-12 md:py-20">
+    <section className="border-t border-neutral-800 py-12 md:py-20">
       <Container>
         {/* Dark panel with the purple glow on the right, away from the heading, so the heading
             stays above AA contrast (D-33: it was 2.5:1 on the old gradient) */}
