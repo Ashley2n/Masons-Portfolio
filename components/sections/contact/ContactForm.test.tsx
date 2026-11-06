@@ -148,6 +148,30 @@ describe("ContactForm", () => {
     await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(SENT));
   });
 
+  it("makes Send message the page's primary action (D-39)", () => {
+    const { submit } = setup();
+
+    // The look itself is checked in e2e/buttons.spec.ts; this pins that the primary variant is used
+    expect(submit).toHaveClass("bg-brand-600");
+  });
+
+  it("shows a spinner in the button while sending, and the arrow again once it's done", async () => {
+    const { send, submit, fillAndSubmit } = setup();
+    let finish!: (result: ContactSendResult) => void;
+    send.mockReturnValue(new Promise((resolve) => (finish = resolve)));
+    const icon = () => submit.querySelector("svg");
+    expect(icon()).toHaveClass("lucide-arrow-right");
+
+    await fillAndSubmit();
+
+    // Decorative (the "Sending…" text is the announcement); motion-safe so reduced motion gets a still icon
+    expect(icon()).toHaveClass("lucide-loader-circle", "motion-safe:animate-spin");
+    expect(icon()).toHaveAttribute("aria-hidden", "true");
+
+    finish({ ok: false });
+    await waitFor(() => expect(icon()).toHaveClass("lucide-arrow-right"));
+  });
+
   it("offers Mason's email as a link when the send fails", async () => {
     const { send, submit, fillAndSubmit } = setup();
     send.mockResolvedValue({ ok: false });

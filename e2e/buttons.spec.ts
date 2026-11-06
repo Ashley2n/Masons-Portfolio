@@ -2,12 +2,20 @@ import { contrastRatio, toRgb } from "./color";
 import { expect, test } from "./fixtures";
 
 test.describe("buttons (D-39)", () => {
-  // Pages where View resume is the one primary action
-  for (const path of ["/", "/about"]) {
-    test(`${path}: the primary button is filled brand purple and passes AA`, async ({ page }) => {
+  // The one primary action on each page
+  const primaries = [
+    { path: "/", name: "View resume" },
+    { path: "/about", name: "View resume" },
+    { path: "/contact", name: "Send message" },
+  ];
+
+  for (const { path, name } of primaries) {
+    test(`${path}: the primary button "${name}" is filled brand purple and passes AA`, async ({
+      page,
+    }) => {
       await page.goto(path);
 
-      const primary = page.getByRole("button", { name: "View resume" });
+      const primary = page.getByRole("button", { name });
       const [background, text] = await Promise.all([
         primary.evaluate((el) => getComputedStyle(el).backgroundColor),
         primary.evaluate((el) => getComputedStyle(el).color),

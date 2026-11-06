@@ -1,6 +1,7 @@
 "use client";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LoaderCircle } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { buttonClasses } from "@/components/ui/Button";
 import { contactContent } from "@/content/contact";
 import { contactInfo } from "@/content/site";
 import {
@@ -127,10 +128,18 @@ export default function ContactForm({ send = sendContact }: ContactFormProps) {
       <button
         type="submit"
         aria-disabled={status === "sending" || undefined}
-        className="caption-text flex w-full items-center justify-between rounded-md border border-brand-700 bg-linear-to-r from-brand-800 to-neutral-950 px-8 py-5 text-neutral-100 transition-colors hover:from-brand-700 aria-disabled:cursor-wait aria-disabled:opacity-70"
+        className={buttonClasses(
+          "primary",
+          "w-full justify-between py-5 aria-disabled:cursor-wait aria-disabled:opacity-70",
+        )}
       >
         {status === "sending" ? form.sending : form.submit}
-        <ArrowRight aria-hidden="true" className="size-5" />
+        {status === "sending" ? (
+          // Decorative: the "Sending…" text is the announcement. Still for reduced motion.
+          <LoaderCircle aria-hidden="true" className="size-5 motion-safe:animate-spin" />
+        ) : (
+          <ArrowRight aria-hidden="true" className="size-5" />
+        )}
       </button>
 
       <p role="status" className="flex items-center gap-4 text-small text-neutral-400">
