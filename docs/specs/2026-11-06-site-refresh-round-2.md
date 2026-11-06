@@ -44,6 +44,8 @@ Each block has a recommendation. Tick one option per block. ⚠ Visual judgments
 | **B. Sticky + pill (recommended)** | A plus a header that stays on scroll, transparent over the hero and solid dark with a soft blur once the page scrolls | Nav stays reachable on long pages. The hero already slides under the header (`--header-height`, `globals.css:8`) | Needs care so the hero overlap and the mobile menu still work; needs e2e checks on both widths |
 | C. Split nav | `About  Media` · `MF` centred · `Contact` | Distinct look, logo gets presence | Awkward on mobile; more change than the rest of the site |
 
+**Decided 2026-11-06 (Ashley): keep the navbar as it is, with no Contact pill.** She saw three live variants of option B (quiet bar with a round pill, compact-on-scroll with a glow line, brand-tinted bar with a light pill) and discarded all three, saying the pill should be left out. Nothing was built; `Header.tsx` is unchanged. Sticky-on-scroll was not chosen either. The mobile menu note below is therefore not applied.
+
 Mobile menu (all options): replace the plain dropdown (`MobileMenu.tsx:47`) with a full-width panel, larger type, and Contact as the pill at the bottom.
 
 ```text
