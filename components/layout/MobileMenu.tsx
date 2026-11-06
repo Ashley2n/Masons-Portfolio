@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import NavLinks from "./NavLinks";
 
-// How long the panel stays after closing so its fade-out can play. Keep in step with --animate-fade-out in globals.css.
-const EXIT_MS = 150;
+// How long the panel stays after closing so its fade-out can play. Keep in step with --animate-menu-out in globals.css.
+const EXIT_MS = 165;
 
 const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
@@ -53,9 +53,9 @@ export default function MobileMenu() {
         className="relative z-50 -mr-1.5 grid size-11 place-items-center text-neutral-100"
       >
         {open ? (
-          <X aria-hidden="true" className="size-6" />
+          <X aria-hidden="true" className="size-6 motion-safe:animate-icon-turn" />
         ) : (
-          <Menu aria-hidden="true" className="size-6" />
+          <Menu aria-hidden="true" className="size-6 motion-safe:animate-icon-turn" />
         )}
         <span className="sr-only">Menu</span>
       </button>
@@ -67,7 +67,7 @@ export default function MobileMenu() {
           // While fading out it can't be tapped or focused
           inert={!open}
           // Fills the screen under the logo and Menu button (both z-50); the page behind it is locked in globals.css
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900 pt-(--header-height) motion-safe:animate-fade-in motion-safe:data-[leaving]:animate-fade-out"
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900 pt-(--header-height) motion-safe:animate-menu-in motion-safe:data-[leaving]:animate-menu-out"
           data-leaving={open ? undefined : ""}
         >
           {/* onNavigate also closes the menu when the link is the current page */}

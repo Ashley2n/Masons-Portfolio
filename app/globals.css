@@ -46,11 +46,27 @@
       opacity: 0;
     }
   }
-  /* The mobile menu leaves faster than it arrives (150ms out, 250ms in) */
-  --animate-fade-out: fade-out 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  @keyframes fade-out {
+  /* Mobile menu (D-41): the panel slides up as it fades in (275ms) and drops away faster (165ms);
+     the Menu/X icon turns into place when it swaps (220ms) */
+  --animate-menu-in: menu-in 275ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+  }
+  --animate-menu-out: menu-out 165ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  @keyframes menu-out {
     to {
       opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+  --animate-icon-turn: icon-turn 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes icon-turn {
+    from {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.6);
     }
   }
 }

@@ -6,6 +6,10 @@ test.describe("mobile menu at 390px", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/about");
     await page.getByRole("button", { name: "Menu" }).click();
+    // The panel slides up as it opens (D-41); measure it once it has settled
+    await page
+      .getByRole("navigation", { name: "Mobile" })
+      .evaluate((panel) => Promise.all(panel.getAnimations().map((animation) => animation.finished)));
   });
 
   test("covers the whole viewport without scrolling sideways", async ({ page }) => {
@@ -93,15 +97,52 @@ test.describe("mobile menu fade at 390px", () => {
     await page.goto("/about");
   });
 
-  test("opening fades the panel in over 150 to 300 ms", async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.getByRole("button", { name: "Menu" }).click();
+  // Clicks Menu inside the page, then reads the animation the panel and the button's icon just started
+  const openAndInspect = (page: import("./fixtures").Page) =>
+    page.evaluate(async () => {
+      const button = document.querySelector<HTMLButtonElement>('button[aria-controls="mobile-menu"]')!;
+      button.click();
+      // One frame for React to commit; every animation here lasts longer than that
+      await new Promise(requestAnimationFrame);
+      const describe = (element: Element | null) =>
+        (element?.getAnimations() ?? []).map((animation) => {
+          const effect = animation.effect as KeyframeEffect;
+          const properties = new Set<string>();
+          for (const frame of effect.getKeyframes()) {
+            for (const name of Object.keys(frame)) {
+              if (!["offset", "easing", "composite", "computedOffset"].includes(name)) properties.add(name);
+            }
+          }
+          return { duration: Number(effect.getTiming().duration), properties: [...properties] };
+        });
+      return {
+        panel: describe(document.getElementById("mobile-menu")),
+        icon: describe(button.querySelector("svg")),
+      };
+    });
 
-    const panel = page.getByRole("navigation", { name: "Mobile" });
-    await expect(panel).not.toHaveCSS("animation-name", "none");
-    const duration = toMs(await panel.evaluate((el) => getComputedStyle(el).animationDuration));
-    expect(duration).toBeGreaterThanOrEqual(150);
-    expect(duration).toBeLessThanOrEqual(300);
+  test("opening slides the panel up while it fades in, over 150 to 300 ms", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+
+    const { panel } = await openAndInspect(page);
+
+    expect(panel).toHaveLength(1);
+    expect(panel[0].properties).toEqual(expect.arrayContaining(["opacity", "transform"]));
+    expect(panel[0].duration).toBeGreaterThanOrEqual(150);
+    expect(panel[0].duration).toBeLessThanOrEqual(300);
+  });
+
+  test("the Menu button's icon turns into place each time it swaps, in under 300 ms", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+
+    const opened = await openAndInspect(page);
+    const closed = await openAndInspect(page);
+
+    for (const { icon } of [opened, closed]) {
+      expect(icon).toHaveLength(1);
+      expect(icon[0].properties).toEqual(expect.arrayContaining(["transform"]));
+      expect(icon[0].duration).toBeLessThanOrEqual(300);
+    }
   });
 
   test("closing keeps the panel for 100 to 200 ms, quicker than opening, and the page stays locked until it is gone", async ({
@@ -129,6 +170,7 @@ test.describe("mobile menu fade at 390px", () => {
     await page.getByRole("button", { name: "Menu" }).click();
     const panel = page.getByRole("navigation", { name: "Mobile" });
     await expect(panel).toHaveCSS("animation-name", "none");
+    await expect(page.getByRole("button", { name: "Menu" }).locator("svg")).toHaveCSS("animation-name", "none");
 
     const result = await closeAndMeasure(page);
 
