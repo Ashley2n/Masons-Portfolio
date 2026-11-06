@@ -106,3 +106,31 @@ test.describe("separator above the CTA banner (D-39)", () => {
     );
   });
 });
+
+// Hero scroll cue (D-39, 3.3): it sits at the right edge of the hero and keeps its bounce (Ashley, 2026-11-06).
+test.describe("hero scroll cue (D-39)", () => {
+  for (const { width, height } of [
+    { width: 1280, height: 800 },
+    { width: 390, height: 844 },
+  ]) {
+    test(`sits in the right quarter of the page and fully on screen at ${width}px wide`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await page.goto("/");
+
+      const box = await page.getByRole("link", { name: "Scroll to Model Shots" }).boundingBox();
+      expect(box!.x + box!.width / 2).toBeGreaterThanOrEqual(width * 0.75);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+    });
+  }
+
+  test("its chevron bounces for visitors who allow motion and holds still otherwise", async ({ page }) => {
+    const chevron = page.getByRole("link", { name: "Scroll to Model Shots" }).locator("svg");
+
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+    await expect(chevron).toHaveCSS("animation-name", "bounce");
+
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(chevron).toHaveCSS("animation-name", "none");
+  });
+});

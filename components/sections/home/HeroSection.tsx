@@ -47,7 +47,7 @@ export default function HeroSection() {
       <a
         href="#model-shots"
         aria-label="Scroll to Model Shots"
-        className="absolute bottom-6 left-1/2 grid size-11 -translate-x-1/2 place-items-center rounded-full border border-neutral-100/40 text-neutral-100 transition-colors hover:bg-neutral-100/10"
+        className="absolute right-4 bottom-6 grid size-11 place-items-center sm:right-6 md:right-10 rounded-full border border-neutral-100/40 text-neutral-100 transition-colors hover:bg-neutral-100/10"
       >
         <ChevronDown aria-hidden="true" className="size-6 motion-safe:animate-bounce" />
       </a>

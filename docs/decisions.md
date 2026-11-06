@@ -336,6 +336,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | Section headings (`h2` only, never `h1`) use the existing `reveal` | Reveal on every block | Headings are the one place a scroll cue helps; the hero name already has the entrance | Scroll-driven, so browsers without `animation-timeline` just show it | Ashley 2026-11-06; D-33, D-38 (`.reveal`) |
 | Easing `cubic-bezier(0.16, 1, 0.3, 1)`, CSS only, no new dependency, every item has a reduced-motion path (reveal-style effects are also `screen` only) | A motion library (Motion, GSAP) | The stack expresses all four with CSS and React's own `<ViewTransition>` | `<ViewTransition>` is not in stable `react@19.2.8`; Next's bundled React provides it (the guide names React 19.3) | `animate.md` ("Implement to the runtime", "Accessibility and control"); `package.json:21` |
 
+- **Exception (Ashley, 2026-11-06):** the hero scroll cue keeps its endless `animate-bounce` (reduced-motion safe, `motion-safe:`) even though the hero entrance is meant to be the one authored moment, and it moved from the bottom centre to the bottom right. `impeccable detect` flags the bounce as an advisory ("bounce-easing"); accepted. Pinned in `e2e/section-rhythm.spec.ts`.
 - **Consequences:** `docs/design-system.md:79` is updated to point here. Tests are e2e, in `e2e/motion.spec.ts` and `e2e/mobile-menu.spec.ts`, because the motion is CSS and only a real browser computes it.
 
 ### D-40 · Full-screen mobile menu, no Contact pill, plain Contact card
