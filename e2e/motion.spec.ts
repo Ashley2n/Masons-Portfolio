@@ -10,6 +10,15 @@ test.describe("scroll reveal (D-33, D-38)", () => {
     await expect(card).toHaveCSS("animation-name", "reveal-rise");
   });
 
+  test("nothing is hidden when the page is printed or saved as a PDF, which never scrolls", async ({ page }) => {
+    await page.emulateMedia({ media: "print", reducedMotion: "no-preference" });
+    await page.goto("/");
+
+    const cards = page.getByRole("list", { name: "Expertise" }).getByRole("listitem");
+    await expect(cards.first()).toHaveCSS("animation-name", "none");
+    await expect(cards.last()).toHaveCSS("opacity", "1");
+  });
+
   test("nothing animates, and every card stays fully visible, when the visitor asks for reduced motion", async ({
     page,
   }) => {

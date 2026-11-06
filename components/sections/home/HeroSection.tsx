@@ -36,7 +36,7 @@ export default function HeroSection() {
             {heroContent.firstName} <br /> {heroContent.lastName}
           </h1>
         </div>
-        <p className="max-w-sm text-neutral-300">{heroContent.tagline}</p>
+        <p className="max-w-md text-lg text-neutral-200 md:text-xl">{heroContent.tagline}</p>
         <div className="flex flex-wrap gap-4">
           <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
           <ResumeDialog />
