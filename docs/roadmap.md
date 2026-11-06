@@ -120,7 +120,7 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 - [ ] Contact page right-hand card
 - [ ] Footer (from the D-30 version)
 - [ ] Animations (reduced-motion safe)
-- [ ] Expertise cards (AA text; try photos, no links)
+- [x] Expertise cards (AA text; photos, no links), 2026-11-06 on `feat/redesign` (D-38)
 - [ ] "Get in touch" near the top on mobile (C26): try options and review
 
 ## Post-launch (backlog)

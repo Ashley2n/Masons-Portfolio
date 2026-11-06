@@ -79,20 +79,23 @@ describe("Home page", () => {
     expect(screen.getByAltText(homeImages.journey.alt)).toBeInTheDocument();
   });
 
-  it("makes each expertise card a link with an h3 title", () => {
+  it("shows each expertise as a photo card with an h3 title, and not as a link (D-33, C24)", () => {
     render(<Home />);
 
-    for (const [title, description] of [
-      ["Model", "Stage & Screen Work"],
-      ["Designer", "Branding & Digital Design"],
-      ["Singer", "Live Vocals & Studio"],
-      ["Actor", "Theatre & On Camera"],
-    ]) {
-      const card = screen.getByRole("link", { name: new RegExp(`^${title}`) });
-      expect(card).toHaveAttribute("href", "/media");
+    const cards = within(screen.getByRole("list", { name: "Expertise" })).getAllByRole("listitem");
+    expect(cards).toHaveLength(4);
+    cards.forEach((card, index) => {
+      const [title, description] = [
+        ["Model", "Stage & Screen Work"],
+        ["Designer", "Branding & Digital Design"],
+        ["Singer", "Live Vocals & Studio"],
+        ["Actor", "Theatre & On Camera"],
+      ][index];
       expect(within(card).getByRole("heading", { level: 3, name: title })).toBeInTheDocument();
       expect(card).toHaveTextContent(description);
-    }
+      expect(within(card).getByRole("img")).toHaveAccessibleName();
+      expect(within(card).queryByRole("link")).not.toBeInTheDocument();
+    });
   });
 
   it("features Mason's reel in Recent Work as a click-to-load YouTube card (D-20, D-32)", () => {
