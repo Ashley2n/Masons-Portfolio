@@ -2,7 +2,6 @@ import type { Milestone, Photo } from "@/types/content";
 
 // Copy from the About mockup. Photos are free Unsplash images (D-11).
 export const aboutContent = {
-  eyebrow: "About Me",
   title: "About Me",
   paragraphs: [
     "I'm a multidisciplinary artist creating meaningful experiences through performance and design.",
@@ -20,7 +19,7 @@ export const aboutContent = {
       credit: "Kai Oberhäuser / Unsplash",
     } satisfies Photo,
   },
-  journey: { eyebrow: "My Story", title: "My Journey" },
+  journey: { title: "My Journey" },
 };
 
 export const milestones: Milestone[] = [

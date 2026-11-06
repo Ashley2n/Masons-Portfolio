@@ -63,6 +63,14 @@ describe("Home page", () => {
     expect(h1.compareDocumentPosition(firstH2) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it("has no small labels above the section headings (D-38)", () => {
+    render(<Home />);
+
+    for (const label of ["About Me", "Expertise", "Media"]) {
+      expect(screen.queryByText(label)).not.toBeInTheDocument();
+    }
+  });
+
   it("shows the journey stats with the mockup labels and image", () => {
     render(<Home />);
 

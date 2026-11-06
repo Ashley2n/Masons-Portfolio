@@ -11,6 +11,12 @@ describe("/media page", () => {
     ).toBeInTheDocument();
   });
 
+  it("has no 'Media' label above the heading (D-38)", () => {
+    render(<Page />);
+
+    expect(screen.queryByText("Media")).not.toBeInTheDocument();
+  });
+
   it("is titled 'Media'", () => {
     expect(metadata.title).toBe("Media");
   });

@@ -16,6 +16,8 @@ describe("/contact page", () => {
       screen.getByRole("heading", { level: 1, name: "Let's create something great." }),
     ).toBeInTheDocument();
     expect(screen.getByText(contactContent.intro)).toBeInTheDocument();
+    // No "Get in touch" label above the heading (D-38)
+    expect(screen.queryByText("Get in touch")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Send message" })).toBeInTheDocument();
   });
 

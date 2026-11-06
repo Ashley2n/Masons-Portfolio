@@ -89,11 +89,10 @@ export const modelShots: ModelShot[] = modelShotIds.map((id) => ({ id, ...galler
 
 export const sectionHeadings = {
   journey: {
-    eyebrow: "About Me",
     title: "The Journey So Far",
     description: "Years of training, stages, and performances that shaped where I am today.",
   },
-  expertise: { eyebrow: "Expertise", title: "What I Do" },
-  recentWork: { eyebrow: "Media", title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
+  expertise: { title: "What I Do" },
+  recentWork: { title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
   modelShots: { title: "Model Shots" },
 };

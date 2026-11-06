@@ -16,6 +16,8 @@ describe("/resume page", () => {
     render(<Page />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Resume" })).toBeInTheDocument();
+    // The old "Resume" label above the heading repeated it (D-38)
+    expect(screen.getAllByText("Resume")).toHaveLength(1);
   });
 
   it("offers the PDF as a download with a friendly file name", () => {

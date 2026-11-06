@@ -19,7 +19,6 @@ export default function ResumePage() {
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <SectionHeading
               as="h1"
-              eyebrow={resumeContent.eyebrow}
               title={resumeContent.title}
               description={resumeContent.description}
             />

@@ -21,7 +21,7 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
       <Container className="space-y-12">
         <div className="space-y-6">
           <div className="flex items-end justify-between gap-4">
-            <SectionHeading tone="light" eyebrow={copy.eyebrow} title={copy.title} />
+            <SectionHeading tone="light" title={copy.title} />
             <Link
               href="/media"
               className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-300 hover:border-neutral-700"

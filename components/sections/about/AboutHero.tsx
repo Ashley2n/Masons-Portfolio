@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ResumeDialog from "@/components/resume/ResumeDialog";
 import Container from "@/components/ui/Container";
-import Eyebrow from "@/components/ui/Eyebrow";
 import { aboutContent } from "@/content/about";
 
 export default function AboutHero() {
@@ -18,7 +17,6 @@ export default function AboutHero() {
       />
       <Container className="grid items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6">
-          <Eyebrow>{aboutContent.eyebrow}</Eyebrow>
           <h1 className="text-[2.75rem] leading-[1.1] text-neutral-100 md:text-display">
             {aboutContent.title}
           </h1>

@@ -24,7 +24,7 @@ export default function Timeline() {
   return (
     <section className="surface-light bg-neutral-100 py-16 md:py-24">
       <Container className="space-y-12">
-        <SectionHeading tone="light" eyebrow={journey.eyebrow} title={journey.title} />
+        <SectionHeading tone="light" title={journey.title} />
 
         {/* ::before draws the line the milestones hang from: left on mobile, centered on desktop.
             A pseudo-element keeps the <ol> valid (only <li> children). */}

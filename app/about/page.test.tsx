@@ -13,6 +13,8 @@ describe("/about page", () => {
       render(<Page />);
 
       expect(screen.getByRole("heading", { level: 1, name: "About Me" })).toBeInTheDocument();
+      // The old "About Me" label above the heading repeated it (D-38)
+      expect(screen.getAllByText("About Me")).toHaveLength(1);
       expect(
         screen.getByText(
           "I'm a multidisciplinary artist creating meaningful experiences through performance and design.",
@@ -45,10 +47,10 @@ describe("/about page", () => {
   });
 
   describe("journey timeline", () => {
-    it("is headed 'My Journey' under a 'My Story' eyebrow", () => {
+    it("is headed 'My Journey', with no label above it (D-38)", () => {
       render(<Page />);
 
-      expect(screen.getByText("My Story")).toBeInTheDocument();
+      expect(screen.queryByText("My Story")).not.toBeInTheDocument();
       expect(screen.getByRole("heading", { level: 2, name: "My Journey" })).toBeInTheDocument();
     });
 
