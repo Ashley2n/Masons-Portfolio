@@ -30,6 +30,14 @@ describe("Footer", () => {
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   });
 
+  it("names Mason's roles under the logo, before the copyright (D-39)", () => {
+    render(<Footer />);
+
+    const roles = screen.getByText("Actor, Musician, Singer & Designer");
+    const copyright = screen.getByText(/© \d{4} Mason Farrington/);
+    expect(roles.compareDocumentPosition(copyright) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("shows the copyright with the current year", () => {
     vi.useFakeTimers({ toFake: ["Date"] });
     vi.setSystemTime(new Date("2031-05-01"));
