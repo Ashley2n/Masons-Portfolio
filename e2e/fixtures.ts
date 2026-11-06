@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 
-export { expect, type Page } from "@playwright/test";
+export { expect, type Locator, type Page } from "@playwright/test";
 
 type Fixtures = {
   /** How many contact server-action requests the page tried to send (all were blocked). */

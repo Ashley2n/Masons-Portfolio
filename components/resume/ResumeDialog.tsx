@@ -3,6 +3,7 @@ import { FileText, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import Button, { buttonClasses, type ButtonVariant } from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
+import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
 type ResumeDialogProps = {
@@ -79,7 +80,10 @@ export default function ResumeDialog({ variant = "outline", className }: ResumeD
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label={resumeContent.closeLabel}
-                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100"
+                className={cn(
+                  "grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100",
+                  pressClasses,
+                )}
               >
                 <X aria-hidden="true" className="size-5" />
               </button>

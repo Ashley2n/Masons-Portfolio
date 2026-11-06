@@ -5,10 +5,13 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Container from "@/components/ui/Container";
 import { modelShots, sectionHeadings } from "@/content/home";
 import { getNextIndex, getPrevIndex } from "@/lib/carousel";
+import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
-const arrowClass =
-  "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-colors hover:bg-neutral-950/70 surface-color focus-visible:outline-offset-0";
+const arrowClass = cn(
+  "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-colors hover:bg-neutral-950/70 surface-color focus-visible:outline-offset-0",
+  pressClasses,
+);
 
 export default function ModelShotsCarousel() {
   const [index, setIndex] = useState(0);
@@ -113,7 +116,8 @@ export default function ModelShotsCarousel() {
               aria-label={`Show photo ${i + 1} of ${total}`}
               aria-current={i === index ? "true" : undefined}
               className={cn(
-                "relative size-14 overflow-hidden rounded-md border-2 transition-colors sm:size-20 md:size-24",
+                "relative size-14 overflow-hidden rounded-md border-2 sm:size-20 md:size-24",
+                pressClasses,
                 i === index ? "border-brand-600" : "border-transparent opacity-60 hover:opacity-100",
               )}
             >

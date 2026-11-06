@@ -1,6 +1,7 @@
 import { ArrowUpRight, Download } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
 const variants = {
@@ -22,6 +23,7 @@ export const buttonClasses = (variant: ButtonVariant = "outline", className?: st
   cn(
     "caption-text group inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors duration-300 sm:px-8",
     variants[variant],
+    pressClasses,
     className,
   );
 
