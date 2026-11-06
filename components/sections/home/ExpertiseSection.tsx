@@ -11,7 +11,7 @@ const spans = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7
 const ExpertiseCard = ({ item, className }: { item: ExpertiseItem; className?: string }) => (
   <li
     className={cn(
-      "group relative isolate flex min-h-80 items-end overflow-hidden rounded-lg bg-neutral-800 text-neutral-100 md:min-h-112",
+      "reveal group relative isolate flex min-h-80 items-end overflow-hidden rounded-lg bg-neutral-800 text-neutral-100 md:min-h-112",
       className,
     )}
   >
