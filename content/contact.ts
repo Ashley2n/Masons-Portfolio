@@ -41,7 +41,7 @@ export const contactContent = {
     },
   },
   card: {
-    eyebrow: "Contact info",
+    label: "Contact info",
     followTitle: "Follow",
     quote: "Good art starts with a conversation.",
     image: {

@@ -34,6 +34,13 @@ describe("ContactCard", () => {
     expect(container.querySelector("li svg")).toBeNull();
   });
 
+  it("shows no tag above the name, but the card is still a named landmark (D-40)", () => {
+    render(<ContactCard />);
+
+    expect(screen.queryByText("Contact info")).not.toBeInTheDocument();
+    expect(screen.getByRole("complementary", { name: "Contact info" })).toBeInTheDocument();
+  });
+
   it("reads email, then location, then the resume button, then the quote", () => {
     render(<ContactCard />);
 

@@ -12,7 +12,7 @@ export default function ContactCard() {
 
   return (
     <aside
-      aria-label={card.eyebrow}
+      aria-label={card.label}
       // Taller on mobile so the text sits on the dark lower half of the photo, as on desktop (D-28)
       className="relative isolate flex min-h-[50rem] flex-col justify-end overflow-hidden rounded-lg border border-neutral-800 md:min-h-[36rem]"
     >
@@ -31,10 +31,7 @@ export default function ContactCard() {
 
       <div className="space-y-8 p-6 md:p-10">
         <div className="space-y-6">
-          <div className="space-y-2">
-            <Eyebrow tone="photo">{card.eyebrow}</Eyebrow>
-            <h2 className="text-h2 font-normal text-neutral-100">{siteConfig.name}</h2>
-          </div>
+          <h2 className="text-h2 font-normal text-neutral-100">{siteConfig.name}</h2>
           <ul className="space-y-3">
             <li>
               <a href={`mailto:${contactInfo.email}`} className={`${rowClass} inline-flex min-h-11 items-center hover:text-brand-500 md:min-h-0`}>
