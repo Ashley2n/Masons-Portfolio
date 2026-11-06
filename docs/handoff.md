@@ -17,7 +17,7 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
   - **Check by hand in #20:** Chrome autofill leaves the hidden `website` field empty (D-37 consequences).
 - **Next: #20** (`needs-human`) after #19 is committed.
   - **#20:** Ashley sends a few real messages labelled "Test by Ashley" by hand (agreed 2026-10-31). No automated test may send email.
-- **Phase 10 redesign (D-33): not started.** Needs designs before a spec.
+- **Phase 10 redesign (D-33, D-38): in progress on `feat/redesign`** (branched from `main`, local, **not pushed, no PR**). Ashley chose on 2026-11-06 a fresh look on every page inside the locked system (palette, fonts, copy stay), direction "editorial cinematic". Built with `impeccable` (D-27). **Done:** photo-card expertise tiles (not links), larger section headings, Journey stats beside the heading, dark AA CTA banner, button arrow nudge, scroll reveal (CSS only, off for reduced motion and print, `e2e/motion.spec.ts`), larger About timeline and hero tagline, branded poster when a YouTube thumbnail 404s. Unit tests, build and the full e2e (79 passed, 1 skipped) and the Impeccable detector (no findings) were clean on 2026-11-06. **Left:** footer, Contact card, mobile "Get in touch" (C26); Media and Contact pages are unchanged. **Nothing ships until Mason sees before/after (U1, U3).** Before screenshots are in `.playwright-mcp/before-*.png` (local, not committed); regenerate "after" with reduced-motion emulation so full-page captures show every section.
 - **Launch on `*.vercel.app`:** not done (roadmap Phase 8). The milestone dates in the roadmap are stale.
 
 ## Open decisions (don't guess, ask Ashley)
@@ -48,6 +48,7 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 - `mattpocock-skills:tdd` for any new behavior · `architect` if a ticket hits an unmade decision · `impeccable` for Phase 10
 
 ## Progress log (newest first: add one line per session at the top)
+- 2026-11-06: Started the Phase 10 refresh on `feat/redesign` (D-38): expertise photo cards, headings, Journey, CTA banner, scroll reveal, timeline, video poster fallback. All checks clean. Not pushed; waiting on Ashley's OK to push and on Mason (U1, U3).
 - 2026-11-06: Pushed #16 to #19 and opened stacked PRs #22 to #25 after Ashley said yes. Nothing merged. Next: #20 by hand, then merges in order.
 - 2026-11-06: Two-axis code review of #19 (no blocking findings), reran lint, typecheck and 328 tests (pass), committed #19 locally (`Closes #19`). Not pushed. Next: #20 by hand.
 - 2026-11-06: Refreshed this handoff so a new session can pick up #19 at the code review. No code changes.

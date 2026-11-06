@@ -21,7 +21,8 @@ Answered in principle; the asset or account is still to come.
 
 | # | Item | Notes |
 |---|---|---|
-| U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
+| U1 | **Redesign before/after** (D-33, D-38) | Show the refresh before it ships (branch `feat/redesign`, before screenshots from 2026-11-06 at 1280 and 390 px): photo-card expertise tiles (no links), larger section headings, Journey stats beside the heading, dark CTA banner (AA heading), larger About timeline text, a scroll reveal (off for reduced motion and print) and a poster when a video thumbnail fails. Still to do in Phase 10: footer, Contact card, "Get in touch" on mobile (C26). |
+| U3 | **Small content questions from the refresh** | (a) The Impeccable craft floor bans the small purple labels above headings ("EXPERTISE", "ABOUT ME"). They are mockup copy, so we kept them; does Mason want them gone? (b) The first and third Journey stats both read "theatrical/musical shows" (10+ and 4+), as in the mockup; is the third label right? (c) The About timeline still uses free stock photos (D-11); which of Mason's photos fit each milestone? (d) The Vocal Reel (`sK9xduGWTaQ`) has no thumbnail on YouTube (the image request returns 404, 2026-11-06); should he set a custom thumbnail? |
 | U2 | **Contact email wording** (#18) | No mockup covers the email Mason receives. Placeholder copy in `content/contact.ts` (`form.email`): heading "New message from your portfolio", footer "Sent from the contact form on your portfolio site.", reply button "Reply to <name>". Low priority; change the strings if he wants different wording. |
 
 ## Internal (Ashley)
