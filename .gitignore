@@ -51,3 +51,6 @@ next-env.d.ts
 
 # Impeccable engine binary: the launcher downloads it per OS and checks its SHA-256 (D-27)
 /.claude/skills/impeccable/scripts/bin/
+
+# Playwright MCP output (screenshots, logs, snapshots)
+/.playwright-mcp/
