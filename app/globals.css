@@ -78,8 +78,9 @@
     outline: 2px solid var(--focus-ring, var(--color-brand-400));
     outline-offset: 2px;
   }
-  /* Keep the page behind an open modal (e.g. the resume) from scrolling */
-  html:has(dialog[open]) {
+  /* Keep the page behind an open modal (the resume) or the full-screen mobile menu from scrolling */
+  html:has(dialog[open]),
+  html:has(#mobile-menu) {
     overflow: hidden;
   }
 }
