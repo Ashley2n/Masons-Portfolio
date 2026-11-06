@@ -89,7 +89,7 @@ _Last updated: 2026-10-19_
 
 - [ ] Apply demo feedback
 - [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
-- [ ] Contact form backend: Resend server action with branded email (D-19, needs F1). 2026-10-31: plain-text sending via Resend done (#17, D-36); branded email (#18), spam check (#19) and live check (#20) left
+- [ ] Contact form backend: Resend server action with branded email (D-19, needs F1). 2026-10-31: plain-text sending via Resend done (#17, D-36); branded HTML email done and committed on `feat/18-branded-email` (#18, 2026-11-05, preview approved, not yet pushed); spam check (#19) and live check (#20) left
 - [x] Rename gallery categories to All / Concerts / Recital / Modeling / Staged / Design / Other (D-22, D-23)
 - [ ] Remove Instagram Reels from content and video cards; YouTube-only socials (D-20)
 - [x] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero (D-24, C15)

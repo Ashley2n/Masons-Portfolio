@@ -17,7 +17,7 @@ const setup = ({ apiKey = "re_test_key" }: { apiKey?: string } = {}) => {
 };
 
 describe("sendContactMessage", () => {
-  it("emails Mason from Resend's onboarding sender with Reply-To set to the visitor", async () => {
+  it("emails Mason HTML and plain text from Resend's onboarding sender, with Reply-To set to the visitor", async () => {
     const { send, deliver } = setup();
 
     await expect(deliver(visitor)).resolves.toEqual({ ok: true });
@@ -29,6 +29,7 @@ describe("sendContactMessage", () => {
     expect(email.replyTo).toBe("ada@example.com");
     expect(email.subject).toBe("Portfolio inquiry from Ada Lovelace");
     expect(email.text).toContain("Would love to collaborate on a show.");
+    expect(email.html).toContain("Would love to collaborate on a show.");
   });
 
   it("keeps line breaks in the message and accepts a 100-character name", async () => {

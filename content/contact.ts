@@ -32,6 +32,14 @@ export const contactContent = {
     subjectPrefix: "Portfolio inquiry from",
     // Sender name Mason sees in his inbox; the address is Resend's until a domain is verified
     emailFromName: "Portfolio contact form",
+    // The branded HTML email Mason receives (D-19, #18); the wording isn't in a mockup
+    email: {
+      heading: "New message from your portfolio",
+      labels: { name: "Name", email: "Email", message: "Message" },
+      replyPrefix: "Reply to",
+      replySubjectPrefix: "Re:",
+      footer: "Sent from the contact form on your portfolio site.",
+    },
   },
   card: {
     eyebrow: "Contact info",

@@ -22,6 +22,7 @@ Answered in principle; the asset or account is still to come.
 | # | Item | Notes |
 |---|---|---|
 | U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
+| U2 | **Contact email wording** (#18) | No mockup covers the email Mason receives. Placeholder copy in `content/contact.ts` (`form.email`): heading "New message from your portfolio", footer "Sent from the contact form on your portfolio site.", reply button "Reply to <name>". Low priority; change the strings if he wants different wording. |
 
 ## Internal (Ashley)
 
