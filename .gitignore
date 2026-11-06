@@ -54,3 +54,6 @@ next-env.d.ts
 
 # Playwright MCP output (screenshots, logs, snapshots)
 /.playwright-mcp/
+
+# Impeccable live-preview helper: local tooling setup, edits app/layout.tsx while running
+/.impeccable/live/
