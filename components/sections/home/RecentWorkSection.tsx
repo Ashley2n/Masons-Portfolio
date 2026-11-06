@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -27,7 +26,6 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
               className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-300 hover:border-neutral-700"
             >
               {copy.viewMore}
-              <ArrowUpRight aria-hidden="true" className="ml-2 inline size-4" />
             </Link>
           </div>
           {featured && (

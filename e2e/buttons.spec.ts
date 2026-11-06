@@ -4,18 +4,19 @@ import { expect, test } from "./fixtures";
 test.describe("buttons (D-39)", () => {
   // The one primary action on each page
   const primaries = [
-    { path: "/", name: "View resume" },
-    { path: "/about", name: "View resume" },
-    { path: "/contact", name: "Send message" },
-  ];
+    { path: "/", role: "button", name: "View resume" },
+    { path: "/about", role: "button", name: "View resume" },
+    { path: "/contact", role: "button", name: "Send message" },
+    { path: "/resume", role: "link", name: "Download PDF" },
+  ] as const;
 
-  for (const { path, name } of primaries) {
-    test(`${path}: the primary button "${name}" is filled brand purple and passes AA`, async ({
+  for (const { path, role, name } of primaries) {
+    test(`${path}: the primary ${role} "${name}" is filled brand purple and passes AA`, async ({
       page,
     }) => {
       await page.goto(path);
 
-      const primary = page.getByRole("button", { name });
+      const primary = page.getByRole(role, { name });
       const [background, text] = await Promise.all([
         primary.evaluate((el) => getComputedStyle(el).backgroundColor),
         primary.evaluate((el) => getComputedStyle(el).color),

@@ -35,6 +35,12 @@ describe("/about page", () => {
       expect(within(card).getByAltText(aboutContent.feature.image.alt)).toBeInTheDocument();
     });
 
+    it("has no arrow on the feature card, since it stays on the site (D-39)", () => {
+      render(<Page />);
+
+      expect(screen.getByRole("link", { name: /^Designer/ }).querySelector("svg")).toBeNull();
+    });
+
     it("doesn't add the feature card title to the heading outline", () => {
       render(<Page />);
 

@@ -158,6 +158,12 @@ describe("Home page", () => {
     expect(screen.queryByRole("main")).not.toBeInTheDocument();
   });
 
+  it("has no arrow on 'View More', since it stays on the site (D-39)", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: /view more/i }).querySelector("svg")).toBeNull();
+  });
+
   it("links 'View More' in Recent Work to the media page", () => {
     render(<Home />);
 

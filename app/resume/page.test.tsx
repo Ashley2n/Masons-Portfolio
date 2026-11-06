@@ -28,6 +28,14 @@ describe("/resume page", () => {
     expect(download).toHaveAttribute("download", file.downloadName);
   });
 
+  it("makes Download PDF the page's primary action, not Open in new tab (D-39)", () => {
+    render(<Page />);
+
+    // The look itself is checked in e2e/buttons.spec.ts; this pins which button gets the primary variant
+    expect(screen.getByRole("link", { name: "Download PDF" })).toHaveClass("bg-brand-600");
+    expect(screen.getByRole("link", { name: "Open in new tab" })).not.toHaveClass("bg-brand-600");
+  });
+
   it("can open the PDF in a new tab", () => {
     render(<Page />);
 

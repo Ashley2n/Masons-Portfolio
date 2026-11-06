@@ -44,26 +44,31 @@ type ButtonProps = {
 export default function Button({
   children,
   variant = "outline",
-  icon = "arrow",
+  icon,
   className,
   href,
   download,
   newTab,
   onClick,
 }: ButtonProps) {
-  const Icon = icons[icon];
+  // The ↗ means "leaves this page", so only new-tab links get it; links within the site have no icon (D-39)
+  const iconName = icon ?? (newTab ? "arrow" : undefined);
+  const Icon = iconName && icons[iconName];
   const classes = buttonClasses(variant, className);
   const content = (
     <>
       {children}
-      <Icon
-        aria-hidden="true"
-        className={cn(
-          "size-4 transition-transform duration-300",
-          icon === "arrow" && "motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5",
-        )}
-        strokeWidth={1.75}
-      />
+      {Icon && (
+        <Icon
+          aria-hidden="true"
+          className={cn(
+            "size-4 transition-transform duration-300",
+            iconName === "arrow" &&
+              "motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5",
+          )}
+          strokeWidth={1.75}
+        />
+      )}
     </>
   );
 

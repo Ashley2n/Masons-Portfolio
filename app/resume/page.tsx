@@ -23,7 +23,7 @@ export default function ResumePage() {
               description={resumeContent.description}
             />
             <div className="flex flex-wrap gap-4">
-              <Button href={file.href} download={file.downloadName} icon="download">
+              <Button href={file.href} download={file.downloadName} icon="download" variant="primary">
                 {resumeContent.downloadLabel}
               </Button>
               <Button href={file.href} newTab>
