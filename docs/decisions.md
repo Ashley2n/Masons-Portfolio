@@ -369,3 +369,16 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 - **Not in this pass:** the stronger mobile-menu effect. Ashley has not supplied a reference and "more significant" has no shape yet, so it needs real research (D-41, "Kept on purpose"). Left for later and said so.
 - **Open:** whether the Expertise cards should keep their hover zoom now that they are not links (D-38). A zoom on something that does not respond to a click suggests it does.
+
+### D-43 · Gallery tab order and five photos removed (Mason's feedback)
+
+- **Date:** 2026-11-06 · **Status:** Accepted (Mason's feedback via Ashley; amends the order in D-22 and D-23)
+- **Context:** Ashley recorded Mason's feedback in `docs/feeback.md`: the gallery tags in the order Staged, Modeling, Concerts, Recital, Design, and five photos to take off the site (embedded in that file as `image.png` to `image-4.png`).
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| Tabs run All, Staged, Modeling, Concerts, Recital, Design, Other. The source of the order is `galleryCategoryIds` (`types/content.ts`), so the "All" view also takes one photo from each category in that order | Reorder the tabs only; leave "All" as it was | One source of truth already drives both the tabs and the "All" interleave; a second order would drift | "All" now leads with a Staged photo instead of a Concerts one | Mason via Ashley, `docs/feeback.md`; `content/media.ts`; `lib/gallery.ts` |
+| "All" stays first and "Other" stays last, labels unchanged ("Staged", "Recital") | Rename to Mason's words "Stages" and "Recitals"; drop "Other" | Mason's list has five tags; "All" and "Other" were not in it, and "Other" holds his four reels | ⚠ unsourced assumption that the wording was loose and "Other" should stay; confirm with Mason | `docs/feeback.md` (his list omits All and Other); `content/media.ts` videos are in "other" |
+| Removed `staged-12`, `staged-19`, `staged-20`, `staged-21`, `staged-33` from `content/gallery-photos.ts` and deleted the five files from `public/images/media/staged/` | Hide the entries but keep the files | A public repo should not keep photos Mason asked to take down; the content test already fails on unused image files | Photos stay in git history; the numbering has gaps | Mason via Ashley, `docs/feeback.md`; `content/content.test.ts` ("uses every image file") |
+
+- **Consequences:** `content/content.test.ts` pins the new order and the five removed ids. The import script may reuse number 33 for a later Staged photo.

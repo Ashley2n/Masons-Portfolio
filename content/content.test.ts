@@ -169,16 +169,23 @@ describe("media gallery content", () => {
     expect(galleryVideos).toHaveLength(4);
   });
 
-  it("labels the filters in Mason's order (D-22, D-23)", () => {
+  it("labels the filters in the order Mason asked for (D-43)", () => {
     expect(galleryCategories.map((c) => c.label)).toEqual([
       "All",
+      "Staged",
+      "Modeling",
       "Concerts",
       "Recital",
-      "Modeling",
-      "Staged",
       "Design",
       "Other",
     ]);
+  });
+
+  it("no longer shows the five Staged photos Mason asked to have removed (D-43)", () => {
+    // docs/feeback.md: the two sofa scenes, the red-light cape shot, and the two sweater-vest shots
+    const removed = ["staged-12", "staged-19", "staged-20", "staged-21", "staged-33"];
+    const shown = new Set(galleryItems.map((item) => item.id));
+    expect(removed.filter((id) => shown.has(id))).toEqual([]);
   });
 
   it("uses every image file in public/images/media, so no stock leftovers ship", () => {
