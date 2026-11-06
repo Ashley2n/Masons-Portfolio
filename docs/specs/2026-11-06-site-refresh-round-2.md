@@ -77,6 +77,8 @@ A / B (desktop)
 
 Also: drop the ↗ arrow on buttons that do not leave the page; use it only for external or new-tab links (⚠ judgment).
 
+**Chosen 2026-11-06: option A**, picked by Ashley after seeing A, B and C live on the Home hero (`impeccable generate`). Built test-first in commit `48d82c6`: `Button` has a `primary` variant, `ResumeDialog` takes a `variant`, and the Home hero leads with View resume (primary) then View work (outline). **Applied to the Home hero only.** Still open: the primary on the other views (About hero, Contact page's Send message, resume page), the ↗ arrow rule, and the Designer card (F8).
+
 ### 3.3 Homepage
 
 | Block | Option | Notes |
