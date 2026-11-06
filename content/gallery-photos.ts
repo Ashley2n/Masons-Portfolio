@@ -87,16 +87,12 @@ export const galleryPhotos: GalleryPhoto[] = [
   { id: "staged-09", category: "staged", src: "/images/media/staged/staged-09.jpg", alt: "Two pairs of actors in tank tops posing with arms crossed on stage", width: 2000, height: 1333 },
   { id: "staged-10", category: "staged", src: "/images/media/staged/staged-10.jpg", alt: "Actor in a brown blazer and a dancer on stage, with three performers on a platform behind", width: 2000, height: 1333 },
   { id: "staged-11", category: "staged", src: "/images/media/staged/staged-11.jpg", alt: "Full cast dancing on a brightly lit stage with a photo-wall backdrop", width: 2000, height: 1333 },
-  { id: "staged-12", category: "staged", src: "/images/media/staged/staged-12.jpg", alt: "Two actors facing each other beside a velvet sofa on a dark stage", width: 1080, height: 1440 },
   { id: "staged-13", category: "staged", src: "/images/media/staged/staged-13.jpg", alt: "Actor in glasses and a grey suit at a bar beside a woman, a man and a puppet", width: 2000, height: 1500 },
   { id: "staged-14", category: "staged", src: "/images/media/staged/staged-14.jpg", alt: "Actor in glasses and a grey suit thinking, hand on chin, at a bar", width: 1500, height: 2000 },
   { id: "staged-15", category: "staged", src: "/images/media/staged/staged-15.jpg", alt: "Actor in glasses and a grey suit embraced by an actress in white on a neon-lit stage", width: 1500, height: 2000 },
   { id: "staged-16", category: "staged", src: "/images/media/staged/staged-16.jpg", alt: "Bride in a veil gesturing at an actor in glasses on a neon city-skyline set", width: 2000, height: 1500 },
   { id: "staged-17", category: "staged", src: "/images/media/staged/staged-17.jpg", alt: "Actor in a bowler hat and a police officer looking up on a dark stage", width: 799, height: 533 },
   { id: "staged-18", category: "staged", src: "/images/media/staged/staged-18.jpg", alt: "Actor in a top hat and cape singing in front of a painted stone wall", width: 799, height: 533 },
-  { id: "staged-19", category: "staged", src: "/images/media/staged/staged-19.jpg", alt: "Three actors in red light, one sweeping open a cape", width: 1500, height: 2000 },
-  { id: "staged-20", category: "staged", src: "/images/media/staged/staged-20.jpg", alt: "Actor in a sweater vest gesturing behind a yellow desk with a typewriter", width: 2000, height: 1500 },
-  { id: "staged-21", category: "staged", src: "/images/media/staged/staged-21.jpg", alt: "Actor in a sweater vest talking to an actress on a dark stage", width: 1170, height: 868 },
   { id: "staged-22", category: "staged", src: "/images/media/staged/staged-22.jpg", alt: "Actress in a long gown watching an actor seated on a bench under blue light", width: 1500, height: 2000 },
   { id: "staged-23", category: "staged", src: "/images/media/staged/staged-23.jpg", alt: "Actor in a green waistcoat beside an actress in a green skirt in a Victorian parlor set", width: 2000, height: 1333 },
   { id: "staged-24", category: "staged", src: "/images/media/staged/staged-24.jpg", alt: "Two actors in waistcoats holding glasses in a Victorian holiday scene", width: 1333, height: 2000 },
@@ -108,6 +104,5 @@ export const galleryPhotos: GalleryPhoto[] = [
   { id: "staged-30", category: "staged", src: "/images/media/staged/staged-30.jpg", alt: "Actor in glasses reading a letter at a table as an actress stands behind him", width: 2000, height: 1333 },
   { id: "staged-31", category: "staged", src: "/images/media/staged/staged-31.jpg", alt: "Actor in glasses beside a bride holding a bouquet on a neon-lit stage", width: 2000, height: 1333 },
   { id: "staged-32", category: "staged", src: "/images/media/staged/staged-32.jpg", alt: "Actor in glasses and a grey suit smiling as he takes an actress's hands", width: 2000, height: 1333 },
-  { id: "staged-33", category: "staged", src: "/images/media/staged/staged-33.jpg", alt: "Actor in a white chef's jacket seated on a sofa in a spotlight", width: 756, height: 1008 },
   // import-photos: new photos go above this line
 ];
