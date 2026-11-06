@@ -21,13 +21,15 @@ Answered in principle; the asset or account is still to come.
 
 | # | Item | Notes |
 |---|---|---|
-| U1 | **Redesign before/after** (D-33) | Show the redesigned banner, buttons, Contact card, footer, expertise cards and animations before they ship. |
+| U1 | **Redesign before/after** (D-33, D-38) | Show the refresh before it ships (branch `feat/redesign`, before screenshots from 2026-11-06 at 1280 and 390 px): photo-card expertise tiles (no links), larger section headings, Journey stats beside the heading, dark CTA banner (AA heading), no small labels above headings, larger About timeline text, a scroll reveal (off for reduced motion and print) and a poster when a video thumbnail fails. Still to do in Phase 10: footer, Contact card, "Get in touch" on mobile (C26). |
+| U4 | **Location shown on the site** | Ashley wants "Iowa, US" in the footer and the Contact card (2026-11-06); the mockup said "Los Angeles, CA". Confirm it is what Mason wants shown publicly. |
 | U2 | **Contact email wording** (#18) | No mockup covers the email Mason receives. Placeholder copy in `content/contact.ts` (`form.email`): heading "New message from your portfolio", footer "Sent from the contact form on your portfolio site.", reply button "Reply to <name>". Low priority; change the strings if he wants different wording. |
 
 ## Internal (Ashley)
 
 | # | Question | Notes |
 |---|---|---|
+| I7 | **Round 2: pick an option in each block** | Navbar, homepage, Contact card, footer: `docs/specs/2026-11-06-site-refresh-round-2.md`, section 3 (each has a recommendation). Buttons (3.2) and F8 (the About "Designer" card stays as it is) are decided. Also: do the Singer card photo (`concerts-07`) and the Vocal Reel thumbnail variants show Mason? |
 | I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
 
 ## Resolved

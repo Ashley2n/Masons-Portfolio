@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import type { InstagramVideo, YouTubeVideo } from "@/types/content";
@@ -40,6 +40,16 @@ describe("VideoCard", () => {
       expect(screen.getByRole("button", { name: "Play Spring" })).toBeInTheDocument();
       expect(document.querySelector("img")?.getAttribute("src")).toContain("WhWc3b3KhnY");
       expect(document.querySelector("iframe")).toBeNull();
+    });
+
+    it("drops a thumbnail that fails to load, so there is no broken image, and the video stays playable", async () => {
+      render(<VideoCard video={youtube} />);
+
+      fireEvent.error(document.querySelector("img")!);
+
+      expect(document.querySelector("img")).toBeNull();
+      await userEvent.click(screen.getByRole("button", { name: "Play Spring" }));
+      expect(document.querySelector("iframe")).not.toBeNull();
     });
 
     it("loads the privacy-enhanced player when played", async () => {

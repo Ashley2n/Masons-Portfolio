@@ -7,10 +7,12 @@ import { cn } from "@/lib/utils";
 
 type NavLinksProps = {
   className?: string;
+  /** Extra classes for each link (the mobile menu makes them bigger and centred) */
+  linkClassName?: string;
   onNavigate?: () => void;
 };
 
-export default function NavLinks({ className, onNavigate }: NavLinksProps) {
+export default function NavLinks({ className, linkClassName, onNavigate }: NavLinksProps) {
   const pathname = usePathname();
 
   return (
@@ -28,6 +30,7 @@ export default function NavLinks({ className, onNavigate }: NavLinksProps) {
                 active
                   ? "border-brand-600 text-neutral-100"
                   : "border-transparent text-neutral-300",
+                linkClassName,
               )}
             >
               {link.label}

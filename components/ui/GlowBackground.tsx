@@ -21,7 +21,7 @@ export default function GlowBackground({ children, className }: GlowBackgroundPr
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 mask-b-from-85% mask-b-to-100%"
       >
-        <div className="absolute -right-24 -bottom-32 size-128 rounded-full bg-brand-500 opacity-70 blur-[120px]" />
+        <div className="absolute -right-24 -bottom-32 size-128 rounded-full bg-brand-500 opacity-50 blur-[120px]" />
       </div>
 
       {/* Foreground: anything you put here is unaffected by the glow */}

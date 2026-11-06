@@ -11,6 +11,12 @@ describe("/media page", () => {
     ).toBeInTheDocument();
   });
 
+  it("has no 'Media' label above the heading (D-38)", () => {
+    render(<Page />);
+
+    expect(screen.queryByText("Media")).not.toBeInTheDocument();
+  });
+
   it("is titled 'Media'", () => {
     expect(metadata.title).toBe("Media");
   });
@@ -22,13 +28,10 @@ describe("/media page", () => {
     ).toHaveAttribute("href", "/contact");
   });
 
-  it("links 'Explore the gallery' down to the gallery", () => {
+  it("has no 'Explore the gallery' button: the gallery sits right below the hero", () => {
     render(<Page />);
 
-    expect(screen.getByRole("link", { name: "Explore the gallery" })).toHaveAttribute(
-      "href",
-      "#gallery",
-    );
+    expect(screen.queryByRole("link", { name: "Explore the gallery" })).not.toBeInTheDocument();
     const gallery = screen.getByRole("list", { name: "Gallery" });
     expect(gallery.closest("#gallery")).not.toBeNull();
   });

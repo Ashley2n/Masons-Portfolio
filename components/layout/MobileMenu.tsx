@@ -4,6 +4,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import NavLinks from "./NavLinks";
 
+// How long the panel stays after closing so its fade-out can play. Keep in step with --animate-menu-out in globals.css.
+const EXIT_MS = 198;
+
+const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
 export default function MobileMenu() {
   const pathname = usePathname();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -11,6 +16,20 @@ export default function MobileMenu() {
   const [openedOn, setOpenedOn] = useState<string | null>(null);
   const open = openedOn === pathname;
   const close = () => setOpenedOn(null);
+
+  // After closing, the panel stays mounted for EXIT_MS so it can fade out. The scroll lock in globals.css
+  // follows the panel being in the page, so it releases only when the panel is gone.
+  const [leaving, setLeaving] = useState(false);
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    setLeaving(wasOpen && !open && !prefersReducedMotion());
+  }
+  useEffect(() => {
+    if (!leaving) return;
+    const timer = setTimeout(() => setLeaving(false), EXIT_MS);
+    return () => clearTimeout(timer);
+  }, [leaving]);
 
   useEffect(() => {
     if (!open) return;
@@ -31,24 +50,32 @@ export default function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpenedOn(open ? null : pathname)}
-        className="-mr-1.5 grid size-11 place-items-center text-neutral-100"
+        className="relative z-50 -mr-1.5 grid size-11 place-items-center text-neutral-100"
       >
         {open ? (
-          <X aria-hidden="true" className="size-6" />
+          <X aria-hidden="true" className="size-6 motion-safe:animate-icon-turn" />
         ) : (
-          <Menu aria-hidden="true" className="size-6" />
+          <Menu aria-hidden="true" className="size-6 motion-safe:animate-icon-turn" />
         )}
         <span className="sr-only">Menu</span>
       </button>
 
-      {open && (
+      {(open || leaving) && (
         <nav
           id="mobile-menu"
           aria-label="Mobile"
-          className="absolute inset-x-0 top-full z-50 border-b border-neutral-800 bg-neutral-950 px-4 py-6"
+          // While fading out it can't be tapped or focused
+          inert={!open}
+          // Fills the screen under the logo and Menu button (both z-50); the page behind it is locked in globals.css
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900/85 backdrop-blur-md pt-(--header-height) motion-safe:animate-menu-in motion-safe:data-[leaving]:animate-menu-out"
+          data-leaving={open ? undefined : ""}
         >
           {/* onNavigate also closes the menu when the link is the current page */}
-          <NavLinks className="flex-col gap-6" onNavigate={close} />
+          <NavLinks
+            className="flex-col items-center gap-2"
+            linkClassName="inline-flex min-h-11 items-center justify-center text-small"
+            onNavigate={close}
+          />
         </nav>
       )}
     </div>

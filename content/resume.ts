@@ -1,5 +1,4 @@
 export const resumeContent = {
-  eyebrow: "Resume",
   title: "Resume",
   description: "Training, credits and experience across stage, screen, music and design.",
   // Mason's resume as he sent it (F2, D-35). To update it, replace the file and keep the name.

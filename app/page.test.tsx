@@ -40,6 +40,27 @@ describe("Home page", () => {
       expect(screen.getByAltText(homeImages.hero.alt)).toBeInTheDocument();
       expect(screen.getByRole("link", { name: "View work" })).toHaveAttribute("href", "/media");
     });
+
+    it("puts the primary action, View resume, before the secondary one, View work (D-39)", () => {
+      render(<Home />);
+
+      const resume = screen.getByRole("button", { name: "View resume" });
+      const work = screen.getByRole("link", { name: "View work" });
+      // Reading order and keyboard order follow the visual hierarchy
+      expect(resume.compareDocumentPosition(work) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it("has a scroll cue: a link that jumps to the Model Shots section (D-39)", () => {
+      render(<Home />);
+
+      const cue = screen.getByRole("link", { name: "Scroll to Model Shots" });
+      // The link must point at something that exists: the carousel section itself
+      const target = screen.getByRole("region", { name: "Model Shots" });
+      expect(cue).toHaveAttribute("href", `#${target.id}`);
+      expect(target.id).not.toBe("");
+      // The arrow is decoration; the link's name carries the meaning
+      expect(cue.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    });
   });
 
   it("orders the sections Hero → Model Shots → Journey → Expertise → Recent Work → CTA (C23)", () => {
@@ -63,6 +84,14 @@ describe("Home page", () => {
     expect(h1.compareDocumentPosition(firstH2) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it("has no small labels above the section headings (D-38)", () => {
+    render(<Home />);
+
+    for (const label of ["About Me", "Expertise", "Media"]) {
+      expect(screen.queryByText(label)).not.toBeInTheDocument();
+    }
+  });
+
   it("shows the journey stats with the mockup labels and image", () => {
     render(<Home />);
 
@@ -79,20 +108,23 @@ describe("Home page", () => {
     expect(screen.getByAltText(homeImages.journey.alt)).toBeInTheDocument();
   });
 
-  it("makes each expertise card a link with an h3 title", () => {
+  it("shows each expertise as a photo card with an h3 title, and not as a link (D-33, C24)", () => {
     render(<Home />);
 
-    for (const [title, description] of [
-      ["Model", "Stage & Screen Work"],
-      ["Designer", "Branding & Digital Design"],
-      ["Singer", "Live Vocals & Studio"],
-      ["Actor", "Theatre & On Camera"],
-    ]) {
-      const card = screen.getByRole("link", { name: new RegExp(`^${title}`) });
-      expect(card).toHaveAttribute("href", "/media");
+    const cards = within(screen.getByRole("list", { name: "Expertise" })).getAllByRole("listitem");
+    expect(cards).toHaveLength(4);
+    cards.forEach((card, index) => {
+      const [title, description] = [
+        ["Model", "Stage & Screen Work"],
+        ["Designer", "Branding & Digital Design"],
+        ["Singer", "Live Vocals & Studio"],
+        ["Actor", "Theatre & On Camera"],
+      ][index];
       expect(within(card).getByRole("heading", { level: 3, name: title })).toBeInTheDocument();
       expect(card).toHaveTextContent(description);
-    }
+      expect(within(card).getByRole("img")).toHaveAccessibleName();
+      expect(within(card).queryByRole("link")).not.toBeInTheDocument();
+    });
   });
 
   it("features Mason's reel in Recent Work as a click-to-load YouTube card (D-20, D-32)", () => {
@@ -136,6 +168,12 @@ describe("Home page", () => {
     render(<Home />);
 
     expect(screen.queryByRole("main")).not.toBeInTheDocument();
+  });
+
+  it("has no arrow on 'View More', since it stays on the site (D-39)", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: /view more/i }).querySelector("svg")).toBeNull();
   });
 
   it("links 'View More' in Recent Work to the media page", () => {

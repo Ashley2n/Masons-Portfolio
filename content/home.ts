@@ -24,11 +24,12 @@ export const stats: Stat[] = [
   { id: "musical-shows", value: "4", label: "theatrical/musical shows" },
 ];
 
+// Each card shows one of Mason's gallery photos, cropped to fit (D-33)
 export const expertiseItems: ExpertiseItem[] = [
-  { id: "model", title: "Model", description: "Stage & Screen Work", href: "/media", colorClass: "bg-brand-400" },
-  { id: "designer", title: "Designer", description: "Branding & Digital Design", href: "/media", colorClass: "bg-brand-600" },
-  { id: "singer", title: "Singer", description: "Live Vocals & Studio", href: "/media", colorClass: "bg-brand-500" },
-  { id: "actor", title: "Actor", description: "Theatre & On Camera", href: "/media", colorClass: "bg-brand-700" },
+  { id: "model", title: "Model", description: "Stage & Screen Work", image: galleryPhoto("modeling-11"), imagePosition: "object-[50%_20%]" },
+  { id: "designer", title: "Designer", description: "Branding & Digital Design", image: galleryPhoto("design-03"), imagePosition: "object-center" },
+  { id: "singer", title: "Singer", description: "Live Vocals & Studio", image: galleryPhoto("concerts-07"), imagePosition: "object-[50%_30%]" },
+  { id: "actor", title: "Actor", description: "Theatre & On Camera", image: galleryPhoto("staged-07"), imagePosition: "object-[50%_35%]" },
 ];
 
 // Mason's real videos only (D-32). The date is the YouTube upload date.
@@ -88,11 +89,10 @@ export const modelShots: ModelShot[] = modelShotIds.map((id) => ({ id, ...galler
 
 export const sectionHeadings = {
   journey: {
-    eyebrow: "About Me",
     title: "The Journey So Far",
     description: "Years of training, stages, and performances that shaped where I am today.",
   },
-  expertise: { eyebrow: "Expertise", title: "What I Do" },
-  recentWork: { eyebrow: "Media", title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
+  expertise: { title: "What I Do" },
+  recentWork: { title: "Recent Work", viewMore: "View More", otherWork: "Other Work" },
   modelShots: { title: "Model Shots" },
 };

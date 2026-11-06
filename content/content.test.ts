@@ -37,6 +37,17 @@ describe("home content", () => {
     });
   });
 
+  it("every expertise card has one of Mason's own gallery photos with alt text, and no link (D-33, D-24)", () => {
+    expertiseItems.forEach((item) => {
+      expect(item.image.src).toMatch(/^\/images\/media\//);
+      expect(existsSync(join(process.cwd(), "public", item.image.src))).toBe(true);
+      expect(item.image.alt.trim()).not.toBe("");
+      expect(item.image.width).toBeGreaterThan(0);
+      expect(item.image.height).toBeGreaterThan(0);
+      expect("href" in item).toBe(false);
+    });
+  });
+
   it("the Journey image is one of Mason's own photos, with no stock credit (D-24)", () => {
     expect(homeImages.journey.src).toMatch(/^\/images\/media\//);
     expect(existsSync(join(process.cwd(), "public", homeImages.journey.src))).toBe(true);

@@ -1,11 +1,14 @@
 "use client";
 import { FileText, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
-import Button, { buttonClasses } from "@/components/ui/Button";
+import Button, { buttonClasses, type ButtonVariant } from "@/components/ui/Button";
 import { resumeContent } from "@/content/resume";
+import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
 type ResumeDialogProps = {
+  /** Same looks as Button; the main action in a view uses "primary" */
+  variant?: ButtonVariant;
   className?: string;
 };
 
@@ -13,7 +16,7 @@ type ResumeDialogProps = {
  * "View resume" button that opens the PDF in a modal with download options.
  * Uses the native <dialog>: Escape closes it, focus stays inside, the page behind is inert.
  */
-export default function ResumeDialog({ className }: ResumeDialogProps) {
+export default function ResumeDialog({ variant = "outline", className }: ResumeDialogProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -49,8 +52,8 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        // Exactly the outline Button's look; the visible text is the accessible name (D-29)
-        className={buttonClasses("outline", cn("shrink-0", className))}
+        // Exactly the Button's look for this variant; the visible text is the accessible name (D-29)
+        className={buttonClasses(variant, cn("shrink-0", className))}
       >
         {resumeContent.viewLabel}
         <FileText aria-hidden="true" className="size-4" strokeWidth={1.75} />
@@ -77,7 +80,10 @@ export default function ResumeDialog({ className }: ResumeDialogProps) {
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label={resumeContent.closeLabel}
-                className="grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100"
+                className={cn(
+                  "grid size-10 place-items-center rounded-full text-neutral-300 hover:bg-neutral-800 hover:text-neutral-100",
+                  pressClasses,
+                )}
               >
                 <X aria-hidden="true" className="size-5" />
               </button>

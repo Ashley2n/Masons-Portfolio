@@ -19,12 +19,11 @@ export default function ResumePage() {
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <SectionHeading
               as="h1"
-              eyebrow={resumeContent.eyebrow}
               title={resumeContent.title}
               description={resumeContent.description}
             />
             <div className="flex flex-wrap gap-4">
-              <Button href={file.href} download={file.downloadName} icon="download">
+              <Button href={file.href} download={file.downloadName} icon="download" variant="primary">
                 {resumeContent.downloadLabel}
               </Button>
               <Button href={file.href} newTab>

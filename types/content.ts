@@ -26,9 +26,10 @@ export type ExpertiseItem = {
   id: string;
   title: string;
   description: string;
-  href: string;
-  /** Tailwind background class for the card */
-  colorClass: string;
+  /** One of Mason's gallery photos (D-33: the cards use photos and are not links) */
+  image: Photo;
+  /** Tailwind object-position class that keeps the subject in frame when the card crops the photo */
+  imagePosition: string;
 };
 
 type VideoBase = {

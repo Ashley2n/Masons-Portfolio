@@ -36,6 +36,8 @@ export default function VideoCard({
   className,
 }: VideoCardProps) {
   const [playing, setPlaying] = useState(false);
+  // YouTube can 404 a thumbnail (e.g. a just-uploaded or unlisted video); show a poster instead of a broken image
+  const [thumbnailFailed, setThumbnailFailed] = useState(false);
   const frame = cn(
     "group relative block w-full overflow-hidden rounded-lg bg-neutral-800",
     video.orientation === "portrait" ? "aspect-9/16" : "aspect-video",
@@ -82,13 +84,21 @@ export default function VideoCard({
         aria-label={`Play ${video.title}`}
         className={cn(frame, "cursor-pointer")}
       >
-        <Image
-          src={youTubeThumbnail(video.youtubeId)}
-          alt=""
-          fill
-          sizes={sizes}
-          className="object-cover"
-        />
+        {thumbnailFailed ? (
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 bg-linear-to-br from-brand-800 via-neutral-900 to-neutral-950"
+          />
+        ) : (
+          <Image
+            src={youTubeThumbnail(video.youtubeId)}
+            alt=""
+            fill
+            sizes={sizes}
+            className="object-cover"
+            onError={() => setThumbnailFailed(true)}
+          />
+        )}
         <PlayBadge />
       </button>
     );

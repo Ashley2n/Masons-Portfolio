@@ -24,6 +24,7 @@ export default function Footer() {
       <Container className={`grid gap-10 py-12 sm:grid-cols-2 ${desktopColumns}`}>
         <div className="space-y-4">
           <p className="font-playfair text-3xl italic text-neutral-100">MF</p>
+          <p>{siteConfig.tagline}</p>
           <p>
             © {year} {siteConfig.name}.
             <br />

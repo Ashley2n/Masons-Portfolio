@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import Eyebrow from "./Eyebrow";
 
 const tones = {
   /** On light (neutral-100) sections */
@@ -9,7 +8,6 @@ const tones = {
 };
 
 type SectionHeadingProps = {
-  eyebrow: string;
   title: string;
   description?: string;
   /** Use "h1" for the main heading of a page */
@@ -19,7 +17,6 @@ type SectionHeadingProps = {
 };
 
 export default function SectionHeading({
-  eyebrow,
   title,
   description,
   as: Heading = "h2",
@@ -28,10 +25,18 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("space-y-4", className)}>
-      <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
-      <Heading className={tones[tone].title}>{title}</Heading>
+      <Heading
+        className={cn(
+          "text-balance text-4xl md:text-h1",
+          tones[tone].title,
+          // Section headings rise into view; a page title (h1) never does (D-41)
+          Heading === "h2" && "reveal",
+        )}
+      >
+        {title}
+      </Heading>
       {description && (
-        <p className={cn("max-w-sm text-small", tones[tone].description)}>{description}</p>
+        <p className={cn("max-w-md text-body", tones[tone].description)}>{description}</p>
       )}
     </div>
   );

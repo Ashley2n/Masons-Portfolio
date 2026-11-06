@@ -20,11 +20,22 @@ describe("Button", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
-  it("shows a decorative arrow icon hidden from screen readers", () => {
+  it("shows no icon on a link to another page of the site (D-39)", () => {
     render(<Button href="/contact">Get in touch</Button>);
 
+    expect(screen.getByRole("link", { name: "Get in touch" }).querySelector("svg")).toBeNull();
+  });
+
+  it("shows a decorative arrow, hidden from screen readers, when the link opens a new tab", () => {
+    render(
+      <Button href="/resume/cv.pdf" newTab>
+        Open in new tab
+      </Button>,
+    );
+
     // The accessible name is only the label; the icon is an SVG, not a text character
-    const link = screen.getByRole("link", { name: "Get in touch" });
+    const link = screen.getByRole("link", { name: "Open in new tab" });
+    expect(link.querySelector("svg")).toHaveClass("lucide-arrow-up-right");
     expect(link.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
     expect(link).not.toHaveTextContent("↗");
   });

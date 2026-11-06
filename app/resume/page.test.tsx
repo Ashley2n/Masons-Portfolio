@@ -16,6 +16,8 @@ describe("/resume page", () => {
     render(<Page />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Resume" })).toBeInTheDocument();
+    // The old "Resume" label above the heading repeated it (D-38)
+    expect(screen.getAllByText("Resume")).toHaveLength(1);
   });
 
   it("offers the PDF as a download with a friendly file name", () => {
@@ -24,6 +26,14 @@ describe("/resume page", () => {
     const download = screen.getByRole("link", { name: "Download PDF" });
     expect(download).toHaveAttribute("href", file.href);
     expect(download).toHaveAttribute("download", file.downloadName);
+  });
+
+  it("makes Download PDF the page's primary action, not Open in new tab (D-39)", () => {
+    render(<Page />);
+
+    // The look itself is checked in e2e/buttons.spec.ts; this pins which button gets the primary variant
+    expect(screen.getByRole("link", { name: "Download PDF" })).toHaveClass("bg-brand-600");
+    expect(screen.getByRole("link", { name: "Open in new tab" })).not.toHaveClass("bg-brand-600");
   });
 
   it("can open the PDF in a new tab", () => {

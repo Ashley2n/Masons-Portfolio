@@ -24,7 +24,7 @@ export default function Timeline() {
   return (
     <section className="surface-light bg-neutral-100 py-16 md:py-24">
       <Container className="space-y-12">
-        <SectionHeading tone="light" eyebrow={journey.eyebrow} title={journey.title} />
+        <SectionHeading tone="light" title={journey.title} />
 
         {/* ::before draws the line the milestones hang from: left on mobile, centered on desktop.
             A pseudo-element keeps the <ol> valid (only <li> children). */}
@@ -37,26 +37,34 @@ export default function Timeline() {
             return (
               <li
                 key={milestone.id}
-                className="relative grid gap-6 pl-12 md:grid-cols-2 md:gap-24 md:pl-0"
+                className="reveal relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
               >
                 <Node status={milestone.status} />
-                <div className={cn("space-y-3", textFirst ? "md:text-right" : "md:order-2")}>
+                {/* Right-hand text normally follows a left-hand photo. With no photo, nothing holds
+                    column 1, so the text is placed in column 2 itself. */}
+                <div
+                  className={cn(
+                    "space-y-3",
+                    textFirst ? "md:text-right" : "md:order-2",
+                    !textFirst && !milestone.image && "md:col-start-2",
+                  )}
+                >
                   <p className="caption-text text-brand-600">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <h3 className="text-h3 font-semibold text-neutral-800">{milestone.title}</h3>
+                  <h3 className="text-h2 font-semibold text-neutral-800 md:text-4xl">{milestone.title}</h3>
                   <span
                     aria-hidden="true"
                     className={cn("block h-0.5 w-8 bg-brand-500", textFirst && "md:ml-auto")}
                   />
-                  <p className={cn("max-w-sm text-small text-neutral-600", textFirst && "md:ml-auto")}>
+                  <p className={cn("max-w-md text-body text-neutral-600", textFirst && "md:ml-auto")}>
                     {milestone.description}
                   </p>
                 </div>
                 {milestone.image && (
                   <div
                     className={cn(
-                      "relative aspect-video overflow-hidden rounded-lg bg-neutral-800",
+                      "relative aspect-video overflow-hidden rounded-lg bg-neutral-800 md:aspect-4/3",
                       !textFirst && "md:order-1",
                     )}
                   >

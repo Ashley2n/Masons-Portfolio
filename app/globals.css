@@ -46,6 +46,29 @@
       opacity: 0;
     }
   }
+  /* Mobile menu (D-41): the panel slides up as it fades in (330ms) and drops away faster (198ms);
+     the Menu/X icon turns into place when it swaps (264ms) */
+  --animate-menu-in: menu-in 330ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+  }
+  --animate-menu-out: menu-out 198ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  @keyframes menu-out {
+    to {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+  --animate-icon-turn: icon-turn 264ms cubic-bezier(0.16, 1, 0.3, 1);
+  @keyframes icon-turn {
+    from {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.6);
+    }
+  }
 }
 
 /* Font families come from next/font (lib/fonts.ts). `inline` makes utilities
@@ -78,9 +101,24 @@
     outline: 2px solid var(--focus-ring, var(--color-brand-400));
     outline-offset: 2px;
   }
-  /* Keep the page behind an open modal (e.g. the resume) from scrolling */
-  html:has(dialog[open]) {
+  /* Keep the page behind an open modal (the resume) or the full-screen mobile menu from scrolling */
+  html:has(dialog[open]),
+  html:has(#mobile-menu) {
     overflow: hidden;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
   }
 }
 
@@ -112,6 +150,29 @@
     @apply text-[2.75rem] leading-[1.1] md:text-[4.5rem] lg:text-hero text-neutral-100 font-playfair font-bold uppercase;
   }
 
+  /* Scroll reveal: a block rises and fades in as it enters the viewport. CSS only (a scroll-driven
+     animation), so there is no JavaScript to wait for. Visitors who ask for reduced motion, and
+     browsers without animation-timeline, never run it and see the content in place (D-33, D-38). */
+  /* `screen` only: print and PDF never scroll, so blocks below the fold would print blank */
+  @media screen and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .reveal {
+        animation: reveal-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+      }
+    }
+  }
+
+  /* Hero entrance, the one authored moment: each piece rises 100ms after the one before it
+     (--hero-step 0 to 4), 600ms each, done by 1s. `backwards` (not `both`) so the animation lets go
+     afterwards and the buttons' own hover transform still works. Reduced motion and print never run it (D-41). */
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .hero-enter {
+      animation: hero-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--hero-step, 0) * 100ms) backwards;
+    }
+  }
+
   .small-text {
     @apply text-small font-inter;
   }
@@ -119,5 +180,39 @@
   /* Eyebrow / caption labels */
   .caption-text {
     @apply text-caption font-space uppercase tracking-wider;
+  }
+}
+
+/* Page change (D-41): React's <ViewTransition> in app/layout.tsx names the header, the footer and
+   <main> ("page"). Only the page crossfades, quickly. The header and footer are their own groups
+   with no animation, so they stay put instead of fading with the page. Unlayered on purpose:
+   view-transition pseudo-elements are not part of the page's layers. */
+::view-transition-group(root),
+::view-transition-group(page),
+::view-transition-group(site-header),
+::view-transition-group(site-footer),
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer) {
+  animation: none;
+}
+/* The old header and footer would sit under the new ones at the new position: show only the new */
+::view-transition-old(site-header),
+::view-transition-old(site-footer) {
+  display: none;
+}
+::view-transition-old(page),
+::view-transition-new(page) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

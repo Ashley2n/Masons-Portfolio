@@ -3,7 +3,6 @@ import type { Photo } from "@/types/content";
 // Copy from the Contact mockup. The form sends through Resend (D-19); the sending, sent
 // and failed wording was agreed with Ashley on 2026-10-31 (the mockup has none).
 export const contactContent = {
-  eyebrow: "Get in touch",
   title: "Let's create something great.",
   intro:
     "Have a project, opportunity, or idea in mind? Whether it's a performance, creative collaboration, or just a conversation — I'd love to hear from you.",
@@ -42,7 +41,7 @@ export const contactContent = {
     },
   },
   card: {
-    eyebrow: "Contact info",
+    label: "Contact info",
     followTitle: "Follow",
     quote: "Good art starts with a conversation.",
     image: {

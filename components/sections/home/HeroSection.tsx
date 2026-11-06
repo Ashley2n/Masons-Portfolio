@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import ResumeDialog from "@/components/resume/ResumeDialog";
 import Button from "@/components/ui/Button";
@@ -24,7 +25,7 @@ export default function HeroSection() {
         <div>
           <ul
             aria-label="Roles"
-            className="caption-text flex flex-wrap items-center gap-x-3 text-brand-500"
+            className="hero-enter flex flex-wrap items-center gap-x-3 font-space text-small tracking-wider text-brand-500 uppercase md:text-body"
           >
             {heroContent.roles.map((role) => (
               <li key={role} className="not-first:before:mr-3 not-first:before:content-['•']">
@@ -32,16 +33,24 @@ export default function HeroSection() {
               </li>
             ))}
           </ul>
-          <h1 className="display-font mt-4">
+          <h1 className="hero-enter display-font mt-4 [--hero-step:1]">
             {heroContent.firstName} <br /> {heroContent.lastName}
           </h1>
         </div>
-        <p className="max-w-sm text-neutral-300">{heroContent.tagline}</p>
+        <p className="hero-enter max-w-md text-lg text-neutral-200 md:text-xl [--hero-step:2]">{heroContent.tagline}</p>
         <div className="flex flex-wrap gap-4">
-          <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
-          <ResumeDialog />
+          <ResumeDialog variant="primary" className="hero-enter [--hero-step:3]" />
+          <Button href={heroContent.cta.href} className="hero-enter [--hero-step:4]">{heroContent.cta.label}</Button>
         </div>
       </Container>
+
+      <a
+        href="#model-shots"
+        aria-label="Scroll to Model Shots"
+        className="absolute right-4 bottom-6 grid size-11 place-items-center sm:right-6 md:right-10 rounded-full border border-neutral-100/40 text-neutral-100 transition-colors hover:bg-neutral-100/10"
+      >
+        <ChevronDown aria-hidden="true" className="size-6 motion-safe:animate-bounce" />
+      </a>
     </section>
   );
 }

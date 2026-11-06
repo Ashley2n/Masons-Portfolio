@@ -13,6 +13,8 @@ describe("/about page", () => {
       render(<Page />);
 
       expect(screen.getByRole("heading", { level: 1, name: "About Me" })).toBeInTheDocument();
+      // The old "About Me" label above the heading repeated it (D-38)
+      expect(screen.getAllByText("About Me")).toHaveLength(1);
       expect(
         screen.getByText(
           "I'm a multidisciplinary artist creating meaningful experiences through performance and design.",
@@ -33,6 +35,12 @@ describe("/about page", () => {
       expect(within(card).getByAltText(aboutContent.feature.image.alt)).toBeInTheDocument();
     });
 
+    it("has no arrow on the feature card, since it stays on the site (D-39)", () => {
+      render(<Page />);
+
+      expect(screen.getByRole("link", { name: /^Designer/ }).querySelector("svg")).toBeNull();
+    });
+
     it("doesn't add the feature card title to the heading outline", () => {
       render(<Page />);
 
@@ -45,10 +53,10 @@ describe("/about page", () => {
   });
 
   describe("journey timeline", () => {
-    it("is headed 'My Journey' under a 'My Story' eyebrow", () => {
+    it("is headed 'My Journey', with no label above it (D-38)", () => {
       render(<Page />);
 
-      expect(screen.getByText("My Story")).toBeInTheDocument();
+      expect(screen.queryByText("My Story")).not.toBeInTheDocument();
       expect(screen.getByRole("heading", { level: 2, name: "My Journey" })).toBeInTheDocument();
     });
 
@@ -115,5 +123,12 @@ describe("/about page", () => {
     render(<Page />);
 
     expect(screen.getByRole("button", { name: "View resume" })).toBeInTheDocument();
+  });
+
+  it("makes View resume the page's primary action (D-39)", () => {
+    render(<Page />);
+
+    // The look itself is checked in e2e/buttons.spec.ts; this pins that the prop is wired
+    expect(screen.getByRole("button", { name: "View resume" })).toHaveClass("bg-brand-600");
   });
 });

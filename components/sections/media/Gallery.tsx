@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import VideoCard from "@/components/ui/VideoCard";
 import { galleryCategories, galleryItems, mediaContent } from "@/content/media";
 import { countByCategory, filterGallery, type GalleryFilter } from "@/lib/gallery";
+import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
 const counts = countByCategory(galleryItems);
@@ -52,7 +53,8 @@ export default function Gallery() {
             disabled={counts[id] === 0}
             className={cn(
               // pt-4: 45px-tall tap targets (the scrolling row would clip a .touch-target area)
-              "caption-text shrink-0 border-b-2 pt-4 pb-2 transition-colors",
+              "caption-text shrink-0 border-b-2 pt-4 pb-2",
+              pressClasses,
               "focus-visible:outline-offset-4",
               filter === id
                 ? "border-brand-600 text-brand-500"
@@ -113,7 +115,10 @@ export default function Gallery() {
           <button
             type="button"
             onClick={loadMore}
-            className="touch-target caption-text inline-flex items-center gap-2 text-neutral-100 transition-colors hover:text-brand-500 focus-visible:outline-offset-4"
+            className={cn(
+              "touch-target caption-text inline-flex items-center gap-2 text-neutral-100 hover:text-brand-500 focus-visible:outline-offset-4",
+              pressClasses,
+            )}
           >
             {mediaContent.loadMore}
             <ArrowDown aria-hidden="true" className="size-4" />

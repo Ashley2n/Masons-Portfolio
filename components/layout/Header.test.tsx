@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import Header from "./Header";
@@ -92,7 +92,8 @@ describe("Header", () => {
       const mobileNav = screen.getByRole("navigation", { name: "Mobile" });
       await user.click(within(mobileNav).getByRole("link", { name: "About" }));
 
-      expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
+      // The panel fades out for a moment before it leaves the page
+      await waitFor(() => expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument());
     });
 
     it("closes with the Escape key and returns focus to the Menu button", async () => {
@@ -104,7 +105,8 @@ describe("Header", () => {
       within(mobileNav).getByRole("link", { name: "Media" }).focus();
       await user.keyboard("{Escape}");
 
-      expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
+      // The panel fades out for a moment before it leaves the page
+      await waitFor(() => expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument());
       expect(screen.getByRole("button", { name: "Menu" })).toHaveFocus();
     });
 
@@ -116,7 +118,8 @@ describe("Header", () => {
       navigation.pathname = "/about";
       rerender(<Header />);
 
-      expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument();
+      // The panel fades out for a moment before it leaves the page
+      await waitFor(() => expect(screen.queryByRole("navigation", { name: "Mobile" })).not.toBeInTheDocument());
     });
   });
 });
