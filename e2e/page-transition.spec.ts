@@ -98,6 +98,8 @@ test.describe("page crossfade (D-41)", () => {
     // Give a transition time to start and be recorded, if one were going to animate
     await page.waitForTimeout(600);
 
-    expect((await recorded(page)).animations).toEqual([]);
+    // Zero-length animations are the browser's own bookkeeping on the groups and move nothing; they appear on some runs
+    const { animations } = await recorded(page);
+    expect(animations.filter((animation) => animation.duration > 0)).toEqual([]);
   });
 });
