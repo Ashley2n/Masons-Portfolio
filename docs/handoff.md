@@ -49,6 +49,7 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 
 ## Progress log (newest first: add one line per session at the top)
 - 2026-11-06: Audited round 2 and wrote `docs/specs/2026-11-06-site-refresh-round-2.md` (D-39 Proposed): three agreed fixes plus options for navbar, buttons, homepage, Contact card, footer. Rewrote this handoff for a fresh session. No code changes. Not pushed.
+- 2026-11-06: #20 live check done by Ashley on the PR #25 preview (fixed Preview env var); PRs #22 to #25 merged to `main`. Updated handoff, roadmap and open-questions. #20 closed on GitHub.
 - 2026-11-06: Started the Phase 10 refresh on `feat/redesign` (D-38): expertise photo cards, headings, Journey, CTA banner, scroll reveal, timeline, video poster fallback. All checks clean. Pushed as PR #27 (not merged); waiting on Mason's before/after (U1).
 - 2026-11-06: Pushed #16 to #19 and opened stacked PRs #22 to #25 after Ashley said yes. Nothing merged. Next: #20 by hand, then merges in order.
 - 2026-11-06: Two-axis code review of #19 (no blocking findings), reran lint, typecheck and 328 tests (pass), committed #19 locally (`Closes #19`). Not pushed. Next: #20 by hand.
