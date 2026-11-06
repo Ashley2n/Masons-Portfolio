@@ -40,7 +40,15 @@ export default function Timeline() {
                 className="reveal relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
               >
                 <Node status={milestone.status} />
-                <div className={cn("space-y-3", textFirst ? "md:text-right" : "md:order-2")}>
+                {/* Right-hand text normally follows a left-hand photo. With no photo, nothing holds
+                    column 1, so the text is placed in column 2 itself. */}
+                <div
+                  className={cn(
+                    "space-y-3",
+                    textFirst ? "md:text-right" : "md:order-2",
+                    !textFirst && !milestone.image && "md:col-start-2",
+                  )}
+                >
                   <p className="caption-text text-brand-600">
                     {String(i + 1).padStart(2, "0")}
                   </p>
