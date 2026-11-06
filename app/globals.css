@@ -85,6 +85,13 @@
   }
 }
 
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
 @keyframes reveal-rise {
   from {
     opacity: 0;
@@ -131,6 +138,15 @@
         animation-timeline: view();
         animation-range: entry 0% entry 45%;
       }
+    }
+  }
+
+  /* Hero entrance, the one authored moment: each piece rises 100ms after the one before it
+     (--hero-step 0 to 4), 600ms each, done by 1s. `backwards` (not `both`) so the animation lets go
+     afterwards and the buttons' own hover transform still works. Reduced motion and print never run it (D-40). */
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .hero-enter {
+      animation: hero-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--hero-step, 0) * 100ms) backwards;
     }
   }
 

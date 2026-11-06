@@ -25,7 +25,7 @@ export default function HeroSection() {
         <div>
           <ul
             aria-label="Roles"
-            className="flex flex-wrap items-center gap-x-3 font-space text-small tracking-wider text-brand-500 uppercase md:text-body"
+            className="hero-enter flex flex-wrap items-center gap-x-3 font-space text-small tracking-wider text-brand-500 uppercase md:text-body"
           >
             {heroContent.roles.map((role) => (
               <li key={role} className="not-first:before:mr-3 not-first:before:content-['•']">
@@ -33,14 +33,14 @@ export default function HeroSection() {
               </li>
             ))}
           </ul>
-          <h1 className="display-font mt-4">
+          <h1 className="hero-enter display-font mt-4 [--hero-step:1]">
             {heroContent.firstName} <br /> {heroContent.lastName}
           </h1>
         </div>
-        <p className="max-w-md text-lg text-neutral-200 md:text-xl">{heroContent.tagline}</p>
+        <p className="hero-enter max-w-md text-lg text-neutral-200 md:text-xl [--hero-step:2]">{heroContent.tagline}</p>
         <div className="flex flex-wrap gap-4">
-          <ResumeDialog variant="primary" />
-          <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
+          <ResumeDialog variant="primary" className="hero-enter [--hero-step:3]" />
+          <Button href={heroContent.cta.href} className="hero-enter [--hero-step:4]">{heroContent.cta.label}</Button>
         </div>
       </Container>
 
