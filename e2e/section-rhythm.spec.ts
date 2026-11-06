@@ -69,3 +69,24 @@ test.describe("homepage section rhythm (D-39)", () => {
     expect(tops).toEqual([...tops].sort((a, b) => a - b));
   });
 });
+
+// Hero roles line (D-39, 3.3): "slightly larger" than the old 12px caption.
+// The floors are written out in px on purpose: they are the decision, not a token.
+test.describe("hero roles line (D-39)", () => {
+  const sizes = [
+    { width: 1280, height: 800, minPx: 16 },
+    { width: 390, height: 844, minPx: 14 },
+  ];
+
+  for (const { width, height, minPx } of sizes) {
+    test(`is at least ${minPx}px at ${width}px wide`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await page.goto("/");
+
+      const fontSize = await page
+        .getByRole("list", { name: "Roles" })
+        .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+      expect(fontSize).toBeGreaterThanOrEqual(minPx);
+    });
+  }
+});

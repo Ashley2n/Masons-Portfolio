@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import ResumeDialog from "@/components/resume/ResumeDialog";
 import Button from "@/components/ui/Button";
@@ -24,7 +25,7 @@ export default function HeroSection() {
         <div>
           <ul
             aria-label="Roles"
-            className="caption-text flex flex-wrap items-center gap-x-3 text-brand-500"
+            className="flex flex-wrap items-center gap-x-3 font-space text-small tracking-wider text-brand-500 uppercase md:text-body"
           >
             {heroContent.roles.map((role) => (
               <li key={role} className="not-first:before:mr-3 not-first:before:content-['•']">
@@ -42,6 +43,14 @@ export default function HeroSection() {
           <Button href={heroContent.cta.href}>{heroContent.cta.label}</Button>
         </div>
       </Container>
+
+      <a
+        href="#model-shots"
+        aria-label="Scroll to Model Shots"
+        className="absolute bottom-6 left-1/2 grid size-11 -translate-x-1/2 place-items-center rounded-full border border-neutral-100/40 text-neutral-100 transition-colors hover:bg-neutral-100/10"
+      >
+        <ChevronDown aria-hidden="true" className="size-6 motion-safe:animate-bounce" />
+      </a>
     </section>
   );
 }

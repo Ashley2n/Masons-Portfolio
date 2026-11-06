@@ -49,6 +49,18 @@ describe("Home page", () => {
       // Reading order and keyboard order follow the visual hierarchy
       expect(resume.compareDocumentPosition(work) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     });
+
+    it("has a scroll cue: a link that jumps to the Model Shots section (D-39)", () => {
+      render(<Home />);
+
+      const cue = screen.getByRole("link", { name: "Scroll to Model Shots" });
+      // The link must point at something that exists: the carousel section itself
+      const target = screen.getByRole("region", { name: "Model Shots" });
+      expect(cue).toHaveAttribute("href", `#${target.id}`);
+      expect(target.id).not.toBe("");
+      // The arrow is decoration; the link's name carries the meaning
+      expect(cue.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    });
   });
 
   it("orders the sections Hero → Model Shots → Journey → Expertise → Recent Work → CTA (C23)", () => {

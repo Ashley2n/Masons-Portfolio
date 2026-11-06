@@ -27,6 +27,7 @@ export default function ModelShotsCarousel() {
 
   return (
     <section
+      id="model-shots"
       aria-roledescription="carousel"
       aria-labelledby="model-shots-heading"
       onKeyDown={onKeyDown}
