@@ -1,3 +1,4 @@
+import { contrastRatio, toRgb } from "./color";
 import { expect, test } from "./fixtures";
 
 // jsdom can't measure layout, so the open panel's shape is checked in a real browser (D-39, spec 3.1)
@@ -177,5 +178,46 @@ test.describe("mobile menu fade at 390px", () => {
 
     expect(result.ms).toBeLessThan(50);
     expect(result.overflowAfter).not.toBe("hidden");
+  });
+});
+
+// The panel is see-through neutral with a blur, so the page shows faintly behind it (D-41)
+test.describe("mobile menu background at 390px", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/about");
+    await page.getByRole("button", { name: "Menu" }).click();
+  });
+
+  // What the panel looks like over a given backdrop, as "rgb(r, g, b)"
+  const over = (page: import("./fixtures").Page, backdrop: string) =>
+    page.getByRole("navigation", { name: "Mobile" }).evaluate((panel, backdrop) => {
+      const ctx = document.createElement("canvas").getContext("2d")!;
+      ctx.fillStyle = backdrop;
+      ctx.fillRect(0, 0, 1, 1);
+      ctx.fillStyle = getComputedStyle(panel).backgroundColor;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return `rgb(${r}, ${g}, ${b})`;
+    }, backdrop);
+  const channel = (rgb: string) => Number(rgb.match(/\d+/)![0]);
+
+  test("lets the page show through: a light page behind it makes it lighter than a dark one does", async ({ page }) => {
+    const overLight = channel(await over(page, "rgb(245, 245, 245)"));
+    const overDark = channel(await over(page, "rgb(10, 10, 10)"));
+
+    expect(overLight - overDark).toBeGreaterThanOrEqual(10);
+  });
+
+  test("blurs what is behind it", async ({ page }) => {
+    await expect(page.getByRole("navigation", { name: "Mobile" })).toHaveCSS("backdrop-filter", /blur\(/);
+  });
+
+  test("keeps the dimmest link at AA contrast even over the lightest section behind it", async ({ page }) => {
+    const link = page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: "Media" });
+    const text = await toRgb(page, await link.evaluate((el) => getComputedStyle(el).color));
+    const background = await over(page, "rgb(245, 245, 245)");
+
+    expect(contrastRatio(text, background)).toBeGreaterThanOrEqual(4.5);
   });
 });

@@ -67,7 +67,7 @@ export default function MobileMenu() {
           // While fading out it can't be tapped or focused
           inert={!open}
           // Fills the screen under the logo and Menu button (both z-50); the page behind it is locked in globals.css
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900 pt-(--header-height) motion-safe:animate-menu-in motion-safe:data-[leaving]:animate-menu-out"
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral-900/85 backdrop-blur-md pt-(--header-height) motion-safe:animate-menu-in motion-safe:data-[leaving]:animate-menu-out"
           data-leaving={open ? undefined : ""}
         >
           {/* onNavigate also closes the menu when the link is the current page */}
