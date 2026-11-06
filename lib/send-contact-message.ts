@@ -9,6 +9,7 @@ import {
   type ContactSendResult,
   type ContactValues,
 } from "@/lib/contact";
+import { isSpamSubmission } from "@/lib/contact-spam";
 
 /** The slice of the Resend client this module uses, so tests can pass a fake. */
 export type ContactMailer = {
@@ -21,6 +22,8 @@ type Deps = {
   apiKey: string | undefined;
   createMailer: (apiKey: string) => ContactMailer;
   logError: (message: string, detail?: Record<string, unknown>) => void;
+  /** The server's clock in ms, injected so tests don't need fake timers. */
+  now: () => number;
 };
 
 // Until Mason verifies a domain, Resend only sends from its onboarding address (D-19).
@@ -55,8 +58,13 @@ const isSafeToEmail = ({ name, email, message }: ContactValues) =>
 /** Sends a visitor's message to Mason. Never logs the visitor's details. */
 export const sendContactMessage = async (
   input: unknown,
-  { apiKey, createMailer, logError }: Deps,
+  { apiKey, createMailer, logError, now }: Deps,
 ): Promise<ContactSendResult> => {
+  if (typeof input === "object" && input !== null) {
+    const { website, startedAt } = input as Record<string, unknown>;
+    // Same reply as a real send so a bot has nothing to learn from or retry
+    if (isSpamSubmission({ website, startedAt }, now())) return { ok: true };
+  }
   const values = parseContactValues(input);
   if (!values || hasErrors(validateContact(values)) || !isSafeToEmail(values)) return { ok: false };
 

@@ -80,18 +80,53 @@ describe("ContactForm", () => {
     expect(email).toHaveAccessibleDescription(errors.emailInvalid);
   });
 
-  it("sends the visitor's values and confirms", async () => {
-    const { send, fillAndSubmit } = setup();
+  it("sends the visitor's values with an empty honeypot and the time the form loaded, then confirms", async () => {
+    // Fake only Date (timers stay real so userEvent works): the form loads at 1 s and is sent at 10 s
+    vi.useFakeTimers({ toFake: ["Date"], now: 1_000 });
+    try {
+      const { send, fillAndSubmit } = setup();
+      vi.setSystemTime(10_000);
 
-    await fillAndSubmit({ name: "Ada Lovelace", message: "Would love to collaborate on a show." });
+      await fillAndSubmit({ name: "Ada Lovelace", message: "Would love to collaborate on a show." });
 
-    expect(send).toHaveBeenCalledExactlyOnceWith({
-      name: "Ada Lovelace",
-      email: "ada@example.com",
-      message: "Would love to collaborate on a show.",
-    });
+      expect(send).toHaveBeenCalledExactlyOnceWith({
+        name: "Ada Lovelace",
+        email: "ada@example.com",
+        message: "Would love to collaborate on a show.",
+        website: "",
+        startedAt: 1_000,
+      });
 
-    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(SENT));
+      await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(SENT));
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("hides the honeypot from screen readers, the keyboard and autofill", async () => {
+    const { user, message, submit } = setup();
+
+    // Not in the accessibility tree: only name, email and message are text boxes
+    expect(screen.getAllByRole("textbox")).toHaveLength(3);
+    // The one thing the tree can't show: the bot-only input exists, is aria-hidden and opts out of autofill
+    const honeypot = document.querySelector<HTMLInputElement>('input[name="website"]');
+    expect(honeypot).toHaveAttribute("autocomplete", "off");
+    expect(honeypot?.closest("[aria-hidden='true']")).not.toBeNull();
+    // Tabbing out of the message goes straight to Send, skipping the honeypot
+    await user.click(message);
+    await user.tab();
+    expect(submit).toHaveFocus();
+  });
+
+  it("passes on whatever a bot types into the honeypot, so the server can reject it", async () => {
+    const { user, send, fillAndSubmit } = setup();
+    const honeypot = document.querySelector<HTMLInputElement>('input[name="website"]')!;
+
+    await user.type(honeypot, "https://spam.example");
+    await fillAndSubmit();
+
+    expect(send).toHaveBeenCalledOnce();
+    expect(send.mock.calls[0][0].website).toBe("https://spam.example");
   });
 
   it("waits for the send to finish before confirming", async () => {

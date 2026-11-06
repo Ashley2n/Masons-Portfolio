@@ -5,8 +5,13 @@ export type ContactValues = { name: string; email: string; message: string };
 export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
 /** Whether a message went out. */
 export type ContactSendResult = { ok: boolean };
+/**
+ * What the form submits: the visitor's values plus the two spam-check fields.
+ * `website` is the hidden honeypot (always "" from a real visitor); `startedAt` is when the form loaded, in ms.
+ */
+export type ContactSubmission = ContactValues & { website: string; startedAt: number };
 /** Sends already-validated values; the form waits for the result before confirming. */
-export type ContactSend = (values: ContactValues) => Promise<ContactSendResult>;
+export type ContactSend = (submission: ContactSubmission) => Promise<ContactSendResult>;
 
 const { errors, subjectPrefix } = contactContent.form;
 const MIN_MESSAGE_LENGTH = 10;

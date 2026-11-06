@@ -1,6 +1,6 @@
 "use client";
 import { ArrowRight } from "lucide-react";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { contactContent } from "@/content/contact";
 import { contactInfo } from "@/content/site";
 import {
@@ -36,6 +36,12 @@ export default function ContactForm({ send = sendContact }: ContactFormProps) {
     email: useRef<HTMLInputElement>(null),
     message: useRef<HTMLTextAreaElement>(null),
   };
+  const honeypot = useRef<HTMLInputElement>(null);
+  // When the form loaded, so the server can reject a submission that came too fast to be a person
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   const update = (field: keyof ContactValues, value: string) => {
     const next = { ...values, [field]: value };
@@ -60,7 +66,7 @@ export default function ContactForm({ send = sendContact }: ContactFormProps) {
     }
     setStatus("sending");
     // A network drop rejects instead of resolving { ok: false }; both mean "not sent"
-    const ok = await send(values).then(
+    const ok = await send({ ...values, website: honeypot.current?.value ?? "", startedAt: startedAt.current }).then(
       (result) => result.ok,
       () => false,
     );
@@ -111,6 +117,11 @@ export default function ContactForm({ send = sendContact }: ContactFormProps) {
         {label("message")}
         <textarea ref={refs.message} rows={6} {...fieldProps("message")} onChange={(e) => update("message", e.target.value)} />
         {error("message")}
+      </div>
+
+      {/* Honeypot: real visitors never see or reach it, bots that fill every field do. sr-only keeps it rendered, since some bots skip display:none fields. */}
+      <div aria-hidden="true" className="sr-only">
+        <input ref={honeypot} type="text" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
       <button
