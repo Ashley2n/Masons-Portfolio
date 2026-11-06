@@ -17,7 +17,7 @@ _Last updated: 2026-10-31_
 | Social share image (Open Graph, 1200×630) | ❌ | Can be generated from the hero photo. |
 | Email address for the site | ✅ | `mason.13.farrington@gmail.com`, as on his resume (D-31, 2026-10-29). |
 | Phone number | ✅ | In the resume PDF and on the reel thumbnails only, as Mason wants (D-35). The site's pages don't show it; leave `phone` unset in `contactInfo`. |
-| Location | ✅ | Los Angeles, CA |
+| Location | ⚠ | Iowa, US (Ashley's call 2026-11-06; Mason to confirm, U4) |
 | Social links (Instagram, YouTube, others) | ✅ | None: Mason doesn't want any linked (F4, D-30). Add one to `socialLinks` in `content/site.ts` if that changes. |
 | Existing site (content reference) | ✅ | https://sites.google.com/view/masonmfarrington-com/home |
 | Domain | ❌ | None for now (Q C5); launch on `*.vercel.app` (D-21). |

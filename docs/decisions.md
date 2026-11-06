@@ -317,3 +317,4 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Rejected for now:** nothing yet. ⚠ "Iowa, US" is Ashley's call and not confirmed by Mason.
 - **Sources:** Ashley, 2026-11-06; code paths and line numbers are in the spec.
 - **Consequences:** build the three fixes first (TDD); update this entry to Accepted, with the chosen options, before building the rest.
+- **Progress (2026-11-06):** the three fixes are built, each test-first, one commit each on `feat/redesign`: `8a474cd` (Media hero button), `eec7b5b` ("Iowa, US"), `f2081f7` (timeline column, `md:col-start-2` when the entry has no photo). Still Proposed: the option blocks.
