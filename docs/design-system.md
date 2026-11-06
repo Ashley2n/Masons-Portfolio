@@ -72,6 +72,7 @@ Tokens live in `app/globals.css` and are checked by `app/design-tokens.test.ts`.
 - Page gutter: 92px on desktop (`px-23`, as currently used) → 24px on tablet → 16px on mobile.
 - Section vertical padding: about 64px desktop / 48px mobile.
 - Corner radius: `rounded-lg` (8px) for cards and media; `rounded-md` (6px) for buttons and inputs.
+- Button hierarchy (D-39): one **primary** (solid `brand-600`, `neutral-100` text, 5.11:1) per page, everything else outline or light. The primary lifts 1px and darkens to `brand-700` on hover.
 - Button states: outline buttons darken to `brand-600/15` on hover; the light button (CTA banner) turns `brand-200` on hover (its earlier `bg-white` hover was invisible on `neutral-100`).
 - Focus ring: one rule in `app/globals.css` (`:focus-visible`, 2px solid, 2px offset). Don't add per-component `focus-visible:outline-*` colours. The colour follows the surface: `brand-400` on the dark page (default, 8.9:1), `brand-600` inside sections with `.surface-light` (5.1:1 on `neutral-100`), `neutral-100` inside `.surface-color` (purple banner, controls over photos). Form fields keep their own border + soft ring.
 - Touch targets: at least 44x44px on mobile. For a small, isolated control, add `.touch-target` (an invisible 44px tap area that moves nothing). Where controls sit closer than 44px (footer link lists), add real padding instead: overlapping tap areas send taps to the wrong link.
@@ -96,7 +97,8 @@ There are no mobile mockups. Rules:
 | CTA banner | Home, About, Media | "Interested in working together?" + "Get in touch" button → `/contact`. |
 | Eyebrow | Contact card, 404 | Not used above page or section headings since D-38. Caption style, uppercase. `tone="light"`: `brand-600` (5.1:1 on `neutral-100`); `tone="dark"` (default): `brand-500` (7.3:1 on `neutral-950`; `brand-600` is only 3.6:1, below WCAG AA). `SectionHeading` passes its `tone` through. `tone="photo"`: `brand-200`, for labels over a photo (the Contact card, D-28). |
 | Section heading | All | H2 (+ optional subtitle and "View more" link). No eyebrow label above it (D-38). |
-| Button: outline | Hero, Media | Dark fill, `brand-600` border, label + ↗ arrow. |
+| Button: primary | Home hero and About hero (View resume), Contact (Send message, spinner while sending), Resume page (Download PDF) | Solid `brand-600` fill. The one main action on the page (D-39). |
+| Button: outline | Home hero (View work), Contact card, Resume page secondary | Dark fill, `brand-600` border. ↗ only if it opens a new tab. |
 | Button: solid light | CTA banner | White pill, dark text. |
 | Expertise card | Home | Purple gradient tile, title, subtitle, ↗. Hover: slight scale. |
 | Video card | Home, Media | Thumbnail, title, date. YouTube only (D-20): plays inline on click. The Instagram variant stays in the code in case Reels come back. Vertical 9:16 variant for Shorts. |
@@ -114,7 +116,8 @@ The mockups use simple line icons (mail, phone, pin, Instagram, YouTube, arrows)
 
 | Use | Icon | Notes |
 |---|---|---|
-| "Link out" arrow on buttons, cards, "View more" | `ArrowUpRight` | `size-4` in buttons and links, `size-6` on cards |
+| "Opens a new tab" arrow on buttons and external links | `ArrowUpRight` | `size-4`. Links within the site have no arrow (D-39); `Button` adds it only for `newTab` |
+| Sending spinner in the Contact button | `LoaderCircle` | `size-5`, `motion-safe:animate-spin` |
 | Mobile menu | `Menu` / `X` | Button keeps the accessible name "Menu"; `aria-expanded` gives the state |
 | Carousel prev/next (Phase 5) | `ChevronLeft` / `ChevronRight` | |
 | Contact rows (Phase 7) | `Mail`, `Phone`, `MapPin` | |

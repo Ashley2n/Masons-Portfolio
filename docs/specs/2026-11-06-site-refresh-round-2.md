@@ -77,7 +77,20 @@ A / B (desktop)
 
 Also: drop the ↗ arrow on buttons that do not leave the page; use it only for external or new-tab links (⚠ judgment).
 
-**Chosen 2026-11-06: option A**, picked by Ashley after seeing A, B and C live on the Home hero (`impeccable generate`). Built test-first in commit `48d82c6`: `Button` has a `primary` variant, `ResumeDialog` takes a `variant`, and the Home hero leads with View resume (primary) then View work (outline). **Applied to the Home hero only.** Still open: the primary on the other views (About hero, Contact page's Send message, resume page), the ↗ arrow rule, and the Designer card (F8).
+**Chosen 2026-11-06: option A**, picked by Ashley after seeing A, B and C live on the Home hero (`impeccable generate`). Built test-first in commit `48d82c6`: `Button` has a `primary` variant, `ResumeDialog` takes a `variant`, and the Home hero leads with View resume (primary) then View work (outline). **Done on every page (Ashley's answers, 2026-11-06):**
+
+| View | Primary | Commit |
+|---|---|---|
+| Home hero | View resume (View work is the outline secondary) | `48d82c6` |
+| About hero | View resume | `b689829` |
+| Contact page | Send message; the form button now uses `buttonClasses("primary")` and shows a spinner while sending (`LoaderCircle`, `motion-safe:animate-spin`, `aria-hidden`). The card's View resume stays outline | `36a5d4a` |
+| Resume page | Download PDF (Open in new tab stays outline) | `446d1ac` |
+
+**↗ arrow rule (decided):** the arrow means "opens a new tab". `Button` shows it only for `newTab` links (`iconName = icon ?? (newTab ? "arrow" : undefined)`); `download` keeps its download icon; links within the site have no icon. The About "Designer" card and Home "View More" lost their arrows too. The Contact card's social links keep theirs (external, and hidden while Mason links no profiles, D-30).
+
+**F8 (Designer card): keep it exactly as it is**, no copy change. The About mockup is the copy source of truth; if Ashley wants the reason spelled out, that is a client question for `docs/open-questions.md`.
+
+Not changed on purpose: the Download button inside the resume dialog stays as it is (the dialog is its own surface; "one primary per view" is applied at page level). The CTA banner "Get in touch" keeps the `light` variant on purple. Not checked by eye yet: hover and focus states, the spinner, and the 390 px layout.
 
 ### 3.3 Homepage
 
@@ -115,5 +128,5 @@ Same location string (2.2). Optional: add the role line under the logo and give 
 ## 5. Questions
 
 - **Mason:** is "Iowa, US" what he wants shown? (⚠ client data; U4)
-- **Ashley:** what is the About "Designer ↗" card for (F8)?
-- **Ashley:** which option in each of 3.1 to 3.4?
+- ~~**Ashley:** what is the About "Designer ↗" card for (F8)?~~ Answered 2026-11-06: keep it as it is.
+- **Ashley:** which option in each of 3.1, 3.3, 3.4 and 3.5? (3.2 buttons is done.)

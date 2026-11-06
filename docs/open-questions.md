@@ -29,7 +29,7 @@ Answered in principle; the asset or account is still to come.
 
 | # | Question | Notes |
 |---|---|---|
-| I7 | **Round 2: pick an option in each block** | Navbar, buttons, homepage, Contact card, footer: `docs/specs/2026-11-06-site-refresh-round-2.md`, section 3 (each has a recommendation). Also: what is the About hero "Designer" card for (F8)? And do the Singer card photo (`concerts-07`) and the Vocal Reel thumbnail variants show Mason? |
+| I7 | **Round 2: pick an option in each block** | Navbar, homepage, Contact card, footer: `docs/specs/2026-11-06-site-refresh-round-2.md`, section 3 (each has a recommendation). Buttons (3.2) and F8 (the About "Designer" card stays as it is) are decided. Also: do the Singer card photo (`concerts-07`) and the Vocal Reel thumbnail variants show Mason? |
 | I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
 
 ## Resolved

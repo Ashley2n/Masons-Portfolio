@@ -122,7 +122,7 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 - [~] Animations (reduced-motion safe): scroll reveal on the Journey stats and Expertise cards done 2026-11-06 on `feat/redesign` (CSS only, e2e-tested, D-38); page transitions not started
 - [x] Expertise cards (AA text; photos, no links), 2026-11-06 on `feat/redesign` (D-38)
 - [ ] "Get in touch" near the top on mobile (C26): try options and review
-- [~] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): done 2026-11-06 on `feat/redesign`: removed the Media hero button, "Iowa, US" everywhere (Mason to confirm, U4), fixed the About timeline's last entry. Buttons (3.2): option A chosen and built on the Home hero (`48d82c6`). Left, once Ashley picks options: the primary on the other views, the navbar, homepage rhythm and hero, Contact card hierarchy and footer
+- [~] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): done 2026-11-06 on `feat/redesign`: removed the Media hero button, "Iowa, US" everywhere (Mason to confirm, U4), fixed the About timeline's last entry. Buttons (3.2) done: option A, one primary per page on Home, About, Contact (with a sending spinner) and Resume, and the ↗ only on new-tab links (`48d82c6`, `b689829`, `36a5d4a`, `446d1ac`). Left, once Ashley picks options: the navbar, homepage rhythm and hero, Contact card hierarchy and footer
 
 ## Post-launch (backlog)
 
