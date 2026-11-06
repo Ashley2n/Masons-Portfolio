@@ -6,17 +6,12 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 
 ## Where things stand
 - **Phase 9 (10/29 meeting fixes): done.** PR #15 merged 2026-10-31; closed #8–#14 (email, no social links, real videos, Model Shots order, real resume, Resend key in Vercel).
-- **Contact form via Resend: in progress.** #16 to #19 are done, pushed, and open as **stacked PRs, none merged** (Ashley approved pushing and PRs 2026-11-06). Each PR's base is the branch below it, so each diff shows one ticket: PR #22 `refactor/16-contact-send-hook` → `main`, PR #23 `feat/17-resend-contact` → #22's branch, PR #24 `feat/18-branded-email` → #23's branch, PR #25 `feat/19-contact-spam-protection` → #24's branch. Merge in order #22, #23, #24, #25; after each merge GitHub should retarget the next PR to `main` (check it did, and ask Ashley before merging). The real form now sends through Resend (D-36 records every choice).
-- **#18 branded email: done, PR #24** on `feat/18-branded-email` (stacked on `feat/17-resend-contact`). Ashley approved the email preview 2026-11-05; lint, typecheck and all 310 tests passed the same day.
-  - **Choices are in D-36** (the "Branded email" line, `docs/decisions.md`): extend `buildContactEmail` to `{ subject, text, html }`, token-drift test in `lib/contact.test.ts`, the send test only checks `html` is sent, manual screenshot instead of a visual test. Email copy is a placeholder (U2).
-  - **Review verdicts to keep:** the test's hand-written neutral hex list is deliberate (an independent source; deriving it from `EMAIL_COLORS` would make the test tautological). The two tag-based assertions (`script, img, b` and `br`) are deliberate and commented.
-- **#19 spam protection: done, PR #25** on `feat/19-contact-spam-protection` (branched from `feat/18-branded-email`), `Closes #19`. Seams and every choice agreed with Ashley 2026-11-05 and recorded in D-37. Lint, typecheck and 328 unit tests passed 2026-11-06; the contact e2e spec (8) passed 2026-11-05.
-  - **Code review (2026-11-06, Standards + Spec): no blocking findings.** Kept on purpose: the honeypot test uses `querySelector` because the field is `aria-hidden` (no role query can reach it); `startedAt` starts at `0` until the mount effect runs, which can't matter because the submit handler only exists after hydration. Optional tidy-ups left alone: `MIN_FILL_MS` is exported but unused elsewhere; `isSpamSubmission` narrows `startedAt` through `||` short-circuiting.
+- **Contact form via Resend: shipped to `main` 2026-11-06.** PRs #22 to #25 merged in order (closed #16 to #19). The real form sends through Resend with a branded HTML + plain-text email and a honeypot + minimum-time spam check (D-36, D-37 record every choice).
+  - **#20 live check: done by Ashley 2026-11-06** on the PR #25 preview: the real message sent and she reports everything checked out (not itemized; see I6 in `docs/open-questions.md`). The first try failed because `RESEND_API_KEY` was Production-only in Vercel; it now covers Preview too. The Resend dashboard is Mason's account, so Ashley can't see it.
+  - **Review verdicts to keep:** the email test's hand-written neutral hex list is deliberate (an independent source; deriving it from `EMAIL_COLORS` would be tautological), as are the two tag-based assertions (`script, img, b` and `br`). The honeypot test uses `querySelector` because the field is `aria-hidden`. `startedAt` starts at `0` until the mount effect runs, which can't matter because the submit handler only exists after hydration. Optional tidy-ups left alone: `MIN_FILL_MS` is exported but unused elsewhere; `isSpamSubmission` narrows `startedAt` through `||` short-circuiting.
   - **Not run by anyone:** axe on the `aria-hidden` wrapper around the focusable honeypot (`tabIndex={-1}` should keep `aria-hidden-focus` quiet). The existing a11y tests pass.
-  - **The PR should say** per-IP rate limiting is out of scope per #19's text (worst case is flooding Mason's own inbox, because the onboarding sender can only deliver to him).
-  - **Check by hand in #20:** Chrome autofill leaves the hidden `website` field empty (D-37 consequences).
-- **Next: #20** (`needs-human`) after #19 is committed.
-  - **#20:** Ashley sends a few real messages labelled "Test by Ashley" by hand (agreed 2026-10-31). No automated test may send email.
+  - **Email copy is a placeholder (U2)** until Mason weighs in. Per-IP rate limiting is out of scope per #19 (worst case is flooding Mason's own inbox, because the onboarding sender can only deliver to him).
+- **Next:** close #20 (needs Ashley's OK), then launch on `*.vercel.app` (roadmap Phase 8), then the open decisions below. Ask Mason about U2 and the Resend dashboard in the next update.
 - **Phase 10 redesign (D-33): not started.** Needs designs before a spec.
 - **Launch on `*.vercel.app`:** not done (roadmap Phase 8). The milestone dates in the roadmap are stale.
 
@@ -42,12 +37,13 @@ GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 - Tickets use labels `ready-for-agent` / `needs-human`; PRs close issues with `Closes #N`.
 
 ## Suggested skills
-- `mattpocock-skills:code-review` now, on #19 (Standards + Spec sub-agents), then again before marking a PR ready
-- `verification-before-completion` before committing #19 and before claiming done
-- `dev-workflow:review-me` or `dev-workflow:teach-back` if Ashley wants to practice reviewing or explaining #19 before it goes to her lead
+- `mattpocock-skills:code-review` (Standards + Spec sub-agents) before marking a PR ready
+- `verification-before-completion` before committing and before claiming done
+- `dev-workflow:review-me` or `dev-workflow:teach-back` if Ashley wants to practice reviewing or explaining the contact form work (#16 to #19) before it goes to her lead
 - `mattpocock-skills:tdd` for any new behavior · `architect` if a ticket hits an unmade decision · `impeccable` for Phase 10
 
 ## Progress log (newest first: add one line per session at the top)
+- 2026-11-06: #20 live check done by Ashley on the PR #25 preview (fixed Preview env var); PRs #22 to #25 merged to `main`. Updated handoff, roadmap and open-questions. #20 still open on GitHub.
 - 2026-11-06: Pushed #16 to #19 and opened stacked PRs #22 to #25 after Ashley said yes. Nothing merged. Next: #20 by hand, then merges in order.
 - 2026-11-06: Two-axis code review of #19 (no blocking findings), reran lint, typecheck and 328 tests (pass), committed #19 locally (`Closes #19`). Not pushed. Next: #20 by hand.
 - 2026-11-06: Refreshed this handoff so a new session can pick up #19 at the code review. No code changes.

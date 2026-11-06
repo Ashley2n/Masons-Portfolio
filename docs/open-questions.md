@@ -29,12 +29,12 @@ Answered in principle; the asset or account is still to come.
 | # | Question | Notes |
 |---|---|---|
 | I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
-| I6 | **#20 live check: finish the steps not yet run** | 2026-11-06, Ashley, on the PR #25 Vercel preview. First attempt failed ("Sorry, your message didn't send") because `RESEND_API_KEY` was set for Production only; after adding Preview and redeploying, a real message **sent** (Ashley: "worked well"). Honeypot-filled submission: Ashley ran it and is confident, not independently observed. **Not reported or not run:** that the email was branded, had the plain-text part, and that Reply addressed the visitor; the too-fast submission (unit tests cover the 2999/3000 ms boundary); **Chrome autofill leaving `website` empty (D-37)**; the Resend dashboard (the account is Mason's, so Ashley has no access: ask him, or skip); Vercel logs showing no visitor data. #20 stays open until these are ticked or consciously skipped. |
 
 ## Resolved
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-11-06 | I6: #20 live check of the contact form | Done by Ashley on the PR #25 Vercel preview. The first try failed ("Sorry, your message didn't send") because `RESEND_API_KEY` was Production-only in Vercel; with Preview added and a redeploy, a real message sent. Ashley reports everything checked out; she didn't itemize the steps (so the autofill check and the Vercel logs check were not individually confirmed), and the Resend dashboard is Mason's account so she couldn't see it. Ask Mason to glance at it in the next update (optional). |
 | 2026-10-31 | U3: Contact card on the reels? | Mason wants it shown, and the resume published with his phone line (D-35). |
 | 2026-10-31 | F1: Resend account? | `RESEND_API_KEY` is in Vercel's environment variables, and the account is under `mason.13.farrington@gmail.com` (Ashley). The form backend can be built (D-19). |
 | 2026-10-31 | U2: "Reel 2.0" or "Reel 2 0"? | Neither: the site calls it "Mason Farrington Intro Video", since that's what the video is (Ashley; she has free rein on copy, 2026-10-09). The YouTube title is unchanged. |
