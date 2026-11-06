@@ -89,7 +89,7 @@ _Last updated: 2026-10-19_
 
 - [ ] Apply demo feedback
 - [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
-- [ ] Contact form backend: Resend server action with branded email (D-19, needs F1). 2026-10-31: plain-text sending via Resend done (#17, D-36); branded HTML email done and committed on `feat/18-branded-email` (#18, 2026-11-05, preview approved, not yet pushed); spam check (honeypot + minimum time) done and committed on `feat/19-contact-spam-protection` (#19, D-37, 2026-11-06, not yet pushed); live check (#20) left
+- [x] Contact form backend: Resend server action with branded email (D-19, needs F1). Plain-text sending (#17, D-36), branded HTML email (#18), and spam check with honeypot + minimum time (#19, D-37) merged to `main` 2026-11-06 (PRs #22 to #25). Live check (#20) done by Ashley on the preview 2026-11-06 (see I6 in `docs/open-questions.md`)
 - [x] Rename gallery categories to All / Concerts / Recital / Modeling / Staged / Design / Other (D-22, D-23)
 - [ ] Remove Instagram Reels from content and video cards; YouTube-only socials (D-20)
 - [x] Replace stock portraits with Mason's own photos (Q C10, launch blocker, F5). Gallery, Model Shots, Journey image and hero (D-24, C15)

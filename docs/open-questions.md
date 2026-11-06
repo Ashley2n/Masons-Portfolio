@@ -34,6 +34,7 @@ Answered in principle; the asset or account is still to come.
 
 | Date | Question | Answer |
 |---|---|---|
+| 2026-11-06 | I6: #20 live check of the contact form | Done by Ashley on the PR #25 Vercel preview. The first try failed ("Sorry, your message didn't send") because `RESEND_API_KEY` was Production-only in Vercel; with Preview added and a redeploy, a real message sent. Ashley reports everything checked out; she didn't itemize the steps (so the autofill check and the Vercel logs check were not individually confirmed), and the Resend dashboard is Mason's account so she couldn't see it. Ask Mason to glance at it in the next update (optional). |
 | 2026-10-31 | U3: Contact card on the reels? | Mason wants it shown, and the resume published with his phone line (D-35). |
 | 2026-10-31 | F1: Resend account? | `RESEND_API_KEY` is in Vercel's environment variables, and the account is under `mason.13.farrington@gmail.com` (Ashley). The form backend can be built (D-19). |
 | 2026-10-31 | U2: "Reel 2.0" or "Reel 2 0"? | Neither: the site calls it "Mason Farrington Intro Video", since that's what the video is (Ashley; she has free rein on copy, 2026-10-09). The YouTube title is unchanged. |
