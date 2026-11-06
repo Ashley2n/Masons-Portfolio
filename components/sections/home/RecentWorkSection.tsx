@@ -16,20 +16,21 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
   const copy = sectionHeadings.recentWork;
 
   return (
-    <section className="surface-light bg-neutral-100 py-16">
+    <section className="bg-neutral-950 py-16">
       <Container className="space-y-12">
         <div className="space-y-6">
           <div className="flex items-end justify-between gap-4">
-            <SectionHeading tone="light" title={copy.title} />
+            <SectionHeading title={copy.title} />
             <Link
               href="/media"
-              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-700 transition-colors duration-300 hover:border-neutral-700"
+              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-300 transition-colors duration-300 hover:border-neutral-300"
             >
               {copy.viewMore}
             </Link>
           </div>
           {featured && (
             <VideoCard
+              tone="dark"
               video={featured}
               sizes="(min-width: 1280px) 1280px, 100vw"
               frameClassName="lg:aspect-21/9"
@@ -39,12 +40,12 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
 
         {others.length > 0 && (
           <section aria-labelledby="other-work-heading" className="space-y-6">
-            <h2 id="other-work-heading" className="text-neutral-800">
+            <h2 id="other-work-heading" className="text-neutral-100">
               {copy.otherWork}
             </h2>
             <div className="grid gap-6 md:grid-cols-3">
               {others.map((video) => (
-                <VideoCard key={video.id} video={video} />
+                <VideoCard key={video.id} tone="dark" video={video} />
               ))}
             </div>
           </section>

@@ -6,21 +6,21 @@ import { homeImages, sectionHeadings, stats } from "@/content/home";
 import type { Stat } from "@/types/content";
 
 const StatItem = ({ value, label }: Stat) => (
-  <div className="reveal border-t border-neutral-300 pt-5">
-    <p className="font-playfair text-6xl leading-none text-brand-800 tabular-nums md:text-7xl">
+  <div className="reveal border-t border-neutral-800 pt-5">
+    <p className="font-playfair text-6xl leading-none text-brand-400 tabular-nums md:text-7xl">
       {value}
-      <span className="text-4xl text-brand-600 md:text-5xl">+</span>
+      <span className="text-4xl text-brand-500 md:text-5xl">+</span>
     </p>
-    <p className="mt-3 max-w-48 text-small text-neutral-700">{label}</p>
+    <p className="mt-3 max-w-48 text-small text-neutral-300">{label}</p>
   </div>
 );
 
 export default function JourneySection() {
   return (
-    <GlowBackground className="surface-light bg-neutral-100 pt-16 pb-24 md:pb-32">
+    <GlowBackground className="bg-neutral-950 pt-16 pb-24 md:pb-32">
       <Container className="space-y-12 md:space-y-16">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
-          <SectionHeading tone="light" className="lg:col-span-5" {...sectionHeadings.journey} />
+          <SectionHeading className="lg:col-span-5" {...sectionHeadings.journey} />
           <div className="grid gap-8 sm:grid-cols-3 lg:col-span-7">
             {stats.map((stat) => (
               <StatItem key={stat.id} {...stat} />
