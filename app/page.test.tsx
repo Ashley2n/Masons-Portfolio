@@ -40,6 +40,15 @@ describe("Home page", () => {
       expect(screen.getByAltText(homeImages.hero.alt)).toBeInTheDocument();
       expect(screen.getByRole("link", { name: "View work" })).toHaveAttribute("href", "/media");
     });
+
+    it("puts the primary action, View resume, before the secondary one, View work (D-39)", () => {
+      render(<Home />);
+
+      const resume = screen.getByRole("button", { name: "View resume" });
+      const work = screen.getByRole("link", { name: "View work" });
+      // Reading order and keyboard order follow the visual hierarchy
+      expect(resume.compareDocumentPosition(work) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
   });
 
   it("orders the sections Hero → Model Shots → Journey → Expertise → Recent Work → CTA (C23)", () => {
