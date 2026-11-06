@@ -1,12 +1,11 @@
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import ResumeDialog from "@/components/resume/ResumeDialog";
 import Eyebrow from "@/components/ui/Eyebrow";
 import { contactContent } from "@/content/contact";
 import { contactInfo, siteConfig, socialLinks } from "@/content/site";
 
-const rowClass = "flex items-center gap-4 text-neutral-200";
-const iconClass = "size-5 shrink-0 text-neutral-300";
+const rowClass = "text-neutral-200";
 
 export default function ContactCard() {
   const { card } = contactContent;
@@ -34,27 +33,22 @@ export default function ContactCard() {
         <div className="space-y-6">
           <div className="space-y-2">
             <Eyebrow tone="photo">{card.eyebrow}</Eyebrow>
-            <h2 className="text-h1 font-normal text-neutral-100">{siteConfig.name}</h2>
+            <h2 className="text-h2 font-normal text-neutral-100">{siteConfig.name}</h2>
           </div>
           <ul className="space-y-3">
             <li>
-              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} min-h-11 hover:text-brand-500 md:min-h-0`}>
-                <Mail aria-hidden="true" className={iconClass} />
+              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} inline-flex min-h-11 items-center hover:text-brand-500 md:min-h-0`}>
                 {contactInfo.email}
               </a>
             </li>
             {contactInfo.phone && (
               <li>
-                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} min-h-11 hover:text-brand-500 md:min-h-0`}>
-                  <Phone aria-hidden="true" className={iconClass} />
+                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} inline-flex min-h-11 items-center hover:text-brand-500 md:min-h-0`}>
                   {contactInfo.phone}
                 </a>
               </li>
             )}
-            <li className={rowClass}>
-              <MapPin aria-hidden="true" className={iconClass} />
-              {contactInfo.location}
-            </li>
+            <li className={rowClass}>{contactInfo.location}</li>
           </ul>
           <ResumeDialog />
         </div>
