@@ -100,3 +100,51 @@ test.describe("hero entrance", () => {
     });
   }
 });
+
+// Section headings (h2 only) use the existing scroll reveal. Page titles (h1) never do (D-41).
+test.describe("section heading reveal", () => {
+  const sectionHeadings = [
+    ["/", "Model Shots"],
+    ["/", "The Journey So Far"],
+    ["/", "What I Do"],
+    ["/", "Recent Work"],
+    ["/about", "My Journey"],
+  ] as const;
+
+  test("every section heading rises into view for visitors who allow motion", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    for (const [path, name] of sectionHeadings) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 2, name, exact: true }), `${path} ${name}`).toHaveCSS(
+        "animation-name",
+        "reveal-rise",
+      );
+    }
+  });
+
+  for (const emulation of [
+    { reducedMotion: "reduce" as const },
+    { media: "print" as const, reducedMotion: "no-preference" as const },
+  ]) {
+    test(`no section heading animates or hides (${JSON.stringify(emulation)})`, async ({ page }) => {
+      await page.emulateMedia(emulation);
+      for (const [path, name] of sectionHeadings) {
+        await page.goto(path);
+        const heading = page.getByRole("heading", { level: 2, name, exact: true });
+        await expect(heading, `${path} ${name}`).toHaveCSS("animation-name", "none");
+        await expect(heading, `${path} ${name}`).toHaveCSS("opacity", "1");
+      }
+    });
+  }
+
+  test("page titles never use the scroll reveal", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    for (const path of ["/", "/about", "/media", "/contact", "/resume"]) {
+      await page.goto(path);
+      const title = page.getByRole("heading", { level: 1 });
+      await expect(title, path).not.toHaveCSS("animation-name", "reveal-rise");
+      // The home title has its own entrance (hero-rise); the others have no animation at all
+      if (path !== "/") await expect(title, path).toHaveCSS("animation-name", "none");
+    }
+  });
+});

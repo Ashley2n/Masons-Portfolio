@@ -54,7 +54,7 @@ export default function ModelShotsCarousel() {
       className="surface-light bg-neutral-100 py-16 md:pt-20"
     >
       <Container className="space-y-6">
-        <h2 id="model-shots-heading" className="text-neutral-800">
+        <h2 id="model-shots-heading" className="reveal text-neutral-800">
           {sectionHeadings.modelShots.title}
         </h2>
 
