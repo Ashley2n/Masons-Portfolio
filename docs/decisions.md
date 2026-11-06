@@ -54,7 +54,6 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** The contact form needs a backend. Options: Resend (via a Next.js server action, needs an API key and verified domain), Formspree (hosted, free tier), or `mailto:`.
 - **Decision:** Build the form UI with validation now. For the demo, fall back to `mailto:`. Choose the delivery method after Q C2 is answered.
 - **Implemented (2026-10-11):** `lib/contact.ts` validates and builds a prefilled `mailto:` link; `ContactForm` takes an injectable `send` function, so swapping in Resend/Formspree later means replacing that one function (e.g. with a server action) without touching validation or UI.
-- **Updated (2026-10-31, #16):** `send` now takes the validated `ContactValues` and resolves to `{ ok }` (`ContactSend` in `lib/contact.ts`); the form waits for it and only shows "sent" when `ok`. The `mailto:` link is now the default `send`.
 - **Consequences:** The demo isn't blocked by a client decision.
 
 ### D-08 · Hosting on Vercel
@@ -273,3 +272,16 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Context:** D-31 kept his phone number off everything public, and D-34 made a provisional exception for the contact card on his reels. Ashley checked with Mason (U3).
 - **Decision:** Mason wants his contact details shown where he put them. The resume PDF is published exactly as he sent it, phone line included, and the reels keep their contact-card thumbnails. (Mason, confirmed to Ashley 2026-10-31.)
 - **Consequences:** The resume PDF and reel thumbnails are the only places the number appears; the site's own pages still don't show it and `contactInfo.phone` stays unset: Ashley keeps it off the Contact page and footer (2026-10-31). No exception is left to track. D-30 (no social links on the site) is unchanged, even though his Instagram handle shows on the reel thumbnails.
+
+### D-36 · How the contact form sends through Resend
+
+- **Date:** 2026-10-31 · **Status:** Accepted (implements D-19; #16, #17)
+- **Context:** D-19 chose Resend via a server action. #17 needed the details: what gets checked on the server, what's logged, how the form behaves while sending, and how to test without emailing Mason.
+- **Decision:**
+  - **Send hook** (#16): `ContactForm`'s injectable `send` takes the validated values and resolves to `{ ok }` (`ContactSend`, `lib/contact.ts`). The form only says "sent" when `ok`; a rejected promise counts as failed. The default `send` is the server action `sendContact` (`lib/contact-action.ts`), the only place `RESEND_API_KEY` is read.
+  - **Server checks:** the logic lives in `sendContactMessage` (`lib/send-contact-message.ts`, `import "server-only"`), which treats input as untrusted, checks the shape, then reuses the client's `validateContact`, so the server rejects everything the browser does. It also rejects what only a direct POST could send: a name over 100 characters, an email over 254 (RFC 5321 path limit) or containing `, ; < > " ( ) [ ] \` (Reply-To stays one bare address), and control characters (the message may keep line breaks) (Ashley, 2026-10-31). The Resend client is passed in, so tests use a fake.
+  - **Email:** to `contactInfo.email`, from `onboarding@resend.dev` (no verified domain yet, D-19), Reply-To = the visitor, subject `Portfolio inquiry from <name>`, plain text for now (branding is #18).
+  - **Privacy:** failures log only a fixed message plus Resend's error `name`/`statusCode`, never its `message` (it can echo addresses) and never the visitor's name, email or message. A missing key fails as "not sent", not a crash.
+  - **Form states:** sending (status line and button say "Sending…"; the button is `aria-disabled`, not `disabled`, so it keeps keyboard focus, and `onSubmit` ignores repeat presses; fields are read-only so the confirmation matches what was sent), sent, failed (offers Mason's email as a link). Copy agreed with Ashley 2026-10-31.
+  - **Testing:** no automated test sends email. Unit tests inject fakes; an auto fixture in `e2e/fixtures.ts` aborts every server-action request in the browser for every e2e test, because local e2e can reuse a dev server that has the real key from `.env.local`. ESLint stops specs importing `test` from `@playwright/test` directly, so new specs get the guard too. Real sends are checked by hand, labelled as tests (#20).
+- **Consequences:** `mailto:` sending and `buildMailtoUrl` are gone. The 1,500-character limit stays because the error copy promises it. Vitest aliases `server-only` to the package's own no-op (`vitest.config.mts`); Next's build still enforces it.

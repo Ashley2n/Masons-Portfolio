@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "./fixtures";
 
 // Relative luminance (WCAG) of a computed "rgb(r, g, b)" color.
 const luminance = (rgb: string) => {

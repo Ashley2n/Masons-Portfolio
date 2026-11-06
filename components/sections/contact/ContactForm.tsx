@@ -4,13 +4,13 @@ import { useRef, useState, type FormEvent } from "react";
 import { contactContent } from "@/content/contact";
 import { contactInfo } from "@/content/site";
 import {
-  buildMailtoUrl,
   hasErrors,
   validateContact,
   type ContactErrors,
   type ContactSend,
   type ContactValues,
 } from "@/lib/contact";
+import { sendContact } from "@/lib/contact-action";
 import { cn } from "@/lib/utils";
 
 type ContactFormProps = {
@@ -18,28 +18,19 @@ type ContactFormProps = {
   send?: ContactSend;
 };
 
+type ContactStatus = "idle" | "sending" | "sent" | "failed";
+
 const fields = ["name", "email", "message"] as const;
 const inputClass =
   "w-full rounded-md border bg-neutral-950/60 px-4 py-3 text-neutral-100 placeholder:text-neutral-400 transition-colors focus-visible:border-brand-500 focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand-500/40";
 
-// Opens the mail app by clicking a temporary link. Unlike assigning window.location,
-// this is a normal link activation that browsers (and the e2e test) can observe.
-const openMailApp: ContactSend = async (values) => {
-  const link = document.createElement("a");
-  link.href = buildMailtoUrl(values, contactInfo.email);
-  link.hidden = true;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  return { ok: true };
-};
-
-export default function ContactForm({ send = openMailApp }: ContactFormProps) {
+// Defaults to the Resend server action (D-19); tests inject a fake instead
+export default function ContactForm({ send = sendContact }: ContactFormProps) {
   const { form } = contactContent;
   const [values, setValues] = useState<ContactValues>({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [submitted, setSubmitted] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<ContactStatus>("idle");
   const refs = {
     name: useRef<HTMLInputElement>(null),
     email: useRef<HTMLInputElement>(null),
@@ -50,13 +41,15 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
     const next = { ...values, [field]: value };
     setValues(next);
     // An edit means the confirmation no longer describes what's in the form
-    setSent(false);
+    setStatus("idle");
     // After the first submit, re-check as the visitor types so fixed fields clear
     if (submitted) setErrors(validateContact(next));
   };
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    // aria-disabled keeps the button focusable, so the double-submit guard lives here
+    if (status === "sending") return;
     setSubmitted(true);
     const result = validateContact(values);
     setErrors(result);
@@ -65,8 +58,13 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
       if (firstInvalid) refs[firstInvalid].current?.focus();
       return;
     }
-    const { ok } = await send(values);
-    setSent(ok);
+    setStatus("sending");
+    // A network drop rejects instead of resolving { ok: false }; both mean "not sent"
+    const ok = await send(values).then(
+      (result) => result.ok,
+      () => false,
+    );
+    setStatus(ok ? "sent" : "failed");
   };
 
   const fieldProps = (field: (typeof fields)[number]) => ({
@@ -75,6 +73,8 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
     value: values[field],
     placeholder: form.placeholders[field],
     "aria-required": true,
+    // Read-only, not disabled: stays focusable and readable, but the text can't drift from what's being sent
+    readOnly: status === "sending",
     "aria-invalid": errors[field] ? true : undefined,
     "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
     className: cn(inputClass, errors[field] ? "border-red-400" : "border-neutral-700"),
@@ -115,25 +115,27 @@ export default function ContactForm({ send = openMailApp }: ContactFormProps) {
 
       <button
         type="submit"
-        className="caption-text flex w-full items-center justify-between rounded-md border border-brand-700 bg-linear-to-r from-brand-800 to-neutral-950 px-8 py-5 text-neutral-100 transition-colors hover:from-brand-700"
+        aria-disabled={status === "sending" || undefined}
+        className="caption-text flex w-full items-center justify-between rounded-md border border-brand-700 bg-linear-to-r from-brand-800 to-neutral-950 px-8 py-5 text-neutral-100 transition-colors hover:from-brand-700 aria-disabled:cursor-wait aria-disabled:opacity-70"
       >
-        {form.submit}
+        {status === "sending" ? form.sending : form.submit}
         <ArrowRight aria-hidden="true" className="size-5" />
       </button>
 
       <p role="status" className="flex items-center gap-4 text-small text-neutral-400">
         <span aria-hidden="true" className="h-px w-8 bg-brand-500" />
-        {sent ? (
+        {status === "sent" && form.sent}
+        {status === "failed" && (
           <span>
-            {form.sent}{" "}
+            {form.failed}{" "}
             <a href={`mailto:${contactInfo.email}`} className="text-brand-500 underline">
               {contactInfo.email}
             </a>
             .
           </span>
-        ) : (
-          form.note
         )}
+        {status === "sending" && form.sending}
+        {status === "idle" && form.note}
       </p>
     </form>
   );

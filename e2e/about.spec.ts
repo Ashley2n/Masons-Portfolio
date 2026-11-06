@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test.describe("about page", () => {
   test("the hero's resume button and Designer link can be clicked (the glow doesn't block them)", async ({ page }) => {

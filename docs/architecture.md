@@ -54,7 +54,7 @@ types/
 public/
   images/<page>/…       # optimized images, kebab-case names
   resume/mason-farrington-resume.pdf
-e2e/                    # Playwright end-to-end tests (*.spec.ts)
+e2e/                    # Playwright end-to-end tests (*.spec.ts); import test/expect from e2e/fixtures.ts, which blocks the contact server action (D-36)
 docs/                   # project documentation (you are here)
 ```
 
