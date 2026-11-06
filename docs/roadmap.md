@@ -117,12 +117,12 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 
 - [x] CTA banner (AA 3:1 heading), 2026-11-06 on `feat/redesign`: white on near-black, glow kept to the right edge (D-38)
 - [x] Buttons: arrow nudge on hover, 2026-11-06 on `feat/redesign` (D-38)
-- [ ] Contact page right-hand card
-- [ ] Footer (from the D-30 version)
-- [~] Animations (reduced-motion safe): scroll reveal on the Journey stats and Expertise cards done 2026-11-06 on `feat/redesign` (CSS only, e2e-tested, D-38); page transitions not started
+- [x] Contact page right-hand card, 2026-11-06 on `feat/redesign`: plain, email first, smaller name (D-39, D-40)
+- [x] Footer (from the D-30 version), 2026-11-06 on `feat/redesign`: roles line under the logo (D-39)
+- [x] Animations (reduced-motion safe), 2026-11-06 on `feat/redesign`: scroll reveal on the Journey stats, Expertise cards and section headings (D-38, D-41); hero entrance, page crossfade, mobile menu slide, fade and icon turn (D-41). CSS only, e2e-tested
 - [x] Expertise cards (AA text; photos, no links), 2026-11-06 on `feat/redesign` (D-38)
 - [ ] "Get in touch" near the top on mobile (C26): try options and review
-- [~] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): done 2026-11-06 on `feat/redesign`: removed the Media hero button, "Iowa, US" everywhere (Mason to confirm, U4), fixed the About timeline's last entry. Buttons (3.2) done: option A, one primary per page on Home, About, Contact (with a sending spinner) and Resume, and the ↗ only on new-tab links (`48d82c6`, `b689829`, `36a5d4a`, `446d1ac`). Left, once Ashley picks options: the navbar, homepage rhythm and hero, Contact card hierarchy and footer
+- [~] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): done 2026-11-06 on `feat/redesign`: removed the Media hero button, "Iowa, US" everywhere (Mason to confirm, U4), fixed the About timeline's last entry. Buttons (3.2) done: option A, one primary per page on Home, About, Contact (with a sending spinner) and Resume, and the ↗ only on new-tab links (`48d82c6`, `b689829`, `36a5d4a`, `446d1ac`). The navbar stays as it is, and the Contact card, footer, mobile menu, homepage rhythm and hero are done too (D-39, D-40)
 
 ## Post-launch (backlog)
 
@@ -132,7 +132,7 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 - [ ] ~~Page transitions and scroll animations~~ Moved to Phase 10 (D-33)
 - [ ] Gallery lightbox (open photos full screen)
 - [ ] ~~Expertise cards link to their gallery category~~ Dropped: tiles don't link (C24, 2026-10-29)
-- [ ] Swipe on the Model Shots carousel (touch gesture or CSS scroll-snap). Critique P2, 2026-10-27. Decide with `/architect`
+- [x] Swipe on the Model Shots carousel (touch gesture or CSS scroll-snap). Critique P2, 2026-10-27. Done 2026-11-06 on `feat/redesign` with CSS scroll-snap (`fd5b87d`)
 - [ ] Consider React Hook Form for the contact form (Ashley, 2026-10-26). Today's form has 3 fields and a small tested validation helper; RHF adds client JavaScript, so it pays off once forms grow (many fields, conditional steps). Decide with `/architect` before adopting
 - [ ] Phase 7 review cleanups: shared `ResumeViewer` for the modal and `/resume`, shared external-link helper (Footer + ContactCard), render or remove the unused contact `errorSummary`, treat `download=""` as a download in `Button`
 - [ ] Phase 6 review cleanups: row-ordered gallery grid (CSS-columns masonry reorders on "Load more"), move remaining aria/status strings to `content/`, shared `Glow` component, shared `.page-title` h1 size, single helper in `content/media.ts`

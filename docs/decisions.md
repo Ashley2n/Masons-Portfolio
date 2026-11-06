@@ -311,19 +311,20 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-39 · Round 2 of the refresh: fixes agreed, options to be chosen
 
-- **Date:** 2026-11-06 · **Status:** Proposed (the three fixes are agreed; the option blocks wait for Ashley)
+- **Date:** 2026-11-06 · **Status:** Accepted (every block is decided and built; see the progress notes and D-40)
 - **Context:** After round 1 (D-38, PR #27) Ashley listed what still felt wrong: the homepage, navbar and buttons had not changed; the Media hero button leads to the page you are on; the Contact card hierarchy; the location; the About timeline's last entry sits in the wrong column.
 - **Decision:** The audit, the three agreed fixes, and the options for the navbar, buttons, homepage, Contact card and footer are in `docs/specs/2026-11-06-site-refresh-round-2.md`. Agreed (Ashley 2026-11-06): remove the Media hero "Explore the gallery" button; show the location as "Iowa, US" everywhere from the one source `content/site.ts`; fix the timeline column. Not decided: which option to build in each block (the spec recommends one per block).
 - **Rejected for now:** nothing yet. ⚠ "Iowa, US" is Ashley's call and not confirmed by Mason.
 - **Sources:** Ashley, 2026-11-06; code paths and line numbers are in the spec.
 - **Consequences:** build the three fixes first (TDD); update this entry to Accepted, with the chosen options, before building the rest.
+- **Progress (2026-11-06, homepage 3.3):** Ashley chose variant 1 of the live rhythm preview and agreed every seam. `b7e7c43` alternates the bands (Model Shots and Expertise light, Journey and Recent Work dark; the Journey glow went from `opacity-70` to `50` so it suits the dark band); `3329483` adds the hero scroll cue and a larger roles line; `fd5b87d` makes the Model Shots carousel a CSS scroll-snap track with larger thumbnails (56/80/96px). The Contact card (`db2a7cc`), footer roles line (`143f58a`) and mobile menu (`7350e0b`) are in D-40. Open for Ashley: whether Recent Work (dark) needs a separator from the dark CTA banner.
 - **Progress (2026-11-06):** the three fixes are built, each test-first, one commit each on `feat/redesign`: `8a474cd` (Media hero button), `eec7b5b` ("Iowa, US"), `f2081f7` (timeline column, `md:col-start-2` when the entry has no photo). Still Proposed: the option blocks.
 - **Progress (2026-11-06, buttons 3.2):** Ashley chose option A (solid `brand-600` primary + outline secondary) after comparing A, B and C in the browser. Built in `48d82c6`: `Button` `primary` variant (5.11:1 text on `brand-600`, calculated with the WCAG formula and checked in the browser by `e2e/buttons.spec.ts`), `ResumeDialog` `variant` prop, Home hero order resume then work. B (pill with arrow disc) and C (gradient wipe on hover) were rejected. Applied to the Home hero only; the rest of the site's buttons are still open (see the spec).
 - **Progress (2026-11-06, buttons on every page):** Ashley decided one primary per page: About hero View resume (`b689829`), Contact Send message with a spinner while sending (`36a5d4a`), Resume page Download PDF (`446d1ac`). The ↗ now means "opens a new tab": `Button` shows it only for `newTab` links, and internal links (About Designer card, Home View More, View work, Get in touch, Back home) have no icon. F8: the About Designer card stays as it is. Each change was test-first (unit plus the `e2e/buttons.spec.ts` colour and contrast table). 3.2 is finished; still Proposed overall because the navbar, homepage, Contact card and footer options are open.
 
 ### D-41 · Motion pass: one authored moment and three quiet supports
 
-- **Date:** 2026-11-06 · **Status:** Accepted (Ashley's decision); slice 1 built, the rest in progress
+- **Date:** 2026-11-06 · **Status:** Accepted (Ashley's decision); all four slices built on `feat/redesign` (`32d4b1e`, `7e5fa5b`, `c3a26f3` to `f34488c`, `b72d42e`)
 - **Context:** `docs/design-system.md:79` says larger motion (scroll reveals, page transitions) needs an `/architect` decision first. Ashley asked for a motion pass before the reviews and agreed every item, timing and test seam with the agent on 2026-11-06 (`docs/handoff.md`, "Motion pass").
 - **Decision:**
 
@@ -336,3 +337,15 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | Easing `cubic-bezier(0.16, 1, 0.3, 1)`, CSS only, no new dependency, every item has a reduced-motion path (reveal-style effects are also `screen` only) | A motion library (Motion, GSAP) | The stack expresses all four with CSS and React's own `<ViewTransition>` | `<ViewTransition>` is not in stable `react@19.2.8`; Next's bundled React provides it (the guide names React 19.3) | `animate.md` ("Implement to the runtime", "Accessibility and control"); `package.json:21` |
 
 - **Consequences:** `docs/design-system.md:79` is updated to point here. Tests are e2e, in `e2e/motion.spec.ts` and `e2e/mobile-menu.spec.ts`, because the motion is CSS and only a real browser computes it.
+
+### D-40 · Full-screen mobile menu, no Contact pill, plain Contact card
+
+- **Date:** 2026-11-06 · **Status:** Accepted (Ashley's decisions); built on `feat/redesign`, not shipped until Mason sees before/after (U1)
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| Mobile menu is a full-screen panel (`fixed inset-0`) that locks page scroll, with links centred and at least 44px tall | The old drop-down list; the same panel with larger links | Ashley asked for it from a reference image, then "take up the whole page and prevent scrolling" | Link text is still 14px Space Mono caps; Ashley was offered larger links and was happy as is (open question: larger?) | Ashley 2026-11-06; `7350e0b`; `components/layout/MobileMenu.tsx`; `e2e/mobile-menu.spec.ts` |
+| Header stays exactly as it is: no sticky header, no Contact pill | Three live variants of a sticky header with a Contact pill (option B) | Ashley saw all three and discarded them | None; the hero still pulls under the header with `-mt-(--header-height)` | Ashley 2026-11-06; `docs/specs/2026-11-06-site-refresh-round-2.md` 3.1 |
+| Contact card: plain lines, no mail, pin or phone icons; email first, then `Iowa, US`; name `text-h2` (was `text-h1`); no `tel:` link | Making the email bigger (spec 3.4 option A) | Ashley said not to make the email bigger; with no icons the two lines read as matching | The "Contact info" tag above the name is still there (open question: remove?) | Ashley 2026-11-06; `db2a7cc`; `components/sections/contact/ContactCard.test.tsx`; D-35 (no phone) |
+
+- **Consequences:** the mobile menu's motion and see-through background are in D-41.
