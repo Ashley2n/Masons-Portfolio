@@ -143,7 +143,7 @@
 
   /* Hero entrance, the one authored moment: each piece rises 100ms after the one before it
      (--hero-step 0 to 4), 600ms each, done by 1s. `backwards` (not `both`) so the animation lets go
-     afterwards and the buttons' own hover transform still works. Reduced motion and print never run it (D-40). */
+     afterwards and the buttons' own hover transform still works. Reduced motion and print never run it (D-41). */
   @media screen and (prefers-reduced-motion: no-preference) {
     .hero-enter {
       animation: hero-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--hero-step, 0) * 100ms) backwards;
@@ -157,5 +157,39 @@
   /* Eyebrow / caption labels */
   .caption-text {
     @apply text-caption font-space uppercase tracking-wider;
+  }
+}
+
+/* Page change (D-41): React's <ViewTransition> in app/layout.tsx names the header, the footer and
+   <main> ("page"). Only the page crossfades, quickly. The header and footer are their own groups
+   with no animation, so they stay put instead of fading with the page. Unlayered on purpose:
+   view-transition pseudo-elements are not part of the page's layers. */
+::view-transition-group(root),
+::view-transition-group(page),
+::view-transition-group(site-header),
+::view-transition-group(site-footer),
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer) {
+  animation: none;
+}
+/* The old header and footer would sit under the new ones at the new position: show only the new */
+::view-transition-old(site-header),
+::view-transition-old(site-footer) {
+  display: none;
+}
+::view-transition-old(page),
+::view-transition-new(page) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
