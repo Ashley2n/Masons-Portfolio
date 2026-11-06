@@ -2,6 +2,10 @@ import { contactContent } from "@/content/contact";
 
 export type ContactValues = { name: string; email: string; message: string };
 export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
+/** Whether a message went out. */
+export type ContactSendResult = { ok: boolean };
+/** Sends already-validated values; the form waits for the result before confirming. */
+export type ContactSend = (values: ContactValues) => Promise<ContactSendResult>;
 
 const { errors, subjectPrefix } = contactContent.form;
 const MIN_MESSAGE_LENGTH = 10;
