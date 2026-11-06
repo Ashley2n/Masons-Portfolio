@@ -308,3 +308,12 @@ A lightweight record of technical and product decisions, in the style of [Archit
 - **Eyebrows removed:** the Impeccable craft floor bans a label above a heading (`.claude/skills/impeccable/reference/craft-floor.md`, "Page scaffolds"). They were mockup copy, which `PRODUCT.md` (Brand Commitments) says goes to Mason, so we first kept them; then Ashley decided on 2026-11-06 to remove them (she has free rein on copy, `docs/open-questions.md`, Resolved, 2026-10-09 entry). Removed above every page and section heading (Home, About, Media, Contact, Resume). Kept on purpose: the hero's role list (it is content), the "Contact info" tag on the Contact card and "Error 404" on the 404 page. Ashley also chose to leave the Journey stats, the About stock photos and the reel thumbnails as they are (2026-11-06).
 - **Expertise cards:** photos from Mason's gallery, not links (D-33; C24 dropped the links, `docs/roadmap.md`). The old test that each card was a link is replaced.
 - **Consequences:** the redesign changes how every page looks, so it goes to Mason as before/after. The before screenshots were taken 2026-11-06 at 1280 and 390 px.
+
+### D-39 · Round 2 of the refresh: fixes agreed, options to be chosen
+
+- **Date:** 2026-11-06 · **Status:** Proposed (the three fixes are agreed; the option blocks wait for Ashley)
+- **Context:** After round 1 (D-38, PR #27) Ashley listed what still felt wrong: the homepage, navbar and buttons had not changed; the Media hero button leads to the page you are on; the Contact card hierarchy; the location; the About timeline's last entry sits in the wrong column.
+- **Decision:** The audit, the three agreed fixes, and the options for the navbar, buttons, homepage, Contact card and footer are in `docs/specs/2026-11-06-site-refresh-round-2.md`. Agreed (Ashley 2026-11-06): remove the Media hero "Explore the gallery" button; show the location as "Iowa, US" everywhere from the one source `content/site.ts`; fix the timeline column. Not decided: which option to build in each block (the spec recommends one per block).
+- **Rejected for now:** nothing yet. ⚠ "Iowa, US" is Ashley's call and not confirmed by Mason.
+- **Sources:** Ashley, 2026-11-06; code paths and line numbers are in the spec.
+- **Consequences:** build the three fixes first (TDD); update this entry to Accepted, with the chosen options, before building the rest.

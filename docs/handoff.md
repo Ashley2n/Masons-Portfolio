@@ -5,49 +5,50 @@ Where the project is and what's next, for Ashley and any agent picking it up. `C
 GitHub: `Ashley2n/Masons-Portfolio` (public) · Last updated: 2026-11-06
 
 ## Where things stand
-- **Phase 9 (10/29 meeting fixes): done.** PR #15 merged 2026-10-31; closed #8–#14 (email, no social links, real videos, Model Shots order, real resume, Resend key in Vercel).
-- **Contact form via Resend: in progress.** #16 to #19 are done, pushed, and open as **stacked PRs, none merged** (Ashley approved pushing and PRs 2026-11-06). Each PR's base is the branch below it, so each diff shows one ticket: PR #22 `refactor/16-contact-send-hook` → `main`, PR #23 `feat/17-resend-contact` → #22's branch, PR #24 `feat/18-branded-email` → #23's branch, PR #25 `feat/19-contact-spam-protection` → #24's branch. Merge in order #22, #23, #24, #25; after each merge GitHub should retarget the next PR to `main` (check it did, and ask Ashley before merging). The real form now sends through Resend (D-36 records every choice).
-- **#18 branded email: done, PR #24** on `feat/18-branded-email` (stacked on `feat/17-resend-contact`). Ashley approved the email preview 2026-11-05; lint, typecheck and all 310 tests passed the same day.
-  - **Choices are in D-36** (the "Branded email" line, `docs/decisions.md`): extend `buildContactEmail` to `{ subject, text, html }`, token-drift test in `lib/contact.test.ts`, the send test only checks `html` is sent, manual screenshot instead of a visual test. Email copy is a placeholder (U2).
-  - **Review verdicts to keep:** the test's hand-written neutral hex list is deliberate (an independent source; deriving it from `EMAIL_COLORS` would make the test tautological). The two tag-based assertions (`script, img, b` and `br`) are deliberate and commented.
-- **#19 spam protection: done, PR #25** on `feat/19-contact-spam-protection` (branched from `feat/18-branded-email`), `Closes #19`. Seams and every choice agreed with Ashley 2026-11-05 and recorded in D-37. Lint, typecheck and 328 unit tests passed 2026-11-06; the contact e2e spec (8) passed 2026-11-05.
-  - **Code review (2026-11-06, Standards + Spec): no blocking findings.** Kept on purpose: the honeypot test uses `querySelector` because the field is `aria-hidden` (no role query can reach it); `startedAt` starts at `0` until the mount effect runs, which can't matter because the submit handler only exists after hydration. Optional tidy-ups left alone: `MIN_FILL_MS` is exported but unused elsewhere; `isSpamSubmission` narrows `startedAt` through `||` short-circuiting.
-  - **Not run by anyone:** axe on the `aria-hidden` wrapper around the focusable honeypot (`tabIndex={-1}` should keep `aria-hidden-focus` quiet). The existing a11y tests pass.
-  - **The PR should say** per-IP rate limiting is out of scope per #19's text (worst case is flooding Mason's own inbox, because the onboarding sender can only deliver to him).
-  - **Check by hand in #20:** Chrome autofill leaves the hidden `website` field empty (D-37 consequences).
-- **Next: #20** (`needs-human`) after #19 is committed.
-  - **#20:** Ashley sends a few real messages labelled "Test by Ashley" by hand (agreed 2026-10-31). No automated test may send email.
-- **Phase 10 redesign (D-33, D-38): in progress on `feat/redesign`** (branched from `main`, **PR #27 open, not merged**; its Vercel preview is the "after" for Mason). Ashley chose on 2026-11-06 a fresh look on every page inside the locked system (palette, fonts, copy stay), direction "editorial cinematic". Built with `impeccable` (D-27). **Done:** photo-card expertise tiles (not links), larger section headings, Journey stats beside the heading, dark AA CTA banner, button arrow nudge, scroll reveal (CSS only, off for reduced motion and print, `e2e/motion.spec.ts`), larger About timeline and hero tagline, branded poster when a YouTube thumbnail 404s, and the small labels above headings are removed (Ashley, 2026-11-06). Ashley kept the Journey stats, the About stock photos and the reel thumbnails as they are. Unit tests, build and the full e2e (79 passed, 1 skipped) and the Impeccable detector (no findings) were clean on 2026-11-06. **Left:** footer, Contact card, mobile "Get in touch" (C26); Media and Contact pages are unchanged. **Nothing ships until Mason sees before/after (U1).** Before screenshots are in `.playwright-mcp/before-*.png` (local, not committed); regenerate "after" with reduced-motion emulation so full-page captures show every section.
-- **Launch on `*.vercel.app`:** not done (roadmap Phase 8). The milestone dates in the roadmap are stale.
+- **Phase 9 (10/29 meeting fixes): done.** PR #15 merged 2026-10-31.
+- **Contact form via Resend: shipped to `main` 2026-11-06.** PRs #22 to #25 merged in order (closed #16 to #19); the real form sends through Resend with a branded HTML + plain-text email and a honeypot + minimum-time spam check (D-36, D-37 record every choice). **#20 live check done by Ashley and closed** on the PR #25 preview; it first failed because `RESEND_API_KEY` was Production-only in Vercel, now Preview too. The Resend dashboard is Mason's account, so Ashley can't see it. **PR #26** (docs for #20) is open and also edits this file, so expect a merge conflict here.
+  - **Review verdicts to keep:** the email test's hand-written neutral hex list is deliberate (an independent source; deriving it from `EMAIL_COLORS` would be tautological), as are the two tag-based assertions (`script, img, b` and `br`). The honeypot test uses `querySelector` because the field is `aria-hidden`. `startedAt` starts at `0` until the mount effect runs, which can't matter because the submit handler only exists after hydration. Not run by anyone: axe on the `aria-hidden` honeypot wrapper.
+  - **Email copy is a placeholder (U2)** until Mason weighs in.
+- **Phase 10 redesign, round 1: PR #27 open on `feat/redesign`, not merged** (D-33, D-38; its Vercel preview is the "after" for Mason, **nothing ships until he has seen before/after, U1**). Ashley chose a fresh look on every page inside the locked system (palette, fonts, copy stay), "editorial cinematic". Done: photo-card expertise tiles (not links), larger headings, Journey stats beside the heading, dark AA CTA banner, button arrow nudge, CSS scroll reveal (off for reduced motion and print, `e2e/motion.spec.ts`), larger About timeline and hero tagline, a poster when a YouTube thumbnail 404s, and the small labels above headings removed. Ashley kept the Journey stats, the About stock photos and the reel thumbnails. Clean on 2026-11-06: unit tests (332), build, full e2e (79 passed, 1 skipped), Impeccable detector. Before screenshots: `.playwright-mcp/before-*.png` (local, gitignored).
+- **Round 2: spec written, no code yet.** `docs/specs/2026-11-06-site-refresh-round-2.md` (D-39, Proposed) holds Ashley's notes from 2026-11-06 plus an audit:
+  - **Agreed, no decision needed (do first, TDD, one commit each):** remove the Media hero "Explore the gallery" button (same page); change the location to "Iowa, US" in the one source `content/site.ts:20` (feeds footer and Contact card); fix the About timeline's last entry sitting in the wrong column (`Timeline.tsx:45`, add `md:col-start-2` when it has no image; e2e test).
+  - **Ashley must choose options first** (each block has a recommendation): navbar (3.1), buttons (3.2, redesign), homepage rhythm/hero/Model Shots (3.3), Contact card hierarchy (3.4), footer (3.5). Show options in the browser with `impeccable generate`, one question at a time.
+  - **Also open:** what the About hero "Designer" card is for (F8). Confirm with Mason that "Iowa, US" is what he wants shown. Ashley should check that the Singer card photo (`concerts-07`) and the Vocal Reel thumbnail variants show Mason (photos were picked by alt text; the alternative thumbnails are `.playwright-mcp/vocal-reel-thumbnail-A.jpg` and `-B.jpg`, local).
+- **Launch on `*.vercel.app`:** not done (roadmap Phase 8). The milestone dates in the roadmap are stale; re-plan once round 1 and 2 are settled.
 
 ## Open decisions (don't guess, ask Ashley)
-- U2: contact email wording (placeholder copy until Mason weighs in).
-- I5: should portrait videos (Shorts) count for Other Work? (`docs/open-questions.md`)
-- U1: show Mason the redesign before/after.
+- Round 2 option choices (spec section 3, I7) and F8 (About "Designer" card).
+- U1: show Mason the refresh before/after. U2: contact email wording (placeholder). I5: should portrait videos (Shorts) count for Other Work? (`docs/open-questions.md`)
+- Mason: is "Iowa, US" right to show publicly? (Ashley's call 2026-11-06; Los Angeles came from the mockup.)
 
-## How Ashley wants the work done (2026-10-31)
-- Use `mattpocock-skills:tdd` before and during each ticket (`mattpocock-skills:implement` and `implement-spec` are not in the installed skill list as of 2026-11-05). Agree the **list of test seams** with Ashley before writing a test (one line each on what it catches and misses), after agreeing the design; one question at a time with a recommendation. #19 went design questions first, then seams, then tests, and she approved it.
+## How Ashley wants the work done (2026-10-31, updated 2026-11-06)
+- Use `mattpocock-skills:tdd` before and during each change. Agree the **list of test seams** with Ashley before writing a test (one line each on what it catches and misses), after agreeing the design; one question at a time with a recommendation.
 - Red → green → refactor each cycle (project rule D-13 wins over the TDD skill's "no refactor in the loop"; Ashley chose this).
 - After each ticket: `mattpocock-skills:code-review` (Standards + Spec sub-agents), verify findings before fixing (a "violation" can be wrong), then commit with `Closes #N`.
+- For design work, give Ashley **options or drafts to choose from**, and check the rendered result at 1280 and 390 px, not just the code.
+- Ask before pushing, opening PRs or merging.
 
 ## Gotchas
 - Windows. Bash and PowerShell both work. Python writes CRLF unless you open files with `newline=""`.
 - Agent worktrees under `.claude/worktrees/` get picked up by Vitest and ESLint: remove them when done. A fresh checkout or worktree needs `npm ci`.
-- e2e: `CI=1 npx playwright test` (builds and serves; uses installed Chrome, D-15). Specs must import `test`/`expect` from `e2e/fixtures.ts` (ESLint enforces it): its auto fixture aborts the contact server action so no e2e test can email Mason.
+- e2e: `CI=1 npx playwright test` (builds and serves; uses installed Chrome, D-15). Specs must import `test`/`expect` from `e2e/fixtures.ts` (ESLint enforces it): its auto fixture aborts the contact server action so no e2e test can email Mason. On 2026-11-06 the dev server was stopped before running it (a precaution; not tested whether that is needed).
 - `.env.local` holds the **real** `RESEND_API_KEY`, and local e2e reuses a running `npm run dev`. Never submit a valid form outside the fixture or against the real action. Never print the key.
 - Vitest aliases `server-only` to its no-op (`vitest.config.mts`); Next's build still enforces it.
 - Git Bash rewrites `/c` to `C:/` in arguments (e.g. `cmd /c`); run those from PowerShell.
-- Playwright MCP is installed at user scope (`@playwright/mcp@0.0.83`, Chrome), so new sessions can drive the browser with it. It blocks `file:` URLs (serve local HTML on `127.0.0.1`) and only saves files inside the repo, in `.playwright-mcp/`, which is **not gitignored**: move or delete it after use (or add it to `.gitignore` in a `chore:` commit).
+- Playwright MCP (`@playwright/mcp@0.0.83`, Chrome) blocks `file:` URLs and only saves files inside the repo in `.playwright-mcp/`, now **gitignored** (commit `9870d92` on `feat/redesign`). A first screenshot can predate Tailwind's rebuild on the dev server: wait, then reshoot.
+- **Scroll reveal and screenshots:** the `.reveal` blocks sit hidden until scrolled into view, so a full-page screenshot without scrolling shows blank sections. Capture with `page.emulateMedia({ reducedMotion: "reduce" })` (that is how the "after" images were taken). Lazy images also stay unloaded in unscrolled captures.
+- `next dev` writes an untracked `AGENTS.md` in the repo root ("Generated AGENTS.md for AI agents"). Don't commit it. Specs live in `docs/specs/` (created 2026-11-06; the repo had none); this file is the pointer to them, because that `AGENTS.md` is generated.
 - Public repo: only Mason's resume PDF and reel thumbnails show his phone number (D-35). Never put it in code, tests, docs, issues or commits. Never commit `.env.local`.
 - Tickets use labels `ready-for-agent` / `needs-human`; PRs close issues with `Closes #N`.
 
 ## Suggested skills
-- `mattpocock-skills:code-review` now, on #19 (Standards + Spec sub-agents), then again before marking a PR ready
-- `verification-before-completion` before committing #19 and before claiming done
-- `dev-workflow:review-me` or `dev-workflow:teach-back` if Ashley wants to practice reviewing or explaining #19 before it goes to her lead
-- `mattpocock-skills:tdd` for any new behavior · `architect` if a ticket hits an unmade decision · `impeccable` for Phase 10
+- `impeccable` for round 2 (`generate` to show options in the browser, `critique`/`polish` after; run `impeccable context` once per session; the Windows launcher is `.claude/skills/impeccable/scripts/impeccable.cmd`; run `detect` on the changed UI files once at the end)
+- `mattpocock-skills:tdd` for any new behavior · `verification-before-completion` before committing and before claiming done
+- `mattpocock-skills:code-review` (Standards + Spec) before marking a PR ready · `architect` if a ticket hits an unmade decision
+- `dev-workflow:review-me` or `dev-workflow:teach-back` if Ashley wants to practice reviewing or explaining the contact form work before it goes to her lead
 
 ## Progress log (newest first: add one line per session at the top)
+- 2026-11-06: Audited round 2 and wrote `docs/specs/2026-11-06-site-refresh-round-2.md` (D-39 Proposed): three agreed fixes plus options for navbar, buttons, homepage, Contact card, footer. Rewrote this handoff for a fresh session. No code changes. Not pushed.
 - 2026-11-06: Started the Phase 10 refresh on `feat/redesign` (D-38): expertise photo cards, headings, Journey, CTA banner, scroll reveal, timeline, video poster fallback. All checks clean. Pushed as PR #27 (not merged); waiting on Mason's before/after (U1).
 - 2026-11-06: Pushed #16 to #19 and opened stacked PRs #22 to #25 after Ashley said yes. Nothing merged. Next: #20 by hand, then merges in order.
 - 2026-11-06: Two-axis code review of #19 (no blocking findings), reran lint, typecheck and 328 tests (pass), committed #19 locally (`Closes #19`). Not pushed. Next: #20 by hand.

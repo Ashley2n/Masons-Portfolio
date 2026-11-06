@@ -122,6 +122,7 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 - [~] Animations (reduced-motion safe): scroll reveal on the Journey stats and Expertise cards done 2026-11-06 on `feat/redesign` (CSS only, e2e-tested, D-38); page transitions not started
 - [x] Expertise cards (AA text; photos, no links), 2026-11-06 on `feat/redesign` (D-38)
 - [ ] "Get in touch" near the top on mobile (C26): try options and review
+- [ ] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): remove the Media hero button, "Iowa, US" everywhere, fix the About timeline's last entry; then, once Ashley picks options, the navbar, button redesign, homepage rhythm and hero, Contact card hierarchy and footer
 
 ## Post-launch (backlog)
 
