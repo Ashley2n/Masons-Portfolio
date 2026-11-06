@@ -121,18 +121,18 @@ test.describe("mobile menu fade at 390px", () => {
       };
     });
 
-  test("opening slides the panel up while it fades in, over 150 to 300 ms", async ({ page }) => {
+  test("opening slides the panel up while it fades in, over 300 to 400 ms", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
 
     const { panel } = await openAndInspect(page);
 
     expect(panel).toHaveLength(1);
     expect(panel[0].properties).toEqual(expect.arrayContaining(["opacity", "transform"]));
-    expect(panel[0].duration).toBeGreaterThanOrEqual(150);
-    expect(panel[0].duration).toBeLessThanOrEqual(300);
+    expect(panel[0].duration).toBeGreaterThanOrEqual(300);
+    expect(panel[0].duration).toBeLessThanOrEqual(400);
   });
 
-  test("the Menu button's icon turns into place each time it swaps, in under 300 ms", async ({ page }) => {
+  test("the Menu button's icon turns into place each time it swaps, in 200 to 300 ms", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
 
     const opened = await openAndInspect(page);
@@ -141,11 +141,12 @@ test.describe("mobile menu fade at 390px", () => {
     for (const { icon } of [opened, closed]) {
       expect(icon).toHaveLength(1);
       expect(icon[0].properties).toEqual(expect.arrayContaining(["transform"]));
+      expect(icon[0].duration).toBeGreaterThanOrEqual(200);
       expect(icon[0].duration).toBeLessThanOrEqual(300);
     }
   });
 
-  test("closing keeps the panel for 100 to 200 ms, quicker than opening, and the page stays locked until it is gone", async ({
+  test("closing keeps the panel for 150 to 250 ms, quicker than opening, and the page stays locked until it is gone", async ({
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -157,8 +158,8 @@ test.describe("mobile menu fade at 390px", () => {
     const result = await closeAndMeasure(page);
 
     expect(result.midway).toEqual({ present: true, overflow: "hidden" });
-    expect(result.ms).toBeGreaterThanOrEqual(100);
-    expect(result.ms).toBeLessThanOrEqual(200);
+    expect(result.ms).toBeGreaterThanOrEqual(150);
+    expect(result.ms).toBeLessThanOrEqual(250);
     expect(result.ms).toBeLessThan(openDuration);
     expect(result.overflowAfter).not.toBe("hidden");
   });

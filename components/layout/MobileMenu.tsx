@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import NavLinks from "./NavLinks";
 
 // How long the panel stays after closing so its fade-out can play. Keep in step with --animate-menu-out in globals.css.
-const EXIT_MS = 165;
+const EXIT_MS = 198;
 
 const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
