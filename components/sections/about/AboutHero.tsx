@@ -27,7 +27,7 @@ export default function AboutHero() {
           </div>
           <div aria-hidden="true" className="h-px w-16 bg-brand-600" />
           <p className="font-signature text-5xl text-brand-500">{aboutContent.signature}</p>
-          <ResumeDialog />
+          <ResumeDialog variant="primary" />
         </div>
 
         <Link

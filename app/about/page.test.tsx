@@ -118,4 +118,11 @@ describe("/about page", () => {
 
     expect(screen.getByRole("button", { name: "View resume" })).toBeInTheDocument();
   });
+
+  it("makes View resume the page's primary action (D-39)", () => {
+    render(<Page />);
+
+    // The look itself is checked in e2e/buttons.spec.ts; this pins that the prop is wired
+    expect(screen.getByRole("button", { name: "View resume" })).toHaveClass("bg-brand-600");
+  });
 });
