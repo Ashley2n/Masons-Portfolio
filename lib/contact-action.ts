@@ -12,5 +12,6 @@ export async function sendContact(values: unknown): Promise<ContactSendResult> {
     apiKey: process.env.RESEND_API_KEY,
     createMailer: (apiKey) => new Resend(apiKey),
     logError: (message, detail) => console.error(message, detail ?? ""),
+    now: Date.now,
   });
 }
