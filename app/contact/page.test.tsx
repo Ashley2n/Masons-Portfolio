@@ -31,7 +31,8 @@ describe("/contact page", () => {
       expect(
         within(card()).getByRole("link", { name: contactInfo.email }),
       ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
-      expect(within(card()).getByText(contactInfo.location)).toBeInTheDocument();
+      // A literal, not contactInfo.location: that would pass whatever the string is
+      expect(within(card()).getByText("Iowa, US")).toBeInTheDocument();
     });
 
     it("shows no phone link (D-35)", () => {

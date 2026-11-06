@@ -76,6 +76,6 @@ describe("Footer", () => {
     expect(
       screen.getByRole("link", { name: contactInfo.email }),
     ).toHaveAttribute("href", `mailto:${contactInfo.email}`);
-    expect(screen.getByText("Los Angeles, CA")).toBeInTheDocument();
+    expect(screen.getByText("Iowa, US")).toBeInTheDocument();
   });
 });
