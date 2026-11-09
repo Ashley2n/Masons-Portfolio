@@ -178,6 +178,12 @@
 ::view-transition-old(site-footer) {
   display: none;
 }
+/* `animation: none` above also reset the group's fill mode, which the old and new snapshots inherit
+   (CSS View Transitions Level 1, section 5). With fill none the old page snapped back to opacity 1 for
+   one frame when the fade ended (#40). Put the UA's `both` back on the page group. */
+::view-transition-group(page) {
+  animation-fill-mode: both;
+}
 ::view-transition-old(page),
 ::view-transition-new(page) {
   animation-duration: 220ms;
