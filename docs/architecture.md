@@ -36,6 +36,7 @@ app/
   sitemap.ts  robots.ts  opengraph-image.tsx  icon.svg  apple-icon.tsx
 components/
   layout/               # Header, MobileMenu, NavLinks, Footer, CtaBanner
+  motion/               # MotionProvider (LazyMotion, once in app/layout.tsx), LoadEntrance + LoadItem (D-44); the only place `motion/react` is imported, always the small `m` component
   resume/               # ResumeDialog ("View resume" modal, used on several pages)
   ui/                   # Button, Eyebrow, SectionHeading, Container, VideoCard
   sections/
