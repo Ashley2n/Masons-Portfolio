@@ -1,39 +1,5 @@
 import { expect, test, type Page } from "./fixtures";
 
-// The scroll reveal is CSS only (`.reveal` in app/globals.css), so the only way to test it is in a real browser.
-test.describe("scroll reveal (D-33, D-38)", () => {
-  test("expertise cards animate into place for visitors who allow motion", async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.goto("/");
-
-    const card = page.getByRole("list", { name: "Expertise" }).getByRole("listitem").first();
-    await expect(card).toHaveCSS("animation-name", "reveal-rise");
-  });
-
-  test("nothing is hidden when the page is printed or saved as a PDF, which never scrolls", async ({ page }) => {
-    await page.emulateMedia({ media: "print", reducedMotion: "no-preference" });
-    await page.goto("/");
-
-    const cards = page.getByRole("list", { name: "Expertise" }).getByRole("listitem");
-    await expect(cards.first()).toHaveCSS("animation-name", "none");
-    await expect(cards.last()).toHaveCSS("opacity", "1");
-  });
-
-  test("nothing animates, and every card stays fully visible, when the visitor asks for reduced motion", async ({
-    page,
-  }) => {
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/");
-
-    const cards = page.getByRole("list", { name: "Expertise" }).getByRole("listitem");
-    await expect(cards).toHaveCount(4);
-    for (const card of await cards.all()) {
-      await expect(card).toHaveCSS("animation-name", "none");
-      await expect(card).toHaveCSS("opacity", "1");
-    }
-  });
-});
-
 // Load entrance (D-44): measured from what the browser paints (effective opacity per frame), not from which
 // animation engine ran, so these tests survive a change of engine.
 type PieceTiming = { startMs: number | null; mostMs: number | null; doneMs: number | null };
@@ -296,50 +262,68 @@ test.describe("load entrance on every page (D-44)", () => {
   }
 });
 
-// Section headings (h2 only) use the existing scroll reveal. Page titles (h1) never do (D-41).
-test.describe("section heading reveal", () => {
-  const sectionHeadings = [
-    ["/", "Model Shots"],
-    ["/", "The Journey So Far"],
-    ["/", "What I Do"],
-    ["/", "Recent Work"],
-    ["/about", "My Journey"],
-  ] as const;
+// Scroll reveal on Motion (D-44, #32). One table of six blocks below the fold at a fixed 1280x720, so
+// "below the fold" is the same on both projects. What a visitor sees is measured (painted opacity), never which
+// engine ran, so these survive a change of engine.
+const reveals = [
+  ["Home: Model Shots heading", "/", (page: Page) => page.getByRole("heading", { level: 2, name: "Model Shots", exact: true })],
+  [
+    "Home: The Journey So Far heading",
+    "/",
+    (page: Page) => page.getByRole("heading", { level: 2, name: "The Journey So Far", exact: true }),
+  ],
+  ["Home: first Journey stat", "/", (page: Page) => page.getByText("theatrical/musical shows").first().locator("..")],
+  [
+    "Home: first Expertise card",
+    "/",
+    (page: Page) => page.getByRole("list", { name: "Expertise" }).getByRole("listitem").first(),
+  ],
+  ["About: My Journey heading", "/about", (page: Page) => page.getByRole("heading", { level: 2, name: "My Journey", exact: true })],
+  ["About: first timeline entry", "/about", (page: Page) => page.getByRole("list", { name: "My Journey" }).getByRole("listitem").first()],
+] as const;
 
-  test("every section heading rises into view for visitors who allow motion", async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    for (const [path, name] of sectionHeadings) {
+// Computed opacity does not inherit, so what is painted is the product up the ancestor chain (same as the hero sampler)
+const paintedOpacity = (el: Element) => {
+  let opacity = 1;
+  for (let node: Element | null = el; node; node = node.parentElement) opacity *= parseFloat(getComputedStyle(node).opacity);
+  return opacity;
+};
+
+test.describe("scroll reveal on Motion (D-44)", () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  for (const [name, path, find] of reveals) {
+    test(`${name}: waits below the fold (A), rises into view (B), and plays only once (C)`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
       await page.goto(path);
-      await expect(page.getByRole("heading", { level: 2, name, exact: true }), `${path} ${name}`).toHaveCSS(
-        "animation-name",
-        "reveal-rise",
-      );
-    }
-  });
+      const block = find(page);
 
-  for (const emulation of [
-    { reducedMotion: "reduce" as const },
-    { media: "print" as const, reducedMotion: "no-preference" as const },
-  ]) {
-    test(`no section heading animates or hides (${JSON.stringify(emulation)})`, async ({ page }) => {
-      await page.emulateMedia(emulation);
-      for (const [path, name] of sectionHeadings) {
-        await page.goto(path);
-        const heading = page.getByRole("heading", { level: 2, name, exact: true });
-        await expect(heading, `${path} ${name}`).toHaveCSS("animation-name", "none");
-        await expect(heading, `${path} ${name}`).toHaveCSS("opacity", "1");
-      }
+      // A: not yet reached, so not yet painted
+      expect(await block.evaluate(paintedOpacity), "before scrolling").toBeLessThan(0.5);
+
+      // B: scrolled to, it arrives
+      await block.scrollIntoViewIfNeeded();
+      await expect.poll(() => block.evaluate(paintedOpacity), { timeout: 5000 }).toBeGreaterThan(0.999);
+
+      // C: scrolled away and back, it is still there (a scroll-linked effect would hide it again)
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+      expect(await block.evaluate(paintedOpacity), "after scrolling away").toBeGreaterThan(0.999);
+      await block.scrollIntoViewIfNeeded();
+      expect(await block.evaluate(paintedOpacity), "after scrolling back").toBeGreaterThan(0.999);
     });
-  }
 
-  test("page titles never use the scroll reveal", async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-    for (const path of ["/", "/about", "/media", "/contact", "/resume"]) {
-      await page.goto(path);
-      const title = page.getByRole("heading", { level: 1 });
-      await expect(title, path).not.toHaveCSS("animation-name", "reveal-rise");
-      // The home title has the load entrance (D-44); the others have no animation at all
-      if (path !== "/") await expect(title, path).toHaveCSS("animation-name", "none");
+    // D and E: a block that sits below the fold must still be there when nobody scrolls
+    for (const emulation of [
+      { label: "reduced motion (D)", media: undefined, reducedMotion: "reduce" as const },
+      { label: "print (E)", media: "print" as const, reducedMotion: "no-preference" as const },
+    ]) {
+      test(`${name}: is fully visible without scrolling for ${emulation.label}`, async ({ page }) => {
+        await page.emulateMedia({ media: emulation.media, reducedMotion: emulation.reducedMotion });
+        await page.goto(path);
+
+        expect(await find(page).evaluate(paintedOpacity)).toBeGreaterThan(0.999);
+      });
     }
-  });
+  }
 });

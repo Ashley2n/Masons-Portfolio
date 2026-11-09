@@ -2,6 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import { modelShots, sectionHeadings } from "@/content/home";
 import { getNextIndex, getPrevIndex } from "@/lib/carousel";
@@ -57,9 +58,9 @@ export default function ModelShotsCarousel() {
       className="surface-light bg-neutral-100 py-16 md:pt-20"
     >
       <Container className="space-y-6">
-        <h2 id="model-shots-heading" className="reveal text-neutral-800">
+        <Reveal as="h2" id="model-shots-heading" className="text-neutral-800">
           {sectionHeadings.modelShots.title}
-        </h2>
+        </Reveal>
 
         <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-neutral-800 sm:aspect-video lg:aspect-21/9">
           {/* Swipe: a row of full-width slides that snap into place (CSS scroll-snap, no JavaScript for the gesture). */}

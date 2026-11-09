@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import Image from "next/image";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { aboutContent, milestones } from "@/content/about";
@@ -35,9 +36,10 @@ export default function Timeline() {
           {milestones.map((milestone, i) => {
             const textFirst = i % 2 === 0;
             return (
-              <li
+              <Reveal
+                as="li"
                 key={milestone.id}
-                className="reveal relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
+                className="relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
               >
                 <Node status={milestone.status} />
                 {/* Right-hand text normally follows a left-hand photo. With no photo, nothing holds
@@ -79,7 +81,7 @@ export default function Timeline() {
                     <div className="absolute inset-0 bg-brand-700/25 mix-blend-color" />
                   </div>
                 )}
-              </li>
+              </Reveal>
             );
           })}
         </ol>

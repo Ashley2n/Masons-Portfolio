@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { expertiseItems, sectionHeadings } from "@/content/home";
@@ -8,10 +9,12 @@ import type { ExpertiseItem } from "@/types/content";
 // Widths alternate row by row so the four cards read as a composition, not a uniform grid
 const spans = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"];
 
-const ExpertiseCard = ({ item, className }: { item: ExpertiseItem; className?: string }) => (
-  <li
+const ExpertiseCard = ({ item, index, className }: { item: ExpertiseItem; index: number; className?: string }) => (
+  <Reveal
+    as="li"
+    index={index}
     className={cn(
-      "reveal group relative isolate flex min-h-80 items-end overflow-hidden rounded-lg bg-neutral-800 text-neutral-100 md:min-h-112",
+      "group relative isolate flex min-h-80 items-end overflow-hidden rounded-lg bg-neutral-800 text-neutral-100 md:min-h-112",
       className,
     )}
   >
@@ -35,7 +38,7 @@ const ExpertiseCard = ({ item, className }: { item: ExpertiseItem; className?: s
       <h3 className="text-h1 font-semibold md:text-display/tight">{item.title}</h3>
       <p className="text-body text-neutral-200">{item.description}</p>
     </div>
-  </li>
+  </Reveal>
 );
 
 export default function ExpertiseSection() {
@@ -45,7 +48,7 @@ export default function ExpertiseSection() {
         <SectionHeading tone="light" {...sectionHeadings.expertise} />
         <ul aria-label="Expertise" className="grid gap-4 md:grid-cols-12 md:gap-6">
           {expertiseItems.map((item, index) => (
-            <ExpertiseCard key={item.id} item={item} className={spans[index]} />
+            <ExpertiseCard key={item.id} item={item} index={index} className={spans[index]} />
           ))}
         </ul>
       </Container>

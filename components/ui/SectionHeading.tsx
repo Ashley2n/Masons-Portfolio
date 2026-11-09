@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
 
 const tones = {
@@ -23,18 +24,17 @@ export default function SectionHeading({
   tone = "dark",
   className,
 }: SectionHeadingProps) {
+  const headingClass = cn("text-balance text-4xl md:text-h1", tones[tone].title);
   return (
     <div className={cn("space-y-4", className)}>
-      <Heading
-        className={cn(
-          "text-balance text-4xl md:text-h1",
-          tones[tone].title,
-          // Section headings rise into view; a page title (h1) never does (D-41)
-          Heading === "h2" && "reveal",
-        )}
-      >
-        {title}
-      </Heading>
+      {/* Section headings rise into view once; a page title (h1) has the load entrance instead (D-44) */}
+      {Heading === "h2" ? (
+        <Reveal as="h2" className={headingClass}>
+          {title}
+        </Reveal>
+      ) : (
+        <h1 className={headingClass}>{title}</h1>
+      )}
       {description && (
         <p className={cn("max-w-md text-body", tones[tone].description)}>{description}</p>
       )}
