@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageSeo } from "@/content/seo";
 import { pageMetadata } from "@/lib/seo";
 import CtaBanner from "@/components/layout/CtaBanner";
+import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -16,21 +17,23 @@ export default function ResumePage() {
     <>
       <section className="py-16 md:py-24">
         <Container className="space-y-10">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <SectionHeading
-              as="h1"
-              title={resumeContent.title}
-              description={resumeContent.description}
-            />
-            <div className="flex flex-wrap gap-4">
+          <LoadEntrance className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <LoadItem>
+              <SectionHeading
+                as="h1"
+                title={resumeContent.title}
+                description={resumeContent.description}
+              />
+            </LoadItem>
+            <LoadItem className="flex flex-wrap gap-4">
               <Button href={file.href} download={file.downloadName} icon="download" variant="primary">
                 {resumeContent.downloadLabel}
               </Button>
               <Button href={file.href} newTab>
                 {resumeContent.openLabel}
               </Button>
-            </div>
-          </div>
+            </LoadItem>
+          </LoadEntrance>
 
           <div className="space-y-3">
             <iframe

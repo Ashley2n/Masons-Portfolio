@@ -234,6 +234,68 @@ test.describe("load entrance timing (D-44), Home hero", () => {
   });
 });
 
+// Every other page opens with the same entrance on its top block (D-44, #31). One table, thin on purpose: the
+// recipe (stagger, 1.4s settle) is shared with the Home hero and pinned above, so here we only prove that each
+// page's title takes part and that reduced motion shows it at once.
+const entrancePages = [
+  ["About", "/about"],
+  ["Media", "/media"],
+  ["Contact", "/contact"],
+  ["Resume", "/resume"],
+  ["404", "/this-page-does-not-exist"],
+] as const;
+
+declare global {
+  interface Window {
+    __titleOpacity?: { first: number | null; done: boolean };
+  }
+}
+
+// Effective (painted) opacity of the page's h1 on its first frame, and whether it ever reaches full opacity
+async function startTitleSampler(page: Page) {
+  await page.addInitScript(() => {
+    const seen: { first: number | null; done: boolean } = { first: null, done: false };
+    window.__titleOpacity = seen;
+    const sample = () => {
+      const h1 = document.querySelector("h1");
+      if (h1) {
+        let opacity = 1;
+        for (let node: Element | null = h1; node; node = node.parentElement) {
+          opacity *= parseFloat(getComputedStyle(node).opacity);
+        }
+        if (seen.first === null) seen.first = opacity;
+        if (opacity >= 0.999) seen.done = true;
+      }
+      if (!seen.done && performance.now() < 8000) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  });
+}
+
+test.describe("load entrance on every page (D-44)", () => {
+  for (const [name, path] of entrancePages) {
+    test(`${name}: the title arrives with the entrance instead of being there from the start`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await startTitleSampler(page);
+      await page.goto(path);
+
+      await expect.poll(() => page.evaluate(() => window.__titleOpacity!.done), { timeout: 10_000 }).toBe(true);
+      expect((await page.evaluate(() => window.__titleOpacity!.first))!, "painted opacity on the first frame").toBeLessThan(0.5);
+    });
+
+    test(`${name}: the title is fully visible from the first frame when the visitor asks for reduced motion`, async ({
+      page,
+    }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await startTitleSampler(page);
+      await page.goto(path);
+
+      await expect.poll(() => page.evaluate(() => window.__titleOpacity!.done), { timeout: 5_000 }).toBe(true);
+      expect(await page.evaluate(() => window.__titleOpacity!.first)).toBe(1);
+    });
+  }
+});
+
 // Section headings (h2 only) use the existing scroll reveal. Page titles (h1) never do (D-41).
 test.describe("section heading reveal", () => {
   const sectionHeadings = [
