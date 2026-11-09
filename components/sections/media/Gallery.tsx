@@ -23,7 +23,9 @@ export default function Gallery() {
 
   useEffect(() => {
     if (focusIndex.current === null) return;
-    (listRef.current?.children[focusIndex.current] as HTMLElement | undefined)?.focus();
+    // preventScroll: the gallery is CSS columns, so the first new item can sit at the top of another column;
+    // focusing it normally scrolled the page back up to the top of the gallery (#39)
+    (listRef.current?.children[focusIndex.current] as HTMLElement | undefined)?.focus({ preventScroll: true });
     focusIndex.current = null;
   }, [visibleCount]);
 

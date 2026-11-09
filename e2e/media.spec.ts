@@ -20,6 +20,26 @@ test.describe("media gallery", () => {
     await expect(page.getByRole("button", { name: "Load more" })).toHaveCount(0);
   });
 
+  // #39: Mason reported that "Load more" sent him back to the top of the page
+  test('"Load more" keeps the page where it is and the new photos appear below', async ({ page }) => {
+    await page.goto("/media");
+    const loadMore = page.getByRole("button", { name: "Load more" });
+    const items = page.getByRole("list", { name: "Gallery" }).getByRole("listitem");
+
+    // html is scroll-smooth, which would hide a failed scroll check: use instant scrolls and let any scroll settle
+    await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
+    await loadMore.scrollIntoViewIfNeeded();
+    const before = await page.evaluate(() => window.scrollY);
+    expect(before, "the button is far down the page").toBeGreaterThan(500);
+
+    await loadMore.click();
+    await expect(items).toHaveCount(24);
+    await page.waitForTimeout(800); // a smooth or delayed jump to the top would land in this window
+
+    // Focus moving to the first new photo may nudge the page down a little, but never up
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(before - 1);
+  });
+
   test("every category filter can be tapped (the hero glows don't block it)", async ({ page }) => {
     await page.goto("/media");
     const filters = page.getByRole("group", { name: "Filter by category" }).getByRole("button");
