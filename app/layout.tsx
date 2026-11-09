@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-neutral-950">
         {/* Without JavaScript nothing can animate, so never leave the load entrance hidden (D-44) */}
         <noscript>
-          <style>{"[data-motion]{opacity:1!important;transform:none!important}"}</style>
+          <style>{"[data-motion]{opacity:1!important;transform:none!important;clip-path:none!important}"}</style>
         </noscript>
         <MotionProvider>
           <ViewTransition name="site-header">

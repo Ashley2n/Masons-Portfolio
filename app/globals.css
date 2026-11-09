@@ -114,6 +114,7 @@
     [data-motion] {
       opacity: 1 !important;
       transform: none !important;
+      clip-path: none !important; /* the About timeline line (DrawLine) is drawn by clipping it */
     }
   }
 }

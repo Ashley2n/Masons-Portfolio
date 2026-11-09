@@ -482,3 +482,113 @@ test.describe("gallery photos already in view stay visible (D-44, #33)", () => {
     expect(lowest).toBeGreaterThan(0.999);
   });
 });
+
+// About timeline line (D-44, #34). Deliberately light (Ashley, 2026-11-08): one short test per behaviour.
+// "How much is drawn" is read from the line's computed `clip-path` (the clip is the one mechanism, in `DrawLine`);
+// `none` means nothing is clipped.
+const READING_HEIGHT = 0.6; // where the drawn tip sits on screen; the same fraction as `TIP_AT` in DrawLine.tsx
+
+/** Fraction of the line that is drawn, 0 to 1 */
+const drawnFraction = (page: Page) =>
+  page.getByTestId("timeline-line").evaluate((line) => {
+    const clip = getComputedStyle(line).clipPath;
+    if (clip === "none") return 1;
+    const bottom = /inset\(\S+ \S+ ([\d.]+)%/.exec(clip);
+    if (!bottom) throw new Error(`Unexpected clip-path: ${clip}`);
+    return 1 - parseFloat(bottom[1]) / 100;
+  });
+
+/**
+ * Scrolls so the centre of the nth timeline node sits at the reading height and returns where the tip is relative
+ * to it. The entry rises 40px as it arrives (`Reveal`), so it scrolls once to reveal it, waits for it to settle
+ * and aims again; measuring a moving node would blame the line for the entry's rise.
+ */
+async function tipMinusNode(page: Page, nodeIndex: number) {
+  return page.evaluate(
+    async ({ nodeIndex, readingHeight }) => {
+      const frames = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const nodes = document.querySelectorAll('ol[aria-label="My Journey"] > li > span');
+      const node = nodes[nodeIndex === -1 ? nodes.length - 1 : nodeIndex];
+      const aim = () => {
+        const box = node.getBoundingClientRect();
+        window.scrollBy(0, box.top + box.height / 2 - innerHeight * readingHeight);
+      };
+      aim();
+      const entry = node.parentElement!;
+      for (let i = 0; i < 300 && parseFloat(getComputedStyle(entry).opacity) < 0.999; i++) await frames();
+      aim();
+      await frames();
+      const line = document.querySelector<HTMLElement>('[data-testid="timeline-line"]')!;
+      const clip = /inset\(\S+ \S+ ([\d.]+)%/.exec(getComputedStyle(line).clipPath);
+      const drawn = clip ? 1 - parseFloat(clip[1]) / 100 : 1;
+      const tipY = line.getBoundingClientRect().top + drawn * line.offsetHeight;
+      const after = node.getBoundingClientRect();
+      return tipY - (after.top + after.height / 2);
+    },
+    { nodeIndex, readingHeight: READING_HEIGHT },
+  );
+}
+
+test.describe("About timeline line draws as you scroll (D-44, #34)", () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  test("T1: nothing before the list, the tip stays at the reading height, full at the end", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/about");
+    await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
+    const list = page.getByRole("list", { name: "My Journey" });
+
+    // The list's top is still below the reading height: nothing is drawn
+    await list.evaluate(async (el) => {
+      window.scrollBy(0, el.getBoundingClientRect().top - innerHeight * 0.9);
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    expect(await drawnFraction(page), "before the list").toBeLessThan(0.01);
+
+    // The tip meets each node as that node reaches the reading height (first, then last)
+    expect(Math.abs(await tipMinusNode(page, 0)), "first node").toBeLessThan(3);
+    expect(Math.abs(await tipMinusNode(page, -1)), "last node").toBeLessThan(3);
+
+    // Scrolled to the very end the whole line is there
+    await page.evaluate(async () => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    expect(await drawnFraction(page), "at the end").toBeGreaterThan(0.999);
+  });
+
+  for (const emulation of [
+    { label: "T2: reduced motion", media: undefined, reducedMotion: "reduce" as const },
+    { label: "T3: print", media: "print" as const, reducedMotion: "no-preference" as const },
+  ]) {
+    test(`${emulation.label} shows the whole line without scrolling`, async ({ page }) => {
+      await page.emulateMedia({ media: emulation.media, reducedMotion: emulation.reducedMotion });
+      await page.goto("/about");
+
+      expect(await drawnFraction(page)).toBeGreaterThan(0.999);
+    });
+  }
+
+  test.describe("without JavaScript", () => {
+    test.use({ javaScriptEnabled: false });
+
+    test("T4: shows the whole line", async ({ page }) => {
+      await page.goto("/about");
+
+      expect(await drawnFraction(page)).toBeGreaterThan(0.999);
+    });
+  });
+});
+
+// T5 runs on both projects (desktop and phone width): the line is where it always was, hanging from the nodes
+test("T5: the line runs through the nodes and along the whole list", async ({ page }) => {
+  await page.goto("/about");
+  const line = (await page.getByTestId("timeline-line").boundingBox())!;
+  const list = (await page.getByRole("list", { name: "My Journey" }).boundingBox())!;
+  const node = (await page.locator('ol[aria-label="My Journey"] > li > span').first().boundingBox())!;
+
+  // The 2px border sits just right of the node's centre line, so allow a pixel and a half
+  expect(Math.abs(line.x + line.width / 2 - (node.x + node.width / 2))).toBeLessThanOrEqual(1.5);
+  expect(Math.abs(line.y - list.y)).toBeLessThanOrEqual(1);
+  expect(Math.abs(line.y + line.height - (list.y + list.height))).toBeLessThanOrEqual(1);
+});
