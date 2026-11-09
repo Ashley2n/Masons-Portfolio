@@ -20,10 +20,10 @@ export const mediaContent = {
 
 export const galleryCategories: { id: GalleryCategory | "all"; label: string }[] = [
   { id: "all", label: "All" },
+  { id: "staged", label: "Staged" },
+  { id: "modeling", label: "Modeling" },
   { id: "concerts", label: "Concerts" },
   { id: "recital", label: "Recital" },
-  { id: "modeling", label: "Modeling" },
-  { id: "staged", label: "Staged" },
   { id: "design", label: "Design" },
   { id: "other", label: "Other" },
 ];

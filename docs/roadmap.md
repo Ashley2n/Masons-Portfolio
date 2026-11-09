@@ -122,7 +122,9 @@ Scope and requirements in D-33. Show Mason a before/after before it ships.
 - [x] Animations (reduced-motion safe), 2026-11-06 on `feat/redesign`: scroll reveal on the Journey stats, Expertise cards and section headings (D-38, D-41); hero entrance, page crossfade, mobile menu slide, fade and icon turn (D-41). CSS only, e2e-tested
 - [x] Expertise cards (AA text; photos, no links), 2026-11-06 on `feat/redesign` (D-38)
 - [ ] "Get in touch" near the top on mobile (C26): try options and review
-- [ ] More motion and small user responses (hover, focus, press, form states): scope with Ashley, then build test-first; needs a new decision first (D-42). Planned in `docs/handoff.md`, "Next session"
+- [ ] More motion and small user responses (D-42, Proposed): option C chosen 2026-11-06. Slice 1 press states done (`2a3527a`); slices 2 to 7 (form feedback, dialog, media feedback, quiet reveals, timeline line, count-up) not built. Details in `docs/handoff.md`
+- [x] Gallery: tabs in Mason's order and five photos removed, 2026-11-06 (D-43, `43458f2`)
+- [ ] Final checks before the handoff to Mason: code review, Lighthouse on every page (re-measure, see Phase 8), full e2e and build, accessibility pass, link and image check. Planned in `docs/handoff.md`
 - [x] Round 2 (2026-11-06, spec `docs/specs/2026-11-06-site-refresh-round-2.md`, D-39): done 2026-11-06 on `feat/redesign`: removed the Media hero button, "Iowa, US" everywhere (Mason to confirm, U4), fixed the About timeline's last entry. Buttons (3.2) done: option A, one primary per page on Home, About, Contact (with a sending spinner) and Resume, and the ↗ only on new-tab links (`48d82c6`, `b689829`, `36a5d4a`, `446d1ac`). The navbar stays as it is, and the Contact card, footer, mobile menu, homepage rhythm and hero are done too (D-39, D-40)
 
 ## Post-launch (backlog)

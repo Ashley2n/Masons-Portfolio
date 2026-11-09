@@ -78,8 +78,8 @@ export type Milestone = {
   status: "complete" | "ongoing";
 };
 
-/** Filter order: D-22, plus Recital after Concerts (D-23) */
-export const galleryCategoryIds = ["concerts", "recital", "modeling", "staged", "design", "other"] as const;
+/** Filter order: Mason's feedback (D-43), which replaces D-22 and D-23's order */
+export const galleryCategoryIds = ["staged", "modeling", "concerts", "recital", "design", "other"] as const;
 
 export type GalleryCategory = (typeof galleryCategoryIds)[number];
 
