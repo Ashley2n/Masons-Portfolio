@@ -3,15 +3,11 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import type { ReactNode } from "react";
+import { EASE, IN_VIEW_AMOUNT, staggerDelay } from "./tokens";
 
 /** D-44: a block rises and fades in once, the first time about a fifth of it is in view. */
 const RISE_PX = 40;
-const SECONDS = 0.8;
-const EASE = [0.16, 1, 0.3, 1] as const; // the site's easing (D-41)
-const IN_VIEW_AMOUNT = 0.2;
-/** Grid items that arrive together follow one another 0.1s apart, up to three steps, so a long list never lags. */
-const STAGGER_SECONDS = 0.1;
-const MAX_STAGGER_STEPS = 3;
+const REVEAL_SECONDS = 0.8;
 
 // The tag is chosen by the caller because an <li> or an <h2> cannot sit inside a wrapper <div>
 const tags = { div: m.div, li: m.li, h2: m.h2 } as const;
@@ -53,7 +49,7 @@ export function Reveal({ as = "div", index = 0, id, className, instant = false, 
       transition={
         reduce
           ? { duration: 0 }
-          : { duration: SECONDS, ease: EASE, delay: Math.min(index, MAX_STAGGER_STEPS) * STAGGER_SECONDS }
+          : { duration: REVEAL_SECONDS, ease: EASE, delay: staggerDelay(index) }
       }
     >
       {children}

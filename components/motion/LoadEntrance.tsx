@@ -3,11 +3,11 @@
 import { useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 import type { ReactNode } from "react";
+import { EASE } from "./tokens";
 
 /** D-44: every item rises and fades in over 1.8s, 0.3s after the one before it, so five items take 3s. */
 const ITEM_SECONDS = 1.8;
 const STEP_SECONDS = 0.3;
-const EASE = [0.16, 1, 0.3, 1] as const; // the site's easing (D-41)
 
 const group: Variants = {
   hidden: {},

@@ -3,14 +3,11 @@
 import { animate, useMotionValue, useTransform } from "motion/react";
 import * as m from "motion/react-m";
 import { useEffect, useRef } from "react";
+// The easing, the in-view rule and the stagger are `Reveal`'s too, so the count and the rise move together
+import { EASE, IN_VIEW_AMOUNT, staggerDelay } from "./tokens";
 
 /** D-44: a number counts from 0 to the real number once, when about a fifth of it is in view. */
-const SECONDS = 1.8; // one load-entrance item
-const EASE = [0.16, 1, 0.3, 1] as const; // the site's easing (D-41)
-const IN_VIEW_AMOUNT = 0.2; // same rule as `Reveal`
-/** Same stagger as the `Reveal` the stat sits in, so the count and the rise move together */
-const STAGGER_SECONDS = 0.1;
-const MAX_STAGGER_STEPS = 3;
+const COUNT_SECONDS = 1.8; // one load-entrance item
 
 /** Only a plain run of digits counts up. Anything else ("1.5", "1,200", "5k", "") is shown as written. */
 export function parseCount(value: string): number | null {
@@ -44,9 +41,9 @@ export function CountUp({ value, index = 0 }: CountUpProps) {
     if (target === null || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     count.set(0);
     running.current = animate(count, target, {
-      duration: SECONDS,
+      duration: COUNT_SECONDS,
       ease: EASE,
-      delay: Math.min(index, MAX_STAGGER_STEPS) * STAGGER_SECONDS,
+      delay: staggerDelay(index),
     });
   };
 
