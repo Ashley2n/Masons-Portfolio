@@ -592,3 +592,159 @@ test("T5: the line runs through the nodes and along the whole list", async ({ pa
   expect(Math.abs(line.y - list.y)).toBeLessThanOrEqual(1);
   expect(Math.abs(line.y + line.height - (list.y + list.height))).toBeLessThanOrEqual(1);
 });
+
+// Journey count-up (D-44, #35). Deliberately light (Ashley, 2026-11-08): one short test per behaviour. Each reads
+// what a visitor gets: the visible counter (aria-hidden, `data-testid="count-up"`), the real number beside it that a
+// screen reader reads, and where the "+" sits. The sampler records all three on every frame, from the first one.
+const JOURNEY_NUMBERS = ["10", "12", "4"]; // written out on purpose: an independent source from `content/home.ts`
+const COUNT_SETTLED_MS = 3000; // 1.8s count + up to 0.2s stagger, with margin; a settle wait, not a timing check
+
+type CountFrame = { text: string[]; sr: string[]; plusX: number[]; textRight: number[] };
+declare global {
+  interface Window {
+    __counts?: CountFrame[];
+  }
+}
+
+async function startCountSampler(page: Page) {
+  await page.addInitScript(() => {
+    const frames: CountFrame[] = [];
+    window.__counts = frames;
+    const sample = () => {
+      const counters = Array.from(document.querySelectorAll('[data-testid="count-up"]'));
+      if (counters.length) {
+        // The counter sits inside an aria-hidden holder; the real number is the holder's previous sibling, the "+" its next
+        const holders = counters.map((el) => el.closest('[aria-hidden="true"]'));
+        frames.push({
+          text: counters.map((el) => el.textContent ?? ""),
+          sr: holders.map((el) => el?.previousElementSibling?.textContent ?? ""),
+          plusX: holders.map((el) => el?.nextElementSibling?.getBoundingClientRect().x ?? NaN),
+          // Where the painted digits end (the text itself, not the box around it)
+          textRight: counters.map((el) => {
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            return range.getBoundingClientRect().right;
+          }),
+        });
+      }
+      if (performance.now() < 10_000) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  });
+}
+
+const countFrames = (page: Page) => page.evaluate(() => window.__counts!);
+// The values one stat showed, frame by frame
+const series = (frames: CountFrame[], stat: number, key: "text" | "sr") => frames.map((f) => f[key][stat]);
+
+async function scrollToJourneyNumbers(page: Page) {
+  await page.getByTestId("count-up").nth(1).scrollIntoViewIfNeeded();
+}
+
+test.describe("Journey count-up (D-44, #35)", () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  test("T1: each number counts up when reached and ends on the real number", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await startCountSampler(page);
+    await page.goto("/");
+    await scrollToJourneyNumbers(page);
+    await page.waitForTimeout(COUNT_SETTLED_MS);
+
+    const frames = await countFrames(page);
+    JOURNEY_NUMBERS.forEach((final, stat) => {
+      const shown = series(frames, stat, "text").map(Number);
+      expect(Math.min(...shown), `stat ${final}: lowest number shown`).toBeLessThan(Number(final));
+      expect(Math.max(...shown), `stat ${final}: highest number shown`).toBeLessThanOrEqual(Number(final));
+      expect(String(shown.at(-1)), `stat ${final}: where it ends`).toBe(final);
+    });
+  });
+
+  test("T2: the real number is text the whole time, and the moving counter is hidden from screen readers", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await startCountSampler(page);
+    await page.goto("/");
+    await scrollToJourneyNumbers(page);
+    await page.waitForTimeout(COUNT_SETTLED_MS);
+
+    const frames = await countFrames(page);
+    JOURNEY_NUMBERS.forEach((final, stat) => {
+      expect(new Set(series(frames, stat, "sr")), `stat ${final}: the real number on every frame`).toEqual(new Set([final]));
+    });
+    const hidden = await page.getByTestId("count-up").evaluateAll((els) => els.map((el) => !!el.closest('[aria-hidden="true"]')));
+    expect(hidden, "each counter is inside an aria-hidden element").toEqual([true, true, true]);
+  });
+
+  for (const emulation of [
+    { label: "T4: reduced motion", media: undefined, reducedMotion: "reduce" as const, scroll: true },
+    { label: "T5: print", media: "print" as const, reducedMotion: "no-preference" as const, scroll: false },
+  ]) {
+    test(`${emulation.label} shows the real numbers on every frame`, async ({ page }) => {
+      await page.emulateMedia({ media: emulation.media, reducedMotion: emulation.reducedMotion });
+      await startCountSampler(page);
+      await page.goto("/");
+      if (emulation.scroll) {
+        await scrollToJourneyNumbers(page);
+        await page.waitForTimeout(1000); // a count that wrongly ran would show a lower number within this
+      }
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+
+      const frames = await countFrames(page);
+      JOURNEY_NUMBERS.forEach((final, stat) => {
+        expect(new Set(series(frames, stat, "text")), `stat ${final}: the number on every frame`).toEqual(new Set([final]));
+      });
+    });
+  }
+
+  test.describe("without JavaScript", () => {
+    test.use({ javaScriptEnabled: false });
+
+    test("T6: shows the real numbers", async ({ page }) => {
+      await page.goto("/");
+
+      await expect(page.getByTestId("count-up")).toHaveText(JOURNEY_NUMBERS);
+    });
+  });
+});
+
+// T3 runs on both projects (desktop and phone width): the "+" stays put while the digits change
+test("T3: the + stays put while the number counts, and sits right next to it once it has", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await startCountSampler(page);
+  await page.goto("/");
+  await scrollToJourneyNumbers(page);
+  await page.waitForTimeout(COUNT_SETTLED_MS);
+
+  const frames = await countFrames(page);
+  JOURNEY_NUMBERS.forEach((final, stat) => {
+    // Page scrolling does not change x, so any spread here is the digits pushing the "+"
+    const xs = frames.map((f) => f.plusX[stat]);
+    expect(Math.max(...xs) - Math.min(...xs), `stat ${final}: how far the + moved`).toBeLessThan(0.5);
+  });
+
+  // The half-counted number never runs into the "+" (it can be wider than the final one: "10" on its way to "12")
+  JOURNEY_NUMBERS.forEach((final, stat) => {
+    const overlap = Math.max(...frames.map((f) => f.textRight[stat] - f.plusX[stat]));
+    expect(overlap, `stat ${final}: how far the digits reached into the +`).toBeLessThan(0.5);
+  });
+
+  // Once settled, the painted digits end where the "+" starts (as `10+` did before the count-up; Playfair's digits
+  // are not all one width, so reserving "one digit per character" left a gap of up to 25px, found by eye)
+  const gaps = await page.getByTestId("count-up").evaluateAll((els) =>
+    els.map((el) => {
+      const range = document.createRange();
+      range.selectNodeContents(el); // the text itself, not the box around it
+      const plus = el.closest('[aria-hidden="true"]')!.nextElementSibling!.getBoundingClientRect();
+      const text = range.getBoundingClientRect();
+      // ...and start where the stat's block starts, as the number always did
+      const blockLeft = el.closest("p")!.getBoundingClientRect().left;
+      return { gapBeforePlus: plus.x - text.right, startOffset: text.left - blockLeft };
+    }),
+  );
+  gaps.forEach(({ gapBeforePlus, startOffset }, stat) => {
+    expect(gapBeforePlus, `stat ${JOURNEY_NUMBERS[stat]}: gap before the +`).toBeLessThan(2);
+    expect(Math.abs(startOffset), `stat ${JOURNEY_NUMBERS[stat]}: where the digits start`).toBeLessThan(2);
+  });
+});
