@@ -2,7 +2,12 @@ import { expect, test, type Page } from "./fixtures";
 
 // Load entrance (D-44): measured from what the browser paints (effective opacity per frame), not from which
 // animation engine ran, so these tests survive a change of engine.
-type PieceTiming = { startMs: number | null; mostMs: number | null; doneMs: number | null };
+type PieceTiming = {
+  firstOpacity: number | null;
+  startMs: number | null;
+  mostMs: number | null;
+  doneMs: number | null;
+};
 declare global {
   interface Window {
     __heroTimeline?: PieceTiming[];
@@ -28,7 +33,7 @@ async function startHeroSampler(page: Page) {
           (el) => !piece.text || el.textContent?.includes(piece.text),
         ),
     );
-    const timeline: PieceTiming[] = finders.map(() => ({ startMs: null, mostMs: null, doneMs: null }));
+    const timeline: PieceTiming[] = finders.map(() => ({ firstOpacity: null, startMs: null, mostMs: null, doneMs: null }));
     window.__heroTimeline = timeline;
     const sample = () => {
       const now = performance.now();
@@ -41,7 +46,9 @@ async function startHeroSampler(page: Page) {
           opacity *= parseFloat(getComputedStyle(node).opacity);
         }
         const t = timeline[i];
-        if (t.startMs === null && opacity > 0.05) t.startMs = now;
+        if (t.firstOpacity === null) t.firstOpacity = opacity;
+        // A piece waits at half opacity (D-44, so the text counts as painted for LCP); it has started once it rises past that
+        if (t.startMs === null && opacity > 0.55) t.startMs = now;
         if (t.startMs !== null && t.mostMs === null && opacity >= 0.8) t.mostMs = now;
         if (t.startMs !== null && t.doneMs === null && opacity >= 0.999) t.doneMs = now;
       });
@@ -80,6 +87,17 @@ async function transformsOfHeroChains(page: Page) {
 test.describe("load entrance timing (D-44), Home hero", () => {
   test.beforeEach(async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
+  });
+
+  // Lighthouse 13.6.0 on the production build (2026-11-08): with the text hidden at the start, Home mobile
+  // performance was 84 (LCP 4.65s, 2.4s of it "element render delay"); starting at 0.5 it was 100 (docs/decisions.md D-44).
+  test("every piece is already half visible on the first frame, never painted invisible", async ({ page }) => {
+    await startHeroSampler(page);
+    const timeline = await heroTimeline(page);
+
+    for (const [i, t] of timeline.entries()) {
+      expect(t.firstOpacity!, `piece ${i} painted opacity on the first frame`).toBeCloseTo(0.5, 1);
+    }
   });
 
   test("the five pieces start in reading order, about 300ms apart", async ({ page }) => {
@@ -240,13 +258,13 @@ async function startTitleSampler(page: Page) {
 
 test.describe("load entrance on every page (D-44)", () => {
   for (const [name, path] of entrancePages) {
-    test(`${name}: the title arrives with the entrance instead of being there from the start`, async ({ page }) => {
+    test(`${name}: the title is half visible on the first frame, then arrives with the entrance`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await startTitleSampler(page);
       await page.goto(path);
 
       await expect.poll(() => page.evaluate(() => window.__titleOpacity!.done), { timeout: 10_000 }).toBe(true);
-      expect((await page.evaluate(() => window.__titleOpacity!.first))!, "painted opacity on the first frame").toBeLessThan(0.5);
+      expect((await page.evaluate(() => window.__titleOpacity!.first))!, "painted opacity on the first frame").toBeCloseTo(0.5, 1);
     });
 
     test(`${name}: the title is fully visible from the first frame when the visitor asks for reduced motion`, async ({

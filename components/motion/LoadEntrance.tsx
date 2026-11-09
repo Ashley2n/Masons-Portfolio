@@ -14,8 +14,13 @@ const group: Variants = {
   show: { transition: { staggerChildren: STEP_SECONDS } },
 };
 
+// Items wait at half opacity, not 0: text that starts invisible is not painted for the browser's Largest
+// Contentful Paint until the animation ends. Lighthouse 13.6.0 (production build, mobile, 2026-11-08): Home 84
+// with opacity 0, 100 with 0.5 (D-44). 0.5 was proposed in the #36 audit and approved by Ashley (2026-11-08); not tuned against other values.
+const START_OPACITY = 0.5;
+
 const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: START_OPACITY, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: ITEM_SECONDS, ease: EASE } },
 };
 
