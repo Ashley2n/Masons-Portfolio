@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import VideoCard from "@/components/ui/VideoCard";
@@ -29,12 +30,14 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
             </Link>
           </div>
           {featured && (
-            <VideoCard
-              tone="dark"
-              video={featured}
-              sizes="(min-width: 1280px) 1280px, 100vw"
-              frameClassName="lg:aspect-21/9"
-            />
+            <Reveal>
+              <VideoCard
+                tone="dark"
+                video={featured}
+                sizes="(min-width: 1280px) 1280px, 100vw"
+                frameClassName="lg:aspect-21/9"
+              />
+            </Reveal>
           )}
         </div>
 
@@ -44,8 +47,10 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
               {copy.otherWork}
             </h2>
             <div className="grid gap-6 md:grid-cols-3">
-              {others.map((video) => (
-                <VideoCard key={video.id} tone="dark" video={video} />
+              {others.map((video, index) => (
+                <Reveal key={video.id} index={index}>
+                  <VideoCard tone="dark" video={video} />
+                </Reveal>
               ))}
             </div>
           </section>

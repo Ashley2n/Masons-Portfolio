@@ -2,6 +2,7 @@
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { Reveal } from "@/components/motion/Reveal";
 import VideoCard from "@/components/ui/VideoCard";
 import { galleryCategories, galleryItems, mediaContent } from "@/content/media";
 import { countByCategory, filterGallery, type GalleryFilter } from "@/lib/gallery";
@@ -13,6 +14,9 @@ const counts = countByCategory(galleryItems);
 export default function Gallery() {
   const [filter, setFilter] = useState<GalleryFilter>("all");
   const [visibleCount, setVisibleCount] = useState(mediaContent.pageSize);
+  // Only the photos from the first page load reveal on scroll. Once the visitor has changed the tab or pressed
+  // "Load more", new photos mount already visible, so the ones they are looking at never blink out (#33).
+  const [interacted, setInteracted] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
   // Index of the first item added by "Load more", focused once it renders so focus
   // is never lost when the button disappears.
@@ -31,11 +35,13 @@ export default function Gallery() {
 
   const loadMore = () => {
     focusIndex.current = shown.length;
+    setInteracted(true);
     setVisibleCount((count) => count + mediaContent.pageSize);
   };
 
   const choose = (next: GalleryFilter) => {
     setFilter(next);
+    setInteracted(true);
     setVisibleCount(mediaContent.pageSize);
   };
 
@@ -88,26 +94,28 @@ export default function Gallery() {
             tabIndex={-1}
             className="mb-4 break-inside-avoid rounded-lg"
           >
-            {item.kind === "photo" ? (
-              <Image
-                src={item.photo.src}
-                alt={item.photo.alt}
-                width={item.photo.width}
-                height={item.photo.height}
-                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-auto w-full rounded-lg bg-neutral-800"
-                // The first photo is the mobile LCP: load it eagerly, not lazily (Next docs:
-                // prefer loading/fetchPriority over preload when the LCP varies by viewport).
-                // After a filter change the new first photo gets it too, which is harmless.
-                {...(index === 0 && { loading: "eager", fetchPriority: "high" })}
-              />
-            ) : (
-              <VideoCard
-                video={item.video}
-                showMeta={false}
-                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              />
-            )}
+            <Reveal instant={interacted}>
+              {item.kind === "photo" ? (
+                <Image
+                  src={item.photo.src}
+                  alt={item.photo.alt}
+                  width={item.photo.width}
+                  height={item.photo.height}
+                  sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="h-auto w-full rounded-lg bg-neutral-800"
+                  // The first photo is the mobile LCP: load it eagerly, not lazily (Next docs:
+                  // prefer loading/fetchPriority over preload when the LCP varies by viewport).
+                  // After a filter change the new first photo gets it too, which is harmless.
+                  {...(index === 0 && { loading: "eager", fetchPriority: "high" })}
+                />
+              ) : (
+                <VideoCard
+                  video={item.video}
+                  showMeta={false}
+                  sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+              )}
+            </Reveal>
           </li>
         ))}
       </ul>

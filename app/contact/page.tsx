@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import ContactCard from "@/components/sections/contact/ContactCard";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import { contactContent } from "@/content/contact";
 
@@ -29,9 +30,14 @@ export default function ContactPage() {
               <span aria-hidden="true" className="block h-0.5 w-12 bg-brand-500" />
             </LoadItem>
           </LoadEntrance>
-          <ContactForm />
+          <Reveal>
+            <ContactForm />
+          </Reveal>
         </div>
-        <ContactCard />
+        {/* `grid` so the card still stretches to the height of the form column, as it did as a direct grid item */}
+        <Reveal className="grid">
+          <ContactCard />
+        </Reveal>
       </Container>
     </section>
   );

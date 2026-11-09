@@ -22,6 +22,11 @@ type RevealProps = {
   index?: number;
   id?: string;
   className?: string;
+  /**
+   * Mount already at rest, with no hidden start state. For blocks that appear while the visitor is looking (the
+   * gallery after a tab change or "Load more"): a hidden start would make photos already in view blink out (#33).
+   */
+  instant?: boolean;
   children: ReactNode;
 };
 
@@ -30,8 +35,8 @@ type RevealProps = {
  * for reduced motion and print, and the `<noscript>` rule in `app/layout.tsx` does the same without JavaScript
  * (Motion server-renders the hidden start state inline).
  */
-export function Reveal({ as = "div", index = 0, id, className, children }: RevealProps) {
-  const reduce = useReducedMotion();
+export function Reveal({ as = "div", index = 0, id, className, instant = false, children }: RevealProps) {
+  const reduce = useReducedMotion() || instant;
   const Tag = tags[as];
   // `reduce` is still false while hydrating (it has to match the server), so the first render is hidden. Once it
   // is known to be true the block goes to its resting state at once, instead of waiting for a scroll and then

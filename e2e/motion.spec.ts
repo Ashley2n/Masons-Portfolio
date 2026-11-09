@@ -327,3 +327,158 @@ test.describe("scroll reveal on Motion (D-44)", () => {
     }
   }
 });
+
+// Scroll reveals on the remaining content (D-44, #33). Deliberately light (Ashley, 2026-11-08): one short test
+// per block, plus one for the reduced-motion path. Two shapes, because of where the block sits at 1280x720:
+// below the fold it must wait to be reached; already in view it must still arrive instead of being there from the
+// first frame. (Where each one sits was measured: carousel 1072px, videos 3749px and 4385px, banner 4850px;
+// gallery photo 510px, Contact form 486px and card 180px, Resume preview 346px.)
+const belowTheFold = [
+  ["Home: Model Shots carousel", "/", (page: Page) => page.getByRole("button", { name: "Previous photo" })],
+  ["Home: featured Recent Work video", "/", (page: Page) => page.getByRole("button", { name: /^Play / }).first()],
+  ["Home: first Other Work video", "/", (page: Page) => page.getByRole("button", { name: /^Play / }).nth(1)],
+  [
+    "Home: call-to-action banner",
+    "/",
+    (page: Page) => page.getByRole("heading", { level: 2, name: "Interested in working together?" }),
+  ],
+] as const;
+
+// CSS selectors, not locators: the sampler has to run before the page's own scripts to see the first frame
+const inViewAtLoad = [
+  ["Media: first gallery photo", "/media", 'ul[aria-labelledby="gallery-heading"] > li > div'],
+  ["Contact: the form", "/contact", "form"],
+  ["Contact: the card", "/contact", "aside"],
+  ["Resume: the PDF preview", "/resume", "iframe"],
+] as const;
+
+declare global {
+  interface Window {
+    __blockOpacity?: { first: number | null; done: boolean };
+  }
+}
+
+// Painted opacity of the first element matching `selector` on its first frame, and whether it ever reaches 1
+async function startBlockSampler(page: Page, selector: string) {
+  await page.addInitScript((sel) => {
+    const seen: { first: number | null; done: boolean } = { first: null, done: false };
+    window.__blockOpacity = seen;
+    const sample = () => {
+      const el = document.querySelector(sel);
+      if (el) {
+        let opacity = 1;
+        for (let node: Element | null = el; node; node = node.parentElement) opacity *= parseFloat(getComputedStyle(node).opacity);
+        if (seen.first === null) seen.first = opacity;
+        if (opacity >= 0.999) seen.done = true;
+      }
+      if (!seen.done && performance.now() < 8000) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }, selector);
+}
+
+test.describe("scroll reveal on the remaining content (D-44, #33)", () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  for (const [name, path, find] of belowTheFold) {
+    test(`${name}: waits until it is reached, then arrives`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.goto(path);
+      const block = find(page);
+
+      expect(await block.evaluate(paintedOpacity), "before scrolling").toBeLessThan(0.5);
+      await block.scrollIntoViewIfNeeded();
+      await expect.poll(() => block.evaluate(paintedOpacity), { timeout: 5000 }).toBeGreaterThan(0.999);
+    });
+
+    test(`${name}: is fully visible without scrolling for reduced motion`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto(path);
+
+      expect(await find(page).evaluate(paintedOpacity)).toBeGreaterThan(0.999);
+    });
+  }
+
+  for (const [name, path, selector] of inViewAtLoad) {
+    test(`${name}: arrives with the page instead of being there from the first frame`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await startBlockSampler(page, selector);
+      await page.goto(path);
+
+      await expect.poll(() => page.evaluate(() => window.__blockOpacity!.done), { timeout: 10_000 }).toBe(true);
+      expect((await page.evaluate(() => window.__blockOpacity!.first))!, "painted opacity on the first frame").toBeLessThan(0.5);
+    });
+
+    test(`${name}: is fully visible from the first frame for reduced motion`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await startBlockSampler(page, selector);
+      await page.goto(path);
+
+      await expect.poll(() => page.evaluate(() => window.__blockOpacity!.done), { timeout: 5_000 }).toBe(true);
+      expect(await page.evaluate(() => window.__blockOpacity!.first)).toBe(1);
+    });
+  }
+});
+
+// Gallery photos that are already on screen must never blink out when the tab changes or "Load more" adds
+// photos (#29 story 21). Only the first batch reveals on scroll; later batches mount visible. The click and the
+// next few frames are sampled inside the page so nothing depends on a timing window.
+async function lowestOpacityInViewAfterClick(page: Page, buttonText: string) {
+  return page.evaluate(async (text) => {
+    const painted = (el: Element) => {
+      let opacity = 1;
+      for (let node: Element | null = el; node; node = node.parentElement) opacity *= parseFloat(getComputedStyle(node).opacity);
+      return opacity;
+    };
+    const inView = () =>
+      // The reveal wrapper sits inside each <li> (the <li> itself keeps its tabindex for focus), so measure that
+      [...document.querySelectorAll('ul[aria-labelledby="gallery-heading"] > li > div')].filter((block) => {
+        const box = block.getBoundingClientRect();
+        return box.bottom > 0 && box.top < window.innerHeight;
+      });
+    // Checked after the click: every photo it mounts, and the photos that were already settled on screen before it
+    const existing = new Set(document.querySelectorAll('ul[aria-labelledby="gallery-heading"] > li > div'));
+    const settled = new Set(inView().filter((block) => painted(block) > 0.999));
+    [...document.querySelectorAll("button")].find((b) => b.textContent?.trim().startsWith(text))!.click();
+
+    let lowest = 1;
+    let sampled = 0;
+    for (let frame = 0; frame < 5; frame++) {
+      for (const block of inView()) {
+        // Photos that were still arriving when the button was pressed keep their normal reveal, so skip those
+        if (existing.has(block) && !settled.has(block)) continue;
+        lowest = Math.min(lowest, painted(block));
+        sampled++;
+      }
+      await new Promise((resolve) => requestAnimationFrame(() => resolve(null)));
+    }
+    return { lowest, sampled };
+  }, buttonText);
+}
+
+test.describe("gallery photos already in view stay visible (D-44, #33)", () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
+
+  test.beforeEach(async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/media");
+    await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
+    const firstBlock = page.locator('ul[aria-labelledby="gallery-heading"] > li > div').first();
+    await expect.poll(() => firstBlock.evaluate(paintedOpacity), { timeout: 5000 }).toBeGreaterThan(0.999);
+  });
+
+  test("changing the tab", async ({ page }) => {
+    const { lowest, sampled } = await lowestOpacityInViewAfterClick(page, "Modeling");
+
+    expect(sampled, "photos in view were sampled").toBeGreaterThan(0);
+    expect(lowest).toBeGreaterThan(0.999);
+  });
+
+  test("Load more", async ({ page }) => {
+    await page.getByRole("button", { name: "Load more" }).scrollIntoViewIfNeeded();
+    const { lowest, sampled } = await lowestOpacityInViewAfterClick(page, "Load more");
+
+    expect(sampled, "photos in view were sampled").toBeGreaterThan(0);
+    expect(lowest).toBeGreaterThan(0.999);
+  });
+});

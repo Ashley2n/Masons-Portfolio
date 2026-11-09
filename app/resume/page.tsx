@@ -3,6 +3,7 @@ import { pageSeo } from "@/content/seo";
 import { pageMetadata } from "@/lib/seo";
 import CtaBanner from "@/components/layout/CtaBanner";
 import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
+import { Reveal } from "@/components/motion/Reveal";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -35,14 +36,14 @@ export default function ResumePage() {
             </LoadItem>
           </LoadEntrance>
 
-          <div className="space-y-3">
+          <Reveal className="space-y-3">
             <iframe
               src={`${file.href}#view=FitH`}
               title={resumeContent.previewTitle}
               className="h-[70svh] min-h-96 w-full rounded-lg border border-neutral-800 bg-neutral-100"
             />
             <p className="text-small text-neutral-400">{resumeContent.previewHint}</p>
-          </div>
+          </Reveal>
         </Container>
       </section>
       <CtaBanner />
