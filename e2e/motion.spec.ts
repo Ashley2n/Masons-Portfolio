@@ -364,7 +364,6 @@ const belowTheFold = [
 
 // CSS selectors, not locators: the sampler has to run before the page's own scripts to see the first frame
 const inViewAtLoad = [
-  ["Media: first gallery photo", "/media", 'ul[aria-labelledby="gallery-heading"] > li > div'],
   ["Contact: the form", "/contact", "form"],
   ["Contact: the card", "/contact", "aside"],
   ["Resume: the PDF preview", "/resume", "iframe"],
@@ -431,6 +430,19 @@ test.describe("scroll reveal on the remaining content (D-44, #33)", () => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await startBlockSampler(page, selector);
       await page.goto(path);
+
+      await expect.poll(() => page.evaluate(() => window.__blockOpacity!.done), { timeout: 5_000 }).toBe(true);
+      expect(await page.evaluate(() => window.__blockOpacity!.first)).toBe(1);
+    });
+  }
+
+  // The first gallery photo is the Media LCP (Lighthouse, 2026-11-09). Hidden until the script ran, it cost the
+  // mobile score about 3 points (87 to 89 became 89 to 92 with it visible), so it is painted from the first frame.
+  for (const reducedMotion of ["no-preference", "reduce"] as const) {
+    test(`Media: the first gallery photo is fully painted from the first frame (${reducedMotion})`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion });
+      await startBlockSampler(page, 'ul[aria-labelledby="gallery-heading"] > li > div');
+      await page.goto("/media");
 
       await expect.poll(() => page.evaluate(() => window.__blockOpacity!.done), { timeout: 5_000 }).toBe(true);
       expect(await page.evaluate(() => window.__blockOpacity!.first)).toBe(1);

@@ -94,7 +94,8 @@ export default function Gallery() {
             tabIndex={-1}
             className="mb-4 break-inside-avoid rounded-lg"
           >
-            <Reveal instant={interacted}>
+            {/* The first photo is the LCP: never hide it behind the reveal (D-44, #36) */}
+            <Reveal instant={interacted || index === 0}>
               {item.kind === "photo" ? (
                 <Image
                   src={item.photo.src}
