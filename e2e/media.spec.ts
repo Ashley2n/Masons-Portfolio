@@ -29,6 +29,10 @@ test.describe("media gallery", () => {
     // html is scroll-smooth, which would hide a failed scroll check: use instant scrolls and let any scroll settle
     await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
     await loadMore.scrollIntoViewIfNeeded();
+    // A trial click lets Playwright finish its own scroll for the click first. Without it, on the phone project
+    // scrollY moved by about 410px before the page reacted to the click (traced 2026-11-09: it did not move after
+    // the click), so `before` was stale and this test failed about half the time.
+    await loadMore.click({ trial: true });
     const before = await page.evaluate(() => window.scrollY);
     expect(before, "the button is far down the page").toBeGreaterThan(500);
 
