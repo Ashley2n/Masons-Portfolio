@@ -9,17 +9,34 @@ import { parseEmphasis } from "@/lib/emphasis";
 import { cn } from "@/lib/utils";
 import type { Milestone } from "@/types/content";
 
-const Node = ({ status }: Pick<Milestone, "status">) => (
-  <span
-    className={cn(
-      "absolute left-4 top-1 z-10 grid size-9 -translate-x-1/2 place-items-center rounded-full ring-8 ring-brand-100 md:left-1/2",
-      status === "complete" ? "bg-brand-600 text-neutral-100" : "bg-brand-500",
-    )}
-  >
-    {status === "complete" && <Check aria-hidden="true" className="size-4" strokeWidth={3} />}
-    <span className="sr-only">{status === "complete" ? "Completed" : "In progress"}</span>
-  </span>
-);
+/**
+ * D-46: a completed checkpoint pulses softly (a ring that grows and fades, so the node itself never moves). One
+ * that is not reached yet is a dull grey and still. The pulse is CSS, `motion-safe` only, so reduced motion and
+ * print get none.
+ */
+const Node = ({ status }: Pick<Milestone, "status">) => {
+  const complete = status === "complete";
+  return (
+    <span
+      data-testid="timeline-node"
+      data-status={status}
+      className={cn(
+        "absolute left-4 top-1 z-10 grid size-9 -translate-x-1/2 place-items-center rounded-full ring-8 ring-brand-100 md:left-1/2",
+        complete ? "bg-brand-600 text-neutral-100" : "bg-neutral-400",
+      )}
+    >
+      {complete && (
+        <span
+          aria-hidden="true"
+          data-testid="node-pulse"
+          className="absolute inset-0 rounded-full bg-brand-600 motion-safe:animate-node-pulse"
+        />
+      )}
+      {complete && <Check aria-hidden="true" className="relative size-4" strokeWidth={3} />}
+      <span className="sr-only">{complete ? "Completed" : "In progress"}</span>
+    </span>
+  );
+};
 
 export default function Timeline() {
   const { journey } = aboutContent;
