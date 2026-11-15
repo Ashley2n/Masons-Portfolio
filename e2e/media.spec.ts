@@ -28,18 +28,24 @@ test.describe("media gallery", () => {
 
     // html is scroll-smooth, which would hide a failed scroll check: use instant scrolls and let any scroll settle
     await page.evaluate(() => (document.documentElement.style.scrollBehavior = "auto"));
+    // Read scrollY inside the page, in the capture phase, at the moment the click arrives (before React reacts).
+    // Reading it earlier from the test is a guess: on the phone project the button's box wobbles by about 0.1px
+    // after the first scroll, Playwright then sees "not stable", retries the click with another scroll alignment
+    // and moves the page about 410px (half the viewport) after the test has taken its measurement. That failed
+    // 3 of 30 production runs on 2026-11-15. Not an app bug: the button's document position never moves.
+    await page.evaluate(() => {
+      window.addEventListener("click", () => ((window as unknown as { clickScrollY: number }).clickScrollY = window.scrollY), {
+        capture: true,
+        once: true,
+      });
+    });
     await loadMore.scrollIntoViewIfNeeded();
-    // A trial click lets Playwright finish its own scroll for the click first. Without it, on the phone project
-    // scrollY moved by about 410px before the page reacted to the click (traced 2026-11-09: it did not move after
-    // the click), so `before` was stale and this test failed about half the time.
-    await loadMore.click({ trial: true });
-    const before = await page.evaluate(() => window.scrollY);
-    expect(before, "the button is far down the page").toBeGreaterThan(500);
-
     await loadMore.click();
     await expect(items).toHaveCount(24);
     await page.waitForTimeout(800); // a smooth or delayed jump to the top would land in this window
 
+    const before = await page.evaluate(() => (window as unknown as { clickScrollY: number }).clickScrollY);
+    expect(before, "the button is far down the page").toBeGreaterThan(500);
     // Focus moving to the first new photo may nudge the page down a little, but never up
     expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(before - 1);
   });
