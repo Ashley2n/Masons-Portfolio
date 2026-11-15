@@ -75,7 +75,11 @@ test.describe("page crossfade (D-41)", () => {
     await expect(page).toHaveURL(/\/about$/);
     await expect.poll(async () => (await recorded(page)).animations.length).toBeGreaterThan(0);
 
-    const { animations, names } = await recorded(page);
+    const { animations: recordedAnimations, names } = await recorded(page);
+    // The browser sometimes reports zero-length animations on the transition groups (docs/gotchas.md); they animate
+    // nothing, so only real ones are checked. A header or footer animation with a duration still fails below.
+    // Measured 2026-11-15: this test failed 9 of 40 runs without the filter.
+    const animations = recordedAnimations.filter((animation) => animation.duration > 0);
     // The header and footer are pinned out of the page snapshot, and their groups get no animation
     expect(names).toEqual(expect.arrayContaining(["site-header", "site-footer"]));
     for (const animation of animations) {
