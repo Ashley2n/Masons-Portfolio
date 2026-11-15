@@ -26,7 +26,7 @@ test.describe("about page", () => {
     // Entry 06 ("Movie Actor") has no photo, which is what used to drop it into the left column.
     const sides = [
       ["First Role, First Spark", "right"],
-      ["Joined American Gothic Performing Arts", "right"],
+      ["First Regional Contract", "right"],
       ["Movie Actor", "right"],
       ["Found the Stage", "left"],
       ["Went All In", "left"],

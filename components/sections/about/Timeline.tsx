@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { aboutContent, milestones } from "@/content/about";
+import { parseEmphasis } from "@/lib/emphasis";
 import { cn } from "@/lib/utils";
 import type { Milestone } from "@/types/content";
 
@@ -59,7 +60,9 @@ export default function Timeline() {
                       className={cn("block h-0.5 w-8 bg-brand-500", textFirst && "md:ml-auto")}
                     />
                     <p className={cn("max-w-md text-body text-neutral-600", textFirst && "md:ml-auto")}>
-                      {milestone.description}
+                      {parseEmphasis(milestone.description).map((segment) =>
+                        segment.em ? <em key={segment.text}>{segment.text}</em> : segment.text,
+                      )}
                     </p>
                   </div>
                   {milestone.image && (
@@ -76,8 +79,6 @@ export default function Timeline() {
                         sizes="(min-width: 768px) 40vw, 100vw"
                         className="object-cover"
                       />
-                      {/* Brand tint so the stock photos share one look, like the mockup */}
-                      <div className="absolute inset-0 bg-brand-700/25 mix-blend-color" />
                     </div>
                   )}
                 </Reveal>

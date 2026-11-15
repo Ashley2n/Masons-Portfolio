@@ -93,20 +93,49 @@ describe("home content", () => {
     others.forEach((v) => expect("thumbnail" in v, v.id).toBe(false));
   });
 
-  // Stock photos that stay until Mason's replacements arrive (D-24)
-  const photos: [string, Photo][] = [
-    ["about feature", aboutContent.feature.image],
-    ...milestones.flatMap((m): [string, Photo][] => (m.image ? [[m.id, m.image]] : [])),
-  ];
+  // Mason's feedback 2026-11-08 (docs/feeback.md "About Image Sections", #38). Show titles are *starred* for italics.
+  it("the About timeline copy is the text Mason supplied (#38)", () => {
+    const byId = (id: string) => milestones.find((m) => m.id === id);
+    expect(byId("found-the-stage")?.title).toBe("Found the Stage");
+    expect(byId("first-role")?.description).toBe(
+      "Stepped into my first musical production and was chosen as Dance Captain for the Show Choir my senior year of high school — the moment that revealed what real teamwork, passion, and hard work could look like, and pulled me toward a life on stage.",
+    );
+    expect(byId("went-all-in")?.description).toBe(
+      'After exploring "safer" career options, I soon found out that my passion truly lay in performance. So I declared a major in Musical Theatre and immediately explored aspects of the field, including performing, designing, and directing.',
+    );
+    expect(byId("american-gothic")?.title).toBe("First Regional Contract");
+    expect(byId("american-gothic")?.description).toBe(
+      "I had the opportunity to join American Gothic Performing Arts as Diesel in *West Side Story* and Ensemble in *Grease* for an exciting first professional theatre experience.",
+    );
+  });
 
-  it.each(photos)(
-    "%s image exists in public/ and credits its photographer",
-    (_, image) => {
-      expect(existsSync(join(process.cwd(), "public", image.src))).toBe(true);
-      expect(image.alt.trim()).not.toBe("");
-      expect(image.credit).toMatch(/ \/ Unsplash$/);
-    },
-  );
+  // Mason's own photos for the first four timeline entries (#38): small files, alt text, no stock credit (D-24)
+  it("the four timeline photos are Mason's own, small files with alt text and no credit (#38)", () => {
+    const expected = {
+      "found-the-stage": "/images/about/found-the-stage.jpg",
+      "first-role": "/images/about/first-role.jpg",
+      "went-all-in": "/images/about/went-all-in.jpg",
+      "american-gothic": "/images/about/first-regional-contract.jpg",
+    };
+    expect(milestones.filter((m) => m.image).map((m) => m.id)).toEqual(Object.keys(expected));
+    for (const [id, src] of Object.entries(expected)) {
+      const image = milestones.find((m) => m.id === id)?.image;
+      expect(image?.src, id).toBe(src);
+      const file = join(process.cwd(), "public", src);
+      expect(existsSync(file), `${id} file exists`).toBe(true);
+      expect(statSync(file).size, `${id} file size`).toBeLessThan(300_000);
+      expect(image?.alt.trim(), `${id} alt`).not.toBe("");
+      expect("credit" in (image ?? {}), `${id} credit`).toBe(false);
+    }
+  });
+
+  // The Designer card is still a stock photo until Mason replaces it (D-24)
+  it("the About feature image exists in public/ and credits its photographer", () => {
+    const image: Photo = aboutContent.feature.image;
+    expect(existsSync(join(process.cwd(), "public", image.src))).toBe(true);
+    expect(image.alt.trim()).not.toBe("");
+    expect(image.credit).toMatch(/ \/ Unsplash$/);
+  });
 });
 
 describe("site content", () => {

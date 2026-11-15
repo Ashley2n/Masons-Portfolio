@@ -1,6 +1,6 @@
 import type { Milestone, Photo } from "@/types/content";
 
-// Copy from the About mockup. Photos are free Unsplash images (D-11).
+// Copy from the About mockup. The Designer card is still a free Unsplash image (D-11); the timeline photos are Mason's own (#38).
 export const aboutContent = {
   title: "About Me",
   paragraphs: [
@@ -30,45 +30,42 @@ export const milestones: Milestone[] = [
       "Started performing formally, taking on Bass I in choir and joining Show Choir — the beginning of a performance foundation that would carry through high school.",
     status: "complete",
     image: {
-      src: "/images/about/journey-choir.jpg",
-      alt: "A crowd lit in deep red light during a performance",
-      credit: "Joshua Hanson / Unsplash",
+      src: "/images/about/found-the-stage.jpg",
+      alt: "A show choir in leopard-print costumes dancing on risers in front of a red stage curtain",
     },
   },
   {
     id: "first-role",
     title: "First Role, First Spark",
     description:
-      "Stepped into my first musical production and Dance Captain role in the same year — the moment that revealed what real teamwork, passion, and hard work could look like, and pulled me toward a life on stage.",
+      "Stepped into my first musical production and was chosen as Dance Captain for the Show Choir my senior year of high school — the moment that revealed what real teamwork, passion, and hard work could look like, and pulled me toward a life on stage.",
     status: "complete",
     image: {
-      src: "/images/about/journey-first-role.jpg",
-      alt: "Performers silhouetted against a red stage curtain",
-      credit: "Kyle Head / Unsplash",
+      src: "/images/about/first-role.jpg",
+      alt: "A performer in a white chef's jacket sitting on a sofa in a pool of stage light",
     },
   },
   {
     id: "went-all-in",
     title: "Went All In",
     description:
-      "Made the decision to fully commit to performing, stepping up from performer to director and planner across multiple productions and events — proof of the leap paying off almost immediately.",
+      'After exploring "safer" career options, I soon found out that my passion truly lay in performance. So I declared a major in Musical Theatre and immediately explored aspects of the field, including performing, designing, and directing.',
     status: "complete",
     image: {
-      src: "/images/about/journey-rehearsal.jpg",
-      alt: "A cast rehearsing on a bare stage under work lights",
-      credit: "Hamish Kale / Unsplash",
+      src: "/images/about/went-all-in.jpg",
+      alt: "Four photos: a performer in a patterned vest on stage, a painted set design on a desk, a group of cast members in white costumes, and a performer in a suit and sunglasses holding a cane",
     },
   },
   {
     id: "american-gothic",
-    title: "Joined American Gothic Performing Arts",
+    title: "First Regional Contract",
+    // *Stars* mark show titles; Timeline turns them into <em> (lib/emphasis.ts)
     description:
-      "Brought on with a performing arts company outside Central College, taking on multiple named roles across simultaneous productions — the clearest sign yet that the “all in” bet is working.",
+      "I had the opportunity to join American Gothic Performing Arts as Diesel in *West Side Story* and Ensemble in *Grease* for an exciting first professional theatre experience.",
     status: "complete",
     image: {
-      src: "/images/about/journey-gothic.jpg",
-      alt: "Gothic towers lit purple against the night sky",
-      credit: "Ethan / Unsplash",
+      src: "/images/about/first-regional-contract.jpg",
+      alt: "A cast in 1960s-style costumes dancing on a lit stage, with a singer at a microphone in the centre",
     },
   },
   {
