@@ -30,7 +30,7 @@ test.describe("about page", () => {
       ["Movie Actor", "right"],
       ["Found the Stage", "left"],
       ["Went All In", "left"],
-      ["America's Got Talent", "left"],
+      ["Broadway", "left"],
     ] as const;
     for (const [title, side] of sides) {
       const heading = timeline.getByRole("heading", { level: 3, name: title });

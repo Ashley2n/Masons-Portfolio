@@ -69,15 +69,17 @@ export const milestones: Milestone[] = [
     },
   },
   {
-    id: "americas-got-talent",
-    title: "America's Got Talent",
-    description: "Pursued opportunities on larger stages, learning, growing, and gaining exposure.",
+    id: "broadway",
+    title: "Broadway",
+    description:
+      "Working towards reaching the pinnacle of theatre, one step, one lesson, audition, role, and performance at a time.",
     status: "ongoing",
   },
   {
     id: "movie-actor",
     title: "Movie Actor",
-    description: "Expanding into film and television, bringing stories to life on screen.",
+    description:
+      "Expanding into film and television and bringing stories to life on screen is a goal for later in my career that I am working towards currently.",
     status: "ongoing",
   },
 ];

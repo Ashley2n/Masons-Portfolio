@@ -109,6 +109,20 @@ describe("home content", () => {
     );
   });
 
+  // Mason's feedback 2026-11-14 (docs/feeback.md, #41; typos fixed and approved by Ashley on the issue). Both entries are
+  // goals, so they stay "ongoing" with no photo: the layout test in e2e/about.spec.ts relies on the last one having none.
+  it("the last two About timeline entries are Broadway and Movie Actor, ongoing and without a photo (#41)", () => {
+    const last = milestones.slice(-2);
+    expect(last.map((m) => ({ id: m.id, title: m.title, status: m.status, hasImage: "image" in m }))).toEqual([
+      { id: "broadway", title: "Broadway", status: "ongoing", hasImage: false },
+      { id: "movie-actor", title: "Movie Actor", status: "ongoing", hasImage: false },
+    ]);
+    expect(last.map((m) => m.description)).toEqual([
+      "Working towards reaching the pinnacle of theatre, one step, one lesson, audition, role, and performance at a time.",
+      "Expanding into film and television and bringing stories to life on screen is a goal for later in my career that I am working towards currently.",
+    ]);
+  });
+
   // Mason's own photos for the first four timeline entries (#38): small files, alt text, no stock credit (D-24)
   it("the four timeline photos are Mason's own, small files with alt text and no credit (#38)", () => {
     const expected = {

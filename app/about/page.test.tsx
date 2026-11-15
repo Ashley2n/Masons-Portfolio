@@ -71,7 +71,7 @@ describe("/about page", () => {
         "First Role, First Spark",
         "Went All In",
         "First Regional Contract",
-        "America's Got Talent",
+        "Broadway",
         "Movie Actor",
       ]);
       expect(items.map((li) => within(li).getByText(/^0\d$/).textContent)).toEqual([

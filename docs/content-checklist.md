@@ -42,7 +42,7 @@ _Last updated: 2026-10-31_
 | Intro copy (2 paragraphs) | ✅ | From mockup. |
 | Signature image / SVG | 🔁 | "Mason F." in a script font (Mrs Saint Delafield). Final per Q C13. |
 | Hero feature image + caption | 📷 | `about/feature-peaks.jpg` (Kai Oberhäuser / Unsplash). Caption follows homepage wording: "Designer / Branding & Digital Design". |
-| Journey milestones 01–06 (title + description) | ✅ | From mockup: Found the Stage · First Role, First Spark · Went All In · First Regional Contract (was "Joined American Gothic Performing Arts", #38) · Americas got Talent · Movie Actor. Copy-edit needed (e.g. "America's Got Talent"; the last two are #41). |
+| Journey milestones 01–06 (title + description) | ✅ | From mockup: Found the Stage · First Role, First Spark · Went All In · First Regional Contract (was "Joined American Gothic Performing Arts", #38) · Broadway (was "America's Got Talent", #41) · Movie Actor. Last two entries' copy is Mason's, typos fixed (#41). |
 | Journey images (4) | ✅ | Mason's own photos (#38, D-45): `about/found-the-stage.jpg`, `first-role.jpg`, `went-all-in.jpg`, `first-regional-contract.jpg`; no credit. |
 
 ## Media (`/media`)
