@@ -36,6 +36,7 @@ app/
   sitemap.ts  robots.ts  opengraph-image.tsx  icon.svg  apple-icon.tsx
 components/
   layout/               # Header, MobileMenu, NavLinks, Footer, CtaBanner
+  motion/               # MotionProvider (LazyMotion, once in app/layout.tsx), LoadEntrance + LoadItem (D-44); the only place `motion/react` is imported, always the small `m` component
   resume/               # ResumeDialog ("View resume" modal, used on several pages)
   ui/                   # Button, Eyebrow, SectionHeading, Container, VideoCard
   sections/
@@ -90,7 +91,7 @@ The restructure was completed in Phase 2 (2026-10-10). Pages that don't exist ye
 
 - Use Tailwind utilities and design tokens (`brand-*`, `neutral-*`, `font-playfair`…). Don't hard-code hex values in components. The exception is generated images (`opengraph-image.tsx`, `apple-icon.tsx`, `icon.svg`), which can't read CSS variables. Their hex values are commented with the token they mirror. The contact email (`EMAIL_COLORS` in `lib/contact.ts`) is the same exception, because email clients can't read CSS variables either (it also uses a light background, since inboxes are light); a unit test checks its brand hex values against `app/globals.css`.
 - Merge conditional classes with `cn()`.
-- Global element styles (`h1`–`h3`, `body`) live in `@layer base` and the semantic classes (`.display-font`, `.caption-text`, `.small-text`) in `@layer components` in `globals.css`. Never add unlayered rules there: they override Tailwind utility classes.
+- Global element styles (`h1`–`h3`, `body`) live in `@layer base` and the semantic classes (`.display-font`, `.caption-text`, `.small-text`) in `@layer components` in `globals.css`. Never add unlayered rules there: they override Tailwind utility classes. The one exception is the `::view-transition-*` block at the end of `globals.css` (D-41, #40): Tailwind utilities cannot target those pseudo-elements, so the override risk this rule guards against does not apply (the block's own comment says it is unlayered on purpose).
 - Mobile-first: write base styles for mobile and add `md:` / `lg:` for larger screens.
 
 ### Images

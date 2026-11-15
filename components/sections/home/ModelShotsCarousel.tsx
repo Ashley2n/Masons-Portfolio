@@ -2,6 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import { modelShots, sectionHeadings } from "@/content/home";
 import { getNextIndex, getPrevIndex } from "@/lib/carousel";
@@ -57,74 +58,77 @@ export default function ModelShotsCarousel() {
       className="surface-light bg-neutral-100 py-16 md:pt-20"
     >
       <Container className="space-y-6">
-        <h2 id="model-shots-heading" className="reveal text-neutral-800">
+        <Reveal as="h2" id="model-shots-heading" className="text-neutral-800">
           {sectionHeadings.modelShots.title}
-        </h2>
+        </Reveal>
 
-        <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-neutral-800 sm:aspect-video lg:aspect-21/9">
-          {/* Swipe: a row of full-width slides that snap into place (CSS scroll-snap, no JavaScript for the gesture). */}
-          <div
-            ref={trackRef}
-            onScroll={onScroll}
-            className="flex size-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden"
-          >
-            {modelShots.map((shot, i) => {
-              const isPortrait = shot.height > shot.width;
-              return (
-                // Only the current photo is announced; the others are off-screen copies
-                <div key={shot.id} aria-hidden={i !== index} className="relative size-full shrink-0 basis-full snap-center">
-                  {/* Wide screens: a portrait photo is shown whole over a blurred copy of itself instead of being cropped.
-                      The copy is decorative and tiny (it's blurred anyway). */}
-                  {isPortrait && (
+        {/* The photos and thumbnails arrive as one block: a carousel is swiped, not read piece by piece (#33) */}
+        <Reveal className="space-y-6">
+          <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-neutral-800 sm:aspect-video lg:aspect-21/9">
+            {/* Swipe: a row of full-width slides that snap into place (CSS scroll-snap, no JavaScript for the gesture). */}
+            <div
+              ref={trackRef}
+              onScroll={onScroll}
+              className="flex size-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden"
+            >
+              {modelShots.map((shot, i) => {
+                const isPortrait = shot.height > shot.width;
+                return (
+                  // Only the current photo is announced; the others are off-screen copies
+                  <div key={shot.id} aria-hidden={i !== index} className="relative size-full shrink-0 basis-full snap-center">
+                    {/* Wide screens: a portrait photo is shown whole over a blurred copy of itself instead of being cropped.
+                        The copy is decorative and tiny (it's blurred anyway). */}
+                    {isPortrait && (
+                      <Image
+                        src={shot.src}
+                        alt=""
+                        fill
+                        sizes="256px"
+                        className="hidden scale-110 object-cover blur-2xl brightness-50 sm:block"
+                      />
+                    )}
                     <Image
                       src={shot.src}
-                      alt=""
+                      alt={shot.alt}
                       fill
-                      sizes="256px"
-                      className="hidden scale-110 object-cover blur-2xl brightness-50 sm:block"
+                      sizes="(min-width: 1280px) 1280px, 100vw"
+                      className={cn("object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
                     />
-                  )}
-                  <Image
-                    src={shot.src}
-                    alt={shot.alt}
-                    fill
-                    sizes="(min-width: 1280px) 1280px, 100vw"
-                    className={cn("object-cover object-[50%_30%]", isPortrait && "sm:object-contain")}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
-            <ChevronLeft aria-hidden="true" className="size-6" />
-          </button>
-          <button type="button" onClick={next} aria-label="Next photo" className={cn(arrowClass, "right-4")}>
-            <ChevronRight aria-hidden="true" className="size-6" />
-          </button>
-        </div>
-
-        <p aria-live="polite" className="sr-only">
-          Photo {index + 1} of {total}
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-2">
-          {modelShots.map((shot, i) => (
-            <button
-              key={shot.id}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Show photo ${i + 1} of ${total}`}
-              aria-current={i === index ? "true" : undefined}
-              className={cn(
-                "relative size-14 overflow-hidden rounded-md border-2 sm:size-20 md:size-24",
-                pressClasses,
-                i === index ? "border-brand-600" : "border-transparent opacity-60 hover:opacity-100",
-              )}
-            >
-              <Image src={shot.src} alt="" fill sizes="96px" className="object-cover" />
+                  </div>
+                );
+              })}
+            </div>
+            <button type="button" onClick={prev} aria-label="Previous photo" className={cn(arrowClass, "left-4")}>
+              <ChevronLeft aria-hidden="true" className="size-6" />
             </button>
-          ))}
-        </div>
+            <button type="button" onClick={next} aria-label="Next photo" className={cn(arrowClass, "right-4")}>
+              <ChevronRight aria-hidden="true" className="size-6" />
+            </button>
+          </div>
+
+          <p aria-live="polite" className="sr-only">
+            Photo {index + 1} of {total}
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-2">
+            {modelShots.map((shot, i) => (
+              <button
+                key={shot.id}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Show photo ${i + 1} of ${total}`}
+                aria-current={i === index ? "true" : undefined}
+                className={cn(
+                  "relative size-14 overflow-hidden rounded-md border-2 sm:size-20 md:size-24",
+                  pressClasses,
+                  i === index ? "border-brand-600" : "border-transparent opacity-60 hover:opacity-100",
+                )}
+              >
+                <Image src={shot.src} alt="" fill sizes="96px" className="object-cover" />
+              </button>
+            ))}
+          </div>
+        </Reveal>
       </Container>
     </section>
   );

@@ -4,6 +4,7 @@ import "./globals.css";
 import { inter, playfairDisplay, signature, spaceMono } from "@/lib/fonts";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { siteConfig } from "@/content/site";
 import { defaultTitle } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
@@ -27,15 +28,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${spaceMono.variable} ${playfairDisplay.variable} ${signature.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-neutral-950">
-        <ViewTransition name="site-header">
-          <Header />
-        </ViewTransition>
-        <ViewTransition name="page">
-          <main className="flex-1">{children}</main>
-        </ViewTransition>
-        <ViewTransition name="site-footer">
-          <Footer />
-        </ViewTransition>
+        {/* Without JavaScript nothing can animate, so never leave the load entrance hidden (D-44) */}
+        <noscript>
+          <style>{"[data-motion]{opacity:1!important;transform:none!important;clip-path:none!important}"}</style>
+        </noscript>
+        <MotionProvider>
+          <ViewTransition name="site-header">
+            <Header />
+          </ViewTransition>
+          <ViewTransition name="page">
+            <main className="flex-1">{children}</main>
+          </ViewTransition>
+          <ViewTransition name="site-footer">
+            <Footer />
+          </ViewTransition>
+        </MotionProvider>
       </body>
     </html>
   );

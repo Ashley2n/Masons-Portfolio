@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
 import ResumeDialog from "@/components/resume/ResumeDialog";
 import Container from "@/components/ui/Container";
 import { aboutContent } from "@/content/about";
@@ -15,19 +16,27 @@ export default function AboutHero() {
         className="pointer-events-none absolute -left-40 top-1/4 -z-10 size-96 rounded-full bg-brand-700/30 blur-[120px]"
       />
       <Container className="grid items-center gap-12 lg:grid-cols-2">
-        <div className="space-y-6">
-          <h1 className="text-[2.75rem] leading-[1.1] text-neutral-100 md:text-display">
-            {aboutContent.title}
-          </h1>
-          <div className="max-w-md space-y-4 text-neutral-300">
-            {aboutContent.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <div aria-hidden="true" className="h-px w-16 bg-brand-600" />
-          <p className="font-signature text-5xl text-brand-500">{aboutContent.signature}</p>
-          <ResumeDialog variant="primary" />
-        </div>
+        <LoadEntrance className="space-y-6">
+          <LoadItem>
+            <h1 className="text-[2.75rem] leading-[1.1] text-neutral-100 md:text-display">
+              {aboutContent.title}
+            </h1>
+          </LoadItem>
+          <LoadItem>
+            <div className="max-w-md space-y-4 text-neutral-300">
+              {aboutContent.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </LoadItem>
+          <LoadItem className="space-y-6">
+            <div aria-hidden="true" className="h-px w-16 bg-brand-600" />
+            <p className="font-signature text-5xl text-brand-500">{aboutContent.signature}</p>
+          </LoadItem>
+          <LoadItem>
+            <ResumeDialog variant="primary" />
+          </LoadItem>
+        </LoadEntrance>
 
         <Link
           href={feature.href}

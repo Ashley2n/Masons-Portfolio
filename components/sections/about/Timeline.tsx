@@ -1,22 +1,42 @@
 import { Check } from "lucide-react";
 import Image from "next/image";
+import { DrawLine } from "@/components/motion/DrawLine";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { aboutContent, milestones } from "@/content/about";
+import { parseEmphasis } from "@/lib/emphasis";
 import { cn } from "@/lib/utils";
 import type { Milestone } from "@/types/content";
 
-const Node = ({ status }: Pick<Milestone, "status">) => (
-  <span
-    className={cn(
-      "absolute left-4 top-1 z-10 grid size-9 -translate-x-1/2 place-items-center rounded-full ring-8 ring-brand-100 md:left-1/2",
-      status === "complete" ? "bg-brand-600 text-neutral-100" : "bg-brand-500",
-    )}
-  >
-    {status === "complete" && <Check aria-hidden="true" className="size-4" strokeWidth={3} />}
-    <span className="sr-only">{status === "complete" ? "Completed" : "In progress"}</span>
-  </span>
-);
+/**
+ * D-46: a completed checkpoint pulses softly (a ring that grows and fades, so the node itself never moves). One
+ * that is not reached yet is a dull grey and still. The pulse is CSS, `motion-safe` only, so reduced motion and
+ * print get none.
+ */
+const Node = ({ status }: Pick<Milestone, "status">) => {
+  const complete = status === "complete";
+  return (
+    <span
+      data-testid="timeline-node"
+      data-status={status}
+      className={cn(
+        "absolute left-4 top-1 z-10 grid size-9 -translate-x-1/2 place-items-center rounded-full ring-8 ring-brand-100 md:left-1/2",
+        complete ? "bg-brand-600 text-neutral-100" : "bg-neutral-400",
+      )}
+    >
+      {complete && (
+        <span
+          aria-hidden="true"
+          data-testid="node-pulse"
+          className="absolute inset-0 rounded-full bg-brand-600 motion-safe:animate-node-pulse"
+        />
+      )}
+      {complete && <Check aria-hidden="true" className="relative size-4" strokeWidth={3} />}
+      <span className="sr-only">{complete ? "Completed" : "In progress"}</span>
+    </span>
+  );
+};
 
 export default function Timeline() {
   const { journey } = aboutContent;
@@ -26,63 +46,63 @@ export default function Timeline() {
       <Container className="space-y-12">
         <SectionHeading tone="light" title={journey.title} />
 
-        {/* ::before draws the line the milestones hang from: left on mobile, centered on desktop.
-            A pseudo-element keeps the <ol> valid (only <li> children). */}
-        <ol
-          aria-label={journey.title}
-          className="relative space-y-16 before:absolute before:inset-y-0 before:left-4 before:border-l-2 before:border-dashed before:border-neutral-300 before:content-[''] md:before:left-1/2"
-        >
-          {milestones.map((milestone, i) => {
-            const textFirst = i % 2 === 0;
-            return (
-              <li
-                key={milestone.id}
-                className="reveal relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
-              >
-                <Node status={milestone.status} />
-                {/* Right-hand text normally follows a left-hand photo. With no photo, nothing holds
-                    column 1, so the text is placed in column 2 itself. */}
-                <div
-                  className={cn(
-                    "space-y-3",
-                    textFirst ? "md:text-right" : "md:order-2",
-                    !textFirst && !milestone.image && "md:col-start-2",
-                  )}
+        {/* DrawLine adds the line the milestones hang from (left on mobile, centered on desktop) beside the <ol>,
+            which stays valid (only <li> children). */}
+        <DrawLine>
+          <ol aria-label={journey.title} className="relative space-y-16">
+            {milestones.map((milestone, i) => {
+              const textFirst = i % 2 === 0;
+              return (
+                <Reveal
+                  as="li"
+                  key={milestone.id}
+                  className="relative grid gap-6 pl-12 md:grid-cols-2 md:items-center md:gap-24 md:pl-0"
                 >
-                  <p className="caption-text text-brand-600">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="text-h2 font-semibold text-neutral-800 md:text-4xl">{milestone.title}</h3>
-                  <span
-                    aria-hidden="true"
-                    className={cn("block h-0.5 w-8 bg-brand-500", textFirst && "md:ml-auto")}
-                  />
-                  <p className={cn("max-w-md text-body text-neutral-600", textFirst && "md:ml-auto")}>
-                    {milestone.description}
-                  </p>
-                </div>
-                {milestone.image && (
+                  <Node status={milestone.status} />
+                  {/* Right-hand text normally follows a left-hand photo. With no photo, nothing holds
+                      column 1, so the text is placed in column 2 itself. */}
                   <div
                     className={cn(
-                      "relative aspect-video overflow-hidden rounded-lg bg-neutral-800 md:aspect-4/3",
-                      !textFirst && "md:order-1",
+                      "space-y-3",
+                      textFirst ? "md:text-right" : "md:order-2",
+                      !textFirst && !milestone.image && "md:col-start-2",
                     )}
                   >
-                    <Image
-                      src={milestone.image.src}
-                      alt={milestone.image.alt}
-                      fill
-                      sizes="(min-width: 768px) 40vw, 100vw"
-                      className="object-cover"
+                    <p className="caption-text text-brand-600">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-h2 font-semibold text-neutral-800 md:text-4xl">{milestone.title}</h3>
+                    <span
+                      aria-hidden="true"
+                      className={cn("block h-0.5 w-8 bg-brand-500", textFirst && "md:ml-auto")}
                     />
-                    {/* Brand tint so the stock photos share one look, like the mockup */}
-                    <div className="absolute inset-0 bg-brand-700/25 mix-blend-color" />
+                    <p className={cn("max-w-md text-body text-neutral-600", textFirst && "md:ml-auto")}>
+                      {parseEmphasis(milestone.description).map((segment) =>
+                        segment.em ? <em key={segment.text}>{segment.text}</em> : segment.text,
+                      )}
+                    </p>
                   </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
+                  {milestone.image && (
+                    <div
+                      className={cn(
+                        "relative aspect-video overflow-hidden rounded-lg bg-neutral-800 md:aspect-4/3",
+                        !textFirst && "md:order-1",
+                      )}
+                    >
+                      <Image
+                        src={milestone.image.src}
+                        alt={milestone.image.alt}
+                        fill
+                        sizes="(min-width: 768px) 40vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                </Reveal>
+              );
+            })}
+          </ol>
+        </DrawLine>
       </Container>
     </section>
   );

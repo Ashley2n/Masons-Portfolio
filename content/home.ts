@@ -43,8 +43,8 @@ export const videos: Video[] = [
     orientation: "landscape",
     featured: true,
   },
-  // Sent by Mason 2026-10-31 (F3), all unlisted with embedding on; their thumbnail is his
-  // contact card (D-35). Same upload day, so the order he sent them is the Other Work order.
+  // Sent by Mason 2026-10-31 (F3), all unlisted with embedding on; YouTube's thumbnail for them is his
+  // contact card (D-35), which is why Dance and Acting now carry their own thumbnail. Same upload day, so the order he sent them is the Other Work order.
   {
     id: "vocal-reel",
     platform: "youtube",
@@ -60,6 +60,11 @@ export const videos: Video[] = [
     title: "Mason Farrington Dance Reel",
     date: "2026-10-31",
     orientation: "landscape",
+    // Mason's own thumbnail (feedback 2026-11-08, #37), cropped to 16:9
+    thumbnail: {
+      src: "/images/home/dance-reel.jpg",
+      alt: "Mason dancing mid-step in a stage number, with the cast and orchestra behind him",
+    },
   },
   {
     id: "acting-reel",
@@ -68,6 +73,10 @@ export const videos: Video[] = [
     title: "Mason Farrington Acting Reel",
     date: "2026-10-31",
     orientation: "landscape",
+    thumbnail: {
+      src: "/images/home/acting-reel.jpg",
+      alt: "Mason in a white shirt shouting at a startled actress in a stage scene",
+    },
   },
 ];
 

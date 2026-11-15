@@ -100,9 +100,9 @@ describe("Home page", () => {
       ["12", "concerts, competitions & live events"],
       ["4", "theatrical/musical shows"],
     ]) {
-      expect(
-        screen.getByText((_, el) => el?.tagName === "P" && el.textContent === `${metric}+`),
-      ).toBeInTheDocument();
+      // The real number is text a screen reader reads; the visible counter beside it is aria-hidden (#35)
+      const real = screen.getByText(metric, { ignore: '[aria-hidden="true"], [aria-hidden="true"] *' });
+      expect(real.closest("p")).toHaveTextContent("+");
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
     expect(screen.getByAltText(homeImages.journey.alt)).toBeInTheDocument();

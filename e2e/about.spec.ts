@@ -1,6 +1,49 @@
+import { toRgb } from "./color";
 import { expect, test } from "./fixtures";
 
 test.describe("about page", () => {
+
+  // D-46: a completed checkpoint pulses softly; the ones not reached yet are a dull grey and stay still.
+  // CSS animations are visible to the browser (unlike Motion's), so this reads them with getAnimations().
+  test.describe("timeline checkpoints pulse", () => {
+    const pulsing = (page: import("./fixtures").Page) =>
+      page.getByTestId("timeline-node").evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          status: node.getAttribute("data-status"),
+          animations: (node.querySelector('[data-testid="node-pulse"]')?.getAnimations() ?? []).map(
+            (a) => (a as CSSAnimation).animationName,
+          ),
+          background: getComputedStyle(node).backgroundColor,
+        })),
+      );
+
+    test("completed ones pulse, the ones not reached yet are grey and still", async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.goto("/about");
+      const nodes = await pulsing(page);
+
+      const done = nodes.filter((n) => n.status === "complete");
+      const waiting = nodes.filter((n) => n.status === "ongoing");
+      expect(done.length, "some checkpoints are complete").toBeGreaterThan(0);
+      expect(waiting.length, "some checkpoints are not reached yet").toBeGreaterThan(0);
+      for (const n of done) expect(n.animations).toEqual(["node-pulse"]);
+      for (const n of waiting) expect(n.animations).toEqual([]);
+
+      // Grey = equal red, green and blue; the completed ones are the purple brand colour
+      const [r, g, b] = (await toRgb(page, waiting[0].background)).match(/\d+/g)!.map(Number);
+      expect(r === g && g === b, `a dull grey, got ${waiting[0].background}`).toBe(true);
+      expect(await toRgb(page, done[0].background)).not.toBe(await toRgb(page, waiting[0].background));
+    });
+
+    test("nothing pulses for reduced motion", async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto("/about");
+
+      const nodes = await pulsing(page);
+      expect(nodes.length, "the checkpoints are on the page").toBeGreaterThan(0);
+      for (const n of nodes) expect(n.animations).toEqual([]);
+    });
+  });
   test("the hero's resume button and Designer link can be clicked (the glow doesn't block them)", async ({ page }) => {
     await page.goto("/about");
 
@@ -26,11 +69,11 @@ test.describe("about page", () => {
     // Entry 06 ("Movie Actor") has no photo, which is what used to drop it into the left column.
     const sides = [
       ["First Role, First Spark", "right"],
-      ["Joined American Gothic Performing Arts", "right"],
+      ["First Regional Contract", "right"],
       ["Movie Actor", "right"],
       ["Found the Stage", "left"],
       ["Went All In", "left"],
-      ["America's Got Talent", "left"],
+      ["Broadway", "left"],
     ] as const;
     for (const [title, side] of sides) {
       const heading = timeline.getByRole("heading", { level: 3, name: title });

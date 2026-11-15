@@ -70,8 +70,8 @@ describe("/about page", () => {
         "Found the Stage",
         "First Role, First Spark",
         "Went All In",
-        "Joined American Gothic Performing Arts",
-        "America's Got Talent",
+        "First Regional Contract",
+        "Broadway",
         "Movie Actor",
       ]);
       expect(items.map((li) => within(li).getByText(/^0\d$/).textContent)).toEqual([
@@ -82,6 +82,27 @@ describe("/about page", () => {
         "05",
         "06",
       ]);
+    });
+
+    it("shows Mason's photos as they are, with no colour overlay on the frame (#38)", () => {
+      render(<Page />);
+
+      milestones
+        .filter((m) => m.image)
+        .forEach((m) => {
+          const frame = screen.getByAltText(m.image!.alt).parentElement;
+          expect([...(frame?.children ?? [])].map((child) => child.tagName), m.id).toEqual(["IMG"]);
+        });
+    });
+
+    it("shows the show titles in italics, as <em>, without the star marks (#38)", () => {
+      render(<Page />);
+
+      const item = screen.getByRole("heading", { level: 3, name: "First Regional Contract" }).closest("li");
+      if (!item) throw new Error("the First Regional Contract milestone should be a list item");
+      const italics = [...item.querySelectorAll("em")].map((em) => em.textContent);
+      expect(italics).toEqual(["West Side Story", "Grease"]);
+      expect(item).not.toHaveTextContent("*");
     });
 
     it("contains only list items directly inside the list (valid HTML)", () => {

@@ -3,6 +3,8 @@ import { pageSeo } from "@/content/seo";
 import { pageMetadata } from "@/lib/seo";
 import ContactCard from "@/components/sections/contact/ContactCard";
 import ContactForm from "@/components/sections/contact/ContactForm";
+import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
+import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
 import { contactContent } from "@/content/contact";
 
@@ -17,16 +19,25 @@ export default function ContactPage() {
       />
       <Container className="grid gap-12 lg:grid-cols-[1fr_minmax(0,28rem)] lg:gap-16">
         <div className="space-y-10">
-          <div className="space-y-6">
-            <h1 className="text-[2.75rem] leading-[1.05] font-normal text-neutral-100 md:text-display">
-              {contactContent.title}
-            </h1>
-            <p className="max-w-md text-neutral-300">{contactContent.intro}</p>
-            <span aria-hidden="true" className="block h-0.5 w-12 bg-brand-500" />
-          </div>
-          <ContactForm />
+          <LoadEntrance className="space-y-6">
+            <LoadItem>
+              <h1 className="text-[2.75rem] leading-[1.05] font-normal text-neutral-100 md:text-display">
+                {contactContent.title}
+              </h1>
+            </LoadItem>
+            <LoadItem className="space-y-6">
+              <p className="max-w-md text-neutral-300">{contactContent.intro}</p>
+              <span aria-hidden="true" className="block h-0.5 w-12 bg-brand-500" />
+            </LoadItem>
+          </LoadEntrance>
+          <Reveal>
+            <ContactForm />
+          </Reveal>
         </div>
-        <ContactCard />
+        {/* `grid` so the card still stretches to the height of the form column, as it did as a direct grid item */}
+        <Reveal className="grid">
+          <ContactCard />
+        </Reveal>
       </Container>
     </section>
   );
