@@ -24,7 +24,7 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
             <SectionHeading title={copy.title} />
             <Link
               href="/media"
-              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-300 transition-colors duration-300 hover:border-neutral-300"
+              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-300 transition-colors hover:border-neutral-300"
             >
               {copy.viewMore}
             </Link>

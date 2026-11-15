@@ -9,6 +9,10 @@
 }
 
 @theme {
+  /* D-47: every `transition-*` utility eases in and out over 250ms unless a class says otherwise */
+  --default-transition-duration: 250ms;
+  --default-transition-timing-function: ease-in-out;
+
   /* Single color */
   --color-brand-600: #8A2CF6;
   

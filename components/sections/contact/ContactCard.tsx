@@ -34,13 +34,13 @@ export default function ContactCard() {
           <h2 className="text-h2 font-normal text-neutral-100">{siteConfig.name}</h2>
           <ul className="space-y-3">
             <li>
-              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} inline-flex min-h-11 items-center hover:text-brand-500 md:min-h-0`}>
+              <a href={`mailto:${contactInfo.email}`} className={`${rowClass} inline-flex min-h-11 items-center transition-colors hover:text-brand-500 md:min-h-0`}>
                 {contactInfo.email}
               </a>
             </li>
             {contactInfo.phone && (
               <li>
-                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} inline-flex min-h-11 items-center hover:text-brand-500 md:min-h-0`}>
+                <a href={`tel:${contactInfo.phone.replace(/[^\d+]/g, "")}`} className={`${rowClass} inline-flex min-h-11 items-center transition-colors hover:text-brand-500 md:min-h-0`}>
                   {contactInfo.phone}
                 </a>
               </li>
@@ -61,7 +61,7 @@ export default function ContactCard() {
                   <li key={link.id}>
                     <a
                       href={link.href}
-                      className="inline-flex min-h-11 items-center gap-3 text-small text-neutral-200 hover:text-brand-500 md:min-h-0"
+                      className="inline-flex min-h-11 items-center gap-3 text-small text-neutral-200 transition-colors hover:text-brand-500 md:min-h-0"
                       {...(external && { target: "_blank", rel: "noopener noreferrer" })}
                     >
                       {link.label}

@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import { contactInfo, footerContent, navLinks, siteConfig, socialLinks } from "@/content/site";
 
 // 44px tall rows on mobile (touch); same line box as before on desktop
-const linkClass = "inline-block min-w-11 py-2.5 transition-colors duration-300 hover:text-neutral-100 md:py-0";
+const linkClass = "inline-block min-w-11 py-2.5 transition-colors hover:text-neutral-100 md:py-0";
 
 const FooterColumn = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="space-y-4">
