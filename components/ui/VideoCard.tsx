@@ -91,8 +91,8 @@ export default function VideoCard({
           />
         ) : (
           <Image
-            src={youTubeThumbnail(video.youtubeId)}
-            alt=""
+            src={video.thumbnail?.src ?? youTubeThumbnail(video.youtubeId)}
+            alt={video.thumbnail?.alt ?? ""}
             fill
             sizes={sizes}
             className="object-cover"

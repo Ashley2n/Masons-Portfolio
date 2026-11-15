@@ -42,6 +42,19 @@ describe("VideoCard", () => {
       expect(document.querySelector("iframe")).toBeNull();
     });
 
+    it("uses its own thumbnail, with alt text, when it has one, instead of YouTube's (#37)", () => {
+      const own: YouTubeVideo = {
+        ...youtube,
+        thumbnail: { src: "/images/home/dance-reel.jpg", alt: "Mason dancing on stage" },
+      };
+      render(<VideoCard video={own} />);
+
+      const image = screen.getByAltText("Mason dancing on stage");
+      expect(decodeURIComponent(image.getAttribute("src") ?? "")).toContain("/images/home/dance-reel.jpg");
+      expect(document.querySelector("img")?.getAttribute("src")).not.toContain("ytimg");
+      expect(screen.getByRole("button", { name: "Play Spring" })).toBeInTheDocument();
+    });
+
     it("drops a thumbnail that fails to load, so there is no broken image, and the video stays playable", async () => {
       render(<VideoCard video={youtube} />);
 

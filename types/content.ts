@@ -44,7 +44,12 @@ type VideoBase = {
 };
 
 /** YouTube videos and Shorts play inline after a click (D-12). */
-export type YouTubeVideo = VideoBase & { platform: "youtube"; youtubeId: string };
+export type YouTubeVideo = VideoBase & {
+  platform: "youtube";
+  youtubeId: string;
+  /** Our own 16:9 thumbnail; without it the card uses YouTube's */
+  thumbnail?: Photo;
+};
 
 /** Instagram has no styleable player, so Reels use our own thumbnail and open on Instagram (D-12). */
 export type InstagramVideo = VideoBase & {

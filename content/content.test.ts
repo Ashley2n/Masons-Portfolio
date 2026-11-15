@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutContent, milestones } from "./about";
@@ -74,6 +74,23 @@ describe("home content", () => {
       expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel" }),
     ]);
     expect(videos.filter((v) => v.featured)).toHaveLength(1);
+  });
+
+  // Mason's feedback 2026-11-08 (docs/feeback.md "Thumbnails", #37). Only these two: the Intro Video and the Vocal Reel
+  // keep YouTube's own thumbnail.
+  it("the Dance and Acting reels use Mason's own thumbnails, small files with alt text (#37)", () => {
+    for (const id of ["dance-reel", "acting-reel"]) {
+      const video = videos.find((v) => v.id === id);
+      if (video?.platform !== "youtube") throw new Error(`${id} should be a YouTube video`);
+      const file = join(process.cwd(), "public", video.thumbnail?.src ?? "missing");
+      expect(video.thumbnail?.src, id).toMatch(/^\/images\/home\/.+\.jpg$/);
+      expect(existsSync(file), `${id} file exists`).toBe(true);
+      // The supplied Acting image was 31 MB; a thumbnail should stay a few hundred KB at most
+      expect(statSync(file).size, `${id} file size`).toBeLessThan(300_000);
+      expect(video.thumbnail?.alt.trim(), `${id} alt`).not.toBe("");
+    }
+    const others = videos.filter((v) => !["dance-reel", "acting-reel"].includes(v.id));
+    others.forEach((v) => expect("thumbnail" in v, v.id).toBe(false));
   });
 
   // Stock photos that stay until Mason's replacements arrive (D-24)
