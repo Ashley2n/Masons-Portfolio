@@ -36,8 +36,8 @@ export function CountUp({ value, index = 0 }: CountUpProps) {
 
   // Runs once, when the number first comes into view (the same viewport rule as `Reveal`, so jsdom copes with it too)
   const start = () => {
-    // Read here, not from `useReducedMotion`: that is still false while hydrating, and a stat already in view at
-    // load would count for someone who asked for no motion.
+    // Read here, not in render: the count has to follow the setting at the moment it starts, and a stat already in
+    // view at load would otherwise count for someone who asked for no motion.
     if (target === null || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     count.set(0);
     running.current = animate(count, target, {

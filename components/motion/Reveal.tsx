@@ -2,7 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { EASE, IN_VIEW_AMOUNT, staggerDelay } from "./tokens";
 
 /** D-44: a block rises and fades in once, the first time about a fifth of it is in view. */
@@ -32,14 +32,21 @@ type RevealProps = {
  * (Motion server-renders the hidden start state inline).
  */
 export function Reveal({ as = "div", index = 0, id, className, instant = false, children }: RevealProps) {
-  const reduce = useReducedMotion() || instant;
+  // Focus inside the block rests it at once, the same way reduced motion does: animation must never hide the
+  // control a keyboard user is on (#29 story 32, D-44). `onFocus` bubbles in React, so any control inside counts.
+  const [focused, setFocused] = useState(false);
+  const reduce = useReducedMotion() || instant || focused;
   const Tag = tags[as];
-  // `reduce` is still false while hydrating (it has to match the server), so the first render is hidden. Once it
-  // is known to be true the block goes to its resting state at once, instead of waiting for a scroll and then
-  // animating underneath the CSS that already shows it.
+  // The server cannot know the visitor's setting, so it always sends the hidden start state. Motion's
+  // `useReducedMotion` reads the real setting on the first client render, so with reduced motion the block starts at
+  // rest and goes to its resting state at once, instead of waiting for a scroll and then animating underneath the
+  // CSS that already shows it. That makes its inline style differ from the server's on purpose, so React is told
+  // not to warn about it (it would, in development only; the CSS rule for `[data-motion]` shows the block meanwhile).
   return (
     <Tag
       data-motion=""
+      suppressHydrationWarning
+      onFocus={() => setFocused(true)}
       id={id}
       className={className}
       initial={reduce ? false : { opacity: 0, y: RISE_PX }}

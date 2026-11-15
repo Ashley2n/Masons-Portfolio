@@ -45,8 +45,11 @@ export function LoadEntrance({ children, className }: { children: ReactNode; cla
 }
 
 export function LoadItem({ children, className }: { children: ReactNode; className?: string }) {
+  // The server always sends the hidden start state (it cannot know the visitor's setting); with reduced motion the
+  // group above starts at rest, so this element's inline style differs on purpose. Motion rewrites it after mount
+  // and the CSS rule for `[data-motion]` shows it meanwhile. Without this React warns, in development only.
   return (
-    <m.div data-motion="" className={className} variants={item}>
+    <m.div data-motion="" className={className} variants={item} suppressHydrationWarning>
       {children}
     </m.div>
   );
