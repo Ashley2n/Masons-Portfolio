@@ -44,6 +44,14 @@
   --text-caption--line-height: 1.6;
 
   /* Motion: opacity only, so it also runs for visitors who ask for reduced motion */
+  /* D-48: photos that newly appear in the gallery fade in; nothing moves */
+  --animate-gallery-in: gallery-in 400ms ease-in-out;
+  @keyframes gallery-in {
+    from {
+      opacity: 0;
+    }
+  }
+
   --animate-node-pulse: node-pulse 2s ease-in-out infinite;
   @keyframes node-pulse {
     0% {

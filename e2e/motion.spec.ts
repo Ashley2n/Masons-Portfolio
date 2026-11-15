@@ -466,8 +466,7 @@ async function lowestOpacityInViewAfterClick(page: Page, buttonText: string) {
         const box = block.getBoundingClientRect();
         return box.bottom > 0 && box.top < window.innerHeight;
       });
-    // Checked after the click: every photo it mounts, and the photos that were already settled on screen before it
-    const existing = new Set(document.querySelectorAll('ul[aria-labelledby="gallery-heading"] > li > div'));
+    // Checked after the click: the photos that were already settled on screen before it
     const settled = new Set(inView().filter((block) => painted(block) > 0.999));
     [...document.querySelectorAll("button")].find((b) => b.textContent?.trim().startsWith(text))!.click();
 
@@ -475,8 +474,9 @@ async function lowestOpacityInViewAfterClick(page: Page, buttonText: string) {
     let sampled = 0;
     for (let frame = 0; frame < 5; frame++) {
       for (const block of inView()) {
-        // Photos that were still arriving when the button was pressed keep their normal reveal, so skip those
-        if (existing.has(block) && !settled.has(block)) continue;
+        // Only photos that were already settled on screen. Photos that were still arriving keep their normal
+        // reveal, and photos the click mounts fade in on purpose (D-48, `e2e/media.spec.ts`), so skip those
+        if (!settled.has(block)) continue;
         lowest = Math.min(lowest, painted(block));
         sampled++;
       }
@@ -506,6 +506,9 @@ test.describe("gallery photos already in view stay visible (D-44, #33)", () => {
 
   test("Load more", async ({ page }) => {
     await page.getByRole("button", { name: "Load more" }).scrollIntoViewIfNeeded();
+    // The photos above the button reveal as they scroll into view (0.8s plus the stagger). Only photos that have
+    // settled count, so let them finish first.
+    await page.waitForTimeout(1500);
     const { lowest, sampled } = await lowestOpacityInViewAfterClick(page, "Load more");
 
     expect(sampled, "photos in view were sampled").toBeGreaterThan(0);
