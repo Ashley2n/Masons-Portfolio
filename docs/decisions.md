@@ -429,3 +429,37 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | Mason's four photos are cropped and compressed (JPEG, 20 to 133 KB each) and live in `public/images/about/`; the four stock `journey-*.jpg` files are deleted. The content test caps each at 300 KB and requires alt text and no credit | Keep the originals (up to 31 MB in `docs/`) | Same rule as the reel thumbnails (#37, D-24) | Alt text was written by the assistant (⚠ unsourced); Ashley should read it | `content/content.test.ts` ("the four timeline photos"); D-24 |
 
 - **Consequences:** `content/about.ts` carries Mason's copy for First Role, Went All In and First Regional Contract (the last entry's id stays `american-gothic`). The last two entries ("Broadway", "Movie Actor") are #41.
+
+### D-46 · About timeline checkpoints pulse; the ones not reached yet are dull and still
+
+- **Date:** 2026-11-15 · **Status:** Accepted (Ashley asked for the pulse and the dull last two; she chose the option below, one question at a time). Motion beyond D-41 and D-44 needs a recorded decision (`docs/design-system.md:79`).
+- **Context:** Ashley asked for each About timeline checkpoint to blink or pulse every second or two, and for the last two ("Broadway", "Movie Actor", the only entries with `status: "ongoing"` in `content/about.ts`) to be a dull colour that says they are not reached yet.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| Completed checkpoints pulse: a ring behind the node grows (scale 1 to 1.9) and fades, `ease-in-out`, 2s per cycle, forever. The node itself never moves. CSS only (`--animate-node-pulse` in `app/globals.css`), `motion-safe` only, so reduced motion and print get no pulse | All nodes pulse with the dull ones slower; pulse only the next goal | Ashley's choice of the three. The dull nodes stay still so "not reached yet" reads as inactive; a pulse can read as active | An endless animation: WCAG 2.2.2 (Pause, Stop, Hide) asks for a way to stop motion that runs over 5 seconds; the OS reduced-motion setting is the control here, as for the hero scroll cue (D-41 exception). ⚠ I did not check whether a pulse this size counts as "moving content" under 2.2.2 | `e2e/about.spec.ts` ("timeline checkpoints pulse"); W3C WCAG 2.2 SC 2.2.2 |
+| Ongoing checkpoints use `bg-neutral-400` (a flat grey, equal red, green and blue) with no check mark. Only the node is dulled; the number, title and text stay at their normal contrast | Dim the whole entry | The text must stay readable (AA); the node alone carries the status. The sr-only text still says "In progress" | The grey node is decorative next to text, so it is not held to 3:1. ⚠ `neutral-400` was chosen by the assistant by eye (seen at 1280 and 390px), not measured against the background | `components/sections/about/Timeline.tsx` |
+
+- **Consequences:** Seen red then green (`e2e/about.spec.ts`, two tests, 4 runs); the mutation of removing `motion-safe:` fails the reduced-motion test; 120 of 120 repeat runs pass. Frames at 0, 35 and 70 percent of the cycle were checked by eye.
+
+### D-47 · One ease-in-out for every colour change on clickable controls
+
+- **Date:** 2026-11-15 · **Status:** Accepted (Ashley asked for ease-in-out on buttons and other components; she chose "everything clickable, explicit ease-in-out", one question at a time).
+- **Context:** Colour changes on hover were uneven: `transition-colors` at Tailwind's default 150ms (filter tabs, Load more, carousel arrows), an explicit `duration-300` on the buttons, footer and nav links, and none at all on the three Contact card links.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| `--default-transition-duration: 250ms` and `--default-transition-timing-function: ease-in-out` in `@theme` (`app/globals.css`), so every `transition-*` utility uses them. The explicit `duration-300` is removed from the colour transitions (Button, footer link, nav link, Recent Work tab, video play overlay) and `transition-colors` is added to the three Contact card links | Only add transitions where none exist; slower 400ms buttons only | One place to tune, and every control feels the same. 250ms is the assistant's pick (⚠ unsourced): between the old 150 and 300 | Anything else that uses a bare `transition-*` utility also moves to 250ms ease-in-out. Image zooms (`duration-500` and `700`) and the press scale (`active:duration-100`) keep their own timings. Reduced motion is unchanged: colour changes are not motion | `e2e/hover-ease.spec.ts` (9 controls, both projects); `node_modules/tailwindcss/theme.css:492` (the defaults it overrides) |
+
+- **Consequences:** Seen red (0.3s on the buttons, footer and nav; 0.15s on the tabs, arrows and Load more) then green, 18 of 18. The table reads the declared transition, it does not time a hover.
+
+### D-48 · New gallery photos fade in on Load more and when the category changes
+
+- **Date:** 2026-11-15 · **Status:** Accepted (Ashley asked why the gallery had no animation there; she chose "fade in only the new photos"). This is the "new items entering" part of D-42's unbuilt media slice (`docs/decisions.md:369`), done under D-44's rule that gallery photos already in view are never hidden (#33).
+- **Context:** After the first page load, new photos mount at rest (`Reveal instant`, `Gallery.tsx`), because the scroll reveal starts a photo hidden and a photo already on screen would blink out. That left Load more and the tabs with no motion at all.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| A photo that mounts after the visitor's first Load more or tab change gets `motion-safe:animate-gallery-in` (opacity 0 to 1, 400ms ease-in-out, no movement). Whether it fades is decided once at mount (`GalleryItem`, `useState(interacted)`), so a photo that stays on screen never gains the animation | Also cross-fade the whole grid on a tab change; fade and rise like the scroll reveal | A CSS animation only runs when an element mounts or gains the class, so nothing already shown can blink, and the first-page scroll reveal and the LCP photo are untouched | A photo shared by two tabs keeps its place and does not fade. 400ms is the assistant's pick (⚠ unsourced). Reduced motion shows new photos at once (`motion-safe:`) | `e2e/media.spec.ts` ("new photos fade in, the ones already shown never dim", 8 tests); `Gallery.tsx` |
+
+- **Consequences:** Seen red (new photos started at opacity 1) then green. Mutation: reading the flag live instead of at mount makes photos already on screen dip to 0, and the test fails on it.
