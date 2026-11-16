@@ -127,19 +127,19 @@ describe("Home page", () => {
     });
   });
 
-  it("features Mason's reel in Recent Work as a click-to-load YouTube card (D-20, D-32)", () => {
-    render(<Home />);
-
-    expect(
-      screen.getByRole("button", { name: "Play Mason Farrington Intro Video" }),
-    ).toBeInTheDocument();
-  });
-
-  it("lists the vocal, dance and acting reels under Other Work (F3; hide-when-empty in RecentWorkSection.test.tsx)", () => {
+  it("features Mason's Acting Reel in Recent Work as a click-to-load YouTube card (D-20, D-32)", () => {
     render(<Home />);
 
     const otherWork = screen.getByRole("region", { name: "Other Work" });
-    for (const title of ["Vocal", "Dance", "Acting"]) {
+    const featured = screen.getByRole("button", { name: "Play Mason Farrington Acting Reel" });
+    expect(otherWork).not.toContainElement(featured);
+  });
+
+  it("lists the vocal and dance reels under Other Work (F3; hide-when-empty in RecentWorkSection.test.tsx)", () => {
+    render(<Home />);
+
+    const otherWork = screen.getByRole("region", { name: "Other Work" });
+    for (const title of ["Vocal", "Dance"]) {
       expect(
         within(otherWork).getByRole("button", { name: `Play Mason Farrington ${title} Reel` }),
       ).toBeInTheDocument();

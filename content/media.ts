@@ -37,7 +37,6 @@ const photoItems = galleryPhotos.map(({ id, category, src, alt, width, height })
 }));
 
 const videoItems = [
-  video("other", "intro-video"),
   video("other", "vocal-reel"),
   video("other", "dance-reel"),
   video("other", "acting-reel"),
