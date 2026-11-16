@@ -122,11 +122,11 @@ test.describe("media gallery", () => {
       .getByRole("group", { name: "Filter by category" })
       .getByRole("button", { name: "Other" })
       .click();
-    await page.getByRole("button", { name: "Play Mason Farrington Intro Video" }).click();
+    await page.getByRole("button", { name: "Play Mason Farrington Acting Reel" }).click();
 
-    await expect(page.locator('iframe[title="Mason Farrington Intro Video"]')).toHaveAttribute(
+    await expect(page.locator('iframe[title="Mason Farrington Acting Reel"]')).toHaveAttribute(
       "src",
-      /youtube-nocookie\.com\/embed\/1BnBTdARUHk/,
+      /youtube-nocookie\.com\/embed\/VdFlh2DAS20/,
     );
   });
 
@@ -140,7 +140,7 @@ test.describe("media gallery", () => {
       .getByRole("button", { name: /^Play / })
       .evaluateAll((buttons) => buttons.map((b) => b.getAttribute("aria-label")));
     expect(playLabels.sort()).toEqual(
-      ["Acting Reel", "Dance Reel", "Intro Video", "Vocal Reel"].map((t) => `Play Mason Farrington ${t}`),
+      ["Acting Reel", "Dance Reel", "Vocal Reel"].map((t) => `Play Mason Farrington ${t}`),
     );
     // Exact text inside the gallery, so later copy (e.g. "Spring recital") can't false-fail this
     const gallery = page.getByRole("list", { name: "Gallery" });

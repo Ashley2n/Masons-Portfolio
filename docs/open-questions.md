@@ -14,7 +14,9 @@ Answered in principle; the asset or account is still to come.
 
 | # | Item | Notes |
 |---|---|---|
-| F3 | **More video links** (C6) | 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32), shown on the site as "Mason Farrington Intro Video". 2026-10-31: Vocal, Dance and Acting reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`; unlisted, landscape, embedding on), live in Other Work and the gallery under Other. More may come; add each newest first. |
+| F3 | **More video links** (C6) | 2026-10-29: "Reel 2 0" (`1BnBTdARUHk`, D-32), shown on the site as "Mason Farrington Intro Video". 2026-10-31: Vocal, Dance and Acting reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`; unlisted, landscape, embedding on), live in Other Work and the gallery under Other. 2026-11-15: the Intro Video is removed at Mason's request (D-49). More may come; add each newest first. |
+| F9 | **Full-size Journey photo** (D-49) | The photo Mason picked for "The Journey So Far" (2026-11-15) only came as 640x360, so the full-width banner looks soft on large and retina screens. Ask for the original file; swap `public/images/home/journey.jpg` and its `width`/`height` in `content/home.ts`. |
+| F10 | **His own YouTube thumbnails** (D-49) | Our thumbnails are gone; every reel card shows what YouTube serves. Until Mason sets his, that is the contact card (D-35), blurry when stretched to the featured card, with the play button over the phone icon. The Vocal Reel's thumbnail still 404s and shows the poster. No code change when he updates them. |
 | F5 | **Real photos** (C10) | Received 2026-10-26 (101 files in the Drive folder; 97 imported, D-25). Done: gallery, Model Shots, Journey image and hero use his photos (C15 approved). |
 
 ## For the next update to Mason
@@ -23,6 +25,7 @@ Answered in principle; the asset or account is still to come.
 |---|---|---|
 | U1 | **Redesign before/after** (D-33, D-38) | Show the refresh before it ships (branch `feat/redesign`, before screenshots from 2026-11-06 at 1280 and 390 px): photo-card expertise tiles (no links), larger section headings, Journey stats beside the heading, dark CTA banner (AA heading), no small labels above headings, larger About timeline text, a scroll reveal (off for reduced motion and print) and a poster when a video thumbnail fails. Still to do in Phase 10: footer, Contact card, "Get in touch" on mobile (C26). |
 | U4 | **Location shown on the site** | Ashley wants "Iowa, US" in the footer and the Contact card (2026-11-06); the mockup said "Los Angeles, CA". Confirm it is what Mason wants shown publicly. |
+| U5 | **Acting Reel as the featured video** (D-49) | With the Intro Video gone, Ashley chose the Acting Reel to lead Recent Work (2026-11-15). Confirm with Mason; to change it, move `featured: true` in `content/home.ts`. |
 | U2 | **Contact email wording** (#18) | No mockup covers the email Mason receives. Placeholder copy in `content/contact.ts` (`form.email`): heading "New message from your portfolio", footer "Sent from the contact form on your portfolio site.", reply button "Reply to <name>". Low priority; change the strings if he wants different wording. |
 
 ## Internal (Ashley)

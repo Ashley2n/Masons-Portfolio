@@ -35,7 +35,7 @@ export default function JourneySection() {
             alt={homeImages.journey.alt}
             fill
             sizes="(min-width: 1280px) 1280px, 100vw"
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
       </Container>

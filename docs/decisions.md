@@ -463,3 +463,17 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | A photo that mounts after the visitor's first Load more or tab change gets `motion-safe:animate-gallery-in` (opacity 0 to 1, 400ms ease-in-out, no movement). Whether it fades is decided once at mount (`GalleryItem`, `useState(interacted)`), so a photo that stays on screen never gains the animation | Also cross-fade the whole grid on a tab change; fade and rise like the scroll reveal | A CSS animation only runs when an element mounts or gains the class, so nothing already shown can blink, and the first-page scroll reveal and the LCP photo are untouched | A photo shared by two tabs keeps its place and does not fade. 400ms is the assistant's pick (⚠ unsourced). Reduced motion shows new photos at once (`motion-safe:`) | `e2e/media.spec.ts` ("new photos fade in, the ones already shown never dim", 8 tests); `Gallery.tsx` |
 
 - **Consequences:** Seen red (new photos started at opacity 1) then green. Mutation: reading the flag live instead of at mount makes photos already on screen dip to 0, and the test fails on it.
+
+### D-49 · Mason's 2026-11-15 feedback: no Intro Video, YouTube's own thumbnails, his Journey photo, new resume
+
+- **Date:** 2026-11-15 · **Status:** Accepted (Mason's feedback in `docs/feeback.md`; the choices below by Ashley, 2026-11-15)
+- **Context:** Mason asked to remove the "Mason Farrington Intro Video", to drop the thumbnails we made for the reels (he sets them on YouTube himself), to use his photo for "The Journey So Far", and sent a new two-page resume. The Intro Video was the featured video, and his photo is 640x360 only.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| The Acting Reel is `featured` on the homepage | Vocal Reel; Dance Reel; leave it unmarked and ask Mason | Its YouTube thumbnail loads (the Vocal one 404s), the Dance thumbnail would repeat the Journey photo, and acting leads the site | Not Mason's pick yet (U5) | Ashley, 2026-11-15 |
+| Remove the `thumbnail` field from the Dance and Acting reels and delete `acting-reel.jpg`; `VideoCard` keeps optional thumbnail support | Keep ours until Mason updates YouTube | Mason asked for it; the site picks up his YouTube thumbnails with no code change | Until he does, the cards show his contact card (allowed by D-35) and the featured card is blurry (F10) | `docs/feeback.md` (Mason) |
+| Ship the 640x360 photo now as `/images/home/journey.jpg` (the old `dance-reel.jpg`, same picture), anchored `object-top` | Wait for the original; cap the banner width | Applies his feedback now without a layout change; `object-top` keeps his head in the 21:9 crop, where a centred crop cuts it | Soft on wide and retina screens until the original arrives (F9). Alt text reused from #37 (⚠ unsourced, written by the assistant) | Ashley, 2026-11-15; `JourneySection.test.tsx` |
+| Publish the new resume as sent, same file name | — | D-35: published exactly as Mason sends it | It prints his phone number, as D-35 accepts | D-35; `docs/feeback.md` |
+
+- **Consequences:** Seen red then green: four `content/content.test.ts` tests (videos, no thumbnails, Journey image, two-page resume), `JourneySection.test.tsx` (`object-top`) and the Acting-Reel version of `app/page.test.tsx`; `e2e/media.spec.ts` now plays the Acting Reel and expects three reels. Checked by eye at 1280 and 390px.

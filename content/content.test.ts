@@ -5,6 +5,7 @@ import { aboutContent, milestones } from "./about";
 import { expertiseItems, homeImages, modelShots, stats, videos } from "./home";
 import { galleryCategoryIds, type Photo } from "@/types/content";
 import { galleryCategories, galleryItems } from "./media";
+import { resumeContent } from "./resume";
 import { pageSeo } from "./seo";
 import { contactInfo, navLinks, socialLinks } from "./site";
 
@@ -48,8 +49,9 @@ describe("home content", () => {
     });
   });
 
-  it("the Journey image is one of Mason's own photos, with no stock credit (D-24)", () => {
-    expect(homeImages.journey.src).toMatch(/^\/images\/media\//);
+  // Mason's feedback 2026-11-15 (docs/feeback.md "Journey So Far"): the photo he picked, in place of staged-11
+  it("the Journey image is the photo Mason picked, with alt text and no stock credit (D-24)", () => {
+    expect(homeImages.journey.src).toBe("/images/home/journey.jpg");
     expect(existsSync(join(process.cwd(), "public", homeImages.journey.src))).toBe(true);
     expect(homeImages.journey.alt.trim()).not.toBe("");
     expect("credit" in homeImages.journey).toBe(false);
@@ -61,36 +63,22 @@ describe("home content", () => {
     expect("credit" in homeImages.hero).toBe(false);
   });
 
-  it("only Mason's real reels are on the site, the Intro Video featured on the homepage (D-32, F3)", () => {
+  // Mason's feedback 2026-11-15 (docs/feeback.md): the Intro Video is gone; Ashley chose the Acting Reel to lead
+  it("only Mason's three reels are on the site, the Acting Reel featured on the homepage (D-32, F3)", () => {
     expect(videos).toEqual([
-      expect.objectContaining({
-        platform: "youtube",
-        youtubeId: "1BnBTdARUHk",
-        title: "Mason Farrington Intro Video",
-        featured: true,
-      }),
       expect.objectContaining({ youtubeId: "sK9xduGWTaQ", title: "Mason Farrington Vocal Reel" }),
       expect.objectContaining({ youtubeId: "3yPWsqxpAa8", title: "Mason Farrington Dance Reel" }),
-      expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel" }),
+      expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel", featured: true }),
     ]);
     expect(videos.filter((v) => v.featured)).toHaveLength(1);
   });
 
-  // Mason's feedback 2026-11-08 (docs/feeback.md "Thumbnails", #37). Only these two: the Intro Video and the Vocal Reel
-  // keep YouTube's own thumbnail.
-  it("the Dance and Acting reels use Mason's own thumbnails, small files with alt text (#37)", () => {
-    for (const id of ["dance-reel", "acting-reel"]) {
-      const video = videos.find((v) => v.id === id);
-      if (video?.platform !== "youtube") throw new Error(`${id} should be a YouTube video`);
-      const file = join(process.cwd(), "public", video.thumbnail?.src ?? "missing");
-      expect(video.thumbnail?.src, id).toMatch(/^\/images\/home\/.+\.jpg$/);
-      expect(existsSync(file), `${id} file exists`).toBe(true);
-      // The supplied Acting image was 31 MB; a thumbnail should stay a few hundred KB at most
-      expect(statSync(file).size, `${id} file size`).toBeLessThan(300_000);
-      expect(video.thumbnail?.alt.trim(), `${id} alt`).not.toBe("");
+  // Mason's feedback 2026-11-15 (docs/feeback.md): he sets the thumbnails on YouTube himself, so every card uses YouTube's
+  it("no video carries its own thumbnail, and the old #37 thumbnail files are gone", () => {
+    videos.forEach((v) => expect("thumbnail" in v, v.id).toBe(false));
+    for (const file of ["dance-reel.jpg", "acting-reel.jpg"]) {
+      expect(existsSync(join(process.cwd(), "public", "images", "home", file)), file).toBe(false);
     }
-    const others = videos.filter((v) => !["dance-reel", "acting-reel"].includes(v.id));
-    others.forEach((v) => expect("thumbnail" in v, v.id).toBe(false));
   });
 
   // Mason's feedback 2026-11-08 (docs/feeback.md "About Image Sections", #38). Show titles are *starred* for italics.
@@ -223,10 +211,10 @@ describe("media gallery content", () => {
     );
     expect(galleryVideos).toEqual(
       expect.arrayContaining(
-        ["1BnBTdARUHk", "sK9xduGWTaQ", "3yPWsqxpAa8", "VdFlh2DAS20"].map((youtubeId) => ({ category: "other", youtubeId })),
+        ["sK9xduGWTaQ", "3yPWsqxpAa8", "VdFlh2DAS20"].map((youtubeId) => ({ category: "other", youtubeId })),
       ),
     );
-    expect(galleryVideos).toHaveLength(4);
+    expect(galleryVideos).toHaveLength(3);
   });
 
   it("labels the filters in the order Mason asked for (D-43)", () => {
@@ -280,5 +268,13 @@ describe("SEO content", () => {
   it("covers every page in the nav", () => {
     const paths = pages.map((page) => page.path);
     navLinks.forEach((link) => expect(paths).toContain(link.href));
+  });
+});
+
+describe("resume", () => {
+  // Mason's feedback 2026-11-15 (docs/feeback.md "New Resume"): the new one runs to two pages, the old one had one
+  it("publishes Mason's two-page resume", () => {
+    const pdf = readFileSync(join(process.cwd(), "public", resumeContent.file.href), "latin1");
+    expect(pdf.match(/\/Type\s*\/Page(?!s)/g)).toHaveLength(2);
   });
 });

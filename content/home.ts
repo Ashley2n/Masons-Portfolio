@@ -33,18 +33,9 @@ export const expertiseItems: ExpertiseItem[] = [
 ];
 
 // Mason's real videos only (D-32). The date is the YouTube upload date.
+// Sent by Mason 2026-10-31 (F3), all unlisted with embedding on. Same upload day, so the order he sent them is the Other Work order.
+// Mason sets the thumbnails on YouTube himself and dropped the Intro Video (feedback 2026-11-15); Ashley chose the Acting Reel to lead.
 export const videos: Video[] = [
-  {
-    id: "intro-video",
-    platform: "youtube",
-    youtubeId: "1BnBTdARUHk",
-    title: "Mason Farrington Intro Video",
-    date: "2026-03-31",
-    orientation: "landscape",
-    featured: true,
-  },
-  // Sent by Mason 2026-10-31 (F3), all unlisted with embedding on; YouTube's thumbnail for them is his
-  // contact card (D-35), which is why Dance and Acting now carry their own thumbnail. Same upload day, so the order he sent them is the Other Work order.
   {
     id: "vocal-reel",
     platform: "youtube",
@@ -60,11 +51,6 @@ export const videos: Video[] = [
     title: "Mason Farrington Dance Reel",
     date: "2026-10-31",
     orientation: "landscape",
-    // Mason's own thumbnail (feedback 2026-11-08, #37), cropped to 16:9
-    thumbnail: {
-      src: "/images/home/dance-reel.jpg",
-      alt: "Mason dancing mid-step in a stage number, with the cast and orchestra behind him",
-    },
   },
   {
     id: "acting-reel",
@@ -73,10 +59,7 @@ export const videos: Video[] = [
     title: "Mason Farrington Acting Reel",
     date: "2026-10-31",
     orientation: "landscape",
-    thumbnail: {
-      src: "/images/home/acting-reel.jpg",
-      alt: "Mason in a white shirt shouting at a startled actress in a stage scene",
-    },
+    featured: true,
   },
 ];
 
@@ -87,8 +70,13 @@ export const homeImages = {
     src: "/images/home/mason-hero.jpg",
     alt: "Black-and-white portrait of Mason smiling and looking up to the left against a black background",
   },
-  // Mason's photo in the purple stage light of the brand theme (D-24)
-  journey: galleryPhoto("staged-11"),
+  // The photo Mason picked (feedback 2026-11-15). Only 640x360 so far: the full-size original is asked for (F9).
+  journey: {
+    src: "/images/home/journey.jpg",
+    alt: "Mason dancing mid-step in a stage number, with the cast and orchestra behind him",
+    width: 640,
+    height: 360,
+  },
 } satisfies Record<string, Photo>;
 
 /** Mason's photos chosen for the homepage (F5) */
