@@ -37,7 +37,7 @@ const icons = { arrow: ArrowUpRight, download: Download };
 /** Button look without the element, for controls that must render their own <button> (e.g. ResumeDialog) */
 export const buttonClasses = (variant: ButtonVariant = "outline", className?: string) =>
   cn(
-    "caption-text group relative inline-flex w-fit items-center gap-6 rounded-xl px-6 py-4 transition-colors sm:px-8",
+    "caption-text group relative inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors sm:px-8",
     variants[variant],
     pressClasses,
     className,

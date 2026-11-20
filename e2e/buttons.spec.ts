@@ -31,7 +31,7 @@ test.describe("buttons (D-39)", () => {
 });
 
 // D-50: the primary and outline buttons are lit from above (a light top edge inside, a soft coloured glow
-// outside) and share one 12px corner. The values are written out on purpose so a token change fails here.
+// outside) and share the original 6px corner. The values are written out on purpose so a token change fails here.
 test.describe("button surface (D-50)", () => {
   const buttons = [
     { label: "primary", find: (p: import("@playwright/test").Page) => p.getByRole("button", { name: "View resume" }) },
@@ -39,7 +39,7 @@ test.describe("button surface (D-50)", () => {
   ];
 
   for (const { label, find } of buttons) {
-    test(`the ${label} button has a 12px corner and a light top edge inside`, async ({ page }) => {
+    test(`the ${label} button has the original 6px corner and a light top edge inside`, async ({ page }) => {
       await page.goto("/");
 
       const style = await find(page).evaluate((el) => {
@@ -47,7 +47,7 @@ test.describe("button surface (D-50)", () => {
         return { radius: s.borderTopLeftRadius, shadow: s.boxShadow };
       });
 
-      expect(style.radius).toBe("12px");
+      expect(style.radius).toBe("6px");
       expect(style.shadow, "an inset highlight along the top edge").toMatch(/inset/);
     });
   }

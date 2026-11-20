@@ -71,7 +71,7 @@ Tokens live in `app/globals.css` and are checked by `app/design-tokens.test.ts`.
 - Content max width: about 1280px, centered.
 - Page gutter: 92px on desktop (`px-23`, as currently used) → 24px on tablet → 16px on mobile.
 - Section vertical padding: about 64px desktop / 48px mobile.
-- Corner radius: `rounded-lg` (8px) for cards and media; `rounded-xl` (12px) for buttons (D-50); `rounded-md` (6px) for inputs.
+- Corner radius: `rounded-lg` (8px) for cards and media; `rounded-md` (6px) for buttons and inputs.
 - Button hierarchy (D-39): one **primary** (solid `brand-600`, `neutral-100` text, at least 4.5:1 even under the light layer) per page, everything else outline or light. Surfaces (D-50): the primary and outline are lit from above, with a light edge inside along the top (inset shadow), a soft light layer (`::before`) that rises on hover, and a coloured glow underneath (`--shadow-btn-*` in `app/globals.css`). The primary also lifts 1px on hover; both sink on press (inset shadow, 3% shrink).
 - Button states: outline buttons get a `brand-600` tint rising from the top and a brighter border on hover; the light button (CTA banner) turns `brand-200` on hover (its earlier `bg-white` hover was invisible on `neutral-100`).
 - Focus ring: one rule in `app/globals.css` (`:focus-visible`, 2px solid, 2px offset). Don't add per-component `focus-visible:outline-*` colours. The colour follows the surface: `brand-400` on the dark page (default, 8.9:1), `brand-600` inside sections with `.surface-light` (5.1:1 on `neutral-100`), `neutral-100` inside `.surface-color` (purple banner, controls over photos). Form fields keep their own border + soft ring.
