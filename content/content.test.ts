@@ -49,7 +49,7 @@ describe("home content", () => {
     });
   });
 
-  // Mason's feedback 2026-11-15 (docs/feeback.md "Journey So Far"): the photo he picked, in place of staged-11
+  // Mason's feedback 2026-11-15 (docs/feedback.md "Journey So Far"): the photo he picked, in place of staged-11
   it("the Journey image is the photo Mason picked, with alt text and no stock credit (D-24)", () => {
     expect(homeImages.journey.src).toBe("/images/home/journey.jpg");
     expect(existsSync(join(process.cwd(), "public", homeImages.journey.src))).toBe(true);
@@ -63,7 +63,7 @@ describe("home content", () => {
     expect("credit" in homeImages.hero).toBe(false);
   });
 
-  // Mason's feedback 2026-11-15 (docs/feeback.md): the Intro Video is gone; Ashley chose the Acting Reel to lead
+  // Mason's feedback 2026-11-15 (docs/feedback.md): the Intro Video is gone; Ashley chose the Acting Reel to lead
   it("only Mason's three reels are on the site, the Acting Reel featured on the homepage (D-32, F3)", () => {
     expect(videos).toEqual([
       expect.objectContaining({ youtubeId: "sK9xduGWTaQ", title: "Mason Farrington Vocal Reel" }),
@@ -73,7 +73,7 @@ describe("home content", () => {
     expect(videos.filter((v) => v.featured)).toHaveLength(1);
   });
 
-  // Mason's feedback 2026-11-15 (docs/feeback.md): he sets the thumbnails on YouTube himself, so every card uses YouTube's
+  // Mason's feedback 2026-11-15 (docs/feedback.md): he sets the thumbnails on YouTube himself, so every card uses YouTube's
   it("no video carries its own thumbnail, and the old #37 thumbnail files are gone", () => {
     videos.forEach((v) => expect("thumbnail" in v, v.id).toBe(false));
     for (const file of ["dance-reel.jpg", "acting-reel.jpg"]) {
@@ -81,7 +81,7 @@ describe("home content", () => {
     }
   });
 
-  // Mason's feedback 2026-11-08 (docs/feeback.md "About Image Sections", #38). Show titles are *starred* for italics.
+  // Mason's feedback 2026-11-08 (docs/feedback.md "About Image Sections", #38). Show titles are *starred* for italics.
   it("the About timeline copy is the text Mason supplied (#38)", () => {
     const byId = (id: string) => milestones.find((m) => m.id === id);
     expect(byId("found-the-stage")?.title).toBe("Found the Stage");
@@ -97,7 +97,7 @@ describe("home content", () => {
     );
   });
 
-  // Mason's feedback 2026-11-14 (docs/feeback.md, #41; typos fixed and approved by Ashley on the issue). Both entries are
+  // Mason's feedback 2026-11-14 (docs/feedback.md, #41; typos fixed and approved by Ashley on the issue). Both entries are
   // goals, so they stay "ongoing" with no photo: the layout test in e2e/about.spec.ts relies on the last one having none.
   it("the last two About timeline entries are Broadway and Movie Actor, ongoing and without a photo (#41)", () => {
     const last = milestones.slice(-2);
@@ -230,7 +230,7 @@ describe("media gallery content", () => {
   });
 
   it("no longer shows the five Staged photos Mason asked to have removed (D-43)", () => {
-    // docs/feeback.md: the two sofa scenes, the red-light cape shot, and the two sweater-vest shots
+    // docs/feedback.md: the two sofa scenes, the red-light cape shot, and the two sweater-vest shots
     const removed = ["staged-12", "staged-19", "staged-20", "staged-21", "staged-33"];
     const shown = new Set(galleryItems.map((item) => item.id));
     expect(removed.filter((id) => shown.has(id))).toEqual([]);
@@ -272,7 +272,7 @@ describe("SEO content", () => {
 });
 
 describe("resume", () => {
-  // Mason's feedback 2026-11-15 (docs/feeback.md "New Resume"): the new one runs to two pages, the old one had one
+  // Mason's feedback 2026-11-15 (docs/feedback.md "New Resume"): the new one runs to two pages, the old one had one
   it("publishes Mason's two-page resume", () => {
     const pdf = readFileSync(join(process.cwd(), "public", resumeContent.file.href), "latin1");
     expect(pdf.match(/\/Type\s*\/Page(?!s)/g)).toHaveLength(2);
