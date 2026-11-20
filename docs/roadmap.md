@@ -87,7 +87,7 @@ _Last updated: 2026-11-15_
 
 ## Phase 8 · Polish & launch (`chore/launch`), Thu 10/15 → Fri 10/16
 
-- [x] Apply demo feedback (the 10/29 meeting: Phase 9, then the Phase 10 redesign and rounds 1 and 2). Mason's later feedback is tracked in `docs/feeback.md` and `docs/open-questions.md`
+- [x] Apply demo feedback (the 10/29 meeting: Phase 9, then the Phase 10 redesign and rounds 1 and 2). Mason's later feedback is tracked in `docs/feedback.md` and `docs/open-questions.md`
   - [x] Mason's 2026-11-15 feedback (D-49): Intro Video removed, Acting Reel featured, YouTube's own reel thumbnails, his Journey photo, new resume. Follow-ups F9, F10, U5
 - [ ] Swap in final images and copy (see [content-checklist.md](content-checklist.md))
 - [x] Contact form backend: Resend server action with branded email (D-19, needs F1). Plain-text sending (#17, D-36), branded HTML email (#18), and spam check with honeypot + minimum time (#19, D-37) merged to `main` 2026-11-06 (PRs #22 to #25). Live check (#20) done by Ashley on the preview 2026-11-06 (see I6 in `docs/open-questions.md`)

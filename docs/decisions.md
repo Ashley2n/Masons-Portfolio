@@ -375,13 +375,13 @@ A lightweight record of technical and product decisions, in the style of [Archit
 ### D-43 · Gallery tab order and five photos removed (Mason's feedback)
 
 - **Date:** 2026-11-06 · **Status:** Accepted (Mason's feedback via Ashley; amends the order in D-22 and D-23)
-- **Context:** Ashley recorded Mason's feedback in `docs/feeback.md`: the gallery tags in the order Staged, Modeling, Concerts, Recital, Design, and five photos to take off the site (embedded in that file as `image.png` to `image-4.png`).
+- **Context:** Ashley recorded Mason's feedback in `docs/feedback.md`: the gallery tags in the order Staged, Modeling, Concerts, Recital, Design, and five photos to take off the site (embedded in that file as `image.png` to `image-4.png`).
 
 | Decision | Options considered | Why this one | Risk / tradeoff | Source |
 |---|---|---|---|---|
-| Tabs run All, Staged, Modeling, Concerts, Recital, Design, Other. The source of the order is `galleryCategoryIds` (`types/content.ts`), so the "All" view also takes one photo from each category in that order | Reorder the tabs only; leave "All" as it was | One source of truth already drives both the tabs and the "All" interleave; a second order would drift | "All" now leads with a Staged photo instead of a Concerts one | Mason via Ashley, `docs/feeback.md`; `content/media.ts`; `lib/gallery.ts` |
-| "All" stays first and "Other" stays last, labels unchanged ("Staged", "Recital") | Rename to Mason's words "Stages" and "Recitals"; drop "Other" | Mason's list has five tags; "All" and "Other" were not in it, and "Other" holds his four reels | ⚠ unsourced assumption that the wording was loose and "Other" should stay; confirm with Mason | `docs/feeback.md` (his list omits All and Other); `content/media.ts` videos are in "other" |
-| Removed `staged-12`, `staged-19`, `staged-20`, `staged-21`, `staged-33` from `content/gallery-photos.ts` and deleted the five files from `public/images/media/staged/` | Hide the entries but keep the files | A public repo should not keep photos Mason asked to take down; the content test already fails on unused image files | Photos stay in git history; the numbering has gaps | Mason via Ashley, `docs/feeback.md`; `content/content.test.ts` ("uses every image file") |
+| Tabs run All, Staged, Modeling, Concerts, Recital, Design, Other. The source of the order is `galleryCategoryIds` (`types/content.ts`), so the "All" view also takes one photo from each category in that order | Reorder the tabs only; leave "All" as it was | One source of truth already drives both the tabs and the "All" interleave; a second order would drift | "All" now leads with a Staged photo instead of a Concerts one | Mason via Ashley, `docs/feedback.md`; `content/media.ts`; `lib/gallery.ts` |
+| "All" stays first and "Other" stays last, labels unchanged ("Staged", "Recital") | Rename to Mason's words "Stages" and "Recitals"; drop "Other" | Mason's list has five tags; "All" and "Other" were not in it, and "Other" holds his four reels | ⚠ unsourced assumption that the wording was loose and "Other" should stay; confirm with Mason | `docs/feedback.md` (his list omits All and Other); `content/media.ts` videos are in "other" |
+| Removed `staged-12`, `staged-19`, `staged-20`, `staged-21`, `staged-33` from `content/gallery-photos.ts` and deleted the five files from `public/images/media/staged/` | Hide the entries but keep the files | A public repo should not keep photos Mason asked to take down; the content test already fails on unused image files | Photos stay in git history; the numbering has gaps | Mason via Ashley, `docs/feedback.md`; `content/content.test.ts` ("uses every image file") |
 
 - **Consequences:** `content/content.test.ts` pins the new order and the five removed ids. The import script may reuse number 33 for a later Staged photo.
 
@@ -419,7 +419,7 @@ A lightweight record of technical and product decisions, in the style of [Archit
 ### D-45 · About timeline: Mason's own photos, no brand tint, italic show titles (#38)
 
 - **Date:** 2026-11-14 · **Status:** Accepted (Ashley chose each option, one question at a time). Amends D-24, which left "the About journey and feature images" as stock: the four timeline photos are now Mason's own; the About feature (Designer) image stays stock (D-11)
-- **Context:** Mason sent photos and new copy for four About timeline entries (`docs/feeback.md`, "About Image Sections"). The timeline photos were free Unsplash images with a purple tint over them (`bg-brand-700/25 mix-blend-color` in `Timeline.tsx`).
+- **Context:** Mason sent photos and new copy for four About timeline entries (`docs/feedback.md`, "About Image Sections"). The timeline photos were free Unsplash images with a purple tint over them (`bg-brand-700/25 mix-blend-color` in `Timeline.tsx`).
 
 | Decision | Options considered | Why this one | Risk / tradeoff | Source |
 |---|---|---|---|---|
@@ -466,14 +466,14 @@ A lightweight record of technical and product decisions, in the style of [Archit
 
 ### D-49 · Mason's 2026-11-15 feedback: no Intro Video, YouTube's own thumbnails, his Journey photo, new resume
 
-- **Date:** 2026-11-15 · **Status:** Accepted (Mason's feedback in `docs/feeback.md`; the choices below by Ashley, 2026-11-15)
+- **Date:** 2026-11-15 · **Status:** Accepted (Mason's feedback in `docs/feedback.md`; the choices below by Ashley, 2026-11-15)
 - **Context:** Mason asked to remove the "Mason Farrington Intro Video", to drop the thumbnails we made for the reels (he sets them on YouTube himself), to use his photo for "The Journey So Far", and sent a new two-page resume. The Intro Video was the featured video, and his photo is 640x360 only.
 
 | Decision | Options considered | Why this one | Risk / tradeoff | Source |
 |---|---|---|---|---|
 | The Acting Reel is `featured` on the homepage | Vocal Reel; Dance Reel; leave it unmarked and ask Mason | Its YouTube thumbnail loads (the Vocal one 404s), the Dance thumbnail would repeat the Journey photo, and acting leads the site | Not Mason's pick yet (U5) | Ashley, 2026-11-15 |
-| Remove the `thumbnail` field from the Dance and Acting reels and delete `acting-reel.jpg`; `VideoCard` keeps optional thumbnail support | Keep ours until Mason updates YouTube | Mason asked for it; the site picks up his YouTube thumbnails with no code change | Until he does, the cards show his contact card (allowed by D-35) and the featured card is blurry (F10) | `docs/feeback.md` (Mason) |
+| Remove the `thumbnail` field from the Dance and Acting reels and delete `acting-reel.jpg`; `VideoCard` keeps optional thumbnail support | Keep ours until Mason updates YouTube | Mason asked for it; the site picks up his YouTube thumbnails with no code change | Until he does, the cards show his contact card (allowed by D-35) and the featured card is blurry (F10) | `docs/feedback.md` (Mason) |
 | Ship the 640x360 photo now as `/images/home/journey.jpg` (the old `dance-reel.jpg`, same picture), anchored `object-top` | Wait for the original; cap the banner width | Applies his feedback now without a layout change; `object-top` keeps his head in the 21:9 crop, where a centred crop cuts it | Soft on wide and retina screens until the original arrives (F9). Alt text reused from #37 (⚠ unsourced, written by the assistant) | Ashley, 2026-11-15; `JourneySection.test.tsx` |
-| Publish the new resume as sent, same file name | — | D-35: published exactly as Mason sends it | It prints his phone number, as D-35 accepts | D-35; `docs/feeback.md` |
+| Publish the new resume as sent, same file name | — | D-35: published exactly as Mason sends it | It prints his phone number, as D-35 accepts | D-35; `docs/feedback.md` |
 
 - **Consequences:** Seen red then green: four `content/content.test.ts` tests (videos, no thumbnails, Journey image, two-page resume), `JourneySection.test.tsx` (`object-top`) and the Acting-Reel version of `app/page.test.tsx`; `e2e/media.spec.ts` now plays the Acting Reel and expects three reels. Checked by eye at 1280 and 390px.
