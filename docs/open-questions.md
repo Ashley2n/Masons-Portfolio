@@ -33,6 +33,7 @@ Answered in principle; the asset or account is still to come.
 | # | Question | Notes |
 |---|---|---|
 | I7 | **Round 2: pick an option in each block** | Navbar, homepage, Contact card, footer: `docs/specs/2026-11-06-site-refresh-round-2.md`, section 3 (each has a recommendation). Buttons (3.2) and F8 (the About "Designer" card stays as it is) are decided. Also: do the Singer card photo (`concerts-07`) and the Vocal Reel thumbnail variants show Mason? |
+| I8 | **Which image for Home, "The Journey So Far"?** | Mason's 2026-11-14 feedback lists `image-9.png` for it, but that file is byte-identical to `image-5.png` (the Dance Reel thumbnail). Probably a paste mistake. The live image is `staged-11` (`content/home.ts:91`, D-24: his own photo, no credit). Ask Mason which photo he means; nothing changes until then. |
 | I5 | **Should portrait videos count for Other Work?** | `selectHomeVideos` in `lib/video.ts` only picks landscape videos for Other Work. If Mason sends a portrait Short, it won't appear there, which isn't what D-32 expects. Not urgent: the 2026-10-31 reels are all landscape. Behaviour unchanged until decided. |
 
 ## Resolved
