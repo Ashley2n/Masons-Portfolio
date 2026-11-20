@@ -25,6 +25,29 @@
   --color-brand-700: #7234E5;
   --color-brand-800: #4D3565;
 
+  /* D-50: button surfaces, lit from above. Each is: light edge inside along the top, dark edge inside along
+     the bottom, a tight contact shadow, then a soft coloured glow that sits below the button. */
+  --shadow-btn-primary:
+    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 30%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--color-brand-800) 45%, transparent),
+    0 1px 2px color-mix(in oklab, var(--color-neutral-950) 45%, transparent),
+    0 8px 18px -8px color-mix(in oklab, var(--color-brand-600) 55%, transparent);
+  --shadow-btn-primary-hover:
+    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 42%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--color-brand-800) 45%, transparent),
+    0 1px 2px color-mix(in oklab, var(--color-neutral-950) 45%, transparent),
+    0 12px 24px -8px color-mix(in oklab, var(--color-brand-600) 70%, transparent);
+  --shadow-btn-pressed:
+    inset 0 2px 5px color-mix(in oklab, var(--color-neutral-950) 45%, transparent),
+    0 1px 1px color-mix(in oklab, var(--color-neutral-950) 30%, transparent);
+  --shadow-btn-outline:
+    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 10%, transparent),
+    0 1px 2px color-mix(in oklab, var(--color-neutral-950) 50%, transparent);
+  --shadow-btn-outline-hover:
+    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 16%, transparent),
+    0 1px 2px color-mix(in oklab, var(--color-neutral-950) 50%, transparent),
+    0 8px 18px -10px color-mix(in oklab, var(--color-brand-600) 50%, transparent);
+
   /* Type scale (docs/design-system.md) */
   --text-hero: 6.25rem;
   --text-hero--line-height: 1.1;

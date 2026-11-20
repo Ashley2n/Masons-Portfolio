@@ -4,12 +4,28 @@ import type { ReactNode } from "react";
 import { pressClasses } from "@/lib/press";
 import { cn } from "@/lib/utils";
 
+/**
+ * D-50: a light layer (`::before`) sits between the button's own fill and its text, so the surface reads as
+ * lit from above. `isolate` keeps that layer inside the button; its opacity is what changes on hover.
+ */
+const litLayer =
+  "isolate before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-linear-to-b before:transition-opacity";
+
 const variants = {
-  /** The one main action in a view: solid brand fill, white-ish text (5.11:1 on brand-600) */
-  primary:
-    "border border-brand-600 bg-brand-600 text-neutral-100 shadow-lg shadow-brand-600/30 transition-[background-color,border-color,box-shadow,transform] hover:border-brand-700 hover:bg-brand-700 hover:shadow-brand-600/40 motion-safe:hover:-translate-y-px",
-  /** Dark fill with a brand border (hero, media hero) */
-  outline: "border border-brand-600 bg-neutral-950 text-neutral-100 hover:bg-brand-600/15",
+  /** The one main action in a view: solid brand fill, white-ish text (5.11:1 on brand-600 at rest) */
+  primary: cn(
+    litLayer,
+    "border border-neutral-100/20 bg-brand-600 text-neutral-100 shadow-btn-primary before:from-neutral-100/14 before:via-neutral-100/[0.03] before:to-transparent before:opacity-80",
+    "hover:border-neutral-100/30 hover:shadow-btn-primary-hover hover:before:opacity-100 motion-safe:hover:-translate-y-px",
+    "active:shadow-btn-pressed",
+  ),
+  /** Dark raised surface with a brand border (hero, media hero); a brand tint rises into it on hover */
+  outline: cn(
+    litLayer,
+    "border border-brand-600/70 bg-neutral-900 text-neutral-100 shadow-btn-outline before:from-brand-600/25 before:to-transparent before:opacity-0",
+    "hover:border-brand-500 hover:shadow-btn-outline-hover hover:before:opacity-100",
+    "active:shadow-btn-pressed",
+  ),
   /** Light fill (CTA banner on purple) */
   light: "bg-neutral-100 text-neutral-900 hover:bg-brand-200",
 };
@@ -21,7 +37,7 @@ const icons = { arrow: ArrowUpRight, download: Download };
 /** Button look without the element, for controls that must render their own <button> (e.g. ResumeDialog) */
 export const buttonClasses = (variant: ButtonVariant = "outline", className?: string) =>
   cn(
-    "caption-text group inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors sm:px-8",
+    "caption-text group relative inline-flex w-fit items-center gap-6 rounded-xl px-6 py-4 transition-colors sm:px-8",
     variants[variant],
     pressClasses,
     className,
