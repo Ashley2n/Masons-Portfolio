@@ -1,8 +1,12 @@
-# Archive: progress log, 2026-10-31 to 2026-11-08
+# Archive: progress log, 2026-10-31 to 2026-11-15
 
 > Moved word for word out of `docs/handoff.md` on 2026-11-14 to keep the handoff short. It is history: commit hashes, counts and "not pushed" lines were true when written and may be out of date. Current state is in `docs/handoff.md`.
 
 Newest first. The newest entries stay in `docs/handoff.md`.
+
+- 2026-11-15: fixed and built test-first, all committed and pushed, PR #42 opened: flaky mobile "Load more" test (Playwright's retry-scroll; 3 of 30 failed before, 0 of 120 after), dev-only reduced-motion hydration warning, focus-reveal gap, timeline pulse with dull last two (D-46), 250ms ease-in-out for colour changes (D-47), gallery fade-in for new photos (D-48), crossfade test ignores zero-length animations. Lighthouse re-measured on every page (all at or above 90; About mobile 88 to 91, no change made). Roadmap brought up to date. Full e2e 337 passed / 7 skipped. One pre-existing view-transition flake left open (see Open items).
+- 2026-11-14: #41 built and committed (`1e8396b`, `Closes #41`): "Broadway" (id `broadway`) and "Movie Actor" take Mason's copy with typos fixed, both ongoing and without a photo; three seams seen red then green (content, page, e2e), checked by eye at 1280 and 390px. Review and the full e2e skipped on purpose (content strings only).
+- 2026-11-14: #38 built and committed (`04cfaab`, `Closes #38`): Mason's photos and copy on four About entries, tint removed, `*em*` helper, D-45; five test seams seen red then green, review clean (no hard findings), full `CI=1` e2e 306 passed / 7 skipped / 1 flaky / 0 failed. New items from Mason's feedback: #41 (last two entries, confirmations ticked) and I8 (Journey image).
 
 - 2026-11-08: #36 second session: fixed #40 (view-transition fill mode, `70809f6`, `Closes #40`), two-axis review of `0efaf88^..HEAD` (no blocking findings; shared motion numbers moved to `tokens.ts`, one docs line in `architecture.md`), `impeccable detect` 0 findings, keyboard and reduced-motion pass, full `CI=1` production e2e 307 passed / 7 skipped / 0 failed; D-44, roadmap and handoff updated. Ashley said yes to two commits (`cd627dc` refactor, `47bd0cb` the 50% start with the docs, both `Refs #36`). Not pushed. The handoff has a copy-ready prompt for the next session.
 
