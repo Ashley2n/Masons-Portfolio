@@ -40,13 +40,17 @@
   --shadow-btn-pressed:
     inset 0 2px 5px color-mix(in oklab, var(--color-neutral-950) 45%, transparent),
     0 1px 1px color-mix(in oklab, var(--color-neutral-950) 30%, transparent);
-  --shadow-btn-outline:
-    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 10%, transparent),
+  --shadow-btn-tonal:
+    inset 0 1px 0 color-mix(in oklab, var(--color-brand-200) 18%, transparent),
     0 1px 2px color-mix(in oklab, var(--color-neutral-950) 50%, transparent);
-  --shadow-btn-outline-hover:
-    inset 0 1px 0 color-mix(in oklab, var(--color-neutral-100) 16%, transparent),
+  --shadow-btn-tonal-hover:
+    inset 0 1px 0 color-mix(in oklab, var(--color-brand-200) 28%, transparent),
     0 1px 2px color-mix(in oklab, var(--color-neutral-950) 50%, transparent),
     0 8px 18px -10px color-mix(in oklab, var(--color-brand-600) 50%, transparent);
+
+  /* D-50: the secondary button's soft purple fill, and the deeper one on hover */
+  --color-tonal: color-mix(in oklab, var(--color-brand-600) 16%, var(--color-neutral-950));
+  --color-tonal-hover: color-mix(in oklab, var(--color-brand-600) 26%, var(--color-neutral-950));
 
   /* Type scale (docs/design-system.md) */
   --text-hero: 6.25rem;
@@ -202,6 +206,10 @@
   /* Eyebrow / caption labels */
   .caption-text {
     @apply text-caption font-space uppercase tracking-wider;
+  }
+  /* Button labels (D-50): Inter Medium, not the Space Mono eyebrow style, so a button reads as an action */
+  .button-text {
+    @apply font-inter text-[0.8125rem] leading-[1.6] font-medium uppercase tracking-[0.09em];
   }
 }
 

@@ -19,11 +19,10 @@ const variants = {
     "hover:border-neutral-100/30 hover:shadow-btn-primary-hover hover:before:opacity-100 motion-safe:hover:-translate-y-px",
     "active:shadow-btn-pressed",
   ),
-  /** Dark raised surface with a brand border (hero, media hero); a brand tint rises into it on hover */
+  /** The quieter sibling (the "secondary"): a soft purple tint with pale purple text that deepens on hover (D-50) */
   outline: cn(
-    litLayer,
-    "border border-brand-600/70 bg-neutral-900 text-neutral-100 shadow-btn-outline before:from-brand-600/25 before:to-transparent before:opacity-0",
-    "hover:border-brand-500 hover:shadow-btn-outline-hover hover:before:opacity-100",
+    "border border-brand-500/35 bg-tonal text-brand-200 shadow-btn-tonal",
+    "hover:border-brand-500/60 hover:bg-tonal-hover hover:shadow-btn-tonal-hover",
     "active:shadow-btn-pressed",
   ),
   /** Light fill (CTA banner on purple) */
@@ -37,7 +36,7 @@ const icons = { arrow: ArrowUpRight, download: Download };
 /** Button look without the element, for controls that must render their own <button> (e.g. ResumeDialog) */
 export const buttonClasses = (variant: ButtonVariant = "outline", className?: string) =>
   cn(
-    "caption-text group relative inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors sm:px-8",
+    "button-text group relative inline-flex w-fit items-center gap-6 rounded-md px-6 py-4 transition-colors sm:px-8",
     variants[variant],
     pressClasses,
     className,
