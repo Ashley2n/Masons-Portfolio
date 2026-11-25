@@ -9,7 +9,7 @@ test.describe("media gallery", () => {
     await expect(status).toHaveText(/Showing 12 of \d+/);
     await expect(items).toHaveCount(12);
 
-    await page.getByRole("button", { name: "Load more" }).click();
+    await page.getByRole("button", { name: /^load \d+ more$/i }).click();
     await expect(items).toHaveCount(24);
 
     await page
@@ -17,13 +17,13 @@ test.describe("media gallery", () => {
       .getByRole("button", { name: "Recital" })
       .click();
     await expect(status).toHaveText(/Showing (\d+) of \1/);
-    await expect(page.getByRole("button", { name: "Load more" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /^load \d+ more$/i })).toHaveCount(0);
   });
 
   // #39: Mason reported that "Load more" sent him back to the top of the page
   test('"Load more" keeps the page where it is and the new photos appear below', async ({ page }) => {
     await page.goto("/media");
-    const loadMore = page.getByRole("button", { name: "Load more" });
+    const loadMore = page.getByRole("button", { name: /^load \d+ more$/i });
     const items = page.getByRole("list", { name: "Gallery" }).getByRole("listitem");
 
     // html is scroll-smooth, which would hide a failed scroll check: use instant scrolls and let any scroll settle
@@ -53,7 +53,7 @@ test.describe("media gallery", () => {
   // D-48: photos that newly appear fade in; photos already on screen never dim or move (#33: nothing blinks out).
   // Every frame is sampled while the action runs, so a one-frame blink would still show up.
   for (const action of [
-    { label: "Load more", run: (page: import("./fixtures").Page) => page.getByRole("button", { name: "Load more" }).click() },
+    { label: "Load more", run: (page: import("./fixtures").Page) => page.getByRole("button", { name: /^load \d+ more$/i }).click() },
     {
       label: "a category tab",
       run: (page: import("./fixtures").Page) =>
@@ -132,7 +132,7 @@ test.describe("media gallery", () => {
 
   test("has no Blender placeholder videos in any category (D-32)", async ({ page }) => {
     await page.goto("/media");
-    const loadMore = page.getByRole("button", { name: "Load more" });
+    const loadMore = page.getByRole("button", { name: /^load \d+ more$/i });
     while (await loadMore.count()) await loadMore.click();
 
     // Only Mason's own videos (F3)

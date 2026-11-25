@@ -61,6 +61,8 @@ export default function Gallery() {
 
   const matching = filterGallery(galleryItems, filter);
   const shown = matching.slice(0, visibleCount);
+  const hasMore = shown.length < matching.length;
+  const paged = matching.length > mediaContent.pageSize;
 
   useEffect(() => {
     if (focusIndex.current === null) return;
@@ -111,10 +113,6 @@ export default function Gallery() {
         ))}
       </div>
 
-      <p role="status" className="sr-only">
-        Showing {shown.length} of {matching.length}
-      </p>
-
       {/* Masonry via CSS columns: every item keeps its own aspect ratio */}
       {/* Gives the hidden video titles (h3) a parent heading */}
       <h2 id="gallery-heading" className="sr-only">
@@ -130,21 +128,40 @@ export default function Gallery() {
         ))}
       </ul>
 
-      {shown.length < matching.length && (
-        <div className="flex justify-center">
+      {/* D-51: the count is the status line. With one page or less there is nothing to track, so it stays screen-reader only. */}
+      <div className={cn("mx-auto flex w-full max-w-sm flex-col items-center gap-3", !hasMore && !paged && "sr-only")}>
+        <p role="status" className={cn("caption-text text-neutral-400", !paged && "sr-only")}>
+          Showing {shown.length} of {matching.length}
+        </p>
+        {paged && (
+          <div
+            role="progressbar"
+            aria-label="Photos shown"
+            aria-valuemin={0}
+            aria-valuemax={matching.length}
+            aria-valuenow={shown.length}
+            className="h-[3px] w-full overflow-hidden rounded-full bg-neutral-800"
+          >
+            <div
+              className="h-full rounded-full bg-linear-to-r from-brand-600 to-brand-500 transition-[width] duration-400 ease-in-out"
+              style={{ width: `${(shown.length / matching.length) * 100}%` }}
+            />
+          </div>
+        )}
+        {hasMore && (
           <button
             type="button"
             onClick={loadMore}
             className={cn(
-              "touch-target caption-text inline-flex items-center gap-2 text-neutral-100 hover:text-brand-500 focus-visible:outline-offset-4",
+              "caption-text mt-2 inline-flex items-center gap-2.5 rounded-md border border-neutral-700 px-6 py-3 text-neutral-100 hover:border-brand-500 hover:bg-brand-500/10 focus-visible:outline-offset-4",
               pressClasses,
             )}
           >
-            {mediaContent.loadMore}
+            {mediaContent.loadMore(Math.min(mediaContent.pageSize, matching.length - shown.length))}
             <ArrowDown aria-hidden="true" className="size-4" />
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

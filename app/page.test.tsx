@@ -170,10 +170,13 @@ describe("Home page", () => {
     expect(screen.queryByRole("main")).not.toBeInTheDocument();
   });
 
-  it("has no arrow on 'View More', since it stays on the site (D-39)", () => {
+  it("shows 'View More' as a pill with an arrow that is hidden from screen readers (D-51)", () => {
     render(<Home />);
 
-    expect(screen.getByRole("link", { name: /view more/i }).querySelector("svg")).toBeNull();
+    const link = screen.getByRole("link", { name: /view more/i });
+    expect(link.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    // A visible border is what makes it look like something to press
+    expect(link).toHaveClass("rounded-full", "border");
   });
 
   it("links 'View More' in Recent Work to the media page", () => {

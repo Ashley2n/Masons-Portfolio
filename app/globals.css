@@ -79,6 +79,31 @@
     }
   }
 
+  /* D-51: hero scroll cue. The ring grows and fades once per cycle; the arrow nudges down while it does. */
+  --animate-cue-ring: cue-ring 2.4s ease-out infinite;
+  @keyframes cue-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  --animate-cue-nudge: cue-nudge 2.4s ease-in-out infinite;
+  @keyframes cue-nudge {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(4px);
+    }
+  }
+
   --animate-node-pulse: node-pulse 2s ease-in-out infinite;
   @keyframes node-pulse {
     0% {

@@ -13,7 +13,8 @@ export const mediaContent = {
   title: "Moments. Stories. Vision.",
   description:
     "A collection of visuals from my creative journey — performances, projects, and everything in between.",
-  loadMore: "Load more",
+  /** The button names how many photos it adds (D-51) */
+  loadMore: (count: number) => `Load ${count} more`,
   /** Items shown at first and added per "Load more" */
   pageSize: 12,
 };

@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { galleryItems, mediaContent } from "@/content/media";
+import { galleryCategories, galleryItems, mediaContent } from "@/content/media";
 import { filterGallery } from "@/lib/gallery";
 import Gallery from "./Gallery";
 
@@ -22,15 +22,49 @@ describe("Gallery", () => {
     expect(screen.getByRole("status")).toHaveTextContent(`Showing ${pageSize} of ${total}`);
   });
 
+  it("says how many photos the button adds, and how far through the gallery the visitor is", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+
+    const next = Math.min(pageSize, total - pageSize);
+    expect(screen.getByRole("button", { name: `Load ${next} more` })).toBeVisible();
+    // The count is the status line, shown to everyone, not only to screen readers
+    expect(screen.getByRole("status")).not.toHaveClass("sr-only");
+    expect(screen.getByRole("progressbar", { name: "Photos shown" })).toHaveAttribute(
+      "aria-valuenow",
+      String(pageSize),
+    );
+
+    await user.click(screen.getByRole("button", { name: `Load ${next} more` }));
+    expect(screen.getByRole("progressbar", { name: "Photos shown" })).toHaveAttribute(
+      "aria-valuenow",
+      String(Math.min(pageSize * 2, total)),
+    );
+  });
+
+  it("keeps the count out of sight when everything fits on the first page", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    const small = galleryCategories.find(
+      (c) => c.id !== "all" && filterGallery(galleryItems, c.id).length > 0 && filterGallery(galleryItems, c.id).length <= pageSize,
+    );
+    expect(small, "some category fits on one page").toBeDefined();
+
+    await user.click(filterButton(small!.label));
+
+    expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveClass("sr-only");
+  });
+
   it("loads more items until everything is shown", async () => {
     const user = userEvent.setup();
     render(<Gallery />);
 
-    await user.click(screen.getByRole("button", { name: "Load more" }));
+    await user.click(screen.getByRole("button", { name: /^load \d+ more$/i }));
     expect(shownItems()).toHaveLength(Math.min(pageSize * 2, total));
 
-    while (screen.queryByRole("button", { name: "Load more" })) {
-      await user.click(screen.getByRole("button", { name: "Load more" }));
+    while (screen.queryByRole("button", { name: /^load \d+ more$/i })) {
+      await user.click(screen.getByRole("button", { name: /^load \d+ more$/i }));
     }
     expect(shownItems()).toHaveLength(total);
     expect(screen.getByRole("status")).toHaveTextContent(`Showing ${total} of ${total}`);
@@ -41,7 +75,7 @@ describe("Gallery", () => {
     render(<Gallery />);
     const modeling = filterGallery(galleryItems, "modeling");
 
-    await user.click(screen.getByRole("button", { name: "Load more" }));
+    await user.click(screen.getByRole("button", { name: /^load \d+ more$/i }));
     await user.click(filterButton("Modeling"));
 
     expect(filterButton("Modeling")).toHaveAttribute("aria-pressed", "true");
@@ -82,9 +116,9 @@ describe("Gallery", () => {
     const user = userEvent.setup();
     render(<Gallery />);
 
-    while (screen.queryByRole("button", { name: "Load more" })) {
+    while (screen.queryByRole("button", { name: /^load \d+ more$/i })) {
       const before = shownItems().length;
-      await user.click(screen.getByRole("button", { name: "Load more" }));
+      await user.click(screen.getByRole("button", { name: /^load \d+ more$/i }));
       expect(shownItems()[before]).toHaveFocus();
     }
     expect(document.activeElement).not.toBe(document.body);

@@ -505,11 +505,11 @@ test.describe("gallery photos already in view stay visible (D-44, #33)", () => {
   });
 
   test("Load more", async ({ page }) => {
-    await page.getByRole("button", { name: "Load more" }).scrollIntoViewIfNeeded();
+    await page.getByRole("button", { name: /^load \d+ more$/i }).scrollIntoViewIfNeeded();
     // The photos above the button reveal as they scroll into view (0.8s plus the stagger). Only photos that have
     // settled count, so let them finish first.
     await page.waitForTimeout(1500);
-    const { lowest, sampled } = await lowestOpacityInViewAfterClick(page, "Load more");
+    const { lowest, sampled } = await lowestOpacityInViewAfterClick(page, "Load");
 
     expect(sampled, "photos in view were sampled").toBeGreaterThan(0);
     expect(lowest).toBeGreaterThan(0.999);

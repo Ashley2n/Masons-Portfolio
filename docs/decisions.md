@@ -494,3 +494,17 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | The shadows are named tokens in `@theme` (`--shadow-btn-primary`, `-primary-hover`, `-pressed`, `-tonal`, `-tonal-hover`), built with `color-mix()` from the brand and neutral tokens, so no hex is in a component | Arbitrary-value shadows in the class string | CLAUDE.md: use design tokens, not raw hex | `color-mix()` needs a current browser (all evergreen ones have it) | `CLAUDE.md` "Rules"; `app/globals.css` |
 
 - **Consequences:** Seen red then green in `e2e/buttons.spec.ts`: the 6px corner and the inset highlight on both buttons, the Inter Medium 13px caps label on both, the tonal secondary (purple fill, pale purple text at AA, deepening on hover) and the light layer rising on the primary. That last test caught a real bug in the first version: `group-hover:` only matches children of a `group`, and the button is the group itself, so the layer never rose; it is `hover:before:` now. The existing AA and brand-600 checks and the D-47 table still pass. The "light" CTA button is unchanged.
+
+
+### D-51 · "View More", "Load more" and the hero scroll cue redesigned
+
+- **Date:** 2026-11-25 · **Status:** Accepted (Ashley chose each from live options in an artifact; the details below are the assistant's, checked by eye at 1280 and 390 px)
+- **Context:** Ashley found the homepage "View More" out of place (grey text link), the gallery "Load more" bare (white text, no count), and the hero scroll cue "funky" (default bounce, corner placement). She picked option A, A and D from four options each.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| "View More" is a bordered pill with an `ArrowRight` that slides on hover; the label stays "View More" | Growing line; full-width row under the videos; tonal button | Same spot, smallest layout change, looks pressable. **Reverses D-39's "no arrow, it stays on the site"**: the arrow is now a hover cue, not an external-link hint | Label kept as the homepage mockup has it (the option mock-up said "View all") | Ashley, 2026-11-25; `RecentWorkSection.tsx` |
+| Gallery shows "Showing N of M" (visible), a thin progress bar and an outline button named "Load N more" (N is what the next click adds) | Divider with pill; dashed row with remaining count; auto-load | Tells visitors the gallery ends. The count is the `role="status"` line; the bar is a `progressbar`. With one page or less both stay screen-reader only or hidden | The button's accessible name changed from "Load more", so unit and e2e selectors use `/^load \d+ more$/i` | Ashley, 2026-11-25; `Gallery.tsx`, `content/media.ts` |
+| Hero cue is a ring that pulses outward while the arrow nudges down, centred at the bottom (was the right corner); both animations are `motion-safe:` | Mouse wheel; falling line; cascading chevrons | Keeps the circle that was there, so it still reads as a button. Centring is the assistant's pick (⚠ unsourced; one class to revert) | Looks are checked by eye only; no timing test (motion tests stay thin) | Ashley, 2026-11-25; `HeroSection.tsx`, `app/globals.css` |
+
+- **Consequences:** Seen red then green: the `View More` test in `app/page.test.tsx` (arrow hidden from screen readers, pill border) and two Gallery tests (button names the count and the progress bar follows; count stays out of sight on one page). Lint, typecheck, 369 unit tests and the build pass. e2e selectors were updated but **not run** in this session (no matching Playwright browser).
