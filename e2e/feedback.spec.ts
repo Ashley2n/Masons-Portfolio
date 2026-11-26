@@ -17,7 +17,7 @@ const controls: Control[] = [
   { label: "carousel arrow", path: "/", find: (p) => p.getByRole("button", { name: "Next photo" }) },
   { label: "carousel thumbnail", path: "/", find: (p) => p.getByRole("button", { name: /^Show photo 2 of/ }) },
   { label: "gallery filter tab", path: "/media", find: (p) => p.getByRole("button", { name: "Concerts" }) },
-  { label: "Load more", path: "/media", find: (p) => p.getByRole("button", { name: "Load more" }) },
+  { label: "Load more", path: "/media", find: (p) => p.getByRole("button", { name: /^load \d+ more$/i }) },
   { label: "contact submit", path: "/contact", find: (p) => p.getByRole("button", { name: "Send message" }) },
   {
     label: "resume dialog close",
