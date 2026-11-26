@@ -126,7 +126,7 @@ test.describe("media gallery", () => {
 
     await expect(page.locator('iframe[title="Mason Farrington Acting Reel"]')).toHaveAttribute(
       "src",
-      /youtube-nocookie\.com\/embed\/VdFlh2DAS20/,
+      /youtube-nocookie\.com\/embed\/vp_K_wjFaNo/,
     );
   });
 

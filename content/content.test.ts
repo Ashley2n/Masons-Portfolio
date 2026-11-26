@@ -66,9 +66,9 @@ describe("home content", () => {
   // Mason's feedback 2026-11-15 (docs/feedback.md): the Intro Video is gone; Ashley chose the Acting Reel to lead
   it("only Mason's three reels are on the site, the Acting Reel featured on the homepage (D-32, F3)", () => {
     expect(videos).toEqual([
-      expect.objectContaining({ youtubeId: "sK9xduGWTaQ", title: "Mason Farrington Vocal Reel" }),
-      expect.objectContaining({ youtubeId: "3yPWsqxpAa8", title: "Mason Farrington Dance Reel" }),
-      expect.objectContaining({ youtubeId: "VdFlh2DAS20", title: "Mason Farrington Acting Reel", featured: true }),
+      expect.objectContaining({ youtubeId: "ZTbtXncGcKU", title: "Mason Farrington Vocal Reel" }),
+      expect.objectContaining({ youtubeId: "L4rAcnrl3cQ", title: "Mason Farrington Dance Reel" }),
+      expect.objectContaining({ youtubeId: "vp_K_wjFaNo", title: "Mason Farrington Acting Reel", featured: true }),
     ]);
     expect(videos.filter((v) => v.featured)).toHaveLength(1);
   });
@@ -211,7 +211,7 @@ describe("media gallery content", () => {
     );
     expect(galleryVideos).toEqual(
       expect.arrayContaining(
-        ["sK9xduGWTaQ", "3yPWsqxpAa8", "VdFlh2DAS20"].map((youtubeId) => ({ category: "other", youtubeId })),
+        ["ZTbtXncGcKU", "L4rAcnrl3cQ", "vp_K_wjFaNo"].map((youtubeId) => ({ category: "other", youtubeId })),
       ),
     );
     expect(galleryVideos).toHaveLength(3);

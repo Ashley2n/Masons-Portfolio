@@ -522,3 +522,11 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | Remove the full-frame tint; only the play button (with a deeper fill on hover) sits over the picture | Keep 20% tint | Colours match what Mason made on YouTube | The button's own contrast on bright thumbnails relies on its 50% dark fill and border | Ashley, 2026-11-26 |
 
 - **Consequences:** Seen red then green: `lib/video.test.ts` (full-size by default, standard on request) and `VideoCard.test.tsx` (full-size first, fall back after one error, poster after two, no frame tint). Not seen in a browser against live YouTube.
+
+
+### D-53 · The three reels replaced with Mason's new links
+
+- **Date:** 2026-11-26 · **Status:** Accepted (Ashley, 2026-11-26: the old links "are no longer available", replace them with the new ones)
+- **Context:** The 2026-10-31 reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`) went away on YouTube. Ashley sent three new links with their names.
+- **Decision:** Vocal Reel `ZTbtXncGcKU`, Acting Reel `vp_K_wjFaNo` (still featured), Dance Reel `L4rAcnrl3cQ`; titles keep the "Mason Farrington … Reel" pattern. All widescreen and dated 2026-11-26 (⚠ unsourced: the day they were added; the cloud sandbox cannot read YouTube, so the real upload dates and titles on YouTube are unchecked). The ids and slugs in `content/home.ts` stay `vocal-reel`, `dance-reel` and `acting-reel`.
+- **Consequences:** Seen red then green in `content/content.test.ts`; `e2e/media.spec.ts` now expects the new Acting Reel id (not run in the cloud). The Vocal Reel thumbnail 404 no longer applies.
