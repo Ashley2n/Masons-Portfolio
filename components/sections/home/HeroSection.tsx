@@ -58,11 +58,11 @@ export default function HeroSection() {
         </LoadEntrance>
       </Container>
 
-      {/* D-51: a ring that pulses outward while the arrow nudges down. Both stop for reduced motion. */}
+      {/* D-51: a ring that pulses outward while the arrow nudges down, in the bottom right corner. Both stop for reduced motion. */}
       <a
         href="#model-shots"
         aria-label="Scroll to Model Shots"
-        className="group absolute bottom-6 left-1/2 grid size-13 -translate-x-1/2 place-items-center rounded-full border border-neutral-100/30 text-neutral-100 transition-colors hover:border-brand-500 hover:bg-brand-500/10"
+        className="group absolute right-4 bottom-6 grid size-13 place-items-center sm:right-6 md:right-10 rounded-full border border-neutral-100/30 text-neutral-100 transition-colors hover:border-brand-500 hover:bg-brand-500/10"
       >
         <span
           aria-hidden="true"
