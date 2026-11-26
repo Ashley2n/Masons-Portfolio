@@ -30,8 +30,14 @@ const reel: Video = {
 };
 
 describe("YouTube URLs", () => {
-  it("builds the thumbnail URL from the video id", () => {
+  it("asks for YouTube's full-size 1280x720 thumbnail by default (D-52)", () => {
     expect(youTubeThumbnail("aqz-KE-bpKQ")).toBe(
+      "https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg",
+    );
+  });
+
+  it("can ask for the 480x360 thumbnail that every video has", () => {
+    expect(youTubeThumbnail("aqz-KE-bpKQ", "standard")).toBe(
       "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
     );
   });

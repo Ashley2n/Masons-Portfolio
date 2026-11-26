@@ -17,7 +17,7 @@ const controls: Control[] = [
   { label: "footer link", path: "/", find: (p) => p.getByRole("contentinfo").getByRole("link", { name: "About" }) },
   { label: "carousel arrow", path: "/", find: (p) => p.getByRole("button", { name: "Next photo" }) },
   { label: "gallery filter tab", path: "/media", find: (p) => p.getByRole("button", { name: "Concerts" }) },
-  { label: "Load more", path: "/media", find: (p) => p.getByRole("button", { name: "Load more" }) },
+  { label: "Load more", path: "/media", find: (p) => p.getByRole("button", { name: /^load \d+ more$/i }) },
   { label: "contact submit", path: "/contact", find: (p) => p.getByRole("button", { name: "Send message" }) },
   // Not by name: the contact card's rows show his number, which never goes in a test (D-35)
   { label: "contact card email link", path: "/contact", find: (p) => p.locator('a[href^="mailto:"]').first() },

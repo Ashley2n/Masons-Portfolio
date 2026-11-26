@@ -494,3 +494,39 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | The shadows are named tokens in `@theme` (`--shadow-btn-primary`, `-primary-hover`, `-pressed`, `-tonal`, `-tonal-hover`), built with `color-mix()` from the brand and neutral tokens, so no hex is in a component | Arbitrary-value shadows in the class string | CLAUDE.md: use design tokens, not raw hex | `color-mix()` needs a current browser (all evergreen ones have it) | `CLAUDE.md` "Rules"; `app/globals.css` |
 
 - **Consequences:** Seen red then green in `e2e/buttons.spec.ts`: the 6px corner and the inset highlight on both buttons, the Inter Medium 13px caps label on both, the tonal secondary (purple fill, pale purple text at AA, deepening on hover) and the light layer rising on the primary. That last test caught a real bug in the first version: `group-hover:` only matches children of a `group`, and the button is the group itself, so the layer never rose; it is `hover:before:` now. The existing AA and brand-600 checks and the D-47 table still pass. The "light" CTA button is unchanged.
+
+
+### D-51 · "View More", "Load more" and the hero scroll cue redesigned
+
+- **Date:** 2026-11-25 · **Status:** Accepted (Ashley chose each from live options in an artifact; the details below are the assistant's, checked by eye at 1280 and 390 px)
+- **Context:** Ashley found the homepage "View More" out of place (grey text link), the gallery "Load more" bare (white text, no count), and the hero scroll cue "funky" (default bounce, corner placement). She picked option A, A and D from four options each.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| "View More" is a bordered pill with an `ArrowRight` that slides on hover; the label stays "View More" | Growing line; full-width row under the videos; tonal button | Same spot, smallest layout change, looks pressable. **Reverses D-39's "no arrow, it stays on the site"**: the arrow is now a hover cue, not an external-link hint | Label kept as the homepage mockup has it (the option mock-up said "View all") | Ashley, 2026-11-25; `RecentWorkSection.tsx` |
+| Gallery shows "Showing N of M" (visible), a thin progress bar and an outline button named "Load N more" (N is what the next click adds) | Divider with pill; dashed row with remaining count; auto-load | Tells visitors the gallery ends. The count is the `role="status"` line; the bar is a `progressbar`. With one page or less both stay screen-reader only or hidden | The button's accessible name changed from "Load more", so unit and e2e selectors use `/^load \d+ more$/i` | Ashley, 2026-11-25; `Gallery.tsx`, `content/media.ts` |
+| Hero cue is a ring that pulses outward while the arrow nudges down, in the bottom right corner as before (a centred version was built first; Ashley asked for the right edge, 2026-11-26); both animations are `motion-safe:` | Mouse wheel; falling line; cascading chevrons | Keeps the circle that was there, so it still reads as a button. Position: Ashley, 2026-11-26 | Looks are checked by eye only; no timing test (motion tests stay thin) | Ashley, 2026-11-25; `HeroSection.tsx`, `app/globals.css` |
+
+- **Consequences:** Seen red then green: the `View More` test in `app/page.test.tsx` (arrow hidden from screen readers, pill border) and two Gallery tests (button names the count and the progress bar follows; count stays out of sight on one page). Lint, typecheck, 369 unit tests and the build pass. e2e selectors were updated but **not run** in this session (no matching Playwright browser).
+
+
+### D-52 · YouTube thumbnails: full size first, no tint, a shorter image cache
+
+- **Date:** 2026-11-26 · **Status:** Accepted (Ashley, 2026-11-26: "build the thumbnail fix"; the details below are the assistant's)
+- **Context:** Mason set new thumbnails on YouTube and the site still showed the old ones, and soft. Cards load YouTube's image through `next/image`, so Next's image cache (4 hours by default) and YouTube's CDN delay a change. `hqdefault` is only 480x360, and a 20% tint (40% on hover) covered the whole frame.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| Ask for `maxresdefault.jpg` (1280x720) first, fall back to `hqdefault.jpg`, then to the purple poster | Keep `hqdefault`; `unoptimized` straight from YouTube | Sharp on the wide featured card; the fallback chain covers videos with no full-size file (YouTube answers 404) | Two requests for such a video; the first 404s | `lib/video.ts`, `VideoCard.tsx` |
+| `images.minimumCacheTTL: 3600` (default 14400) | 60 seconds; bypass the optimizer | Faster refresh without re-optimizing every image on every visit | ⚠ Next uses the larger of this and the source's own max-age; I could not read YouTube's headers from the cloud sandbox, so a refresh may still take as long as YouTube's CDN cache | Next.js `images.minimumCacheTTL` docs; unverified for `i.ytimg.com` |
+| Remove the full-frame tint; only the play button (with a deeper fill on hover) sits over the picture | Keep 20% tint | Colours match what Mason made on YouTube | The button's own contrast on bright thumbnails relies on its 50% dark fill and border | Ashley, 2026-11-26 |
+
+- **Consequences:** Seen red then green: `lib/video.test.ts` (full-size by default, standard on request) and `VideoCard.test.tsx` (full-size first, fall back after one error, poster after two, no frame tint). Not seen in a browser against live YouTube.
+
+
+### D-53 · The three reels replaced with Mason's new links
+
+- **Date:** 2026-11-26 · **Status:** Accepted (Ashley, 2026-11-26: the old links "are no longer available", replace them with the new ones)
+- **Context:** The 2026-10-31 reels (`sK9xduGWTaQ`, `3yPWsqxpAa8`, `VdFlh2DAS20`) went away on YouTube. Ashley sent three new links with their names.
+- **Decision:** Vocal Reel `ZTbtXncGcKU`, Acting Reel `vp_K_wjFaNo` (still featured), Dance Reel `L4rAcnrl3cQ`; titles keep the "Mason Farrington … Reel" pattern. All widescreen and dated 2026-11-26 (⚠ unsourced: the day they were added; the cloud sandbox cannot read YouTube, so the real upload dates and titles on YouTube are unchecked). The ids and slugs in `content/home.ts` stay `vocal-reel`, `dance-reel` and `acting-reel`.
+- **Consequences:** Seen red then green in `content/content.test.ts`; `e2e/media.spec.ts` now expects the new Acting Reel id (not run in the cloud). The Vocal Reel thumbnail 404 no longer applies.

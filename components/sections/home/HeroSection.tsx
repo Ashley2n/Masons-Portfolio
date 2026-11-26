@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { LoadEntrance, LoadItem } from "@/components/motion/LoadEntrance";
 import ResumeDialog from "@/components/resume/ResumeDialog";
@@ -58,12 +58,17 @@ export default function HeroSection() {
         </LoadEntrance>
       </Container>
 
+      {/* D-51: a ring that pulses outward while the arrow nudges down, in the bottom right corner. Both stop for reduced motion. */}
       <a
         href="#model-shots"
         aria-label="Scroll to Model Shots"
-        className="absolute right-4 bottom-6 grid size-11 place-items-center sm:right-6 md:right-10 rounded-full border border-neutral-100/40 text-neutral-100 transition-colors hover:bg-neutral-100/10"
+        className="group absolute right-4 bottom-6 grid size-13 place-items-center sm:right-6 md:right-10 rounded-full border border-neutral-100/30 text-neutral-100 transition-colors hover:border-brand-500 hover:bg-brand-500/10"
       >
-        <ChevronDown aria-hidden="true" className="size-6 motion-safe:animate-bounce" />
+        <span
+          aria-hidden="true"
+          className="absolute -inset-px rounded-full border border-brand-500 opacity-0 motion-safe:animate-cue-ring"
+        />
+        <ArrowDown aria-hidden="true" className="size-5 motion-safe:animate-cue-nudge" />
       </a>
     </section>
   );

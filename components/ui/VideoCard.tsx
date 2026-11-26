@@ -20,8 +20,9 @@ type VideoCardProps = {
 };
 
 const PlayBadge = () => (
-  <span className="absolute inset-0 grid place-items-center bg-neutral-950/20 transition-colors group-hover:bg-neutral-950/40">
-    <span className="grid size-14 place-items-center rounded-full border border-neutral-100/80 bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-transform duration-300 motion-safe:group-hover:scale-110">
+  // D-52: no tint over the whole frame, so the thumbnail shows in YouTube's own colours; only the button sits over it
+  <span className="absolute inset-0 grid place-items-center">
+    <span className="grid size-14 place-items-center rounded-full border border-neutral-100/80 bg-neutral-950/50 text-neutral-100 backdrop-blur-sm transition-[transform,background-color] duration-300 group-hover:bg-neutral-950/70 motion-safe:group-hover:scale-110">
       <Play aria-hidden="true" className="ml-0.5 size-6" fill="currentColor" />
     </span>
   </span>
@@ -36,8 +37,10 @@ export default function VideoCard({
   className,
 }: VideoCardProps) {
   const [playing, setPlaying] = useState(false);
-  // YouTube can 404 a thumbnail (e.g. a just-uploaded or unlisted video); show a poster instead of a broken image
-  const [thumbnailFailed, setThumbnailFailed] = useState(false);
+  // YouTube 404s the full-size thumbnail for some videos, and any thumbnail for a just-uploaded one: try full size,
+  // then the 480x360 one, then show a poster instead of a broken image (D-52)
+  const [failures, setFailures] = useState(0);
+  const thumbnailFailed = failures >= 2;
   const frame = cn(
     "group relative block w-full overflow-hidden rounded-lg bg-neutral-800",
     video.orientation === "portrait" ? "aspect-9/16" : "aspect-video",
@@ -91,12 +94,12 @@ export default function VideoCard({
           />
         ) : (
           <Image
-            src={video.thumbnail?.src ?? youTubeThumbnail(video.youtubeId)}
+            src={video.thumbnail?.src ?? youTubeThumbnail(video.youtubeId, failures === 0 ? "full" : "standard")}
             alt={video.thumbnail?.alt ?? ""}
             fill
             sizes={sizes}
             className="object-cover"
-            onError={() => setThumbnailFailed(true)}
+            onError={() => setFailures((count) => count + 1)}
           />
         )}
         <PlayBadge />

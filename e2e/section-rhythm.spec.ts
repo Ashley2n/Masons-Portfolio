@@ -123,14 +123,18 @@ test.describe("hero scroll cue (D-39)", () => {
     });
   }
 
-  test("its chevron bounces for visitors who allow motion and holds still otherwise", async ({ page }) => {
-    const chevron = page.getByRole("link", { name: "Scroll to Model Shots" }).locator("svg");
+  test("its arrow nudges and its ring pulses for visitors who allow motion, and both hold still otherwise", async ({ page }) => {
+    const cue = page.getByRole("link", { name: "Scroll to Model Shots" });
+    const arrow = cue.locator("svg");
+    const ring = cue.locator("span");
 
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto("/");
-    await expect(chevron).toHaveCSS("animation-name", "bounce");
+    await expect(arrow).toHaveCSS("animation-name", "cue-nudge");
+    await expect(ring).toHaveCSS("animation-name", "cue-ring");
 
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(chevron).toHaveCSS("animation-name", "none");
+    await expect(arrow).toHaveCSS("animation-name", "none");
+    await expect(ring).toHaveCSS("animation-name", "none");
   });
 });

@@ -33,31 +33,31 @@ export const expertiseItems: ExpertiseItem[] = [
 ];
 
 // Mason's real videos only (D-32). The date is the YouTube upload date.
-// Sent by Mason 2026-10-31 (F3), all unlisted with embedding on. Same upload day, so the order he sent them is the Other Work order.
+// Replaced 2026-11-26: Mason's first three reels (sent 2026-10-31, F3) were no longer available, so he sent these three. The date is the day they were added (⚠ not read from YouTube). Same day, so the order below is the Other Work order.
 // Mason sets the thumbnails on YouTube himself and dropped the Intro Video (feedback 2026-11-15); Ashley chose the Acting Reel to lead.
 export const videos: Video[] = [
   {
     id: "vocal-reel",
     platform: "youtube",
-    youtubeId: "sK9xduGWTaQ",
+    youtubeId: "ZTbtXncGcKU",
     title: "Mason Farrington Vocal Reel",
-    date: "2026-10-31",
+    date: "2026-11-26",
     orientation: "landscape",
   },
   {
     id: "dance-reel",
     platform: "youtube",
-    youtubeId: "3yPWsqxpAa8",
+    youtubeId: "L4rAcnrl3cQ",
     title: "Mason Farrington Dance Reel",
-    date: "2026-10-31",
+    date: "2026-11-26",
     orientation: "landscape",
   },
   {
     id: "acting-reel",
     platform: "youtube",
-    youtubeId: "VdFlh2DAS20",
+    youtubeId: "vp_K_wjFaNo",
     title: "Mason Farrington Acting Reel",
-    date: "2026-10-31",
+    date: "2026-11-26",
     orientation: "landscape",
     featured: true,
   },

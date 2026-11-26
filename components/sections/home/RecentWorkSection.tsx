@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import Container from "@/components/ui/Container";
@@ -24,9 +25,13 @@ export default function RecentWorkSection({ videos: list = videos }: RecentWorkS
             <SectionHeading title={copy.title} />
             <Link
               href="/media"
-              className="touch-target caption-text inline-flex shrink-0 items-center border-b-2 border-transparent text-neutral-300 transition-colors hover:border-neutral-300"
+              className="group touch-target caption-text inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-700 px-4 py-2 text-neutral-100 hover:border-brand-500 hover:text-brand-500"
             >
               {copy.viewMore}
+              <ArrowRight
+                aria-hidden="true"
+                className="size-4 transition-transform motion-safe:group-hover:translate-x-1"
+              />
             </Link>
           </div>
           {featured && (

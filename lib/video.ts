@@ -1,7 +1,11 @@
 import type { Video } from "@/types/content";
 
-export const youTubeThumbnail = (youtubeId: string) =>
-  `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+/**
+ * YouTube's thumbnail for a video. `full` is 1280x720 but missing for some videos (a 404); `standard` is 480x360
+ * and exists for every video, so cards fall back to it (D-52).
+ */
+export const youTubeThumbnail = (youtubeId: string, size: "full" | "standard" = "full") =>
+  `https://i.ytimg.com/vi/${youtubeId}/${size === "full" ? "maxresdefault" : "hqdefault"}.jpg`;
 
 /** Privacy-enhanced embed; autoplay is fine because it only loads after a click. */
 export const youTubeEmbedUrl = (youtubeId: string) =>
