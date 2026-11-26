@@ -55,9 +55,31 @@ describe("VideoCard", () => {
       expect(screen.getByRole("button", { name: "Play Spring" })).toBeInTheDocument();
     });
 
+    it("asks YouTube for the full-size thumbnail first (D-52)", () => {
+      render(<VideoCard video={youtube} />);
+
+      expect(decodeURIComponent(document.querySelector("img")?.getAttribute("src") ?? "")).toContain("/maxresdefault.jpg");
+    });
+
+    it("falls back to the 480x360 thumbnail when the full-size one is missing (D-52)", () => {
+      render(<VideoCard video={youtube} />);
+
+      fireEvent.error(document.querySelector("img")!);
+
+      expect(decodeURIComponent(document.querySelector("img")?.getAttribute("src") ?? "")).toContain("/hqdefault.jpg");
+    });
+
+    it("does not tint the thumbnail itself: only the play button sits over it (D-52)", () => {
+      render(<VideoCard video={youtube} />);
+
+      const button = screen.getByRole("button", { name: "Play Spring" });
+      expect(button.querySelector('[class*="bg-neutral-950/20"], [class*="bg-neutral-950/40"]')).toBeNull();
+    });
+
     it("drops a thumbnail that fails to load, so there is no broken image, and the video stays playable", async () => {
       render(<VideoCard video={youtube} />);
 
+      fireEvent.error(document.querySelector("img")!);
       fireEvent.error(document.querySelector("img")!);
 
       expect(document.querySelector("img")).toBeNull();

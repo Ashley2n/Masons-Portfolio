@@ -508,3 +508,17 @@ A lightweight record of technical and product decisions, in the style of [Archit
 | Hero cue is a ring that pulses outward while the arrow nudges down, centred at the bottom (was the right corner); both animations are `motion-safe:` | Mouse wheel; falling line; cascading chevrons | Keeps the circle that was there, so it still reads as a button. Centring is the assistant's pick (⚠ unsourced; one class to revert) | Looks are checked by eye only; no timing test (motion tests stay thin) | Ashley, 2026-11-25; `HeroSection.tsx`, `app/globals.css` |
 
 - **Consequences:** Seen red then green: the `View More` test in `app/page.test.tsx` (arrow hidden from screen readers, pill border) and two Gallery tests (button names the count and the progress bar follows; count stays out of sight on one page). Lint, typecheck, 369 unit tests and the build pass. e2e selectors were updated but **not run** in this session (no matching Playwright browser).
+
+
+### D-52 · YouTube thumbnails: full size first, no tint, a shorter image cache
+
+- **Date:** 2026-11-26 · **Status:** Accepted (Ashley, 2026-11-26: "build the thumbnail fix"; the details below are the assistant's)
+- **Context:** Mason set new thumbnails on YouTube and the site still showed the old ones, and soft. Cards load YouTube's image through `next/image`, so Next's image cache (4 hours by default) and YouTube's CDN delay a change. `hqdefault` is only 480x360, and a 20% tint (40% on hover) covered the whole frame.
+
+| Decision | Options considered | Why this one | Risk / tradeoff | Source |
+|---|---|---|---|---|
+| Ask for `maxresdefault.jpg` (1280x720) first, fall back to `hqdefault.jpg`, then to the purple poster | Keep `hqdefault`; `unoptimized` straight from YouTube | Sharp on the wide featured card; the fallback chain covers videos with no full-size file (YouTube answers 404) | Two requests for such a video; the first 404s | `lib/video.ts`, `VideoCard.tsx` |
+| `images.minimumCacheTTL: 3600` (default 14400) | 60 seconds; bypass the optimizer | Faster refresh without re-optimizing every image on every visit | ⚠ Next uses the larger of this and the source's own max-age; I could not read YouTube's headers from the cloud sandbox, so a refresh may still take as long as YouTube's CDN cache | Next.js `images.minimumCacheTTL` docs; unverified for `i.ytimg.com` |
+| Remove the full-frame tint; only the play button (with a deeper fill on hover) sits over the picture | Keep 20% tint | Colours match what Mason made on YouTube | The button's own contrast on bright thumbnails relies on its 50% dark fill and border | Ashley, 2026-11-26 |
+
+- **Consequences:** Seen red then green: `lib/video.test.ts` (full-size by default, standard on request) and `VideoCard.test.tsx` (full-size first, fall back after one error, poster after two, no frame tint). Not seen in a browser against live YouTube.
